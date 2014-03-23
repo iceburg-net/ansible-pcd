@@ -8,6 +8,10 @@ pcd_base_dir: "{{ lookup('pipe','git rev-parse --show-toplevel') }}"
 pcd_private_dir: "{{ pcd_base_dir }}/private"
 pcd_keys_dir: "{{ pcd_private_dir  }}/keys"
 
+pcd_system_roles: "{{ pcd_base_dir }}/systems/roles"
+pcd_app_roles: "{{ pcd_base_dir }}/applications/roles"
+pcd_service_roles: "{{ pcd_base_dir }}/services/roles"
+
 
 # Connection defaults
 #####################
