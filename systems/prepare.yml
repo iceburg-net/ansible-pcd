@@ -1,0 +1,15 @@
+---
+
+- name: "test"
+  hosts: all
+  remote_user: "{{ remote_user }}"
+  
+  vars:
+    remote_user: "root"
+  
+  
+  tasks: 
+  - debug: msg="{{ test_var }}"
+  - debug: msg="{{ the_user }}"
+  
+  
