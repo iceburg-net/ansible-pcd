@@ -2,7 +2,7 @@
 ##
 # prepare system(s)
 #  usually executed ONE time per new host. sets the root user's authorized_keys
-#  and prepares the operating system for ansible automation.
+#  and prepares a secure operating system for ansible automation.
 #
 #  + typically executed with --ask-pass option on first execution
 
@@ -26,5 +26,5 @@
         src="{{ ansible_ssh_private_key_file }}"
      
   roles:
-    - { role: debian-7, when: "system_base == 'debian-7'" }
-    - { role: redhat-6.5, when: "system_base == 'redhat-6.5'" }
+    - { role: systems/debian-7, when: "system_base == 'debian-7'" }
+    - { role: systems/redhat-6.5, when: "system_base == 'redhat-6.5'" }

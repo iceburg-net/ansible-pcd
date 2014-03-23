@@ -1,0 +1,24 @@
+---
+##
+# configure system(s)
+#  executed often during configuration changes. executes host-specific
+#  playbooks and applies common services.
+#
+
+- name: "system configuration - web-servers"
+  hosts: web-servers
+  remote_user: root
+     
+  roles:
+    - systems/common
+    - services/apache
+
+
+    
+    
+    
+    # conditionally include host playbook
+    
+    # apply common services
+    
+    
