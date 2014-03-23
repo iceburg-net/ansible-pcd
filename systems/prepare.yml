@@ -1,15 +1,45 @@
 ---
+##
+# prepare system(s)
+#  usually executed ONE time per new host. sets the root user's authorized_keys
+#  and prepares the operating system for ansible automation.
+#
+#  + system_base, system_roles must be configued via inventory host/group vars
+#  + typically executed with --ask-pass option on first execution to 
 
-- name: "test"
-  hosts: all
+- name: "system preparation - apply system base and root user keys"
+  hosts: "{{ host_group }}"
   remote_user: "{{ remote_user }}"
   
+  vars_prompt:
+    host_group: "[ host_group ] host or group to prepare"
+    
   vars:
     remote_user: "root"
+
+  pre_tasks:
+  
+    - name: add {{ ansible_ssh_private_key_file }}.pub to root user's authorized keys
+      action: authorized_key 
+        user=root 
+        key="{{ lookup('file', ansible_ssh_private_key_file + '.pub') }}"
+        
+    - name: add {{ ansible_ssh_private_key_file }} as root user's private key
+      action: copy 
+        dest=/root/.ssh/id_rsa 
+        owner=root 
+        group=root 
+        mode=0600 
+        src="{{ ansible_ssh_private_key_file }}"
+  
+  #roles:
   
   
-  tasks: 
-  - debug: msg="{{ test_var }}"
-  - debug: msg="{{ the_user }}"
+  
+   # - debug: msg="{{ system_roles }}"
+
+    
+
+  
   
   
