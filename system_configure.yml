@@ -12,13 +12,4 @@
   roles:
     - systems/common
     - services/apache
-
-
-    
-    
-    
-    # conditionally include host playbook
-    
-    # apply common services
-    
-    
+  
