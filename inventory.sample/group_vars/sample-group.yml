@@ -1,7 +1,0 @@
----
-
-# Connection defaults
-#####################
-
-#ansible_ssh_private_key_file: "{{ pcd_keys_dir }}/sample-group+root.key"
-group_var: "sample"
