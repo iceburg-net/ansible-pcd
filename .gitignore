@@ -1,0 +1,11 @@
+#### APP
+/inventory
+/private
+
+#### IDE
+/.project
+/.classpath
+/.buildpath
+/.settings/
+.DS_Store
+Thumbs.db
