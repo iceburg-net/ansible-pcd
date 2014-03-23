@@ -37,12 +37,7 @@ setup
 =====
 
 * ensure ansible 1.4+
-
-```
-cp -a private.sample private
-cp -a inventory.sample inventory
-```
-
+* gitignore private directory (if you don't want to check-in private keys, etc.)
 
 usage
 =====
