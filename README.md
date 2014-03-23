@@ -49,10 +49,11 @@ usage
 
 ```
 # Prepare all hosts listed in inventory/digome.hosts
-ansible-playbook -i inventory/digome.hosts systems/prepare.yml
+ansible-playbook -i inventory/digome.hosts system_prepare.yml
 
-# Prepare the specified host/group (passed via-limit)
-ansible-playbook -i inventory/digome.hosts systems/prepare.yml --limit digome-ocean-1.iceburg.net
+
+# Prepare a specific host/group (passed via --limit)
+ansible-playbook -i inventory/digome.hosts system_prepare.yml --limit digome-ocean-1.iceburg.net
 ```
 
 
