@@ -1,0 +1,30 @@
+---
+# Global Inventory Variables (inherrited by all hosts)
+
+# Register paths
+################
+
+pcd_base_dir: "{{ lookup('pipe','git rev-parse --show-toplevel') }}"
+
+pcd_private_dir: "{{ pcd_base_dir }}/private"
+pcd_keys_dir: "{{ pcd_private_dir  }}/keys"
+pcd_vars_dir: "{{ pcd_private_dir }}/vars"
+pcd_certs_dir: "{{ pcd_vars_dir }}/ssl-certs"
+pcd_tasks_dir: "{{ pcd_base_dir }}/tasks"
+
+pcd_system_roles: "{{ pcd_base_dir }}/roles/systems"
+pcd_app_roles: "{{ pcd_base_dir }}/roles/applications"
+pcd_service_roles: "{{ pcd_base_dir }}/roles/services"
+
+
+# Connection defaults
+#####################
+
+ansible_ssh_private_key_file: "{{ pcd_keys_dir }}/{{ group_names[0] }}+{{ ansible_ssh_user }}.key"
+
+
+# Provision defaults
+####################
+
+system_base: debian-7
+system_fqdn: "{{ inventory_hostname }}"
