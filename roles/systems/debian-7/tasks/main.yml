@@ -1,6 +1,12 @@
 ---
+##
+# debian-7 system preparation
+#
 
-- debug: msg="debian-7 bootstrap"
+- debug: msg="debian-7 system preparation"
+
+# initialization tasks
+######################
 
 - name: setting hostname to {{ system_hostname }} [1/2]
   action: raw echo {{ system_hostname }} > /etc/hostname
@@ -15,3 +21,17 @@
   action: lineinfile dest=/etc/hosts state=present regexp="^127\.0\.1\.1" line="127.0.1.1 {{ system_fqdn }} {{ system_hostname }}"
   
 
+# system hardening tasks
+########################
+
+- name: denyhosts - install denyhosts
+  action: apt pkg=denyhosts state=present
+  
+- name: denyhosts - configuration
+  action: copy src=debian-7_denyhosts.conf dest=/etc/denyhosts.conf
+  
+- name: denyhosts - activate
+  action: raw /etc/init.d/denyhosts restart
+  
+- name: denyhosts - ensure denyhosts_unban.sh script
+  action: copy src={{ common_files }}/denyhosts_unban.sh dest=/usr/local/bin/denyhosts_unban.sh mode=0755
