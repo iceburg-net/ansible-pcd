@@ -1,5 +1,4 @@
 ---
-
 os_apache_packages:
   - httpd
   - mod_wsgi

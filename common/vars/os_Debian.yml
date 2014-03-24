@@ -1,5 +1,4 @@
 ---
-
 os_apache_packages:
   - apache2
   - libapache2-mod-wsgi
