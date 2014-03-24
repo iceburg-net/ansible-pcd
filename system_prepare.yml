@@ -26,5 +26,5 @@
         src="{{ ansible_ssh_private_key_file }}"
      
   roles:
-    - { role: systems/debian-7, when: "system_base == 'debian-7'" }
-    - { role: systems/redhat-6.5, when: "system_base == 'redhat-6.5'" }
+    - { role: systems/debian-7, when: "system_dist == 'debian-7'" }
+    - { role: systems/redhat-6.5, when: "system_dist == 'redhat-6.5'" }
