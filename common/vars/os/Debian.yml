@@ -1,0 +1,15 @@
+---
+
+apache_packages:
+  - apache2
+  - libapache2-mod-wsgi
+
+apache_service: apache2
+apache_config_group: apacheconf
+
+apache_sites_dir: /etc/apache2/sites-available
+apache_conf_dir: /etc/apache2/conf.d
+apache_ssl_dir: /etc/apache2/ssl-certificates
+
+init_config_group: initconf
+init_config_dir: /etc/init

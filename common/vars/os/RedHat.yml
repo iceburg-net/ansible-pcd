@@ -1,0 +1,16 @@
+---
+
+apache_packages:
+  - httpd
+  - mod_wsgi
+  - mod_ssl
+
+apache_service: httpd
+apache_config_group: apacheconf
+
+apache_sites_dir: /etc/httpd/sites-available
+apache_conf_dir: /etc/httpd/conf.d
+apache_ssl_dir: /etc/httpd/ssl-certificates
+
+init_config_group: initconf
+init_config_dir: /etc/init
