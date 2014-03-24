@@ -1,1 +1,6 @@
 ---
+
+os_base_packages:
+  - git
+  - unzip
+  - zip
