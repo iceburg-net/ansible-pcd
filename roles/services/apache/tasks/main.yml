@@ -1,3 +1,5 @@
 ---
 
-- debug: msg="apache SERVICE role"
+- debug: msg="apache service"
+
+- { include: prepare.yml, tags: ['prepare'] }

@@ -1,0 +1,20 @@
+---
+##
+# [REDHAT] apache preparation tasks 
+#
+
+- name: ensure apache packages
+  yum: name={{ item }} state=present
+  with_items: os_apache_packages
+  
+- name: disable default apache :443 site
+  copy: backup=yes dest=/etc/httpd/conf.d/ssl.conf src=templates/ssl.ec2-server.conf
+  
+- name: configure apache to read from sites directory  
+  lineinfile: dest=/etc/httpd/conf/httpd.conf regexp="^Include {{ os_apache_sites_dir }}\/\*.enabled" insertafter="^Include conf\.d\/\*\.conf" line="Include {{ os_apache_sites_dir }}/*.enabled" state=present
+
+- name: enable Name based VirtualHosts   
+  lineinfile: dest=/etc/httpd/conf/httpd.conf regexp="^NameVirtualHost \*\:80" line="NameVirtualHost *:80" state=present
+
+- name: add apacheconf to sudoers
+  lineinfile: dest=/etc/sudoers regexp="^\%{{ os_apache_config_group }}" line="%{{ os_apache_config_group }} ALL=(ALL) NOPASSWD:/usr/sbin/apachectl" state=present

@@ -1,3 +1,0 @@
----
-dependencies:
-  - { role: services/service_dep }

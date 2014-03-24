@@ -1,0 +1,30 @@
+---
+##
+# [DEBIAN] apache preparation tasks 
+#
+
+- name: ensure apache packages 
+  apt: pkg={{ item }} state=present
+  with_items: os_apache_packages
+
+- name: enable SSL
+  raw: a2enmod ssl
+      
+- name: enable mod proxy, proxy_http 
+  raw: a2enmod proxy
+
+- name: enable proxy_http 
+  raw: a2enmod proxy_http
+
+- name: enable mod_rewrite
+  raw: a2enmod rewrite
+
+- name: disable default apache :80 site
+  command: a2dissite default
+
+- name: disable default apache :443 site  
+  command: a2dissite default-ssl
+  
+- name: add apacheconf to sudoers
+  lineinfile: dest=/etc/sudoers regexp="^\%{" line="%{{ os_apache_config_group }} ALL=(ALL) NOPASSWD:/usr/sbin/apache2ctl,/usr/sbin/a2ensite,/usr/sbin/a2dissite,/usr/sbin/a2enmod,/usr/sbin/a2dismod" state=present
+ 

@@ -1,0 +1,19 @@
+---
+##
+# apache preparation tasks
+#
+
+- { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }
+- { include: prepare-redhat.yml, when: "ansible_os_family == 'RedHat'" }
+
+- name: add apache_config_group user group
+  group: name={{ os_apache_config_group }} system=yes
+  
+- name: ensure {{ os_apache_sites_dir }} writable by {{ os_apache_config_group }}
+  file: state=directory path={{ os_apache_sites_dir }} owner=root group={{ os_apache_config_group }} mode=0775
+  
+- name: ensure {{ os_apache_ssl_dir }} writable by {{ os_apache_config_group }}
+  file: state=directory path={{ os_apache_ssl_dir }} owner=root group={{ os_apache_config_group }} mode=0775
+
+- name: restart apache
+  service: name={{ os_apache_service }} state=restarted enabled=yes
