@@ -4,7 +4,7 @@
 # Register paths
 ################
 
-pcd_base_dir: "{{ lookup('pipe','git rev-parse --show-toplevel') }}"
+pcd_base_dir: "{{ inventory_dir + '/..' }}"
 pcd_common_dir: "{{ pcd_base_dir }}/common"
 
 pcd_private_dir: "{{ pcd_base_dir }}/private"
