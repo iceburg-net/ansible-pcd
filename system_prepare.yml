@@ -13,12 +13,12 @@
   
   pre_tasks:
     - name: add {{ ansible_ssh_private_key_file }}.pub to root user's authorized keys
-      action: authorized_key 
+      authorized_key: 
         user=root 
         key="{{ lookup('file', ansible_ssh_private_key_file + '.pub') }}"
         
     - name: add {{ ansible_ssh_private_key_file }} as root user's private key
-      action: copy 
+      copy: 
         dest=/root/.ssh/id_rsa 
         owner=root 
         group=root 

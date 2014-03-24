@@ -10,36 +10,36 @@
 
   
 - name: setting hostname to {{ system_hostname }} [1/2]
-  action: lineinfile dest=/etc/sysconfig/network regexp="^HOSTNAME=" line="HOSTNAME={{ system_hostname }}" state="present"
+  lineinfile: dest=/etc/sysconfig/network regexp="^HOSTNAME=" line="HOSTNAME={{ system_hostname }}" state="present"
   
 - name: setting hostname to {{ system_hostname }} [2/2]
-  action: raw hostname {{ system_hostname }}
+  raw: hostname {{ system_hostname }}
   
 - name: setting fqdn to {{ system_fqdn }}
-  action: lineinfile dest=/etc/hosts state=present regexp="^127\.0\.0\.1" line="127.0.0.1 {{ system_fqdn }} {{ system_hostname }} localhost"
+  lineinfile: dest=/etc/hosts state=present regexp="^127\.0\.0\.1" line="127.0.0.1 {{ system_fqdn }} {{ system_hostname }} localhost"
   
 - name: add the group "nogroup"
-  action: group name=nogroup system=yes state=present
+  group: name=nogroup system=yes state=present
   
   
 # amazon linux gotchas...  
 - name: remove tty requirement from sudoers [1/2]
-  action: lineinfile dest=/etc/sudoers regexp="requiretty" state=absent
+  lineinfile: dest=/etc/sudoers regexp="requiretty" state=absent
   
 - name: remove tty requirement from sudoers [2/2]
-  action: lineinfile dest=/etc/sudoers regexp="\!visiblepw" state=absent
+  lineinfile: dest=/etc/sudoers regexp="\!visiblepw" state=absent
   
 - name: allow root login without password [1/3]
-  action: lineinfile dest=/etc/ssh/sshd_config regexp="^PermitRootLogin\ forced-commands-only" state=absent
+  lineinfile: dest=/etc/ssh/sshd_config regexp="^PermitRootLogin\ forced-commands-only" state=absent
   
 - name: allow root login without password [2/3]
   action:  lineinfile dest=/etc/ssh/sshd_config regexp="^PermitRootLogin without-password" line="PermitRootLogin without-password" state=present
 
 - name: allow root login without password [3/3] (clear Amazon Linux authorized_key root login prevention hack)
-  action: lineinfile  dest=/root/.ssh/authorized_keys regexp="^command=" state=absent
+  lineinfile:  dest=/root/.ssh/authorized_keys regexp="^command=" state=absent
 
 - name: restart ssh service
-  action: service name=sshd state=restarted
+  service: name=sshd state=restarted
 # !amazon linux gotchas
     
 
@@ -48,13 +48,13 @@
 ########################
 
 - name: denyhosts - install denyhosts
-  action: yum name=denyhosts enablerepo=epel state=latest
+  yum: name=denyhosts enablerepo=epel state=latest
   
 - name: denyhosts - configuration
-  action: copy src=amazon_denyhosts.conf dest=/etc/denyhosts.conf
+  copy: src=amazon_denyhosts.conf dest=/etc/denyhosts.conf
   
 - name: denyhosts - activate
-  action: raw /etc/init.d/denyhosts restart
+  raw: /etc/init.d/denyhosts restart
   
 - name: denyhosts - ensure denyhosts_unban.sh script
-  action: copy src={{ common_files }}/denyhosts_unban.sh dest=/usr/local/bin/denyhosts_unban.sh mode=0755
+  copy: src={{ common_files }}/denyhosts_unban.sh dest=/usr/local/bin/denyhosts_unban.sh mode=0755
