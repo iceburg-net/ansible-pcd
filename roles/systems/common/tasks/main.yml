@@ -1,3 +1,16 @@
 ---
+##
+# common system configuration
+#
 
-- debug: msg="common SYSTEM role"
+- debug: msg="common system configuration"
+
+- name: ensure base software [Debian]
+  apt: pkg={{ item }} state=present
+  with_items: os_base_packages
+  when: ansible_os_family == "Debian"
+    
+- name: ensure base software [RedHat]
+  yum: name={{ item }} state=present
+  with_items: os_base_packages
+  when: ansible_os_family == "RedHat"
