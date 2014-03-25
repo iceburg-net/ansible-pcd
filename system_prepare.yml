@@ -17,18 +17,14 @@
     - "common/vars/os_{{ ansible_os_family }}.yml"
   
   pre_tasks:
-    - name: add {{ ansible_ssh_private_key_file }}.pub to root user's authorized keys
-      authorized_key: 
-        user=root 
-        key="{{ lookup('file', ansible_ssh_private_key_file + '.pub') }}"
-        
-    - name: add {{ ansible_ssh_private_key_file }} as root user's private key
-      copy: 
-        dest=/root/.ssh/id_rsa 
-        owner=root 
-        group=root 
-        mode=0600 
-        src="{{ ansible_ssh_private_key_file }}"
+    - { include: "{{ common_tasks }}/user_add.yml", 
+        user_add: {
+          name: "root",
+          group: "root", 
+          home: "/root",
+          key: "{{ ansible_ssh_private_key_file }}"
+        }
+      }
      
   roles:
     - { role: systems/debian-7, when: "system_dist == 'debian-7'" }
