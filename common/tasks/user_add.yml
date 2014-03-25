@@ -1,0 +1,34 @@
+---
+
+- debug: msg="{{ user_add }}"
+
+- name: user_add > add user {{ user_add.name }}
+  user:
+    name={{ user_add.name }}
+    group={{ user_add.group | default('nogroup') }}
+    home={{ user_add.home | default('/home/' + user_add.name) }}
+    createhome={{ user_add.home | bool }}
+    system={{ user_add.system | default(False) }}
+  
+- name: user_add > set authorized key
+  authorized_key: 
+    user={{ user_add.name }}
+    key="{{ lookup('file', user_add.key + '.pub') }}"
+  when: user_add.key
+  
+- name: user_add > set private key
+  copy:
+    dest={{ user_add.home | default('/home/' + user_add.name) }}/.ssh/id_rsa
+    mode=0600
+    src={{ user_add.key }}
+  sudo_user: "{{ user_add.name }}"
+  when: user_add.key
+  
+    
+#- name: add github.com to known_hosts 
+#  action: copy dest=$user_home/.ssh/known_hosts owner=$user group=$user_group mode=0600 src="$template_dir/github_known_hosts"
+
+  
+  
+
+
