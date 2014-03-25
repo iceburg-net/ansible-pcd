@@ -1,0 +1,20 @@
+---
+##
+#  apache-sites default vars 
+#
+
+apache-sites_user: siteop
+apache-sites_user-home: /sites
+apache-sites_user-key: "{{ pcd_keys_dir }}/digome-ocean+siteop.key"
+
+apache-sites_default-org: iceburg          # organization
+apache-sites_default-name: www.iceburg.net # site name (usually ServerName)
+apache-sites_default-repo: False           # git repository (checkout to ~/[org]/[name]/)
+apache-sites_default-docroot: www          # docroot (if !git)
+
+apache-sites: 
+  - { org: {{ apache-sites_default-org }}, 
+      name: {{ apache-sites_default-name }},
+      repo: {{ apache-sites_default-repo }},
+      docroot: {{ apache-sites_default-docroot }}
+    }
