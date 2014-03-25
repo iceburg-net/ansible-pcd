@@ -43,12 +43,12 @@ usage
 =====
 
 ```
-# Prepare all hosts listed in inventory/digome.hosts
-ansible-playbook -i inventory/digome.hosts system_prepare.yml
+# Prepare all hosts listed in inventory/iceburg.hosts
+ansible-playbook -i inventory/iceburg.hosts system_prepare.yml
 
 
 # Prepare a specific host/group (passed via --limit)
-ansible-playbook -i inventory/digome.hosts system_prepare.yml --limit digome-ocean-1.iceburg.net
+ansible-playbook -i inventory/iceburg.hosts system_prepare.yml --limit iceburg-ocean-1.iceburg.net
 ```
 
 

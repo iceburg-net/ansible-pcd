@@ -1,5 +1,5 @@
 ---
-#  digome-web-servers Inventory Variables
+#  iceburg-web-servers Inventory Variables
 
 apache-sites: 
   - { org: iceburg, 

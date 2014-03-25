@@ -3,8 +3,8 @@
 # prepare application(s)
 #
 
-- name: "application preparation - digome-web-servers"
-  hosts: digome-web-servers
+- name: "application preparation - iceburg-web-servers"
+  hosts: iceburg-web-servers
   remote_user: root
   
   vars_files:
