@@ -1,7 +1,7 @@
 ---
 #  iceburg-web-servers Inventory Variables
 
-apache_sites: 
+apache_sites_list: 
   - { org: iceburg, 
       name: www.iceburg.net,
       repo: "git@github.com:iceburg-net/www.iceburg.net.git",
