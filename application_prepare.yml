@@ -1,0 +1,17 @@
+---
+##
+# prepare application(s)
+#
+
+- name: "application preparation - digome-web-servers"
+  hosts: digome-web-servers
+  remote_user: root
+  
+  vars_files:
+    - "common/vars/os_defaults.yml"
+    - "common/vars/os_{{ ansible_os_family }}.yml"
+     
+  roles:
+    - applications/apache-sites
+    
+  
