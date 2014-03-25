@@ -5,8 +5,8 @@
 #  playbooks and applies common services.
 #
 
-- name: "system configuration - web-servers"
-  hosts: web-servers
+- name: "system configuration - digome-web-servers"
+  hosts: digome-web-servers
   remote_user: root
   
   vars_files:
