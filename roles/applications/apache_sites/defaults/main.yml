@@ -5,17 +5,17 @@
 
 
 apache_sites_user: siteop
-apache_sites_user-home: /sites
-apache_sites_user-key: "{{ pcd_keys_dir }}/iceburg-ocean+siteop.key"
+apache_sites_user_home: /sites
+apache_sites_user_key: "{{ pcd_keys_dir }}/iceburg-ocean+siteop.key"
 
-apache_sites_default-org: iceburg          # organization
-apache_sites_default-name: www.iceburg.net # site name (usually ServerName)
-apache_sites_default-repo: False           # git repository (checkout to ~/[org]/[name]/)
-apache_sites_default-docroot: www          # docroot (if !git)
+apache_sites_default_org: iceburg          # organization
+apache_sites_default_name: www.iceburg.net # site name (usually ServerName)
+apache_sites_default_repo: False           # git repository (checkout to ~/[org]/[name]/)
+apache_sites_default_docroot: www          # docroot (if !git)
 
 apache_sites: 
-  - { org: "{{ apache_sites_default-org }}", 
-      name: "{{ apache_sites_default-name }}",
-      repo: "{{ apache_sites_default-repo }}",
-      docroot: "{{ apache_sites_default-docroot }}"
+  - { org: "{{ apache_sites_default_org }}", 
+      name: "{{ apache_sites_default_name }}",
+      repo: "{{ apache_sites_default_repo }}",
+      docroot: "{{ apache_sites_default_docroot }}"
     }
