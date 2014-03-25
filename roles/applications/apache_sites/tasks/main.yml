@@ -1,0 +1,8 @@
+---
+##
+#  apache_sites tasks 
+#
+
+- debug: msg="apache_sites application"
+
+- { include: prepare.yml, tags: ['prepare'] }
