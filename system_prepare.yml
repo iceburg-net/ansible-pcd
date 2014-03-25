@@ -32,4 +32,4 @@
      
   roles:
     - { role: systems/debian-7, when: "system_dist == 'debian-7'" }
-    - { role: systems/amazon-2013.09, when: "system_dist == 'amazon-2013.09" }
+    - { role: systems/amazon-2013.09, when: "system_dist == 'amazon-2013.09'" }
