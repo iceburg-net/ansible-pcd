@@ -1,7 +1,4 @@
 ---
-
-- debug: msg="{{ user_add }}"
-
 - name: user_add > add user {{ user_add.name }}
   user:
     name={{ user_add.name }}
@@ -24,11 +21,11 @@
   sudo_user: "{{ user_add.name }}"
   when: user_add.key
   
-    
-#- name: add github.com to known_hosts 
-#  action: copy dest=$user_home/.ssh/known_hosts owner=$user group=$user_group mode=0600 src="$template_dir/github_known_hosts"
-
-  
-  
-
-
+- name: user_add > add github.com signatures to known_hosts 
+  copy: 
+    dest={{ user_add.home | default('/home/' + user_add.name) }}/.ssh/known_hosts
+    mode=0600
+    src={{ common_files }}/github_known_hosts
+  sudo: yes
+  sudo_user: "{{ user_add.name }}"
+  when: user_add.github is defined and user_add.github | bool
