@@ -1,0 +1,7 @@
+---
+##
+#  apache-sites meta
+#
+
+dependencies:
+  - { role: services/apache, tags: ['pepare'] }
