@@ -10,6 +10,7 @@
   remote_user: root
   
   vars_files:
+    - "common/vars/paths.yml"
     - "common/vars/os_defaults.yml"
     - "common/vars/os_{{ ansible_os_family }}.yml"
      
