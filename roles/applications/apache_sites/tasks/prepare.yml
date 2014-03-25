@@ -1,0 +1,16 @@
+---
+##
+# apache_sites preparation tasks
+#
+
+- { include: "{{ common_tasks }}/user_add.yml", 
+    user_add: {
+      name: "{{ apache_sites_user }}",
+      group: "{{ os_apache_config_group }}", 
+      home: "{{ apache_sites_user_home }}",
+      system: yes,
+      github: yes,
+      key: "{{ apache_sites_user_key }}"
+    }
+  }
+  
