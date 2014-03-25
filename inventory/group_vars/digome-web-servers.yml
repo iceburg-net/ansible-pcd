@@ -1,0 +1,9 @@
+---
+#  digome-web-servers Inventory Variables
+
+apache-sites: 
+  - { org: iceburg, 
+      name: www.iceburg.net,
+      repo: "git@github.com:iceburg-net/www.iceburg.net.git",
+      docroot: www-1
+    }
