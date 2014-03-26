@@ -13,7 +13,7 @@ apache_sites_default_name: www.iceburg.net # site name (usually ServerName)
 apache_sites_default_repo: False           # git repository (checkout to ~/[org]/[name]/)
 apache_sites_default_docroot: www          # docroot (if !git)
 
-apache_sites: 
+apache_sites_list: 
   - { org: "{{ apache_sites_default_org }}", 
       name: "{{ apache_sites_default_name }}",
       repo: "{{ apache_sites_default_repo }}",
