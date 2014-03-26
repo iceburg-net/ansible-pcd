@@ -4,9 +4,10 @@
 #
 
 # @todo - possible to variablize handlers?
-# @todo - perhaps refactor sites so site_name is determined  -- really hate name-branch redundancy.
-#    ... either include with_items playbooks for each site
-#    ... force specificationm of site name
+# @todo - perhaps refactor sites so site_name is determined  -- really hate name-branch repetition.
+#    ... include + with_items would be great!
+#    ... run local_action task that executes a playbook passing --extra-vars??
+#    ...  YUCK!
 #
 
 
