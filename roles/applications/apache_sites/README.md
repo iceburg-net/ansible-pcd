@@ -15,4 +15,13 @@ apache_sites
   * git checkout to _/sites/<org>/<name>_  @todo (add stage/prod support)
   * registers site with apache (template virtualhost entry to _os_apache_sites_dir/<name>_)
   
-  
+### usage
+
+```
+# prepare and deploy all sites
+ansible-playbook -i inventory/iceburg.hosts application_prepare.yml 
+
+
+# deploy a specific site
+ansible-playbook -i inventory/iceburg.hosts application_prepare.yml --tags=deploy --extra-vars=apache_sites_site=www.iceburg.net
+```
