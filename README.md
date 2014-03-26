@@ -37,7 +37,12 @@ setup
 =====
 
 * ensure ansible 1.6+
-* gitignore private directory (if you don't want to check-in private keys, etc.)
+
+```
+cp -a private.sample private
+```
+
+* remove /private from .gitignore if you want to check-in private keys, etc.
 
 usage
 =====
