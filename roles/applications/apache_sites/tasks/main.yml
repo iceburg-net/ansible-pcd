@@ -5,6 +5,14 @@
 
 - debug: msg="apache_sites application"
 
+- name: normalize apache_sites_list into variable file
+  local_action: template dest={{ apache_sites_var_file }} src="apache_sites_normalized.j2"
+  tags: ['prepare','deploy']
+  
+- name: load normalized `apache_sites_normalized` from variable file
+  include_vars: "{{ apache_sites_var_file }}"
+  tags: ['prepare','deploy']
+  
 - { include: prepare.yml, tags: ['prepare'] }
 - { include: deploy.yml, tags: ['deploy'], sudo: True, sudo_user: "{{ apache_sites_user }}" }
 

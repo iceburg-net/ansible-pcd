@@ -1,8 +1,12 @@
+{% for branch in item.branches %}
 <VirtualHost *:80>
-        ServerName {{ item.name }}
-        DocumentRoot {{ apache_sites_user_home }}/{{ item.org | default(apache_sites_default_org)  }}/{{ item.name }}-{{ item.branch | default('master') }}/{{ item.docroot | default(apache_sites_default_docroot) }}
-        <Directory {{ apache_sites_user_home }}/{{ item.org | default(apache_sites_default_org)  }}/{{ item.name }}-{{ item.branch | default('master') }}/{{ item.docroot | default(apache_sites_default_docroot) }}>
+        ServerName {% if branch == "master" %}{{ item.name }}{% else %}{{ branch }}.{{ item.name | replace("www.","",1) }}{% endif %}
+        
+        DocumentRoot {{ item.dir }}/{{ branch }}/{{ item.docroot }}
+        <Directory {{ item.dir }}/{{ branch }}/{{ item.docroot }}>
                 Options FollowSymLinks
                 AllowOverride None
         </Directory>
 </VirtualHost>
+
+{% endfor %}

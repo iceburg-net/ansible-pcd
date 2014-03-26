@@ -3,17 +3,9 @@
 #  apache_sites handlers
 #
 
-# @todo - possible to variablize handlers?
-# @todo - perhaps refactor sites so site_name is determined  -- really hate name-branch repetition.
-#    ... include + with_items would be great!
-#    ... run local_action task that executes a playbook passing --extra-vars??
-#    ...  YUCK!
-#
-
-
 # Debian
 - name: enable apache sites
-  command: sudo /usr/sbin/a2ensite {{ item.item.name }}-{{ item.item.branch | default('master') }}
+  command: sudo /usr/sbin/a2ensite {{ item.item.name }}
   when: ansible_os_family == 'Debian' and item.changed == True 
   with_items: handler_apache_sites.results
   
@@ -22,8 +14,8 @@
 - name: enable apache sites
   file:
     state=link 
-    src={{ os_apache_sites_dir }}/{{ item.item.name }}-{{ item.item.branch | default('master') }}
-    dest={{ os_apache_sites_dir }}/{{ item.item.name }}-{{ item.item.branch | default('master') }}.enabled
+    src={{ os_apache_sites_dir }}/{{ item.item.name }}
+    dest={{ os_apache_sites_dir }}/{{ item.item.name }}.enabled
   when: ansible_os_family == 'RedHat' and item.changed == True 
   with_items: handler_apache_sites.results
   
@@ -31,4 +23,3 @@
 - { include: "{{ common_handlers }}/apache-debian.yml", when: "ansible_os_family == 'Debian'" }
 - { include: "{{ common_handlers }}/apache-redhat.yml", when: "ansible_os_family == 'RedHat'" }
 
-  

@@ -3,29 +3,31 @@
 # apache_sites deployment tasks
 #
 
-- name: ensure organization directory
-  file: path={{ apache_sites_user_home }}/{{ item.org | default(apache_sites_default_org) }} state=directory
+- name: ensure site destination directories
+  file: path={{ item.dir }} state=directory
   when: apache_sites_site is not defined or apache_sites_site == item.name
-  with_items: apache_sites_list
+  with_items: apache_sites_normalized
   
 
-- name: shallow clone apache_sites_list
+- name: shallow clone sites
   git:
     depth=1
-    dest={{ apache_sites_user_home }}/{{ item.org | default(apache_sites_default_org)  }}/{{ item.name }}-{{ item.branch | default('master') }}
-    repo={{ item.repo }}
-    version={{ item.branch | default('master') }}
-  when: apache_sites_site is not defined or apache_sites_site == item.name
-  with_items: apache_sites_list
+    dest={{ item.0.dir }}/{{ item.1 }}
+    repo={{ item.0.repo }}
+    version={{ item.1 }}
+  when: apache_sites_site is not defined or apache_sites_site == item.0.name
+  with_subelements:
+    - apache_sites_normalized
+    - branches
   remote_user: siteop
   
 
-- name: add site definitions to apache
+- name: add site apache configs 
   template:
-    dest={{ os_apache_sites_dir }}/{{ item.name }}-{{ item.branch | default('master') }}
-    src={{ item.template | default(apache_sites_default_template) }}
+    dest={{ os_apache_sites_dir }}/{{ item.name }}
+    src={{ item.template }}
   when: apache_sites_site is not defined or apache_sites_site == item.name
-  with_items: apache_sites_list
+  with_items: apache_sites_normalized
   register: handler_apache_sites
   notify: 
     - enable apache sites

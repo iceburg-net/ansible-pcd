@@ -1,7 +1,3 @@
----
-#  iceburg-web-servers Inventory Variables
-
-
 # Apache Site Definitions
 # 
 #   name: site name, typically www.domain.com
@@ -22,13 +18,15 @@
 #      {{ apache_sites_user_home }}/<org>/<name>/<branch>/www  e.g.
 #      DocumentRoot /sites/iceburg/www.iceburg.net/master/www
 #  
-#####################  
-apache_sites_list:
-  - {
-    name: www.iceburg.net,
-    org: iceburg, 
-    repo: "git@github.com:iceburg-net/www.iceburg.net.git",
-    branches: ["master", "stage"] 
+##################### 
+
+apache_sites_normalized:
+{% for item in apache_sites_list %}
+  - { name: "{{ item.name }}",
+      repo: "{{ item.repo }}",
+      branches: {{ item.branches | default("['master']") }},
+      dir: "{{ apache_sites_user_home }}/{{ item.org | default(apache_sites_default_org) }}/{{ item.name }}",
+      docroot: "{{ item.docroot | default(apache_sites_default_docroot) }}",
+      template: "{{ item.template | default(apache_sites_default_template) }}",
     }
-    
-    
+{% endfor %}

@@ -11,6 +11,8 @@ apache_sites_default_org: iceburg             # organization
 apache_sites_default_docroot: www             # docroot (relative to repo root)
 apache_sites_default_template: apache_config.j2 # virtualhost template file/path
 
+apache_sites_var_file: /tmp/ansible-vars.apache_sites.yml
+
 # sample apache_sites_list (typically overwritten by inventory vars)
 
 # Apache Site Definitions
@@ -37,7 +39,7 @@ apache_sites_default_template: apache_config.j2 # virtualhost template file/path
 apache_sites_list:
   - {
     name: www.iceburg.net,
-    org: {{ apache_sites_default_org }}, 
+    org: "{{ apache_sites_default_org }}", 
     repo: "git@github.com:iceburg-net/www.iceburg.net.git",
     }
     
