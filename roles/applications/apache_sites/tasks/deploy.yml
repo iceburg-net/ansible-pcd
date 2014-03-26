@@ -5,17 +5,18 @@
 
 - name: ensure organization directory
   file: path={{ apache_sites_user_home }}/{{ item.org }} state=directory
-  when: apache_sites_site is not defined
+  when: apache_sites_site is not defined or apache_sites_site == item.name
   with_items: apache_sites_list
   
 
-- name: shallow clone websites
+- name: shallow clone apache_sites_list
   git:
     depth=1
     dest={{ apache_sites_user_home }}/{{ item.org }}/{{ item.name }}-{{ item.branch | default('master') }}
     repo={{ item.repo }}
     version={{ item.branch | default('master') }}
-  when: apache_sites_site is not defined
+  when: apache_sites_site is not defined or apache_sites_site == item.name
   with_items: apache_sites_list
   remote_user: siteop
+ 
   
