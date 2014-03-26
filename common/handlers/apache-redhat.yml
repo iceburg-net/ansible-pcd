@@ -1,0 +1,9 @@
+---
+##
+# [REDHAT] apache handlers 
+#
+
+# @todo just use service? investigate if service module can be used by non-root user...
+  
+- name: apache reload
+  action: command sudo /usr/sbin/apachectl -k graceful
