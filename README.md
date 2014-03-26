@@ -36,7 +36,7 @@ organizing playbooks in steps + tagging is my preferred route, a la ansible-pcd.
 setup
 =====
 
-* ensure ansible 1.4+
+* ensure ansible 1.6+
 * gitignore private directory (if you don't want to check-in private keys, etc.)
 
 usage
