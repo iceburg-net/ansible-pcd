@@ -1,0 +1,21 @@
+---
+##
+# apache_sites deployment tasks
+#
+
+- name: ensure organization directory
+  file: path={{ apache_sites_user_home }}/{{ item.org }} state=directory
+  when: apache_sites_site is not defined
+  with_items: apache_sites_list
+  
+
+- name: shallow clone websites
+  git:
+    depth=1
+    dest={{ apache_sites_user_home }}/{{ item.org }}/{{ item.name }}-{{ item.branch | default('master') }}
+    repo={{ item.repo }}
+    version={{ item.branch | default('master') }}
+  when: apache_sites_site is not defined
+  with_items: apache_sites_list
+  remote_user: siteop
+  
