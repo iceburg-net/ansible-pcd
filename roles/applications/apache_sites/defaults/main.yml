@@ -3,19 +3,18 @@
 #  apache_sites default vars 
 #
 
-
 apache_sites_user: siteop
 apache_sites_user_home: /sites
 apache_sites_user_key: "{{ pcd_keys_dir }}/iceburg-ocean+siteop.key"
 
-apache_sites_default_org: iceburg          # organization
-apache_sites_default_name: www.iceburg.net # site name (usually ServerName)
-apache_sites_default_repo: False           # git repository (checkout to ~/[org]/[name]/)
-apache_sites_default_docroot: www          # docroot (if !git)
+apache_sites_default_org: iceburg             # organization
+apache_sites_default_docroot: www             # docroot (relative to repo root)
+apache_sites_default_template: apache_site.j2 # virtualhost template file/path
 
+# sample apache_sites_list (typically overwritten by inventory vars)
 apache_sites_list: 
   - { org: "{{ apache_sites_default_org }}", 
-      name: "{{ apache_sites_default_name }}",
-      repo: "{{ apache_sites_default_repo }}",
+      name: "www.iceburg.net",
+      repo: "git@github.com:iceburg-net/www.iceburg.net.git",
       docroot: "{{ apache_sites_default_docroot }}"
     }
