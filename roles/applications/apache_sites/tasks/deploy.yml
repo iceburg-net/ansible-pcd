@@ -20,9 +20,14 @@
   remote_user: siteop
   
 
-- name: add sites to apache
+- name: add site definitions to apache
   template:
     dest={{ os_apache_sites_dir }}/{{ item.name }}-{{ item.branch | default('master') }}
     src={{ item.template | default(apache_sites_default_template) }}
   when: apache_sites_site is not defined or apache_sites_site == item.name
   with_items: apache_sites_list
+  register: handler_apache_sites
+  notify: 
+    - enable apache sites
+    - apache reload
+  
