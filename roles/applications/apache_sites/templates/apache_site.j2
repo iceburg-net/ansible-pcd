@@ -1,9 +1,7 @@
 <VirtualHost *:80>
-        ServerAdmin webmaster@localhost
-        ServerName www.fthebuddies.com
-        ServerAlias *.fthebuddies.com fthebuddies.com
-        DocumentRoot /sites/iceburg-sites/fthebuddies.com
-        <Directory /sites/iceburg-sites/fthebuddies.com>
+        ServerName {{ item.name }}
+        DocumentRoot {{ apache_sites_user_home }}/{{ item.org | default(apache_sites_default_org)  }}/{{ item.name }}-{{ item.branch | default('master') }}/{{ item.docroot | default(apache_sites_default_docroot) }}
+        <Directory {{ apache_sites_user_home }}/{{ item.org | default(apache_sites_default_org)  }}/{{ item.name }}-{{ item.branch | default('master') }}/{{ item.docroot | default(apache_sites_default_docroot) }}>
                 Options FollowSymLinks
                 AllowOverride None
         </Directory>
