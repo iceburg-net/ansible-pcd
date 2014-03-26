@@ -1,0 +1,10 @@
+<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        ServerName www.fthebuddies.com
+        ServerAlias *.fthebuddies.com fthebuddies.com
+        DocumentRoot /sites/iceburg-sites/fthebuddies.com
+        <Directory /sites/iceburg-sites/fthebuddies.com>
+                Options FollowSymLinks
+                AllowOverride None
+        </Directory>
+</VirtualHost>
