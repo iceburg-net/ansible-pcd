@@ -13,6 +13,10 @@
   include_vars: "{{ apache_sites_var_file }}"
   tags: ['prepare','deploy']
   
+- name: remove variable file
+  local_action: file path={{ apache_sites_var_file }} state=absent
+  tags: ['prepare','deploy']
+  
 - { include: prepare.yml, tags: ['prepare'] }
 - { include: deploy.yml, tags: ['deploy'], sudo: True, sudo_user: "{{ apache_sites_user }}" }
 
