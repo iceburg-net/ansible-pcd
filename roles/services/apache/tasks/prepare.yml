@@ -3,17 +3,9 @@
 # apache preparation tasks
 #
 
-- name: add {{ os_apache_config_group }} group
-  group: name={{ os_apache_config_group }} system=yes
-  
-- name: allow {{ os_apache_config_group }} group to sudo execute apachectl
-  lineinfile: dest=/etc/sudoers regexp="^\%{{ os_apache_config_group }}" line="%{{ os_apache_config_group }} ALL=(ALL) NOPASSWD:{{ os_apache_apachectl_file }}" state=present
-  
-- name: ensure {{ os_apache_sites_dir }} writable by {{ os_apache_config_group }}
-  file: state=directory path={{ os_apache_sites_dir }} owner=root group={{ os_apache_config_group }} mode=0775
-  
-- name: ensure {{ os_apache_ssl_dir }} writable by {{ os_apache_config_group }}
-  file: state=directory path={{ os_apache_ssl_dir }} owner=root group={{ os_apache_config_group }} mode=0775
+- { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }
+- { include: prepare-redhat.yml, when: "ansible_os_family == 'RedHat'" }
+
 
 - name: tighten security
   template:
@@ -22,5 +14,20 @@
   notify:
     - apache restart
 
-- { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }
-- { include: prepare-redhat.yml, when: "ansible_os_family == 'RedHat'" }
+- name: add {{ os_apache_config_group }} group
+  group: name={{ os_apache_config_group }} system=yes
+  
+- name: allow {{ os_apache_config_group }} group to sudo execute apachectl
+  lineinfile: dest=/etc/sudoers regexp="^\%{{ os_apache_config_group }}" line="%{{ os_apache_config_group }} ALL=(ALL) NOPASSWD:{{ os_apache_apachectl_file }}" state=present
+  
+- name: ensure apache site and certificate directories writable by {{ os_apache_config_group }} group
+  file: 
+    path={{ item }}
+    state=directory
+    owner=root
+    group={{ os_apache_config_group }}
+    mode=0775
+  with_items:
+    - "{{ os_apache_sites_dir }}"
+    - "{{ os_apache_sites_enabled_dir }}"
+    - "{{ os_apache_ssl_dir }}"
