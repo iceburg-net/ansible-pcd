@@ -3,22 +3,12 @@
 #  apache_sites handlers
 #
 
-# Debian
-- name: enable apache sites
-  command: sudo /usr/sbin/a2ensite {{ item.item.name }}
-  when: ansible_os_family == 'Debian' and item.changed == True 
-  with_items: handler_apache_sites.results
-  
-  
-# RedHat
+- { include: "{{ common_handlers }}/apache.yml"}
+
 - name: enable apache sites
   file:
     state=link 
     src={{ os_apache_sites_dir }}/{{ item.item.name }}
-    dest={{ os_apache_sites_dir }}/{{ item.item.name }}.enabled
-  when: ansible_os_family == 'RedHat' and item.changed == True 
+    dest={{ os_apache_sites_enabled_dir }}/{{ item.item.name }}
+  when: item.changed == True 
   with_items: handler_apache_sites.results
-  
-  
-- { include: "{{ common_handlers }}/apache.yml"}
-
