@@ -15,6 +15,4 @@
 
 - name: enable Name based VirtualHosts   
   lineinfile: dest=/etc/httpd/conf/httpd.conf regexp="^NameVirtualHost \*\:80" line="NameVirtualHost *:80" state=present
-
-- name: add {{ os_apache_config_group }} to sudoers
-  lineinfile: dest=/etc/sudoers regexp="^\%{{ os_apache_config_group }}" line="%{{ os_apache_config_group }} ALL=(ALL) NOPASSWD:/usr/sbin/apachectl" state=present
+  
