@@ -1,7 +1,6 @@
 ---
 #  iceburg-web-servers Inventory Variables
 
-
 # Apache Site Definitions
 # 
 #   name: site name, typically www.domain.com
@@ -30,5 +29,9 @@ apache_sites_list:
     repo: "git@github.com:iceburg-net/www.iceburg.net.git",
     branches: ["master", "stage"] 
     }
+
+# set path to private file (vars containing database definitions, &c)
+# remove/comment out if you aren't using one.
+apache_sites_private_file: "{{ pcd_private_dir }}/vars/apache_sites/iceburg-web-servers.yml"
     
     

@@ -5,19 +5,24 @@
 
 - debug: msg="apache_sites application"
 
-- name: normalize apache_sites_list into variable file
-  local_action: template dest={{ apache_sites_var_file }} src="apache_sites_normalized.j2"
+- name: load private variables from apache_sites_private_file
+  include_vars: "{{ item }}"
+  with_first_found: 
+    - "{{ apache_sites_private_file }}"
+    - "{{ common_vars }}/blank.yml"
+  tags: ['prepare','deploy']
+
+- name: normalize apache_sites_list into temporary variable file
+  local_action: template dest={{ apache_sites_temp_file }} src="apache_sites_normalized.j2"
   tags: ['prepare','deploy']
   
 - name: load normalized `apache_sites_normalized` from variable file
-  include_vars: "{{ apache_sites_var_file }}"
+  include_vars: "{{ apache_sites_temp_file }}"
   tags: ['prepare','deploy']
   
-- name: remove variable file
-  local_action: file path={{ apache_sites_var_file }} state=absent
+- name: unlink temporary variable file
+  local_action: file path={{ apache_sites_temp_file }} state=absent
   tags: ['prepare','deploy']
   
 - { include: prepare.yml, tags: ['prepare'] }
 - { include: deploy.yml, tags: ['deploy'], sudo: True, sudo_user: "{{ apache_sites_user }}" }
-
-

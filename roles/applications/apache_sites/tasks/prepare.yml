@@ -14,3 +14,28 @@
     }
   }
   
+- name: prepare mysql databases - create database
+  mysql_db:
+    login_host="{{ apache_sites_mysql_login_host }}"
+    login_user="{{ apache_sites_mysql_login_user }}"
+    login_password="{{ apache_sites_mysql_login_password }}"
+    name="{{ item.1.name }}"
+  when: item.0.mysql and (apache_sites_site is not defined or apache_sites_site == item.0.name)
+  with_subelements:
+    - apache_sites_normalized
+    - mysql_dbs
+
+- name: prepare mysql databases - create user, grant privs 
+  mysql_user:
+    login_host="{{ apache_sites_mysql_login_host }}"
+    login_user="{{ apache_sites_mysql_login_user }}"
+    login_password="{{ apache_sites_mysql_login_password }}"
+    name="{{ item.1.user }}"
+    password="{{ item.1.pass }}"
+    priv="{{ item.1.name }}.*:ALL"
+    append_privs=yes
+    state=present
+  when: item.0.mysql and (apache_sites_site is not defined or apache_sites_site == item.0.name)
+  with_subelements:
+    - apache_sites_normalized
+    - mysql_dbs

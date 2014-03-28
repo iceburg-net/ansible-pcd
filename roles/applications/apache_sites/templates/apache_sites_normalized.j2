@@ -28,5 +28,11 @@ apache_sites_normalized:
       dir: "{{ apache_sites_user_home }}/{{ item.org | default(apache_sites_default_org) }}/{{ item.name }}",
       docroot: "{{ item.docroot | default(apache_sites_default_docroot) }}",
       template: "{{ item.template | default(apache_sites_default_template) }}",
+      {% if apache_sites_mysql_list[item.name] is defined %}
+        mysql: True,
+        mysql_dbs: {{ apache_sites_mysql_list[item.name] }}
+      {% else %}
+        mysql: False
+      {% endif %}
     }
 {% endfor %}

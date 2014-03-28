@@ -1,0 +1,15 @@
+---
+#  iceburg-web-servers apache_sites private variables
+
+
+apache_sites_mysql_login_host: localhost
+apache_sites_mysql_login_user: root
+apache_sites_mysql_login_password: ""
+
+
+# site mysql databases to create. NOTE that key must match site name
+apache_sites_mysql_list:
+  www.iceburg.net:
+    [ {name: prod_iceburg, user: iceburg_adm, pass: Zal3091gHz},
+      {name: stage_iceburg, user: iceburg_adm, pass: Zal3091gHz}
+    ]
