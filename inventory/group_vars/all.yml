@@ -1,6 +1,17 @@
 ---
 # Global Inventory Variables (inherrited by all hosts)
 
+# Register paths
+################
+
+pcd_base_dir: "{{ inventory_dir }}/.."
+pcd_common_dir: "{{ pcd_base_dir }}/common"
+
+pcd_private_dir: "{{ pcd_base_dir }}/private"
+pcd_keys_dir: "{{ pcd_private_dir  }}/keys"
+pcd_vars_dir: "{{ pcd_private_dir }}/vars"
+pcd_certs_dir: "{{ pcd_vars_dir }}/ssl-certs"
+
 
 # Connection defaults
 #####################

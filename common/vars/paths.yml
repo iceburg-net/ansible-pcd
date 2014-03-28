@@ -1,19 +1,7 @@
 # Register paths
 ################
 
-pcd_base_dir: "{{ inventory_dir }}/.."
-pcd_common_dir: "{{ pcd_base_dir }}/common"
-
-pcd_private_dir: "{{ pcd_base_dir }}/private"
-pcd_keys_dir: "{{ pcd_private_dir  }}/keys"
-pcd_vars_dir: "{{ pcd_private_dir }}/vars"
-pcd_certs_dir: "{{ pcd_vars_dir }}/ssl-certs"
-pcd_tasks_dir: "{{ pcd_base_dir }}/tasks"
-
-pcd_system_roles: "{{ pcd_base_dir }}/roles/systems"
-pcd_app_roles: "{{ pcd_base_dir }}/roles/applications"
-pcd_service_roles: "{{ pcd_base_dir }}/roles/services"
-
+pcd_common_dir: "{{ inventory_dir }}/../common"
 common_files: "{{ pcd_common_dir }}/files"
 common_handlers: "{{ pcd_common_dir }}/handlers"
 common_tasks: "{{ pcd_common_dir }}/tasks"
