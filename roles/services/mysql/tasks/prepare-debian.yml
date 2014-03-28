@@ -1,0 +1,9 @@
+---
+##
+# [DEBIAN] mysql preparation tasks 
+#
+
+- name: ensure mysql packages 
+  apt: pkg={{ item }} state=present
+  with_items: os_mysql_packages
+

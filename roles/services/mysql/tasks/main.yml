@@ -1,0 +1,10 @@
+---
+##
+#  mysql tasks 
+#
+
+# @todo support version pegging, for now stick w/ distro default
+
+- debug: msg="mysql service"
+
+- { include: prepare.yml, tags: ['prepare'] }

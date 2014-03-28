@@ -1,0 +1,8 @@
+---
+##
+# [REDHAT] mysql preparation tasks 
+#
+
+- name: ensure mysql packages
+  yum: name={{ item }} state=present
+  with_items: os_mysql_packages
