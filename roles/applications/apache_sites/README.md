@@ -4,14 +4,13 @@ apache_sites
 deploys sites in git repositories to an apache web server.
 
 sites reside in /sites , grouped by organization, e.g. 
-  
-  /sites/iceburg/www.iceburg.net
+  "/sites/iceburg/www.iceburg.net"
 
 
   
 ### usage
 
-1. define sites via `apache_sites_list` (typically an inventory variable for your
+* define sites via `apache_sites_list` (typically an inventory variable for your
 host/group)
 
 e.g.
@@ -51,7 +50,7 @@ apache_sites_list:
     }
 ```
 
-2. prepare and/or deploy your site(s) to apache web servers.
+* prepare and/or deploy your site(s) to apache web servers.
 
 
 ```
