@@ -1,11 +1,9 @@
 apache_sites
 ============
 
-deploys sites in git repositories to an apache web server.
+deploy sites in git repositories to an apache web server.
 
-sites reside in /sites , grouped by organization, e.g. 
-  "/sites/iceburg/www.iceburg.net"
-
+optionally provision databases + users users as well
 
   
 ### usage
@@ -62,12 +60,39 @@ ansible-playbook -i inventory/iceburg.hosts application_prepare.yml
 ansible-playbook -i inventory/iceburg.hosts application_prepare.yml --tags=deploy --extra-vars=apache_sites_site=www.iceburg.net
 ```
 
+apache_sites has the additional ability to provision databases + users as well.
+mysql is currently supported. define your databases in the [OPTIONAL]
+_apache_sites_private_file_ variable file. the location of this file defaults
+to: "{{ pcd_private_dir }}/vars/apache_sites/{{ inventory_hostname }}.yml",
+although you may easily override via inventory vars &c. Below is an example;
+
+```
+---
+#  iceburg-web-servers apache_sites private variables
+
+
+apache_sites_mysql_login_host: localhost
+apache_sites_mysql_login_user: root
+apache_sites_mysql_login_password: ""
+
+
+# site mysql databases to create. NOTE that key must match site name
+apache_sites_mysql_list:
+  www.iceburg.net:
+    [ {name: prod_iceburg, user: iceburg_adm, pass: Zal3091gHz},
+      {name: stage_iceburg, user: iceburg_adm, pass: Zal3091gHz}
+    ]
+```
+
+
+
 
 ### prepare phase
 
 * creates "siteop" user (defined defaults/main.yml as apache_sites_user)
   * siteop home defaults to _/sites_
   * adds github signatures to known_hosts (to allow git checkout without interruption)
+* provisions databases if supplied
   
 
 ### deploy phase
