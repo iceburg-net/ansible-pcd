@@ -22,11 +22,18 @@
   sudo_user: "{{ user_add.name }}"
   when: user_add.key
   
-- name: user_add > add github.com signatures to known_hosts 
-  copy: 
+  
+- name: user_add > ensure github vars
+  include_vars: "{{ common_vars }}/github.yml"
+  when: user_add.github is defined and user_add.github | bool
+  
+- name: user_add > add github.com signatures to known_hosts
+  lineinfile:
     dest={{ user_add.home | default('/home/' + user_add.name) }}/.ssh/known_hosts
+    line="{{ item }}"
+    create=yes
     mode=0600
-    src={{ common_files }}/github_known_hosts
   sudo: yes
   sudo_user: "{{ user_add.name }}"
+  with_items: github_knows_hosts
   when: user_add.github is defined and user_add.github | bool

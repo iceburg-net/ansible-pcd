@@ -15,6 +15,7 @@
     dest={{ item.0.dir }}/{{ item.1 }}
     repo={{ item.0.repo }}
     version={{ item.1 }}
+    accept_hostkey=yes
   when: apache_sites_site is not defined or apache_sites_site == item.0.name
   with_subelements:
     - apache_sites_normalized
