@@ -2,13 +2,7 @@
 # common apache handlers
 
 - name: apache restart
-  service: name={{ }} state=restarted
+  service: name={{ os_apache_service  }} state=restarted
 
 - name: apache reload
-  command: sudo /usr/sbin/apache2ctl -k graceful
-  when: "ansible_os_family == 'RedHat'"
-  
-- name: apache reload
-  action: command sudo /usr/sbin/apachectl -k graceful
-  when: "ansible_os_family == 'RedHat'"
-  
+  command: sudo {{ os_apache_apachectl_file  }} -k graceful

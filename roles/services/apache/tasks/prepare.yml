@@ -19,12 +19,8 @@
   template:
     src=security.j2
     dest={{ os_apache_security_file }}
+  notify:
+    - apache restart
 
 - { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }
 - { include: prepare-redhat.yml, when: "ansible_os_family == 'RedHat'" }
-
-
-
-- name: restart apache
-  service: name={{ os_apache_service }} state=restarted enabled=yes
-  

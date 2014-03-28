@@ -9,10 +9,16 @@
   
 - name: disable default apache :443 site
   copy: backup=yes dest=/etc/httpd/conf.d/ssl.conf src=templates/ssl.ec2-server.conf
+  notify:
+    - apache restart
   
 - name: configure apache to read from sites directory  
   lineinfile: dest=/etc/httpd/conf/httpd.conf regexp="^Include {{ os_apache_sites_dir }}\/\*.enabled" insertafter="^Include conf\.d\/\*\.conf" line="Include {{ os_apache_sites_dir }}/*.enabled" state=present
+  notify:
+    - apache restart
 
 - name: enable Name based VirtualHosts   
   lineinfile: dest=/etc/httpd/conf/httpd.conf regexp="^NameVirtualHost \*\:80" line="NameVirtualHost *:80" state=present
+  notify:
+    - apache restart
   

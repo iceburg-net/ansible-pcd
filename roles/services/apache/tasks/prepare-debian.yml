@@ -14,9 +14,13 @@
     - proxy
     - proxy_http
     - rewrite
+  notify:
+    - apache restart
 
 - name: disable default sites
   command: a2dissite {{ item }} removes=/etc/apache2/sites-enabled/{{ item }}
   with_items:
     - default
     - default-ssl
+  notify:
+    - apache restart
