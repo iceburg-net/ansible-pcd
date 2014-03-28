@@ -33,3 +33,5 @@ os_php_packages:
   - php5-mcrypt
   - php5-gd
   - php5-apc
+  
+os_php_apache_ini: /etc/php5/apache2/php.ini
