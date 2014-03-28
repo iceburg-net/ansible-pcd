@@ -8,6 +8,8 @@ os_apache_packages:
   - mod_wsgi
   - mod_ssl
 
+os_apache_user: apache
+os_apache_group: apache
 os_apache_service: httpd
 
 os_apache_sites_dir: /etc/httpd/sites-available

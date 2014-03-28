@@ -8,6 +8,8 @@ os_apache_packages:
   - apache2
   - libapache2-mod-wsgi
 
+os_apache_user: www-data
+os_apache_group: www-data
 os_apache_service: apache2
 os_apache_config_group: apacheconf
 
