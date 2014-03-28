@@ -1,6 +1,10 @@
 ---
 # default os vars
 
+
+# apache
+########
+
 os_base_packages:
   - git
   - unzip
@@ -11,5 +15,18 @@ os_init_config_dir: /etc/init
 
 os_apache_config_group: apacheconf
 
+
+# mysql
+#######
+
 os_mysql_packages:
   - mysql-server
+  
+
+# php
+#####  
+  
+# @todo provide log rotation of this once we re-introduce logging service  
+os_php_error_log: /var/log/php/php_error.log
+
+

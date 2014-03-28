@@ -1,6 +1,9 @@
 ---
 # debian os vars
 
+
+# apache
+########
 os_apache_packages:
   - apache2
   - libapache2-mod-wsgi
@@ -12,3 +15,18 @@ os_apache_sites_dir: /etc/apache2/sites-available
 os_apache_conf_dir: /etc/apache2/conf.d
 os_apache_ssl_dir: /etc/apache2/ssl-certificates
 
+
+# php
+#####
+
+# note: debian wheezy version is 5.4.4, and uses APC
+#  use dotdeb to upgrade to 5.5 + built in opcache [?]
+os_php_packages:
+  - php5
+  - libapache2-mod-php
+  - php5-pgsql
+  - php5-mysqlnd
+  - php5-curl
+  - php5-mcrypt
+  - php5-gd
+  - php5-apc

@@ -1,6 +1,8 @@
 ---
 # redhat os vars
 
+# apache
+########
 os_apache_packages:
   - httpd
   - mod_wsgi
@@ -12,3 +14,20 @@ os_apache_sites_dir: /etc/httpd/sites-available
 os_apache_conf_dir: /etc/httpd/conf.d
 os_apache_ssl_dir: /etc/httpd/ssl-certificates
 
+
+# php
+#####
+
+# note: debian wheezy version is 5.4.4, and uses APC
+#  use dotdeb to upgrade to 5.5 + built in opcache [?]
+
+# @todo update this for yum
+os_php_packages:
+  - php5
+  - libapache2-mod-php
+  - php5-pgsql
+  - php5-mysqlnd
+  - php5-curl
+  - php5-mcrypt
+  - php5-gd
+  - php5-apc
