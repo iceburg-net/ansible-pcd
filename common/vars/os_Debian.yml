@@ -18,6 +18,14 @@ os_apache_conf_dir: /etc/apache2/conf.d
 os_apache_ssl_dir: /etc/apache2/ssl-certificates
 
 
+# mysql
+#######
+
+os_mysql_packages:
+  - mysql-server
+  - python-mysqldb
+  
+
 # php
 #####
 
