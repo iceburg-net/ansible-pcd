@@ -25,12 +25,12 @@ os_apache_ssl_dir: /etc/apache2/ssl-certificates
 #  use dotdeb to upgrade to 5.5 + built in opcache [?]
 os_php_packages:
   - php5
-  - libapache2-mod-php
+  - libapache2-mod-php5
   - php5-pgsql
   - php5-mysqlnd
   - php5-curl
   - php5-mcrypt
   - php5-gd
-  - php5-apc
+  - php-apc
 
 os_php_apache_ini: /etc/php5/apache2/php.ini

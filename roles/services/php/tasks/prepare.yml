@@ -1,0 +1,27 @@
+---
+##
+# php preparation tasks
+#
+
+- { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }
+- { include: prepare-redhat.yml, when: "ansible_os_family == 'RedHat'" }
+
+
+# @todo provide log rotation of this once we re-introduce logging service  
+- name: ensure logging directory exists, is writable by webserver
+  file: 
+    path="{{ os_php_error_log | dirname }}" 
+    state=directory
+    owner="{{ os_apache_user }}"
+    group="{{ os_apache_group }}"
+  
+
+# @todo provide distribution / host ini (?)
+- name: enable error logging to file
+  lineinfile:
+    state=present
+    regexp="^error_log \="
+    line="error_log = {{ os_php_error_log }}"
+    dest="{{ os_php_apache_ini }}"
+    
+

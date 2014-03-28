@@ -1,0 +1,8 @@
+---
+##
+# [REDHAT] php preparation tasks 
+#
+
+- name: ensure php packages
+  yum: name={{ item }} state=present
+  with_items: os_php_packages

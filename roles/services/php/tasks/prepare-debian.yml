@@ -1,0 +1,9 @@
+---
+##
+# [DEBIAN] php preparation tasks 
+#
+
+- name: ensure php packages 
+  apt: pkg={{ item }} state=present
+  with_items: os_php_packages
+
