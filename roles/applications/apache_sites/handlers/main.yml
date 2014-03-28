@@ -20,6 +20,5 @@
   with_items: handler_apache_sites.results
   
   
-- { include: "{{ common_handlers }}/apache-debian.yml", when: "ansible_os_family == 'Debian'" }
-- { include: "{{ common_handlers }}/apache-redhat.yml", when: "ansible_os_family == 'RedHat'" }
+- { include: "{{ common_handlers }}/apache.yml"}
 
