@@ -13,6 +13,6 @@
   tags: ['prepare','deploy']
 
 
-- { include: normalize.yml, tags: ['prepare,deploy'], when: apache_sites_list is not defined  }
+- { include: "normalize.yml", tags: ['prepare,deploy'] }  
 - { include: prepare.yml, tags: ['prepare'] }
 - { include: deploy.yml, tags: ['deploy'], sudo: True, sudo_user: "{{ apache_sites_user }}" }
