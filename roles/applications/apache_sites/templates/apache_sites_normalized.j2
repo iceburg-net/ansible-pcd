@@ -5,8 +5,8 @@
 apache_sites_normalized:
 {% for item in  apache_sites_list %}
   - { name: "{{ item.name }}",
-      {% if repo is defined and repo %}
-      repo: "{{ item.repo }}",
+      {% if item.repo is defined and item.repo %}
+        repo: "{{ item.repo | default(False) }}",
       {% endif %}
       branches: {{ item.branches | default("['master']") }},
       dir: "{{ apache_sites_user_home }}/{{ item.org | default(apache_sites_default_org) }}/{{ item.name }}",
@@ -14,6 +14,10 @@ apache_sites_normalized:
       template: "{{ item.template | default(apache_sites_default_template) }}",
       {% if apache_sites_mysql_list[item.name] is defined %}
         mysql_dbs: {{ apache_sites_mysql_list[item.name] }},
+        mysql: True
+      {% else %}
+        mysql_dbs: [],
+        mysql: False
       {% endif %}
     }
 {% endfor %}
