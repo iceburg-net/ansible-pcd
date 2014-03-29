@@ -6,7 +6,7 @@
 - name: ensure site destination directories
   file: path={{ item.dir }} state=directory
   when: apache_sites_site is not defined or apache_sites_site == item.name
-  with_items: apache_sites_list
+  with_items: apache_sites_normalized
   
 - name: shallow clone sites
   git:
@@ -17,7 +17,7 @@
     accept_hostkey=yes
   when: apache_sites_site is not defined or apache_sites_site == item.0.name
   with_subelements:
-    - apache_sites_list
+    - apache_sites_normalized
     - branches
   remote_user: siteop
   
@@ -26,7 +26,7 @@
     dest={{ os_apache_sites_dir }}/{{ item.name }}
     src={{ item.template }}
   when: apache_sites_site is not defined or apache_sites_site == item.name
-  with_items: apache_sites_list
+  with_items: apache_sites_normalized
   register: handler_apache_sites
   notify: 
     - enable apache sites

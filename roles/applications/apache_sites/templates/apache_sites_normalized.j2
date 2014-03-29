@@ -2,19 +2,18 @@
 {% set apache_sites_list = apache_sites_enabled_list %}
 {% endif %}
 
-apache_sites_list:
+apache_sites_normalized:
 {% for item in  apache_sites_list %}
   - { name: "{{ item.name }}",
+      {% if repo is defined and repo %}
       repo: "{{ item.repo }}",
+      {% endif %}
       branches: {{ item.branches | default("['master']") }},
       dir: "{{ apache_sites_user_home }}/{{ item.org | default(apache_sites_default_org) }}/{{ item.name }}",
       docroot: "{{ item.docroot | default(apache_sites_default_docroot) }}",
       template: "{{ item.template | default(apache_sites_default_template) }}",
       {% if apache_sites_mysql_list[item.name] is defined %}
-        mysql: True,
-        mysql_dbs: {{ apache_sites_mysql_list[item.name] }}
-      {% else %}
-        mysql: False
+        mysql_dbs: {{ apache_sites_mysql_list[item.name] }},
       {% endif %}
     }
 {% endfor %}
