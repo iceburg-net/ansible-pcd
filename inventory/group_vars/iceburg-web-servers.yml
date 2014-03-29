@@ -22,7 +22,7 @@
 #      DocumentRoot /sites/iceburg/www.iceburg.net/master/www
 #  
 #####################  
-apache_sites_list:
+apache_sites_enabled_list:
   - {
     name: www.iceburg.net,
     org: iceburg, 

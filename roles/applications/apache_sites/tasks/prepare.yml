@@ -22,7 +22,7 @@
     name="{{ item.1.name }}"
   when: item.0.mysql and (apache_sites_site is not defined or apache_sites_site == item.0.name)
   with_subelements:
-    - apache_sites_normalized
+    - apache_sites_list
     - mysql_dbs
 
 - name: prepare mysql databases - create user, grant privs 
@@ -37,5 +37,5 @@
     state=present
   when: item.0.mysql and (apache_sites_site is not defined or apache_sites_site == item.0.name)
   with_subelements:
-    - apache_sites_normalized
+    - apache_sites_list
     - mysql_dbs

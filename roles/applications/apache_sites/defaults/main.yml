@@ -11,11 +11,6 @@ apache_sites_default_org: iceburg               # organization
 apache_sites_default_docroot: www               # docroot (relative to repo root)
 apache_sites_default_template: apache_config.j2 # virtualhost template file/path
 
-# default temporary var file
-apache_sites_temp_file: /tmp/ansible.apache_sites.{{ inventory_hostname }}.yml
-
-
-# default apache_sites_list (typically overwritten by inventory vars)
 
 # Apache Site Definitions
 # 
@@ -38,18 +33,35 @@ apache_sites_temp_file: /tmp/ansible.apache_sites.{{ inventory_hostname }}.yml
 #      DocumentRoot /sites/iceburg/www.iceburg.net/master/www
 #  
 #####################  
-apache_sites_list:
+
+
+# default enabled sites (listed sites will be added to apache)
+#   + typically overwritten by inventory vars
+apache_sites_enabled_list:
   - {
     name: www.iceburg.net,
     org: "{{ apache_sites_default_org }}", 
     repo: "git@github.com:iceburg-net/www.iceburg.net.git",
     }
     
+# default disabled sites (listed sites will be removed from apache)  
+#   + typically overwritten by inventory vars
+apache_sites_disabled_list:
+  - {
+    name: dev.example.com,
+    org: "{{ apache_sites_default_org }}",
+    repo: False
+    }
+  
     
-# default path to private file (vars containing database definitions, &c)
+# default path to private file (vars containing database credentials, &c)
 apache_sites_private_file: "{{ pcd_private_dir }}/vars/apache_sites/{{ inventory_hostname }}.yml"
 
+# default mysql credentials
 apache_sites_mysql_login_host: localhost
 apache_sites_mysql_login_user: root
 apache_sites_mysql_login_password: ""
 apache_sites_mysql_list: { }
+
+# default temporary var file, used by normalization tasks
+apache_sites_temp_file: /tmp/ansible.apache_sites.{{ inventory_hostname }}.yml

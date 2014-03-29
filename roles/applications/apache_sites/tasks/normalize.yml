@@ -1,0 +1,23 @@
+---
+##
+# apache_sites normaliztion tasks
+#
+#   leverage jinja2 to help cope with deprecation of include + with_items 
+#
+
+- name: normalize apache_sites_enabled into into apache_sites_list var
+  local_action: template dest={{ apache_sites_temp_file }} src="apache_sites_normalized.j2"
+  when: apache_sites is not defined
+  tags: ['prepare','deploy']
+  changed_when: False
+  
+- name: load normalized apache_sites_list var from temporary file
+  include_vars: "{{ apache_sites_temp_file }}"
+  when: apache_sites is not defined
+  tags: ['prepare','deploy']
+  
+- name: unlink temporary variable file
+  local_action: file path={{ apache_sites_temp_file }} state=absent
+  when: 
+  tags: ['prepare','deploy']
+  changed_when: False

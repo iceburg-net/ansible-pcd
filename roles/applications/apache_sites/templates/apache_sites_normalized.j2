@@ -20,8 +20,8 @@
 #  
 ##################### 
 
-apache_sites_normalized:
-{% for item in apache_sites_list %}
+apache_sites_list:
+{% for item in apache_sites_enabled_list %}
   - { name: "{{ item.name }}",
       repo: "{{ item.repo }}",
       branches: {{ item.branches | default("['master']") }},
