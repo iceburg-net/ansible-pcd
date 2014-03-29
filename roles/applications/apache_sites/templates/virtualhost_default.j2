@@ -2,6 +2,8 @@
 <VirtualHost *:80>
         ServerName {% if branch == "master" %}{{ item.name }}{% else %}{{ branch }}.{{ item.name | replace("www.","",1) }}{% endif %}
         
+        {% if item.apache_alias %}ServerAlias {{ item.apache_alias }}{% endif %}
+        
         CustomLog {{ apache_log_dir  }}/sites-{{ item.org }}.log {{ apache_sites_default_apache_logformat }}
         
         DocumentRoot {{ item.dir }}/{{ branch }}/{{ item.docroot }}

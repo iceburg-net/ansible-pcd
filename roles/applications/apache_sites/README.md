@@ -23,16 +23,18 @@ optionally provision databases + users users as well
 #
 #   org: (opt) site organization, defaults to {{ apache_sites_default_org }}
 #
+#   apache_alias: (opt) apache ServerAlias line, e.g. "domain.com alias.net"
+#
+#   apache_config: (opt) template to use for apache config / virtualhost def.
+#      defaults to virtualhost_default.j2.
+#        can be full path, or relative to apache_sites/templates directory.
+#
 #   git_repo: (opt) git repository containing site files
 #
 #   branches: (opt) branches to checkout, defined as an array.
 #     defaults to ["master"]. branches are checked out as; 
 #       {{ apache_sites_user_home }}/<org>/<name>/<branch> }}  e.g.
 #       /sites/iceburg/www.iceburg.net/master
-#   
-#   apache_config: (opt) template to use for apache config / virtualhost def.
-#      defaults to virtualhost_default.j2.
-#        can be full path, or relative to apache_sites/templates directory.
 #
 #   docroot: (opt) document root / path to public web files within repository,
 #      defaults to "www", can be empty. "www" represents;
@@ -44,7 +46,7 @@ optionally provision databases + users users as well
 #      /assets  [ asset files - e.g. databases, photoshop mocks, &c ]
 #      /www     [ docroot ]
 #
-#####################  
+##################### 
 apache_sites_enabled_list:
   - {
     name: www.iceburg.net,

@@ -11,6 +11,7 @@ apache_sites_normalized:
       dir: "{{ apache_sites_user_home }}/{{ item.org | default(apache_sites_default_org) }}/{{ item.name }}",
       docroot: "{{ item.docroot | default(apache_sites_default_docroot) }}",
       apache_config: "{{ item.apache_config | default(apache_sites_default_apache_config) }}",
+      apache_alias: {% if item.apache_alias is defined and item.apache_alias %}"{{ item.apache_alias }}"{% else %}False{% endif %},
       mysql: {% if apache_sites_mysql_list[item.name] is defined %}{{ apache_sites_mysql_list[item.name] }}{% else %}[]{% endif %},
     }
 {% endfor %}
