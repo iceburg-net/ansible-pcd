@@ -3,5 +3,7 @@
 #  apache_sites meta
 #
 
+allow_duplicates: yes
+
 dependencies:
   - { role: services/apache, tags: ['pepare'] }
