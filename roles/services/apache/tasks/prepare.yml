@@ -13,6 +13,14 @@
     dest={{ os_apache_security_file }}
   notify:
     - apache restart
+    
+- name: register configurations
+  template:
+    src={{ item }}
+    dest={{ os_apache_conf_dir }}/{{ item | basename }}
+  with_fileglob: "conf/*.conf"
+  notify:
+    - apache restart
 
 - name: add {{ os_apache_config_group }} group
   group: name={{ os_apache_config_group }} system=yes
