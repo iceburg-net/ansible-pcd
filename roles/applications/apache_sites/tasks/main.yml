@@ -13,6 +13,7 @@
   tags: ['prepare','deploy']
 
 
-- { include: "normalize.yml", tags: ['prepare,deploy'] }  
+- { include: "normalize.yml", tags: ['prepare,deploy'] }
+#- debug: msg="{{ apache_sites_normalized }}"  
 - { include: prepare.yml, tags: ['prepare'] }
 - { include: deploy.yml, tags: ['deploy'], sudo: True, sudo_user: "{{ apache_sites_user }}" }

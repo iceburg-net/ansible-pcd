@@ -13,6 +13,5 @@
     - "common/vars/os_{{ ansible_os_family }}.yml"
      
   roles:
-    - applications/apache_sites
-#    - applications/awstats
-  
+#    - applications/apache_sites
+    - applications/awstats
