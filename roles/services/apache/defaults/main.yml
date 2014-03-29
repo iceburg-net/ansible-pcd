@@ -1,0 +1,6 @@
+---
+##
+#  apache default vars 
+#
+
+apache_log_dir: /var/log/{{ os_apache_service }}
