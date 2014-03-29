@@ -5,9 +5,7 @@
 apache_sites_normalized:
 {% for item in  apache_sites_list %}
   - { name: "{{ item.name }}",
-      {% if item.repo is defined and item.repo %}
-        repo: "{{ item.repo | default(False) }}",
-      {% endif %}
+      git_repo: "{{ item.git_repo | default("") }}",
       branches: {{ item.branches | default("['master']") }},
       dir: "{{ apache_sites_user_home }}/{{ item.org | default(apache_sites_default_org) }}/{{ item.name }}",
       docroot: "{{ item.docroot | default(apache_sites_default_docroot) }}",
