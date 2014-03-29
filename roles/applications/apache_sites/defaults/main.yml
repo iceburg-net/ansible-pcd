@@ -7,10 +7,12 @@ apache_sites_user: siteop
 apache_sites_user_home: /sites
 apache_sites_user_key: "{{ pcd_keys_dir }}/iceburg-ocean+siteop.key"
 
-apache_sites_default_org: iceburg               # organization
-apache_sites_default_docroot: www               # docroot (relative to repo root)
-apache_sites_default_template: apache_config.j2 # virtualhost template file/path
-apache_sites_default_logformat: awstats         # apache LogFormat
+apache_sites_default_org: iceburg       # organization
+apache_sites_default_docroot: www       # docroot (relative to repo root)
+
+apache_sites_default_apache_logformat: awstats 
+apache_sites_default_apache_config: virtualhost_default.j2 
+
 
 # Apache Site Definitions
 # 
@@ -25,8 +27,9 @@ apache_sites_default_logformat: awstats         # apache LogFormat
 #       {{ apache_sites_user_home }}/<org>/<name>/<branch> }}  e.g.
 #       /sites/iceburg/www.iceburg.net/master
 #   
-#   template: (opt) jinja template to use for apache config (virtualhost def)
-#      defaults to apache_config.j2, can be full path.
+#   apache_config: (opt) template to use for apache config / virtualhost def.
+#      defaults to virtualhost_default.j2.
+#        can be full path, or relative to apache_sites/templates directory.
 #
 #   docroot: (opt) document root / path to public web files within repository,
 #      defaults to "www", can be empty. "www" represents;

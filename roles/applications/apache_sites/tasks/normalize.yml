@@ -20,6 +20,7 @@
   
 - name: unlink temp file(s)
   local_action: file 
-    path={{ apache_sites_temp_file }}
+    path=/tmp/ansible-{{ inventory_hostname }}-{{ item | basename }}
     state=absent
+  with_fileglob: "normalize/*.j2"
   changed_when: False

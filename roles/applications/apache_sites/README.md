@@ -19,24 +19,31 @@ optionally provision databases + users users as well
 
 # Apache Site Definitions
 # 
-#   name: site name, typically www.domain.com
+#   name: (required) site name, typically www.domain.com
 #
-#   org: site organization, defaults to {{ apache_sites_default_org }}
+#   org: (opt) site organization, defaults to {{ apache_sites_default_org }}
 #
-#   repo: git repository containing site files
+#   git_repo: (opt) git repository containing site files
 #
-#   branches: branches to checkout, defaults to ["master"]. checked out to;
-#     {{ apache_sites_user_home }}/<org>/<name>/<branch> }}  e.g.
-#     /sites/iceburg/www.iceburg.net/master
+#   branches: (opt) branches to checkout, defined as an array.
+#     defaults to ["master"]. branches are checked out as; 
+#       {{ apache_sites_user_home }}/<org>/<name>/<branch> }}  e.g.
+#       /sites/iceburg/www.iceburg.net/master
 #   
-#   template: jinja template of apache config file (virtualhost definition),
-#      defaults to apache_config.j2, can be full path.
+#   apache_config: (opt) template to use for apache config / virtualhost def.
+#      defaults to virtualhost_default.j2.
+#        can be full path, or relative to apache_sites/templates directory.
 #
-#   docroot: document root (path to public web files) within repository,
+#   docroot: (opt) document root / path to public web files within repository,
 #      defaults to "www", can be empty. "www" represents;
-#      {{ apache_sites_user_home }}/<org>/<name>/<branch>/www  e.g.
-#      DocumentRoot /sites/iceburg/www.iceburg.net/master/www
-#  
+#        {{ apache_sites_user_home }}/<org>/<name>/<branch>/www  e.g.
+#        DocumentRoot /sites/iceburg/www.iceburg.net/master/www
+#
+#      common repository structure 
+#      /  
+#      /assets  [ asset files - e.g. databases, photoshop mocks, &c ]
+#      /www     [ docroot ]
+#
 #####################  
 apache_sites_enabled_list:
   - {

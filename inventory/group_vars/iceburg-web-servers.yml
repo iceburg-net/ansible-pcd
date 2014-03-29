@@ -14,8 +14,9 @@
 #       {{ apache_sites_user_home }}/<org>/<name>/<branch> }}  e.g.
 #       /sites/iceburg/www.iceburg.net/master
 #   
-#   template: (opt) jinja template to use for apache config (virtualhost def)
-#      defaults to apache_config.j2, can be full path.
+#   apache_config: (opt) template to use for apache config / virtualhost def.
+#      defaults to virtualhost_default.j2.
+#        can be full path, or relative to apache_sites/templates directory.
 #
 #   docroot: (opt) document root / path to public web files within repository,
 #      defaults to "www", can be empty. "www" represents;

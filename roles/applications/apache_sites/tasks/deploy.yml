@@ -24,7 +24,7 @@
 - name: add site apache configs 
   template:
     dest={{ os_apache_sites_dir }}/{{ item.name }}
-    src={{ item.template }}
+    src={{ item.apache_config }}
   when: apache_sites_site is not defined or apache_sites_site == item.name
   with_items: apache_sites_normalized
   register: handler_apache_sites
