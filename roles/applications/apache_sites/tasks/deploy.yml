@@ -21,6 +21,12 @@
     - branches
   remote_user: siteop
   
+- name: ensure site docroot exists
+  file:
+    path={{ item.dir }}/{{ item.docroot }}
+    state=directory
+  with_items: apache_sites_normalized
+  
 - name: add site apache configs 
   template:
     dest={{ os_apache_sites_dir }}/{{ item.name }}
