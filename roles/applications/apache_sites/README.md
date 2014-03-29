@@ -8,15 +8,14 @@ optionally provision databases + users users as well
   
 ### usage
 
-* define sites via `apache_sites_list` (typically an inventory variable for your
-host/group)
+* define enabled and disabled sites via the `apache_sites_enabled_list` and   
+`apache_sites_disabled_list` variables. set these via inventory variables
+(typical) or explictly (atypical). example inventory file;
 
-e.g.
 
 ```
 ---
 #  iceburg-web-servers Inventory Variables
-
 
 # Apache Site Definitions
 # 
@@ -39,32 +38,27 @@ e.g.
 #      DocumentRoot /sites/iceburg/www.iceburg.net/master/www
 #  
 #####################  
-apache_sites_list:
+apache_sites_enabled_list:
   - {
     name: www.iceburg.net,
     org: iceburg, 
     repo: "git@github.com:iceburg-net/www.iceburg.net.git",
     branches: ["master", "stage"] 
     }
+
+apache_sites_disabled_list:
+  - {
+    name: dev.example.com,
+    org: "{{ apache_sites_default_org }}",
+    repo: False
+    }
 ```
 
-* prepare and/or deploy your site(s) to apache web servers.
-
-
-```
-# prepare and deploy all sites
-ansible-playbook -i inventory/iceburg.hosts application_prepare.yml 
-
-
-# deploy a specific site
-ansible-playbook -i inventory/iceburg.hosts application_prepare.yml --tags=deploy --extra-vars=apache_sites_site=www.iceburg.net
-```
-
-apache_sites has the additional ability to provision databases + users as well.
-mysql is currently supported. define your databases in the [OPTIONAL]
-_apache_sites_private_file_ variable file. the location of this file defaults
-to: "{{ pcd_private_dir }}/vars/apache_sites/{{ inventory_hostname }}.yml",
-although you may easily override via inventory vars &c. Below is an example;
+* optionally provision mysql databases &c during site preparation by providing
+definitions in a private variable file. the location of this file is controlled
+by the `apache_sites_private_file` and defaults to: 
+"{{ pcd_private_dir }}/vars/apache_sites/{{ inventory_hostname }}.yml". 
+example private var file;
 
 ```
 ---
@@ -85,9 +79,20 @@ apache_sites_mysql_list:
 ```
 
 
+* execute a playbook that includes the apache_sites role. example;
 
 
-### prepare phase
+```
+# prepare and deploy all sites
+ansible-playbook -i inventory/iceburg.hosts application_prepare.yml 
+
+
+# deploy a specific site
+ansible-playbook -i inventory/iceburg.hosts application_prepare.yml --tags=deploy --extra-vars=apache_sites_site=www.iceburg.net
+```
+
+
+#### prepare phase
 
 * creates "siteop" user (defined defaults/main.yml as apache_sites_user)
   * siteop home defaults to _/sites_
@@ -95,9 +100,9 @@ apache_sites_mysql_list:
 * provisions databases if supplied
   
 
-### deploy phase
+#### deploy phase
 
-* loops through `apache_sites_list` (typically defined as host or group inventory var)
+* loops through `apache_sites_list` 
   * ensure _/sites/<org>_ exists
   * git checkout to _/sites/<org>/<name>_  @todo (add stage/prod support)
   * registers site with apache (template virtualhost entry to _os_apache_sites_dir/<name>_)
