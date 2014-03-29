@@ -68,6 +68,3 @@ apache_sites_mysql_login_host: localhost
 apache_sites_mysql_login_user: root
 apache_sites_mysql_login_password: ""
 apache_sites_mysql_list: { }
-
-# default temporary var file, used by normalization tasks
-apache_sites_temp_file: /tmp/ansible.apache_sites.{{ inventory_hostname }}.yml

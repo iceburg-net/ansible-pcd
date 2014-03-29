@@ -1,22 +1,24 @@
 ---
 ##
-# apache-sites normalization tasks
+# normalization tasks
 #
 #   leverage jinja2 to help cope with deprecation of include + with_items
 #
-#   if apache_sites_list is not set; will default to apache_sites_list_enabled
+#   prefixes temp file names with hostname for parallel execution compatibility  
 #
 
-- name: template normalized apache_sites_list to temp file
+- name: normalize templates with jinja to temp file(s)
   local_action: template 
-    dest={{ apache_sites_temp_file }}
-    src=apache_sites_normalized.j2
+    dest=/tmp/ansible-{{ inventory_hostname }}-{{ item | basename }}
+    src={{ item }}
+  with_fileglob: "normalize/*.j2"
   changed_when: False
   
-- name: load normalized apache_sites_list from temp file
-  include_vars: "{{ apache_sites_temp_file }}"
+- name: load normalized variable(s) from temp file(s)
+  include_vars: "/tmp/ansible-{{ inventory_hostname }}-{{ item | basename }}"
+  with_fileglob: "normalize/*.j2"
   
-- name: unlink temp file
+- name: unlink temp file(s)
   local_action: file 
     path={{ apache_sites_temp_file }}
     state=absent
