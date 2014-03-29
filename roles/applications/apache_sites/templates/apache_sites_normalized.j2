@@ -5,6 +5,7 @@
 apache_sites_normalized:
 {% for item in  apache_sites_list %}
   - { name: "{{ item.name }}",
+      org: "{{ item.org | default(apache_sites_default_org) }}",
       git_repo: {% if item.git_repo is defined and item.git_repo %}"{{ item.git_repo }}"{% else %}False{% endif %},
       branches: {{ item.branches | default("['master']") }},
       dir: "{{ apache_sites_user_home }}/{{ item.org | default(apache_sites_default_org) }}/{{ item.name }}",
