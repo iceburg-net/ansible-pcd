@@ -1,0 +1,26 @@
+---
+##
+# normalization tasks
+#
+#   leverage jinja2 to help cope with deprecation of include + with_items
+#
+#   prefixes temp file names with hostname for parallel execution compatibility  
+#
+   
+- name: normalize templates with jinja to temp file(s)
+  local_action: template 
+    dest=/tmp/ansible-{{ inventory_hostname }}-{{ item | basename }}
+    src={{ item }}
+  with_fileglob: "normalize/*.j2"
+  changed_when: False
+  
+- name: load normalized variable(s) from temp file(s)
+  include_vars: "/tmp/ansible-{{ inventory_hostname }}-{{ item | basename }}"
+  with_fileglob: "normalize/*.j2"
+  
+- name: unlink temp file(s)
+  local_action: file 
+    path=/tmp/ansible-{{ inventory_hostname }}-{{ item | basename }}
+    state=absent
+  with_fileglob: "normalize/*.j2"
+  changed_when: False

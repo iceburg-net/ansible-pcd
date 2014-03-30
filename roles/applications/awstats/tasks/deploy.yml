@@ -1,0 +1,30 @@
+---
+##
+# awstats deployment tasks
+#
+
+- name: deploy common.conf
+  template:
+    dest={{ awstats_conf_dir }}/common.conf
+    src=common.conf
+    
+- name: deploy site config(s)
+  template:
+    dest={{ awstats_conf_dir }}/{{ item.filename }}
+    src={{ item.template }}
+  with_items: awstats_sites_normalized
+  
+- name: deploy AWStats Totals
+  copy:
+    dest="{{ awstats_site_docroot }}/index.php"
+    src="awstats-totals.php"
+    
+- name: protect AWStats Totals
+  htpasswd: 
+    create=yes
+    name={{ awstats_htpasswd_user }}
+    password={{ awstats_htpasswd_pass }}
+    path={{ awstats_htpasswd_file }}
+    state=present
+  
+#@todo handler to notify when configs change.

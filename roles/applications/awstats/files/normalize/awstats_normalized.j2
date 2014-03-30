@@ -1,0 +1,16 @@
+---
+{% if awstats_sites_list is undefined %}
+{% set awstats_sites_list = awstats_enabled_list %}
+{% endif %}
+
+awstats_sites_normalized:
+{% for item in  awstats_sites_list %}
+{% for config in item.awstats_configs | default([awstats_default_config]) %}
+  - { name: "{{ item.name }}",
+      org: "{{ item.org | default(apache_sites_default_org) }}",
+      filename: "awstats.{{ item.name }}-{{ loop.index }}.conf",
+      template: "{{ config }}",
+      aliases: {% if item.awstats_alias is defined and item.awstats_alias %}item.awstats_alias{% elif item.apache_alias is defined and item.apache_alias %}"{{ item.apache_alias }}"{% else %}False{% endif %},
+    }
+{% endfor %}
+{% endfor %}

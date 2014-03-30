@@ -1,0 +1,14 @@
+---
+##
+#  awstats meta
+#
+
+dependencies:
+  - { role: applications/apache_sites, 
+      apache_sites_list: [{
+        name: "{{ awstats_site_name }}",
+        org: "{{ awstats_site_org }}",
+        apache_config: "{{ pcd_applications }}/awstats/templates/awstats_virtualhost.j2"
+      }]
+    }
+     

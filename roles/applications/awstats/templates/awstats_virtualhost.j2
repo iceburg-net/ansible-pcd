@@ -1,0 +1,23 @@
+<VirtualHost *:80>
+	ServerName {{ awstats_site_name }}
+	
+	DocumentRoot {{ awstats_site_docroot }}
+	<Directory {{ awstats_site_docroot }}>
+		Options None
+		AllowOverride None
+		Order allow,deny
+		Allow from all
+		
+		AuthType Basic
+		AuthName stats
+		AuthUserFile {{ awstats_htpasswd_file }}
+		require valid-user
+	</Directory>
+	
+	Alias /awstatsclasses "{{ awstats_app_dir }}/wwwroot/classes/"
+	Alias /awstatscss "{{ awstats_app_dir }}/wwwroot/css/"
+	Alias /awstatsicons "{{ awstats_app_dir }}/wwwroot/icon/"
+	ScriptAlias /awstats "{{ awstats_app_dir }}/wwwroot/cgi-bin"
+
+</VirtualHost>
+

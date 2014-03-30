@@ -58,3 +58,9 @@ ansible-playbook -i inventory/iceburg.hosts system_prepare.yml --limit iceburg-o
 
 
 ... work in progress
+todo
+====
+
+* standardize logging across distributions
+  * add redhat support to awstats (currently assumes debian httpd-prerotate functionality in apache2 logrotate.d conf)
+   

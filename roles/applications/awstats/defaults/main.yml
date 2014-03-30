@@ -1,0 +1,61 @@
+---
+##
+#  awstats default vars 
+#
+
+awstats_version: 7.3
+
+# passed to apache_sites via role dependency (meta/main.yml)
+#   - configures the virtualhost where awstats will be available.
+
+awstats_site_name: stats.iceburg.net
+awstats_site_org: "{{ apache_sites_default_org }}"
+awstats_site_dir: "{{ apache_sites_user_home }}/{{ awstats_site_org }}/{{ awstats_site_name }}"
+awstats_site_docroot: "{{ awstats_site_dir }}/www"
+
+awstats_app_dir: "{{ awstats_site_dir }}/awstats-{{ awstats_version }}"
+awstats_conf_dir: "{{ awstats_site_dir }}/conf"
+awstats_data_dir: "{{ awstats_site_dir }}/data"
+
+awstats_default_config: awstats_default.j2
+
+#@todo support redhat after unifying logging
+awstats_update_script: /etc/logrotate.d/httpd-prerotate/awstats
+
+# htpasswd support. override by setting awstats_htpasswd_(user|pass)
+#   defaults to private_user and private_pass from general private file
+awstats_htpasswd_file: "{{ awstats_site_dir }}/awstats.htpasswd"
+awstats_htpasswd_user: "{{ private_user }}"
+awstats_htpasswd_pass: "{{ private_pass }}"
+
+
+# awstats site definitions
+#
+#   + uses apache_sites model for site definitions
+#
+#   + default is to track all sites specified by `apache_sites_enabled_list`,
+#     and to untrack all sites specified by `apache_sites_disabled_list`
+#
+#   + you may explicitly pass `awstats_site_list` to this role, or define
+#     `awstats_enabled_list` and/or `awstats_disabled_list` in inventory vars
+#     to track/untrack specified sites. use the below definitions;
+#
+#   name: (required) SiteDomain, typically www.domain.com
+#
+#   org: (opt) site organization, defaults to {{ apache_sites_default_org }}
+#   
+#   awstats_configs: (opt) jinja templates to use for awstats config
+#      defined as an array, to allow multiple configs per site -
+#        allowing for sites that contain multiple sub-sites.
+#
+#      defaults to ['awstats_default.j2']
+#        can be full path, or relative to awstats/templates directory.
+#
+#    awstats_alias: (opt) HostAliases line to use
+#      defaults to the site apache_alias if defined, or none.
+#
+#
+#####################  
+
+awstats_enabled_list: "{{ apache_sites_enabled_list }}"
+awstats_disabled_list: "{{ apache_sites_disabled_list }}"

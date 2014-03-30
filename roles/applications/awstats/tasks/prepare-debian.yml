@@ -1,0 +1,21 @@
+---
+##
+# [DEBIAN] awstats preparation tasks 
+#
+
+- name: ensure python passlib (for ansible htpasswd module)
+  apt: pkg=python-passlib state=present
+
+
+- name: ensure httpd-prerotate directory (used by logrotate)
+  file: 
+    path=/etc/logrotate.d/httpd-prerotate
+    state=directory
+  
+- name: copy pre-rotation script to httpd-prerotate directory 
+  template:
+    dest="{{ awstats_update_script }}"
+    src="prerotate.sh"
+    mode=0755
+    
+ 

@@ -1,0 +1,35 @@
+---
+##
+# awstats preparation tasks
+#
+
+- name: fetch awstats distributrion
+  uri:
+    creates=/tmp/awstats-{{ awstats_version }}.zip
+    dest=/tmp/awstats-{{ awstats_version }}.zip
+    follow_redirects=all
+    url=http://prdownloads.sourceforge.net/awstats/awstats-{{ awstats_version }}.zip
+    
+- name: unzip distribution to {{ apache_sites_user_home }}/{{ awstats_site_org }}
+  command: unzip /tmp/awstats-{{ awstats_version }}.zip -d {{ awstats_site_dir }}
+    creates={{ awstats_app_dir }}
+    
+- name: ensure awstats_conf_dir ({{ awstats_conf_dir }})
+  file: path={{ awstats_conf_dir }} state=directory
+  
+- name: ensure awstats_data_dir ({{ awstats_data_dir }})
+  file: path={{ awstats_data_dir }} state=directory
+  
+- name: link awstats_conf_dir to /etc/awstats
+  file:
+    state=link
+    path=/etc/awstats
+    src={{ awstats_conf_dir }}
+  sudo: False
+  
+- name: copy awstats_updateall.pl to {{ awstats_site_dir }}
+  copy:
+    dest="{{ awstats_site_dir }}/awstats_updateall.pl"
+    src="awstats_updateall.pl"
+
+- { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'", sudo: False }
