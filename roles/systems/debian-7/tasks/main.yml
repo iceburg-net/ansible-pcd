@@ -20,6 +20,12 @@
 - name: setting fqdn to {{ system_fqdn }} [2/2] 
   lineinfile: dest=/etc/hosts state=present regexp="^127\.0\.1\.1" line="127.0.1.1 {{ system_fqdn }} {{ system_hostname }}"
   
+# distribution update
+#####################
+
+- name: update system packages to latest
+  apt: update_cache=yes cache_valid_time=3600 upgrade=dist
+
 
 # system hardening tasks
 ########################
