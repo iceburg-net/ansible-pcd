@@ -45,11 +45,10 @@ awstats_htpasswd_pass: "{{ private_pass }}"
 #   org: (opt) site organization, defaults to {{ apache_sites_default_org }}
 #   
 #   awstats_configs: (opt) jinja templates to use for awstats config
-#      defined as an array, to allow multiple configs per site -
-#        allowing for sites that contain multiple sub-sites.
+#      defined as an array to allow for sites that contain multiple sub-sites.
 #
-#      defaults to ['awstats_default.j2']
-#        can be full path, or relative to awstats/templates directory.
+#      defaults to [{name: <site name>, template: 'awstats_default.j2'}]
+#        template can be full path, or relative to awstats/templates directory.
 #
 #    awstats_alias: (opt) HostAliases line to use
 #      defaults to the site apache_alias if defined, or none.
