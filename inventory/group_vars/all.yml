@@ -5,7 +5,6 @@
 ################
 
 pcd_base_dir: "{{ inventory_dir }}/.."
-pcd_common_dir: "{{ pcd_base_dir }}/common"
 
 pcd_private_dir: "{{ pcd_base_dir }}/private"
 pcd_private_vars: "{{ pcd_private_dir }}/vars"

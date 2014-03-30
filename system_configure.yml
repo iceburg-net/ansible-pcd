@@ -11,10 +11,8 @@
   
   vars_files:
     - "common/vars/paths.yml"
-    - "common/vars/os_defaults.yml"
-    - "common/vars/os_{{ ansible_os_family }}.yml"
      
   roles:
+    - pcd-bootstrap
     - systems/common
     - services/php
-    

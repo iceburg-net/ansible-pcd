@@ -7,7 +7,10 @@
   hosts: iceburg-web-servers
   remote_user: root
   
+  vars_files:
+    - "common/vars/paths.yml"
+  
   roles:
-    - common
+    - pcd-bootstrap
     - applications/apache_sites
     - applications/awstats

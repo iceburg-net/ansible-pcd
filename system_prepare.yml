@@ -13,9 +13,7 @@
   
   vars_files:
     - "common/vars/paths.yml"
-    - "common/vars/os_defaults.yml"
-    - "common/vars/os_{{ ansible_os_family }}.yml"
-  
+    
   pre_tasks:
     - { include: "{{ common_tasks }}/user_add.yml", 
         user_add: {
@@ -27,5 +25,6 @@
       }
      
   roles:
+    - pcd-bootstrap
     - { role: systems/debian-7, when: "system_dist == 'debian-7'" }
     - { role: systems/amazon-2013.09, when: "system_dist == 'amazon-2013.09'" }
