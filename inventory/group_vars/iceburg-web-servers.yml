@@ -50,7 +50,8 @@ apache_sites_enabled_list:
     org: iceburg, 
     git_repo: "git@github.com:iceburg-net/www.iceburg.net.git",
     branches: ["master", "stage"],
-    apache_alias: iceburg.net
+    apache_alias: iceburg.net,
+    docroot: www-1
     }
     
     
