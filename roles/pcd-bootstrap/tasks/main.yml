@@ -17,5 +17,9 @@
   include_vars: "{{ pcd_private_vars }}/{{ item.item }}"
   when: item.stat.exists 
   with_items: bootstrap_stat.results
-
-
+  
+- name: bootstrap - load default os vars
+  include_vars: "{{ common_vars }}/os_defaults.yml"
+  
+- name: bootstrap - load {{ ansible_os_family }} os vars
+  include_vars: "{{ common_vars }}/os_{{ ansible_os_family }}.yml"
