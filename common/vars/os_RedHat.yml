@@ -1,6 +1,13 @@
 ---
 # redhat os vars
 
+# ansible deps
+##############
+
+os_ansible_deps:
+  - python-mysqldb
+  - python-httplib2
+
 # apache
 ########
 os_apache_packages:
