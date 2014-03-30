@@ -5,10 +5,4 @@
 
 - { include: "{{ common_handlers }}/apache.yml"}
 
-- name: enable apache sites
-  file:
-    state=link 
-    src={{ os_apache_sites_dir }}/{{ item.item.name }}
-    dest={{ os_apache_sites_enabled_dir }}/{{ item.item.name }}
-  when: item.changed == True 
-  with_items: handler_apache_sites.results
+
