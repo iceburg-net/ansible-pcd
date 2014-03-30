@@ -13,14 +13,11 @@ awstats_site_org: "{{ apache_sites_default_org }}"
 awstats_site_dir: "{{ apache_sites_user_home }}/{{ awstats_site_org }}/{{ awstats_site_name }}"
 awstats_site_docroot: "{{ awstats_site_dir }}/www"
 
-awstats_app_dir: "{{ awstats_site_dir }}/awstats-{{ awstats_version }}"
-awstats_conf_dir: "{{ awstats_site_dir }}/conf"
-awstats_data_dir: "{{ awstats_site_dir }}/data"
 
-awstats_default_config: awstats_default.j2
+# how often will awstats be updated? defaults to once a day, 4:30am
+awstats_cron_minute: 30
+awstats_cron_hour: 4
 
-#@todo support redhat after unifying logging
-awstats_update_script: /etc/logrotate.d/httpd-prerotate/awstats
 
 # htpasswd support. override by setting awstats_htpasswd_(user|pass)
 #   defaults to private_user and private_pass from general private file
@@ -58,3 +55,13 @@ awstats_htpasswd_pass: "{{ private_pass }}"
 
 awstats_enabled_list: "{{ apache_sites_enabled_list }}"
 awstats_disabled_list: "{{ apache_sites_disabled_list }}"
+
+# awstats shortcuts
+#@todo support redhat after unifying logging
+awstats_update_script: /etc/logrotate.d/httpd-prerotate/awstats
+
+awstats_app_dir: "{{ awstats_site_dir }}/awstats-{{ awstats_version }}"
+awstats_conf_dir: "{{ awstats_site_dir }}/conf"
+awstats_data_dir: "{{ awstats_site_dir }}/data"
+
+awstats_default_config: awstats_default.j2
