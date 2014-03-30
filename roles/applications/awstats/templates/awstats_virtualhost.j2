@@ -14,9 +14,9 @@
 		require valid-user
 	</Directory>
 	
-	Alias /awstatsclasses "{{ awstats_app_dir }}/wwwroot/classes/"
-	Alias /awstatscss "{{ awstats_app_dir }}/wwwroot/css/"
-	Alias /awstatsicons "{{ awstats_app_dir }}/wwwroot/icon/"
+	Alias /classes/ "{{ awstats_app_dir }}/wwwroot/classes/"
+	Alias /css/ "{{ awstats_app_dir }}/wwwroot/css/"
+	Alias /icon/ "{{ awstats_app_dir }}/wwwroot/icon/"
 	ScriptAlias /awstats "{{ awstats_app_dir }}/wwwroot/cgi-bin"
 
 </VirtualHost>
