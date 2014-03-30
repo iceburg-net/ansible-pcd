@@ -1,6 +1,11 @@
 ---
-#  iceburg-web-servers apache_sites private variables
+# common private variable overrides
 
+private_user: admin
+private_pass: yL0lW3NaoZDJgS3
+
+
+#  iceburg-web-servers private variables
 
 apache_sites_mysql_login_host: localhost
 apache_sites_mysql_login_user: root

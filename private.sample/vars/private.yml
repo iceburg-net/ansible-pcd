@@ -1,0 +1,5 @@
+---
+#  common private variables
+
+private_user: ansible
+private_pass: NLu3p6qHJCYk4LA
