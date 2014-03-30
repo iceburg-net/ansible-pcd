@@ -26,6 +26,10 @@
 - name: update system packages to latest
   apt: update_cache=yes cache_valid_time=3600 upgrade=dist
 
+- name: install ansible deps
+  apt: pkg={{ item }} state=present
+  with_items: os_ansible_deps
+
 
 # system hardening tasks
 ########################
