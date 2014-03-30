@@ -22,5 +22,6 @@
   with_items:
     - default
     - default-ssl
+    - 000-default
   notify:
     - apache restart
