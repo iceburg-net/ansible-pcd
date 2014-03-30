@@ -21,10 +21,11 @@
     - branches
   remote_user: siteop
   
-- name: ensure site docroot exists
+- name: ensure docroot exists on sites not checked out from a repository
   file:
     path={{ item.dir }}/{{ item.docroot }}
     state=directory
+  when: not item.0.git_repo
   with_items: apache_sites_normalized
   
 - name: add site apache configs 
