@@ -5,14 +5,6 @@
 
 - debug: msg="apache_sites application"
 
-- name: load private variables from apache_sites_private_file
-  include_vars: "{{ item }}"
-  with_first_found: 
-    - "{{ apache_sites_private_file }}"
-    - "{{ common_vars }}/blank.yml"
-  tags: ['prepare','deploy']
-
-
 - { include: "normalize.yml", tags: ['prepare,deploy'] }
 #- debug: msg="{{ apache_sites_normalized }}"  
 

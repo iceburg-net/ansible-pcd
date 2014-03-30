@@ -1,8 +1,20 @@
 ---
 #  iceburg-web-servers Inventory Variables
 
+# Register private vars files
+#############################
+#
+# filenames are relative to {{ pcd_private_vars }} path and do not need to exist
+#
+
+private_vars_files: [
+  "iceburg-web-servers.yml",
+  "{{ inventory_hostname }}.yml"]
+
+
 # Apache Site Definitions
-# 
+#########################
+#
 #   name: (required) site name, typically www.domain.com
 #
 #   org: (opt) site organization, defaults to {{ apache_sites_default_org }}
@@ -30,7 +42,8 @@
 #      /assets  [ asset files - e.g. databases, photoshop mocks, &c ]
 #      /www     [ docroot ]
 #
-#####################  
+#########################
+
 apache_sites_enabled_list:
   - {
     name: www.iceburg.net,
@@ -39,9 +52,6 @@ apache_sites_enabled_list:
     branches: ["master", "stage"],
     apache_alias: iceburg.net
     }
+    
+    
 
-# set path to private file (vars containing database definitions, &c)
-# remove/comment out if you aren't using one.
-apache_sites_private_file: "{{ pcd_private_dir }}/vars/apache_sites/iceburg-web-servers.yml"
-    
-    

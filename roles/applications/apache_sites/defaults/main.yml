@@ -15,7 +15,8 @@ apache_sites_default_apache_config: virtualhost_default.j2
 
 
 # Apache Site Definitions
-# 
+#########################
+#
 #   name: (required) site name, typically www.domain.com
 #
 #   org: (opt) site organization, defaults to {{ apache_sites_default_org }}
@@ -43,8 +44,7 @@ apache_sites_default_apache_config: virtualhost_default.j2
 #      /assets  [ asset files - e.g. databases, photoshop mocks, &c ]
 #      /www     [ docroot ]
 #
-#####################  
-
+#########################
 
 # default enabled sites (listed sites will be added to apache)
 #   + typically overwritten by inventory vars
@@ -64,11 +64,7 @@ apache_sites_disabled_list:
     git_repo: False
     }
   
-    
-# default path to private file (vars containing database credentials, &c)
-apache_sites_private_file: "{{ pcd_private_dir }}/vars/apache_sites/{{ inventory_hostname }}.yml"
-
-# default mysql credentials
+# default mysql credentials, override in private vars file
 apache_sites_mysql_login_host: localhost
 apache_sites_mysql_login_user: root
 apache_sites_mysql_login_password: ""

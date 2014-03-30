@@ -18,7 +18,8 @@ optionally provision databases + users users as well
 #  iceburg-web-servers Inventory Variables
 
 # Apache Site Definitions
-# 
+#########################
+#
 #   name: (required) site name, typically www.domain.com
 #
 #   org: (opt) site organization, defaults to {{ apache_sites_default_org }}
@@ -46,7 +47,8 @@ optionally provision databases + users users as well
 #      /assets  [ asset files - e.g. databases, photoshop mocks, &c ]
 #      /www     [ docroot ]
 #
-##################### 
+#########################
+
 apache_sites_enabled_list:
   - {
     name: www.iceburg.net,
@@ -64,10 +66,7 @@ apache_sites_disabled_list:
 ```
 
 * optionally provision mysql databases &c during site preparation by providing
-definitions in a private variable file. the location of this file is controlled
-by the `apache_sites_private_file` and defaults to: 
-"{{ pcd_private_dir }}/vars/apache_sites/{{ inventory_hostname }}.yml". 
-example private var file;
+definitions in your private variable file. example; 
 
 ```
 ---

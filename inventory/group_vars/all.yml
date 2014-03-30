@@ -8,9 +8,18 @@ pcd_base_dir: "{{ inventory_dir }}/.."
 pcd_common_dir: "{{ pcd_base_dir }}/common"
 
 pcd_private_dir: "{{ pcd_base_dir }}/private"
+pcd_private_vars: "{{ pcd_private_dir }}/vars"
 pcd_keys_dir: "{{ pcd_private_dir  }}/keys"
-pcd_vars_dir: "{{ pcd_private_dir }}/vars"
-pcd_certs_dir: "{{ pcd_vars_dir }}/ssl-certs"
+pcd_certs_dir: "{{ pcd_private_dir }}/ssl-certs"
+
+
+# Register private vars files
+#############################
+#
+# filenames are relative to {{ pcd_private_vars }} path and do not need to exist
+#
+
+private_vars_files: ["{{ inventory_hostname }}.yml"]
 
 
 # Connection defaults
