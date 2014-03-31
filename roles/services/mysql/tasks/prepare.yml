@@ -6,3 +6,20 @@
 - { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }
 - { include: prepare-redhat.yml, when: "ansible_os_family == 'RedHat'" }
 
+
+# mysql hardening tasks
+#######################
+
+- name: ensure mysql is running and starts on boot
+  service: name=mysql state=started enabled=true
+  
+#- name: set root@localhost user's password
+#  mysql_user: name=root host=localhost password={{ mysql_root_password }}
+
+#- name: set root@other_local_hosts password
+#  mysql_user: name=root host={{ item }} password={{ mysql_root_password }} login_password={{ mysql_root_password }}
+#  with_items:
+#    - 127.0.0.1
+#    - ::1
+#    - "{{ ansible_hostname }}"
+
