@@ -8,5 +8,5 @@ AllowToUpdateStatsFromBrowser=1
 # Domain Specific
 LogFile="{{ apache_log_dir  }}/sites-{{ item.org }}.log"
 SiteDomain="{{ item.name }}"
-{% if item.aliases %}HostAliases="{{ item.aliases }}"{% endif %}
+HostAliases="{{ item.aliases }}"
 

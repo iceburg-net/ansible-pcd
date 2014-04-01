@@ -48,7 +48,7 @@ awstats_htpasswd_pass: "{{ private_user_pass }}"
 #        template can be full path, or relative to awstats/templates directory.
 #
 #    awstats_alias: (opt) HostAliases line to use
-#      defaults to the site apache_alias if defined, or none.
+#      defaults to the site apache_alias if defined, or "".
 #
 #
 #####################  
