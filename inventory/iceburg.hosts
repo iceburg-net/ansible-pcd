@@ -1,6 +1,6 @@
 [iceburg]
-digome-ocean-1.iceburg.net
-digome-ocean-2.iceburg.net
+nashville-app-1.iceburg.net
+nashville-db-1.iceburg.net
 
 [iceburg-web-servers]
-digome-ocean-1.iceburg.net
+nashville-app-1.iceburg.net
