@@ -1,0 +1,7 @@
+---
+##
+# mail service deployment tasks
+#
+
+- { include: deploy-debian.yml, when: "ansible_os_family == 'Debian'" }
+- { include: deploy-redhat.yml, when: "ansible_os_family == 'RedHat'" }

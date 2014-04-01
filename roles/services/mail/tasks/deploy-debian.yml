@@ -1,0 +1,25 @@
+---
+##
+# [DEBIAN] mail service deployment tasks
+#
+
+
+# debian nullmailer package maintainer uses /etc/mailname vs. /etc/nullmailer/me
+- name: set "me" file
+  template: 
+    dest=/etc/mailname
+    src=nullmailer.me.j2
+  notify: mail test message
+
+- name: setup smtp relay remotes
+  template:
+    dest=/etc/nullmailer/remotes
+    src=nullmailer.remotes.j2
+  notify: mail test message
+  
+- name: set admin email
+  template:
+    dest=/etc/nullmailer/adminaddr
+    src=nullmailer.adminaddr.j2
+  notify: mail test message
+  

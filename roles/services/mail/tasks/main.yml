@@ -1,0 +1,9 @@
+---
+##
+#  mail service tasks 
+#
+
+- debug: msg="mail service"
+
+- { include: prepare.yml, tags: ['prepare'] }
+- { include: deploy.yml, tags: ['deploy'] }

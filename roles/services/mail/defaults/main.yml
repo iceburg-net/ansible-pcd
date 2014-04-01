@@ -1,0 +1,25 @@
+---
+##
+#  mail default vars 
+#
+
+# identity settings
+###################
+
+# administrative email (receives test mails, errors, and failures) 
+mail_mta_email: "{{ default_user_email }}"
+
+# hostname used by system messages when from not set; e.g. <user>@<mta_host>
+mail_mta_host: "{{ ansible_fqdn }}"
+
+
+# relay settings
+################
+mail_smtp_host: smtp.example.com
+mail_smtp_auth: True
+mail_smtp_user: "{{ default_user_name }}"
+mail_smtp_pass: "{{ default_user_pass }}"
+
+mail_smtp_tls: True
+mail_smtp_port: 587
+

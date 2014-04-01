@@ -14,5 +14,7 @@
      
   roles:
     - pcd-bootstrap
-    - systems/common
-    - services/php
+    #- systems/common
+    - services/mail
+    #- services/php
+    

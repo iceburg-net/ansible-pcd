@@ -1,0 +1,11 @@
+---
+##
+# mail service preparation tasks
+#
+
+- { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }
+- { include: prepare-redhat.yml, when: "ansible_os_family == 'RedHat'" }
+
+
+- name: ensure mail service is running and starts on boot
+  service: name=nullmailer state=started enabled=true

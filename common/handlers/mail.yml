@@ -1,0 +1,8 @@
+
+# common mail service
+
+- name: mail restart
+  service: name=nullmailer state=restarted
+  
+- name: mail test message
+  shell: cat /etc/motd | mail -s ansible-mail-test {{ mail_mta_email }}

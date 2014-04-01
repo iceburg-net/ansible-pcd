@@ -1,0 +1,19 @@
+---
+##
+# [DEBIAN] mail service preparation tasks 
+#
+
+- name: ensure mail service packages 
+  apt: pkg={{ item }} state=present
+  with_items:
+    - ca-certificates
+    - nullmailer
+    
+- name: remove default MTA packages
+  apt: pkg={{ item }} state=absent
+  with_items:
+    - exim4-base
+    - exim4-config
+    
+
+    

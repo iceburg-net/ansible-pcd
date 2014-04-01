@@ -1,0 +1,1 @@
+{{ mail_smtp_host }} smtp --port={{ mail_smtp_port }} {% if mail_smtp_tls %}--starttls {% endif %}{% if mail_smtp_auth %}--user={{ mail_smtp_user }} --pass={{ mail_smtp_pass }}{% endif %}
