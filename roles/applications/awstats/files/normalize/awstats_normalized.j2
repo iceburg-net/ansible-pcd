@@ -10,7 +10,7 @@ awstats_sites_normalized:
       org: "{{ item.org | default(apache_sites_default_org) }}",
       filename: "awstats.{{ config.name | default(item.name) }}.conf",
       template: "{{ config.template }}",
-      aliases: "{% if item.awstats_alias %}item.awstats_alias{% elif item.apache_alias is defined and item.apache_alias %}{{ item.apache_alias }}{% endif %}",
+      aliases: "{% if item.awstats_alias is defined %}item.awstats_alias{% elif item.apache_alias is defined and item.apache_alias %}{{ item.apache_alias }}{% else %}{{ item.name }}{% endif %}",
     }
 {% endfor %}
 {% endfor %}
