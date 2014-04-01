@@ -34,3 +34,10 @@ system_dist: debian-7
 system_fqdn: "{{ inventory_hostname }}"
 system_hostname: "{{ inventory_hostname_short }}"
 
+
+# Identity defaults
+###################
+
+default_user_name: ansible
+default_user_pass: plaintextpass
+default_user_email: "{{ default_user_name }}@localhost"

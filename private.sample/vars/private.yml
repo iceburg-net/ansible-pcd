@@ -1,5 +1,5 @@
 ---
-#  common private variables
+# common private variables
 
-private_user: ansible
-private_pass: NLu3p6qHJCYk4LA
+private_user_name: "{{ default_user_name }}"
+private_user_pass: "{{ default_user_pass }}"

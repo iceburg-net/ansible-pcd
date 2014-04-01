@@ -1,8 +1,8 @@
 ---
-# common private variable overrides
+# iceburg-web-servers private veriable overrides
 
-private_user: admin
-private_pass: yL0lW3NaoZDJgS3
+private_user_name: admin
+private_user_pass: yL0lW3NaoZDJgS3
 
 
 #  iceburg-web-servers private variables

@@ -20,10 +20,10 @@ awstats_cron_hour: 4
 
 
 # htpasswd support. override by setting awstats_htpasswd_(user|pass)
-#   defaults to private_user and private_pass from general private file
+#   defaults to private_user_name and private_user_pass from private file(s)
 awstats_htpasswd_file: "{{ awstats_site_dir }}/awstats.htpasswd"
-awstats_htpasswd_user: "{{ private_user }}"
-awstats_htpasswd_pass: "{{ private_pass }}"
+awstats_htpasswd_user: "{{ private_user_name }}"
+awstats_htpasswd_pass: "{{ private_user_pass }}"
 
 
 # awstats site definitions
