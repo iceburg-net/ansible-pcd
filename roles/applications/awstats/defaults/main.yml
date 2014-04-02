@@ -9,7 +9,7 @@ awstats_version: 7.3
 #   - configures the virtualhost where awstats will be available.
 
 awstats_site_name: stats.iceburg.net
-awstats_site_org: "{{ apache_sites_default_org }}"
+awstats_site_org: "awstats"
 awstats_site_dir: "{{ apache_sites_user_home }}/{{ awstats_site_org }}/{{ awstats_site_name }}"
 awstats_site_docroot: "{{ awstats_site_dir }}/www"
 
