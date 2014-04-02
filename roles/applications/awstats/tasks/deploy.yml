@@ -10,7 +10,7 @@
     
 - name: deploy site config(s)
   template:
-    dest={{ awstats_conf_dir }}/{{ item.filename }}
+    dest={{ awstats_conf_dir }}/awstats.{{ item.name }}.conf
     src={{ item.template }}
   with_items: awstats_sites_normalized
   

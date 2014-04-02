@@ -41,16 +41,23 @@ awstats_htpasswd_pass: "{{ private_user_pass }}"
 #
 #   org: (opt) site organization, defaults to {{ apache_sites_default_org }}
 #   
-#   awstats_configs: (opt) jinja templates to use for awstats config
+#   awstats_configs: (opt) jinja template, site name, and aliases to use for
+#      generating site awstats config file(s).
+#
 #      defined as an array to allow for sites that contain multiple sub-sites.
 #
-#      defaults to [{name: <site name>, template: 'awstats_default.j2'}]
-#        template can be full path, or relative to awstats/templates directory.
+#      default: [{name: <site name>, template: 'awstats_default.j2'}]
 #
-#    awstats_alias: (opt) HostAliases line to use
-#      defaults to the site apache_alias if defined, or "".
-#
-#
+#      example override
+####################
+#  awstats_enabled_list:
+#  - {
+#    name: www.example.com,
+#    org: iceburg,
+#    awstats_configs: [
+#      { name: www.example.com, aliases: 'example.com' },
+#      { name: forms.example.com }]
+#    }
 #####################  
 
 awstats_enabled_list: "{{ apache_sites_enabled_list }}"
