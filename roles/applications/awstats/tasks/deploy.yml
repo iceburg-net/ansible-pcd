@@ -7,12 +7,14 @@
   template:
     dest={{ awstats_conf_dir }}/common.conf
     src=common.conf
+  notify: awstats update
     
 - name: deploy site config(s)
   template:
     dest={{ awstats_conf_dir }}/awstats.{{ item.name }}.conf
     src={{ item.template }}
   with_items: awstats_sites_normalized
+  notify: awstats update
   
 - name: deploy AWStats Totals
   copy:
@@ -26,5 +28,3 @@
     password={{ awstats_htpasswd_pass }}
     path={{ awstats_htpasswd_file }}
     state=present
-  
-#@todo handler to notify when configs change.
