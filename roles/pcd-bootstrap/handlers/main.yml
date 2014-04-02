@@ -1,6 +1,6 @@
 ---
 ##
-#  apache handlers
+#  pcd-bootstrap (common) handlers
 #
 
 - { include: "{{ common_handlers }}/apache.yml"}
