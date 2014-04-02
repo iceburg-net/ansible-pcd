@@ -8,7 +8,7 @@ awstats_version: 7.3
 # passed to apache_sites via role dependency (meta/main.yml)
 #   - configures the virtualhost where awstats will be available.
 
-awstats_site_name: stats.iceburg.net
+awstats_site_name: stats.{{ ansible_fqdn }}
 awstats_site_org: "awstats"
 awstats_site_dir: "{{ apache_sites_user_home }}/{{ awstats_site_org }}/{{ awstats_site_name }}"
 awstats_site_docroot: "{{ awstats_site_dir }}/www"
