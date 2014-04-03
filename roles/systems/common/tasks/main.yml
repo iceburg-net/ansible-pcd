@@ -14,3 +14,11 @@
   yum: name={{ item }} state=present
   with_items: os_base_packages
   when: ansible_os_family == "RedHat"
+  
+- name: fetch ps_mem.py script
+  get_url:
+    dest=/usr/local/bin/ps_mem.py
+    force=yes
+    url=https://raw.github.com/pixelb/ps_mem/master/ps_mem.py
+    mode=0755
+  
