@@ -7,12 +7,20 @@ apache_sites_normalized:
 {% for item in  apache_sites_list %}
   - { name: "{{ item.name }}",
       org: "{{ item.org | default(apache_sites_default_org) }}",
-      git_repo: {% if item.git_repo is defined and item.git_repo %}"{{ item.git_repo }}"{% else %}False{% endif %},
-      branches: {{ item.branches | default("['master']") }},
-      dir: "{{ apache_sites_user_home }}/{{ item.org | default(apache_sites_default_org) }}/{{ item.name }}",
-      docroot: "{{ item.docroot | default(apache_sites_default_docroot) }}",
       apache_config: "{{ item.apache_config | default(apache_sites_default_apache_config) }}",
       apache_alias: {% if item.apache_alias is defined and item.apache_alias %}"{{ item.apache_alias }}"{% else %}False{% endif %},
+      path: {{ apache_sites_user_home }}/{{ item.org | default(apache_sites_default_org) }}/{{ item.name }},
+      docroot: "{{ item.docroot | default(apache_sites_default_docroot) }}",
       mysql: {% if apache_sites_mysql_list[item.name] is defined %}{{ apache_sites_mysql_list[item.name] }}{% else %}[]{% endif %},
+      
+      {% if item.git_repo is defined and item.git_repo %}
+      git: True,
+      git_repo: "{{ item.git_repo }}",
+      git_branch: {{ item.git_branch | default("master") }},
+      git_path: "{{ apache_sites_git_path }}/{{ item.git_repo | regex_replace('[\ \<\>\|\\\/\:\,\;\&\*\?]*','') }}-{{ item.git_branch | default("master") }}",
+      {% else %}
+      git: False,
+      {% endif %}
+      
     }
 {% endfor %}

@@ -3,30 +3,33 @@
 # apache_sites deployment tasks
 #
 
-- name: ensure site destination directories
-  file: path={{ item.dir }} state=directory
-  when: apache_sites_site is not defined or apache_sites_site == item.name
+
+- name: ensure organization directories
+  file: path={{ apache_sites_user_home }}/{{ item.org }} state=directory
+  when: apache_sites_site is not defined or apache_sites_site == item.0.name
   with_items: apache_sites_normalized
-  
+
 - name: shallow clone sites
   git:
     depth=1
-    dest={{ item.0.dir }}/{{ item.1 }}
-    repo={{ item.0.git_repo }}
-    version={{ item.1 }}
+    dest={{ item.git_path }}
+    repo={{ item.git_repo }}
+    version={{ item.git_branch }}
     accept_hostkey=yes
-  when: item.0.git_repo and (apache_sites_site is not defined or apache_sites_site == item.0.name)
-  with_subelements:
-    - apache_sites_normalized
-    - branches
+  when: item.git and (apache_sites_site is not defined or apache_sites_site == item.0.name)
+  with_items: apache_sites_normalized
   remote_user: siteop
   
-- name: ensure docroot exists on sites not checked out from a repository
-  file:
-    path={{ item.dir }}/{{ item.docroot }}
-    state=directory
-  when: not item.git_repo
+- name: ensure site destination directories link to git checkouts
+  file: dest={{ item.path }} src={{ item.git_path }} state=link
+  when: item.git and (apache_sites_site is not defined or apache_sites_site == item.0.name)
   with_items: apache_sites_normalized
+  
+- name: ensure site destination directories
+  file: path={{ item.path }}/{{ item.docroot }} state=directory
+  when: not item.git and (apache_sites_site is not defined or apache_sites_site == item.0.name)
+  with_items: apache_sites_normalized
+  
   
 - name: add site apache configs 
   template:

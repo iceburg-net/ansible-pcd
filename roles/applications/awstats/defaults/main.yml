@@ -39,7 +39,7 @@ awstats_htpasswd_pass: "{{ private_user_pass }}"
 #
 #   name: (required) SiteDomain, typically www.domain.com
 #
-#   org: (opt) site organization, defaults to {{ apache_sites_default_org }}
+#   org: (opt) site organization, defaults to {{ default_org }}
 #   
 #   awstats_configs: (opt) jinja template, site name, and aliases to use for
 #      generating site awstats config file(s).

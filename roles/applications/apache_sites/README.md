@@ -15,54 +15,45 @@ optionally provision databases + users users as well
 
 ```
 ---
-#  iceburg-web-servers Inventory Variables
+#  nashville-web-servers Inventory Variables
 
 # Apache Site Definitions
 #########################
 #
-#   name: (required) site name, typically www.domain.com
+#   name: (required, unique) apache ServerName, typically www.domain.com
 #
 #   org: (opt) site organization, defaults to {{ apache_sites_default_org }}
 #
-#   apache_alias: (opt) apache ServerAlias line, e.g. "domain.com alias.net"
+#   apache_alias: (opt) apache ServerAlias, e.g. "domain.com domain.net"
 #
-#   apache_config: (opt) template to use for apache config / virtualhost def.
-#      defaults to virtualhost_default.j2.
-#        can be full path, or relative to apache_sites/templates directory.
+#   apache_config: (opt) template to use for apache config (virtualhost def),
+#     defaults to "virtualhost_default.j2". relative to apache_sites/templates
 #
-#   git_repo: (opt) git repository containing site files
+#   git_repo: (opt) git repository (clone URL) containing site(s)
 #
-#   branches: (opt) branches to checkout, defined as an array.
-#     defaults to ["master"]. branches are checked out as; 
-#       {{ apache_sites_user_home }}/<org>/<name>/<branch> }}  e.g.
-#       /sites/iceburg/www.iceburg.net/master
+#   git_branch: (opt) branch to checkout, defaults to "master"
+#     target {{ apache_sites_user_home }}/git-checkouts/<git_repo>-<git_branch>
+#     creates {{ apache_sites_user_home }}/<org>/<name>-<git_branch> as link,
+#     e.g. /sites/ansible/www.domain.com  --> 
+#          /sites/ansible/git-checkouts/<git_repo>-<git_branch>
 #
 #   docroot: (opt) document root / path to public web files within repository,
-#      defaults to "www", can be empty. "www" represents;
-#        {{ apache_sites_user_home }}/<org>/<name>/<branch>/www  e.g.
-#        DocumentRoot /sites/iceburg/www.iceburg.net/master/www
-#
-#      common repository structure 
-#      /  
-#      /assets  [ asset files - e.g. databases, photoshop mocks, &c ]
-#      /www     [ docroot ]
+#      defaults to "www", can be empty string. e.g.
+#      DocumentRoot /sites/ansible/www.domain.com-master/www
 #
 #########################
+
 
 apache_sites_enabled_list:
   - {
     name: www.iceburg.net,
     org: iceburg, 
-    repo: "git@github.com:iceburg-net/www.iceburg.net.git",
-    branches: ["master", "stage"] 
+    git_repo: "git@github.com:iceburg-net/www.iceburg.net.git",
     }
 
 apache_sites_disabled_list:
-  - {
-    name: dev.example.com,
-    org: "{{ apache_sites_default_org }}",
-    repo: False
-    }
+  - www.domain.com
+  - another.disabled-domain.com
 ```
 
 * optionally provision mysql databases &c during site preparation by providing
@@ -70,7 +61,7 @@ definitions in your private variable file. example;
 
 ```
 ---
-#  iceburg-web-servers apache_sites private variables
+#  nashville-web-servers apache_sites private variables
 
 
 apache_sites_mysql_login_host: localhost
