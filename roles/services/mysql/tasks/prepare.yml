@@ -7,6 +7,14 @@
 - { include: prepare-redhat.yml, when: "ansible_os_family == 'RedHat'" }
 
 
+- name: fetch mysqltuner.pl script
+  get_url:
+    dest=/usr/local/bin/mysqltuner.pl
+    force=yes
+    url=https://raw.githubusercontent.com/major/MySQLTuner-perl/master/mysqltuner.pl
+    mode=0755
+
+
 # mysql hardening tasks
 #######################
 
@@ -22,4 +30,7 @@
 #    - 127.0.0.1
 #    - ::1
 #    - "{{ ansible_hostname }}"
+
+
+
 
