@@ -3,6 +3,9 @@
 #  apache_sites default vars 
 #
 
+
+#@ todo include support for includes in apache config / virtualhost template
+
 apache_sites_user: siteop
 apache_sites_user_home: /sites
 apache_sites_user_key: "{{ pcd_keys_dir }}/{{ apache_sites_default_org }}+{{ apache_sites_user }}.key"
@@ -36,6 +39,11 @@ apache_sites_default_apache_config: virtualhost_default.j2
 #   docroot: (opt) document root / path to public web files within repository,
 #      defaults to "www", can be empty string. e.g.
 #      DocumentRoot /sites/ansible/www.domain.com-master/www
+#
+#   allow_override: (opt) True (AllowOverride All) or False (AllowOverride None)
+#      defaults to False.
+#      apache_sites recommends disabling overrides for performance. 
+#      consider adding your .htaccess content via an include.
 #
 #########################
 

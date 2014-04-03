@@ -8,6 +8,10 @@
         DocumentRoot {{ item.path }}/{{ item.docroot }}
         <Directory {{ item.path }}/{{ item.docroot }}>
                 Options FollowSymLinks
-                AllowOverride None
+                
+                # apache_sites recommends disabling overrides for performance. 
+                #   consider adding your .htaccess content via an include,
+                #   or enable by setting allow_override: True in site definition
+                AllowOverride {{ item.allow_override }}
         </Directory>
 </VirtualHost>

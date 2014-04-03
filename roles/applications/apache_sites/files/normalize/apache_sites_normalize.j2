@@ -12,6 +12,7 @@ apache_sites_normalized:
       path: {{ apache_sites_user_home }}/{{ item.org | default(apache_sites_default_org) }}/{{ item.name }},
       docroot: "{{ item.docroot | default(apache_sites_default_docroot) }}",
       mysql: {% if apache_sites_mysql_list[item.name] is defined %}{{ apache_sites_mysql_list[item.name] }}{% else %}[]{% endif %},
+      allow_override: "{% if item.apache_alias is defined and item.apache_alias %}All{% else %}None{% endif %}",
       
       {% if item.git_repo is defined and item.git_repo %}
       git: True,
