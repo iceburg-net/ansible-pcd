@@ -22,6 +22,14 @@
   sudo_user: "{{ user_add.name }}"
   when: user_add.key
   
+- name: user_add > set public key
+  copy:
+    dest={{ user_add.home | default('/home/' + user_add.name) }}/.ssh/id_rsa.pub
+    mode=0600
+    src={{ user_add.key }}.pub
+  sudo: yes
+  sudo_user: "{{ user_add.name }}"
+  when: user_add.key
   
 - name: user_add > ensure github vars
   include_vars: "{{ common_vars }}/github.yml"
