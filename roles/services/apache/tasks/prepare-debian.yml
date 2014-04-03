@@ -16,6 +16,14 @@
     - rewrite
   notify:
     - apache restart
+    
+- name: disable modules (save on memory)
+  command: a2dismod {{ item }} removes=/etc/apache2/mods-enabled/{{ item }}.load
+  with_items:
+    - autoindex
+    - status
+  notify:
+    - apache restart
 
 - name: disable default sites
   command: a2dissite {{ item }} removes=/etc/apache2/sites-enabled/{{ item }}
@@ -30,3 +38,5 @@
   file:
     path={{ os_apache_conf_dir }}/security
     state=absent
+    
+    
