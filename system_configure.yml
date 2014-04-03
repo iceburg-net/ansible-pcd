@@ -5,8 +5,8 @@
 #  playbooks and applies common services.
 #
 
-- name: "system configuration - iceburg-web-servers"
-  hosts: iceburg-web-servers
+- name: "system configuration - nashville-web-servers"
+  hosts: nashville-web-servers
   remote_user: root
   
   vars_files:

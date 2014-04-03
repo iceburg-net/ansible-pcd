@@ -1,5 +1,8 @@
 ---
-#  iceburg-web-servers Inventory Variables
+#  nashville-web-servers Inventory Variables
+
+default_org: iceburg-nashville
+
 
 # Register private vars files
 #############################
@@ -8,7 +11,7 @@
 #
 
 private_vars_files: [
-  "iceburg-web-servers.yml",
+  "nashville-web-servers.yml",
   "{{ inventory_hostname }}.yml"]
 
 

@@ -1,11 +1,11 @@
 ---
-# iceburg-web-servers private veriable overrides
+# nashville-web-servers private veriable overrides
 
 private_user_name: admin
 private_user_pass: yL0lW3NaoZDJgS3
 
 
-#  iceburg-web-servers private variables
+#  nashville-web-servers private variables
 
 apache_sites_mysql_login_host: localhost
 apache_sites_mysql_login_user: root

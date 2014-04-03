@@ -3,8 +3,8 @@
 # prepare application(s)
 #
 
-- name: "application preparation - iceburg-web-servers"
-  hosts: iceburg-web-servers
+- name: "application preparation - nashville-web-servers"
+  hosts: nashville-web-servers
   remote_user: root
   
   vars_files:
