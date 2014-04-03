@@ -29,6 +29,9 @@ optionally provision databases + users users as well
 #   apache_config: (opt) template to use for apache config (virtualhost def),
 #     defaults to "virtualhost_default.j2". relative to apache_sites/templates
 #
+#   apache_config_includes: (opt) files to include in the virtualhost definition
+#     defaults to: []
+#
 #   git_repo: (opt) git repository (clone URL) containing site(s)
 #
 #   git_branch: (opt) branch to checkout, defaults to "master"
@@ -40,6 +43,11 @@ optionally provision databases + users users as well
 #   docroot: (opt) document root / path to public web files within repository,
 #      defaults to "www", can be empty string. e.g.
 #      DocumentRoot /sites/ansible/www.domain.com-master/www
+#
+#   allow_override: (opt) True (AllowOverride All) or False (AllowOverride None)
+#      defaults to False.
+#      apache_sites recommends disabling overrides for performance. 
+#      consider adding your .htaccess content via an include.
 #
 #########################
 

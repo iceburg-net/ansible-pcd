@@ -1,7 +1,8 @@
 <VirtualHost *:80>
         ServerName {{ item.name }}
-        
-        {% if item.apache_alias %}ServerAlias {{ item.apache_alias }}{% endif %}
+        {% if item.apache_alias and item.apache_alias != item.name %}
+		ServerAlias {{ item.apache_alias }}
+        {% endif %}
         
         CustomLog {{ apache_log_dir  }}/sites-{{ item.org }}.log {{ apache_sites_default_apache_logformat }}
         
