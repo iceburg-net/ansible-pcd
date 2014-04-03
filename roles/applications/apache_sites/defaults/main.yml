@@ -56,4 +56,4 @@ apache_sites_mysql_login_password: ""
 apache_sites_mysql_list: { }
 
 # default path git sites are checked into 
-apache_sites_git_path: "{{ apache_sites_user_home }}/git-checkouts"
+apache_sites_git_path: "{{ apache_sites_user_home }}/.git-apache_sites"
