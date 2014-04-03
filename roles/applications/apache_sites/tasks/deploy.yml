@@ -30,6 +30,11 @@
   when: not item.git and (apache_sites_site is not defined or apache_sites_site == item.0.name)
   with_items: apache_sites_normalized
   
+#- name: register site includes
+#  template:
+#    src={{ item }}
+#    dest={{ apache_sites_include_path }}/{{ item | basename }}
+#  with_fileglob: "conf/*.conf"
   
 - name: add site apache configs 
   template:

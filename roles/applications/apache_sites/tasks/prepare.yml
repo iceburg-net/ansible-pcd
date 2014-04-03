@@ -39,3 +39,13 @@
   with_subelements:
     - apache_sites_normalized
     - mysql
+
+- name: ensure site include path writable by {{ os_apache_config_group }} group
+  file: 
+    path={{ apache_sites_include_path }}
+    state=directory
+    owner=root
+    group={{ os_apache_config_group }}
+    mode=0775
+
+

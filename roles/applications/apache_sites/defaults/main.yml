@@ -68,3 +68,4 @@ apache_sites_mysql_list: { }
 
 # default path git sites are checked into 
 apache_sites_git_path: "{{ apache_sites_user_home }}/.git-apache_sites"
+apache_sites_include_path: "{{ os_apache_dir }}/apache_sites-includes"
