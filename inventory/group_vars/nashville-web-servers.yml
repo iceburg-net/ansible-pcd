@@ -46,11 +46,13 @@ apache_sites_enabled_list:
     name: www.iceburg.net,
     org: iceburg,
     git_repo: "git@github.com:iceburg-net/www.iceburg.net.git",
+    docroot: www-1,
     }
   - {
     name: staging.iceburg.net,
     org: iceburg,
     git_repo: "git@github.com:iceburg-net/www.iceburg.net.git",
-    git_branch: stage
+    git_branch: stage,
+    docroot: www-1,
     }
 
