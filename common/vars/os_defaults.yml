@@ -2,7 +2,7 @@
 # default os vars
 
 
-# apache
+# system
 ########
 
 os_base_packages:
@@ -12,6 +12,17 @@ os_base_packages:
   
 os_init_config_group: initconf
 os_init_config_dir: /etc/init
+
+
+
+# apache
+########
+
+os_apache_dir: "/etc/{{ os_apache_service }}"
+os_apache_conf_dir: "{{ os_apache_dir }}/conf.d"
+os_apache_ssl_dir: "{{ os_apache_dir }}/ssl-certificates"
+os_apache_sites_dir: "{{ os_apache_dir }}/sites-available"
+os_apache_sites_enabled_dir: "{{ os_apache_dir }}/sites-enabled"
 
 os_apache_config_group: apacheconf
 os_apache_apachectl_file: /usr/sbin/apachectl

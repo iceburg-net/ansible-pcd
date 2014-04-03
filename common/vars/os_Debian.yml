@@ -19,12 +19,6 @@ os_apache_packages:
 os_apache_user: www-data
 os_apache_group: www-data
 os_apache_service: apache2
-os_apache_config_group: apacheconf
-
-os_apache_conf_dir: /etc/apache2/conf.d
-os_apache_ssl_dir: /etc/apache2/ssl-certificates
-os_apache_sites_dir: /etc/apache2/sites-available
-os_apache_sites_enabled_dir: /etc/apache2/sites-enabled
 
 
 # mysql

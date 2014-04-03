@@ -28,6 +28,9 @@ apache_sites_default_apache_config: virtualhost_default.j2
 #   apache_config: (opt) template to use for apache config (virtualhost def),
 #     defaults to "virtualhost_default.j2". relative to apache_sites/templates
 #
+#   apache_config_includes: (opt) files to include in the virtualhost definition
+#     defaults to: []
+#
 #   git_repo: (opt) git repository (clone URL) containing site(s)
 #
 #   git_branch: (opt) branch to checkout, defaults to "master"
