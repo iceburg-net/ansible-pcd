@@ -9,3 +9,6 @@
 #
 mysql_root_password: "{{ private_pass }}"
 
+
+mysql_config_template: my.cnf_default.j2
+

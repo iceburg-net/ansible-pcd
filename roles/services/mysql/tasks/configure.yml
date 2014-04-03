@@ -4,8 +4,8 @@
 #
 
 - name: update my.cnf
-  copy: 
-    src=debian-7.my.cnf
+  template: 
+    src={{ mysql_config_template }}
     dest=/etc/mysql/my.cnf
   notify: mysql restart
   
