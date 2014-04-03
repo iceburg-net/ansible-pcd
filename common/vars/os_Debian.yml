@@ -26,8 +26,6 @@ os_apache_ssl_dir: /etc/apache2/ssl-certificates
 os_apache_sites_dir: /etc/apache2/sites-available
 os_apache_sites_enabled_dir: /etc/apache2/sites-enabled
 
-os_apache_security_file: "{{ os_apache_conf_dir }}/security" 
-
 
 # mysql
 #######

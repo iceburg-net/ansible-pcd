@@ -25,3 +25,8 @@
     - 000-default
   notify:
     - apache restart
+
+- name: remove {{ os_apache_conf_dir }}/security default conf
+  file:
+    path={{ os_apache_conf_dir }}/security
+    state=absent

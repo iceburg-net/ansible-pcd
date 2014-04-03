@@ -24,9 +24,6 @@ os_apache_ssl_dir: /etc/httpd/ssl-certificates
 os_apache_sites_dir: /etc/httpd/sites-available
 os_apache_sites_enabled_dir: /etc/httpd/sites-enabled
 
-os_apache_security_file: "{{ os_apache_conf_dir }}/security.conf" 
-
-
 # php
 #####
 
