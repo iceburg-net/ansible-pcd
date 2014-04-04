@@ -31,6 +31,14 @@ optionally provision databases + users users as well
 #
 #   apache_config_includes: (opt) files to include in the virtualhost definition
 #     defaults to: []
+#  
+#   ssl: (opt) True/False to enable SSL
+#      defaults to False. When True, apache_config will default to 
+#      "virtualhost_default_ssl.j2", with http traffic redirected to https
+#
+#   ssl_ip: (opt) ip address of SSL host (e.g. <VirtualHost <ssl_ip>:443>)
+#   ssl_key: (opt) key file, defaults to {{pcd_certs_dir }}/<name>.key
+#   ssl_crt: (opt) certificate file, defaults to  {{pcd_certs_dir }}/<name>.crt
 #
 #   git_repo: (opt) git repository (clone URL) containing site(s)
 #

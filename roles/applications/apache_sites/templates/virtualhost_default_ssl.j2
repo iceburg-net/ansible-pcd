@@ -1,0 +1,43 @@
+<VirtualHost *:{{ apache_http_port }}>
+        ServerName {{ item.name }}
+        {% if item.apache_alias and item.apache_alias != item.name %}
+		ServerAlias {{ item.apache_alias }}
+        {% endif %}
+        
+        CustomLog /dev/null {{ apache_sites_default_apache_logformat }}
+        Redirect 301 / https://{{ item.name }}/
+</VirtualHost>
+
+<IfModule mod_ssl.c>
+<VirtualHost {{ item.ssl_ip }}:{{ apache_https_port }}>
+        ServerName {{ item.name }}
+        {% if item.apache_alias and item.apache_alias != item.name %}
+		ServerAlias {{ item.apache_alias }}
+        {% endif %}
+        
+        CustomLog {{ apache_log_dir  }}/sites-{{ item.org }}.log {{ apache_sites_default_apache_logformat }}
+        
+        SSLEngine on
+        SSLCertificateFile    {{ os_apache_ssl_dir }}/{{ item.ssl_crt | basename }}
+        SSLCertificateKeyFile {{ os_apache_ssl_dir }}/{{ item.ssl_key | basename }}
+        
+        <FilesMatch "\.(cgi|php)$">
+                SSLOptions +StdEnvVars
+        </FilesMatch>
+        
+        DocumentRoot {{ item.path }}/{{ item.docroot }}
+        <Directory {{ item.path }}/{{ item.docroot }}>
+                Options FollowSymLinks
+                
+                # apache_sites recommends disabling overrides for performance. 
+                #   consider adding your .htaccess content via an include,
+                #   or enable by setting allow_override: True in site definition
+                AllowOverride {{ item.allow_override }}
+        </Directory>
+        
+        {% for filename in item.apache_config_includes %}
+        {% include "includes/" + filename + ".j2" %}
+        {% endfor %}
+        
+</VirtualHost>
+</IfModule>

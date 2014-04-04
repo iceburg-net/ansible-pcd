@@ -6,7 +6,7 @@
 
 - name: ensure organization directories
   file: path={{ apache_sites_user_home }}/{{ item.org }} state=directory
-  when: apache_sites_site is not defined or apache_sites_site == item.0.name
+  when: apache_sites_site is not defined or apache_sites_site == item.name
   with_items: apache_sites_normalized
 
 - name: shallow clone sites
@@ -16,25 +16,29 @@
     repo={{ item.git_repo }}
     version={{ item.git_branch }}
     accept_hostkey=yes
-  when: item.git and (apache_sites_site is not defined or apache_sites_site == item.0.name)
+  when: item.git and (apache_sites_site is not defined or apache_sites_site == item.name)
   with_items: apache_sites_normalized
   remote_user: siteop
   
 - name: ensure site destination directories link to git checkouts
   file: dest={{ item.path }} src={{ item.git_path }} state=link
-  when: item.git and (apache_sites_site is not defined or apache_sites_site == item.0.name)
+  when: item.git and (apache_sites_site is not defined or apache_sites_site == item.name)
   with_items: apache_sites_normalized
   
 - name: ensure site destination directories
   file: path={{ item.path }}/{{ item.docroot }} state=directory
-  when: not item.git and (apache_sites_site is not defined or apache_sites_site == item.0.name)
+  when: not item.git and (apache_sites_site is not defined or apache_sites_site == item.name)
   with_items: apache_sites_normalized
   
-#- name: register site includes
-#  template:
-#    src={{ item }}
-#    dest={{ apache_sites_include_path }}/{{ item | basename }}
-#  with_fileglob: "conf/*.conf"
+- name: enssure site ssl keys
+  copy: dest={{ os_apache_ssl_dir }}/{{ item.ssl_key | basename }} src={{ item.ssl_key }}
+  when: item.ssl and (apache_sites_site is not defined or apache_sites_site == item.name)
+  with_items: apache_sites_normalized
+  
+- name: enssure site ssl certs
+  copy: dest={{ os_apache_ssl_dir }}/{{ item.ssl_crt | basename }} src={{ item.ssl_crt }}
+  when: item.ssl and (apache_sites_site is not defined or apache_sites_site == item.name)
+  with_items: apache_sites_normalized
   
 - name: add site apache configs 
   template:

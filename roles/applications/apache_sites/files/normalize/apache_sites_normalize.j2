@@ -15,6 +15,16 @@ apache_sites_normalized:
       mysql: {% if apache_sites_mysql_list[item.name] is defined %}{{ apache_sites_mysql_list[item.name] }}{% else %}[]{% endif %},
       allow_override: "{% if item.allow_override is defined and item.allow_override %}All{% else %}None{% endif %}",
       
+      {% if item.ssl is defined and item.ssl %}
+      ssl: True,
+      ssl_ip: "{{ item.ssl_ip | default(ansible_default_ipv4.address) }}",
+      ssl_key: "{{ item.ssl_key | default(pcd_certs_dir + '/' + item.name + '.key') }}",
+      ssl_crt: "{{ item.ssl_crt | default(pcd_certs_dir + '/' + item.name + '.crt') }}",
+      apache_config: "{{ item.apache_config | default(apache_sites_default_apache_config_ssl) }}",
+      {% else %}
+      ssl: False,
+      {% endif %}
+      
       {% if item.git_repo is defined and item.git_repo %}
       git: True,
       git_repo: "{{ item.git_repo }}",
