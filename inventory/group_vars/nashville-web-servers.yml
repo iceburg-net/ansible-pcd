@@ -30,11 +30,15 @@ private_vars_files: [
 #   apache_config_includes: (opt) files to include in the virtualhost definition
 #     defaults to: []
 #  
+#   ip: (opt) ip address (e.g. <VirtualHost <ip>:<port>), defaults to "*"
+#   port: (opt) port, defaults to {{ apache_http_port }}
+#
 #   ssl: (opt) True/False to enable SSL
 #      defaults to False. When True, apache_config will default to 
 #      "virtualhost_default_ssl.j2", with http traffic redirected to https
 #
-#   ssl_ip: (opt) ip address of SSL host (e.g. <VirtualHost <ssl_ip>:443>)
+#   ssl_ip: (opt) SSL ip (<VirtualHost <ssl_ip>:<ssl_port>), defaults to "*"/SNI
+#   ssl_port: (opt) port, defaults to {{ apache_https_port }}
 #   ssl_key: (opt) key file, defaults to {{pcd_certs_dir }}/<name>.key
 #   ssl_crt: (opt) certificate file, defaults to  {{pcd_certs_dir }}/<name>.crt
 #

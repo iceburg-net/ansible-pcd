@@ -1,4 +1,4 @@
-<VirtualHost *:{{ apache_http_port }}>
+<VirtualHost {{ item.ip }}:{{ item.port }}>
         ServerName {{ item.name }}
         {% if item.apache_alias and item.apache_alias != item.name %}
 		ServerAlias {{ item.apache_alias }}
