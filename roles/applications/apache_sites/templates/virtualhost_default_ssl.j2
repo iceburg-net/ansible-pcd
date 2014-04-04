@@ -11,9 +11,6 @@
 <IfModule mod_ssl.c>
 <VirtualHost {{ item.ssl_ip }}:{{ apache_https_port }}>
         ServerName {{ item.name }}
-        {% if item.apache_alias and item.apache_alias != item.name %}
-		ServerAlias {{ item.apache_alias }}
-        {% endif %}
         
         CustomLog {{ apache_log_dir  }}/sites-{{ item.org }}.log {{ apache_sites_default_apache_logformat }}
         
