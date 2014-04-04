@@ -34,9 +34,14 @@
   notify:
     - apache restart
 
-- name: remove {{ os_apache_conf_dir }}/security default conf
-  file:
-    path={{ os_apache_conf_dir }}/security
-    state=absent
+- name: remove default configs
+  file: path={{ os_apache_conf_dir }}/{{ item }} state=absent
+  with_items:
+    - security
+  notify:
+    - apache restart
     
-    
+- name: prefer conf.d/ports.conf over default ports.conf
+  lineinfile: dest=/etc/apache2/apache2.conf regexp="^#?Include ports\.conf" line="#Include ports.conf" state=present
+  notify:
+    - apache restart
