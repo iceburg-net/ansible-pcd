@@ -6,7 +6,7 @@
 # /assets/.htaccess
 # /cms/.htaccess
 # /sapphire/.htaccess
-
+# /mysite/.htaccess
 
 <Directory {{ item.path }}/{{ item.docroot }}>
 	<Files *.ss>
@@ -36,6 +36,12 @@
 	        RewriteCond %{REQUEST_FILENAME} !-f
 	        RewriteRule .* sapphire/main.php?url=%1&%{QUERY_STRING} [L]
 	</IfModule>
+</Directory>
+
+<Directory {{ item.path }}/{{ item.docroot }}/mysite>
+	<FilesMatch "\.(php|php3|php4|php5|phtml|inc)$">
+        Deny from all
+	</FilesMatch>
 </Directory>
 
 
