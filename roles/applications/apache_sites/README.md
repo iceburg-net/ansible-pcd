@@ -34,7 +34,10 @@ optionally provision databases + users users as well
 #
 #   apache_serveradmin: (opt) apache ServerAdmin, e.g. "webmaster@domain.com",
 #     default_user_email, override via apache_sites_default_apache_serveradmin
-#  
+#
+#   access_logfile: (opt) apache CustomLog target, e.g. "/dev/null"
+#     defaults to: {{ apache_log_dir  }}/sites-{{ item.org }}.log 
+#
 #   ip: (opt) ip address (e.g. <VirtualHost <ip>:<port>), defaults to "*"
 #   port: (opt) port, defaults to {{ apache_http_port }}
 #

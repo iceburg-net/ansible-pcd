@@ -5,7 +5,7 @@
         {% endif %}
         ServerAdmin {{ item.apache_serveradmin }}
         
-        CustomLog {{ apache_log_dir  }}/sites-{{ item.org }}.log {{ apache_sites_default_apache_logformat }}
+        CustomLog {{ item.access_logfile }} {{ apache_sites_default_apache_logformat }}
         
         DocumentRoot {{ item.path }}/{{ item.docroot }}
         <Directory {{ item.path }}/{{ item.docroot }}>

@@ -11,6 +11,7 @@ apache_sites_normalized:
       apache_config_includes: {{ item.apache_config_includes | default([]) }},
       apache_alias: "{% if item.apache_alias is defined and item.apache_alias %}{{ item.apache_alias }}{% else %}{{ item.name | regex_replace('^www\.','') }}{% endif %}",
       apache_serveradmin: "{{ item.apache_serveradmin | default(apache_sites_default_apache_serveradmin) }}",
+      access_logfile: "{{ item.access_logfile | default(apache_log_dir + '/sites-' + item.org | default(apache_sites_default_org) + '.log' ) }}",
       path: {{ apache_sites_user_home }}/{{ item.org | default(apache_sites_default_org) }}/{{ item.name }},
       docroot: "{{ item.docroot | default(apache_sites_default_docroot) }}",
       mysql: {% if apache_sites_mysql_list[item.name] is defined %}{{ apache_sites_mysql_list[item.name] }}{% else %}[]{% endif %},
