@@ -29,6 +29,9 @@ private_vars_files: [
 #
 #   apache_config_includes: (opt) files to include in the virtualhost definition
 #     defaults to: []
+#
+#   apache_serveradmin: (opt) apache ServerAdmin, e.g. "webmaster@domain.com",
+#     default_user_email, override via apache_sites_default_apache_serveradmin
 #  
 #   ip: (opt) ip address (e.g. <VirtualHost <ip>:<port>), defaults to "*"
 #   port: (opt) port, defaults to {{ apache_http_port }}
@@ -74,8 +77,7 @@ apache_sites_enabled_list:
     git_repo: "git@github.com:iceburg-net/www.iceburg.net.git",
     git_branch: stage,
     docroot: www-1,
-    apache_config_includes: ['silverstripe-3'],
+#    apache_config_includes: ['silverstripe-3'],
     ssl: True,
-    ssl_ip: 10.0.0.33,
+#    ssl_ip: 10.0.0.33,
     }
-
