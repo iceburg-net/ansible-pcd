@@ -46,17 +46,25 @@
     src={{ item.apache_config }}
   when: apache_sites_site is not defined or apache_sites_site == item.name
   with_items: apache_sites_normalized
-  register: changed_apache_sites
+#  register: changed_apache_sites
   notify: 
     - apache reload
     
-- name: enable [changed] apache sites
+#- name: enable [changed] apache sites
+#  file:
+#    state=link 
+#    src={{ os_apache_sites_dir }}/{{ item.item.name }}
+#    dest={{ os_apache_sites_enabled_dir }}/{{ item.item.name }}
+#  when: item.changed == True 
+#  with_items: changed_apache_sites.results
+  
+- name: enable apache sites
   file:
     state=link 
-    src={{ os_apache_sites_dir }}/{{ item.item.name }}
-    dest={{ os_apache_sites_enabled_dir }}/{{ item.item.name }}
-  when: item.changed == True 
-  with_items: changed_apache_sites.results
+    src={{ os_apache_sites_dir }}/{{ item.name }}
+    dest={{ os_apache_sites_enabled_dir }}/{{ item.name }}
+  when: apache_sites_site is not defined or apache_sites_site == item.name
+  with_items: apache_sites_normalized
 
 - name: disable apache sites
   file:
