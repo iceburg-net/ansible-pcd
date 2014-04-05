@@ -1,5 +1,6 @@
 <VirtualHost *:{{ apache_http_port }}>
 	ServerName {{ awstats_site_name }}
+	ServerAdmin {{ default_user_email }}
 	
 	DocumentRoot {{ awstats_site_docroot }}
 	<Directory {{ awstats_site_docroot }}>

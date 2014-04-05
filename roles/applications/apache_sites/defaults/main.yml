@@ -15,6 +15,8 @@ apache_sites_default_org: "{{ default_org }}"
 apache_sites_default_apache_logformat: awstats 
 apache_sites_default_apache_config: virtualhost_default.j2
 apache_sites_default_apache_config_ssl: virtualhost_default_ssl.j2
+apache_sites_default_apache_serveradmin: "{{ default_user_email }}"
+
 
 
 # Apache Site Definitions
@@ -31,6 +33,9 @@ apache_sites_default_apache_config_ssl: virtualhost_default_ssl.j2
 #
 #   apache_config_includes: (opt) files to include in the virtualhost definition
 #     defaults to: []
+#
+#   apache_serveradmin: (opt) apache ServerAdmin, e.g. "webmaster@domain.com",
+#     default_user_email, override via apache_sites_default_apache_serveradmin
 #  
 #   ip: (opt) ip address (e.g. <VirtualHost <ip>:<port>), defaults to "*"
 #   port: (opt) port, defaults to {{ apache_http_port }}

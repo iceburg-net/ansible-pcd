@@ -31,6 +31,9 @@ optionally provision databases + users users as well
 #
 #   apache_config_includes: (opt) files to include in the virtualhost definition
 #     defaults to: []
+#
+#   apache_serveradmin: (opt) apache ServerAdmin, e.g. "webmaster@domain.com",
+#     default_user_email, override via apache_sites_default_apache_serveradmin
 #  
 #   ip: (opt) ip address (e.g. <VirtualHost <ip>:<port>), defaults to "*"
 #   port: (opt) port, defaults to {{ apache_http_port }}

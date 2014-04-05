@@ -3,6 +3,7 @@
         {% if item.apache_alias and item.apache_alias != item.name %}
 		ServerAlias {{ item.apache_alias }}
         {% endif %}
+        ServerAdmin {{ item.apache_serveradmin }}
         
         CustomLog {{ apache_log_dir  }}/sites-{{ item.org }}.log {{ apache_sites_default_apache_logformat }}
         
