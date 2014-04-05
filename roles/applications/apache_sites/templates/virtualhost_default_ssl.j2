@@ -5,7 +5,7 @@
         {% endif %}
         ServerAdmin {{ item.apache_serveradmin }}
         
-        CustomLog /dev/null
+        CustomLog /dev/null {{ apache_sites_default_apache_logformat }}
         Redirect 301 / https://{{ item.name }}/
 </VirtualHost>
 
