@@ -1,7 +1,29 @@
 ---
 ##
-# mysql preparation tasks
+# mysql configuration tasks
 #
+
+- name: fetch mysqltuner.pl script
+  get_url:
+    dest=/usr/local/bin/mysqltuner.pl
+    force=yes
+    url=https://raw.githubusercontent.com/major/MySQLTuner-perl/master/mysqltuner.pl
+    mode=0755
+    
+- name: copy over defragmentation script
+  copy:
+    src="defrag_mysql.sh"
+    dest={{ mysql_defrag_script }}
+    mode=0755
+    
+- name: schedule defragmentation of databases
+  cron: 
+    name="defragment mysql databases"
+    job={{ mysql_defrag_script }}
+    minute={{ mysql_defrag_minute }}
+    hour={{ mysql_defrag_hour }}
+    state=present
+    user=root
 
 - name: update my.cnf
   template: 
