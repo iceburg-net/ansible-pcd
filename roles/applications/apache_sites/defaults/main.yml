@@ -7,7 +7,7 @@
 #@ todo include support for includes in apache config / virtualhost template
 
 apache_sites_user: siteop
-apache_sites_user_home: /sites
+apache_sites_user_home: "{{ default_sites_dir }}"
 apache_sites_user_key: "{{ pcd_keys_dir }}/{{ apache_sites_default_org }}+{{ apache_sites_user }}.key"
 
 apache_sites_default_docroot: www

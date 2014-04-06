@@ -43,3 +43,10 @@ default_org: ansible
 default_user_name: ansible
 default_user_pass: plaintextpass
 default_user_email: "{{ default_user_name }}@localhost"
+
+
+# Application defaults
+######################
+
+default_applications_dir: /apps
+default_sites_dir: /sites
