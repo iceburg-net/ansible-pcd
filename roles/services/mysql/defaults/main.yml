@@ -9,8 +9,10 @@
 #
 mysql_root_password: "{{ private_pass }}"
 
-
 mysql_config_template: my.cnf_default.j2
+
+mysql_default_storage_engine: "MyISAM"
+#mysql_default_storage_engine: "InnoDB"
 
 mysql_defrag_script: /usr/local/bin/defrag_mysql.sh
 mysql_defrag_minute: 30

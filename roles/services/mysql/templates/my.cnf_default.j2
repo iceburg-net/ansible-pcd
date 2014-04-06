@@ -50,19 +50,21 @@ thread_cache_size       = 8
 
 
 #
-# * InnoDB
+# * Storage Engines
 #
+
+default_storage_engine = {{ mysql_default_storage_engine }}
+
+# - InnoDB
 
 # disable innodb
 # skip-innodb
-# default_storage_engine=MyISAM
 
 innodb_file_per_table = 1
 
 
 #
 # * Logging
-#
 #
 
 # Be aware that this log type is a performance killer.
