@@ -11,7 +11,7 @@
   authorized_key: 
     user={{ user_add.name }}
     key="{{ lookup('file', user_add.key + '.pub') }}"
-  when: user_add.key
+  when: user_add.key is defined and user_add.key | bool
   
 - name: user_add > set private key
   copy:
@@ -20,7 +20,7 @@
     src={{ user_add.key }}
   sudo: yes
   sudo_user: "{{ user_add.name }}"
-  when: user_add.key
+  when: user_add.key is defined and user_add.key | bool
   
 - name: user_add > set public key
   copy:
@@ -29,7 +29,7 @@
     src={{ user_add.key }}.pub
   sudo: yes
   sudo_user: "{{ user_add.name }}"
-  when: user_add.key
+  when: user_add.key is defined and user_add.key | bool
   
 - name: user_add > ensure github vars
   include_vars: "{{ common_vars }}/github.yml"
