@@ -1,0 +1,43 @@
+
+
+
+# wordpress 3.x htaccess definitions
+#  include in virtualhost definition and disable overrides for performance.
+#
+# /.htaccess
+# /wp-content/uploads/download-manager-files/.htaccess
+# /wp-content/uploads/filebase/.htaccess
+# /wp-content/plugins/akismet/.htaccess
+
+<Directory {{ item.path }}/{{ item.docroot }}>
+	# BEGIN WordPress
+	<IfModule mod_rewrite.c>
+	# RewriteBase /
+	RewriteRule ^index\.php$ - [L]
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule . index.php [L]
+	</IfModule>
+	# END WordPress
+</Directory>
+
+<Directory {{ item.path }}/{{ item.docroot }}/wp-content/plugins/akismet>
+	Order Deny,Allow
+	Deny from all
+	
+	<FilesMatch "^akismet\.(css|js)$">
+	        Allow from all
+	</FilesMatch>
+</Directory>
+
+
+<Directory {{ item.path }}/{{ item.docroot }}/wp-content/uploads/filebase>
+	Order deny,allow
+	Deny from all
+</Directory>
+
+<Directory {{ item.path }}/{{ item.docroot }}/wp-content/uploads/download-manager-files>
+	<Files *>
+    Deny from all
+    </Files>
+</Directory>
