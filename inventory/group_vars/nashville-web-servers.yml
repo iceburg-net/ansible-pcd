@@ -81,7 +81,7 @@ apache_sites_enabled_list:
     git_branch: stage,
     docroot: www-1,
     access_logfile: "/dev/null",
-#    apache_config_includes: ['silverstripe-3'],
+#    apache_config_includes: ['silverstripe-3.1'],
     ssl: True,
 #    ssl_ip: 10.0.0.33,
     }
