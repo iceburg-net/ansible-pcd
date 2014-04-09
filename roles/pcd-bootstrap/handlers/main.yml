@@ -4,5 +4,3 @@
 #
 
 - { include: "{{ common_handlers }}/apache.yml"}
-- { include: "{{ common_handlers }}/mail.yml"}
-

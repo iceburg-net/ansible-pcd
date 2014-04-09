@@ -3,10 +3,12 @@
 #  apache_sites tasks 
 #
 
+#@todo review skip_apache_sites_tasks is not defined
+
 - debug: msg="apache_sites application"
 
-- { include: "normalize.yml", tags: ['prepare,deploy'] }
+- { include: "normalize.yml", tags: ['prepare,deploy'], when: skip_apache_sites_tasks is not defined }
 #- debug: msg="{{ apache_sites_normalized }}"  
 
-- { include: prepare.yml, tags: ['prepare'] }
-- { include: deploy.yml, tags: ['deploy'], sudo: True, sudo_user: "{{ apache_sites_user }}" }
+- { include: prepare.yml, tags: ['prepare'], when: skip_apache_sites_tasks is not defined }
+- { include: deploy.yml, tags: ['deploy'], sudo: True, sudo_user: "{{ apache_sites_user }}", when: skip_apache_sites_tasks is not defined }

@@ -5,3 +5,6 @@
 
 - { include: deploy-debian.yml, when: "ansible_os_family == 'Debian'" }
 - { include: deploy-redhat.yml, when: "ansible_os_family == 'RedHat'" }
+
+- name: mail test message
+  shell: cat /etc/motd | mail -s ansible-mail-test {{ mail_mta_email }}
