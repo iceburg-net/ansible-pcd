@@ -9,17 +9,23 @@
   template: 
     dest=/etc/mailname
     src=nullmailer.me.j2
-  notify: mail restart
+  notify: 
+    - mail restart
+    - mail test message
 
 - name: setup smtp relay remotes
   template:
     dest=/etc/nullmailer/remotes
     src=nullmailer.remotes.j2
-  notify: mail restart
+  notify: 
+    - mail restart
+    - mail test message
   
 - name: set admin email
   template:
     dest=/etc/nullmailer/adminaddr
     src=nullmailer.adminaddr.j2
-  notify: mail restart
+  notify: 
+    - mail restart
+    - mail test message
   
