@@ -22,3 +22,6 @@
     url=https://raw.github.com/pixelb/ps_mem/master/ps_mem.py
     mode=0755
   
+- name: install cronic
+  copy: src={{ common_files }}/cronic.sh dest=/usr/local/bin/cronic mode=0755
+  
