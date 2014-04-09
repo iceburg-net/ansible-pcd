@@ -5,4 +5,4 @@
   service: name={{ os_apache_service  }} state=restarted
 
 - name: apache reload
-  command: sudo {{ os_apache_apachectl_file  }} -k graceful
+  shell: sudo {{ os_apache_apachectl_file  }} configtest && {{ os_apache_apachectl_file  }} graceful
