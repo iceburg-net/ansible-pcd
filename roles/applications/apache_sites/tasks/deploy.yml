@@ -74,3 +74,40 @@
   with_items: apache_sites_disabled_list
   notify: 
     - apache reload
+    
+- name: set default http site
+  file:
+    state=link
+    src={{ os_apache_sites_enabled_dir }}/{{ apache_sites_default_http_site }}
+    dest={{ os_apache_sites_enabled_dir }}/000_default_http
+  when: apache_sites_default_http_site | default(None) != None
+  notify: 
+    - apache reload
+  
+- name: set default https site
+  file:
+    state=link
+    src={{ os_apache_sites_enabled_dir }}/{{ apache_sites_default_https_site }}
+    dest={{ os_apache_sites_enabled_dir }}/000_default_https
+  when: apache_sites_default_https_site | default(None) != None
+  notify: 
+    - apache reload
+    
+- name: remove default http site
+  file:
+    state=absent
+    path={{ os_apache_sites_enabled_dir }}/000_default_http
+  when: not apache_sites_default_http_site | default(None) != None
+  notify: 
+    - apache reload
+  
+- name: remove default https site
+  file:
+    state=absent
+    path={{ os_apache_sites_enabled_dir }}/000_default_https
+  when: not apache_sites_default_https_site | default(None) != None
+  notify: 
+    - apache reload
+  
+
+  
