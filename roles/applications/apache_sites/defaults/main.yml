@@ -13,8 +13,8 @@ apache_sites_user_key: "{{ pcd_keys_dir }}/{{ apache_sites_default_org }}+{{ apa
 apache_sites_default_docroot: www
 apache_sites_default_org: "{{ default_org }}"
 apache_sites_default_apache_logformat: awstats 
-apache_sites_default_apache_config: virtualhost_default.j2
-apache_sites_default_apache_config_ssl: virtualhost_default_ssl.j2
+apache_sites_default_apache_config: virtualhost_http.j2
+apache_sites_default_apache_config_ssl: virtualhost_https.j2
 apache_sites_default_apache_serveradmin: "{{ default_user_email }}"
 
 # specify default sites, e.g. www.iceburg.net. must match an enabled site name.
@@ -32,7 +32,7 @@ apache_sites_default_https_site:
 #   apache_alias: (opt) apache ServerAlias, e.g. "domain.com domain.net"
 #
 #   apache_config: (opt) template to use for apache config (virtualhost def),
-#     defaults to "virtualhost_default.j2". relative to apache_sites/templates
+#     defaults to "virtualhost_http.j2". relative to apache_sites/templates
 #
 #   apache_config_includes: (opt) files to include in the virtualhost definition
 #     defaults to: []
@@ -48,7 +48,7 @@ apache_sites_default_https_site:
 #
 #   ssl: (opt) True/False to enable SSL
 #      defaults to False. When True, apache_config will default to 
-#      "virtualhost_default_ssl.j2", with http traffic redirected to https
+#      "virtualhost_https.j2", with http traffic redirected to https
 #
 #   ssl_ip: (opt) SSL ip (<VirtualHost <ssl_ip>:<ssl_port>), defaults to "*"/SNI
 #   ssl_port: (opt) port, defaults to {{ apache_https_port }}

@@ -27,7 +27,7 @@ optionally provision databases + users users as well
 #   apache_alias: (opt) apache ServerAlias, e.g. "domain.com domain.net"
 #
 #   apache_config: (opt) template to use for apache config (virtualhost def),
-#     defaults to "virtualhost_default.j2". relative to apache_sites/templates
+#     defaults to "virtualhost_http.j2". relative to apache_sites/templates
 #
 #   apache_config_includes: (opt) files to include in the virtualhost definition
 #     defaults to: []
@@ -43,7 +43,7 @@ optionally provision databases + users users as well
 #
 #   ssl: (opt) True/False to enable SSL
 #      defaults to False. When True, apache_config will default to 
-#      "virtualhost_default_ssl.j2", with http traffic redirected to https
+#      "virtualhost_https.j2", with http traffic redirected to https
 #
 #   ssl_ip: (opt) SSL ip (<VirtualHost <ssl_ip>:<ssl_port>), defaults to "*"/SNI
 #   ssl_port: (opt) port, defaults to {{ apache_https_port }}
