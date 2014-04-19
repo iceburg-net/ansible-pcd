@@ -3,8 +3,8 @@
 # security rules -- these must be first rules included to work.
 
 <IfModule mod_rewrite.c>
-	RewriteCond %{REQUEST_URI} ^.*/RK\=\d?\/RS\=.*$ [NC]
-	RewriteRule . - [F,L]
+	RewriteEngine On
+	RewriteRule ^.*/RK\=\d?\/RS\=.*$ - [F]
 </IfModule>
 
 ### END SECURITY ###
