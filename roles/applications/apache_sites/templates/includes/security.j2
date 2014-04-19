@@ -1,0 +1,10 @@
+### SECURITY ###
+
+# security rules -- these must be first rules included to work.
+
+<IfModule mod_rewrite.c>
+	RewriteCond %{REQUEST_URI} ^.*/RK\=\d?\/RS\=.*$ [NC]
+	RewriteRule . - [F,L]
+</IfModule>
+
+### END SECURITY ###
