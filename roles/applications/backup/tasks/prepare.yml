@@ -17,13 +17,18 @@
 
 - { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }
 
-- name: ensure binaries directory
-  file: 
-    path={{ backup_binaries }}
+
+- name: ensure backup directories
+  file:
     state=directory
+    path={{ item }}
+  with_items:
+    - "{{ backup_target_dir }}"
+    - "{{ backup_binaries }}"
   sudo: True
   sudo_user: "{{ backup_user }}"
-  
+    
+
 - name: allow backup user to sudo execute scripts in binaries directory
   lineinfile: dest=/etc/sudoers regexp="^{{ backup_user }}" line="{{ backup_user }} ALL=(ALL) NOPASSWD:{{ backup_binaries }}/*" state=present
   
@@ -43,3 +48,4 @@
 #    regexp='^PATH=([\W]?)((?!.*?{{ backup_binaries }}).*?)([\W]?)$'
 #    line='PATH=\\1\\2:{{ backup_binaries }}\\3'
     
+- { include: cloud-backups.yml, when: "backup_s3ql_enabled", sudo: True, sudo_user: "{{ backup_user }}" }

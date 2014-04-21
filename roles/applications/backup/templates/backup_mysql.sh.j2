@@ -38,11 +38,11 @@ echo
 #############################################################################
 
 
-if [ ! -x $BASEBACKDIR ]; then
+if [ ! -d $BASEBACKDIR ]; then
 	mkdir -p "$BASEBACKDIR"
 fi
 
-if [ ! -x $INCRBACKDIR ]; then
+if [ ! -d $INCRBACKDIR ]; then
 	mkdir -p "$INCRBACKDIR"
 fi
 

@@ -1,0 +1,30 @@
+##    
+# cloud backups
+#
+
+- name: add backup user to fuse group
+  user: 
+    append=yes
+    groups=fuse
+    name={{ backup_user }}
+  sudo: False
+  
+- name: copy s3ql authinfo
+  template: 
+    dest={{ backup_user_home }}/.s3ql-authinfo
+    src=s3ql-authinfo.j2
+    mode=0600
+    
+- debug: msg="{{ backup_user_home }}/.s3ql/{{ backup_s3ql_url | replace("/","=2F") }}"
+    
+- name: create s3ql filesystem if it doesn't exist
+  shell: mkfs.s3ql --authfile {{ backup_user_home }}/.s3ql-authinfo --plain -L {{ ansible_hostname }}-backups {{ backup_s3ql_url }}
+    creates={{ backup_user_home }}/.s3ql/{{ backup_s3ql_url | replace("/","=2F") }}.db
+    
+- name: mount s3ql filesystem
+  shell: mount.s3ql --authfile {{ backup_user_home }}/.s3ql-authinfo --allow-root {{ backup_s3ql_url }} {{ backup_target_dir }}
+  ignore_errors: True
+  
+  # note -- can we have idempotent mount? 
+  
+   

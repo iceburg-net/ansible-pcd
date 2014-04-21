@@ -7,5 +7,14 @@ backup_user: backupop
 backup_user_home: "/backups"
 
 backup_binaries: "{{ backup_user_home }}/bin"
+backup_target_dir: "{{ backup_user_home }}/cloud"
+backup_mysql_target: "{{ backup_target_dir }}/mysql"
 
-backup_mysql_target: "{{ backup_user_home }}/mysql"
+
+# enable s3ql cloud backups
+# when enabled, will mount backup_target_dir as a remote filesystem
+backup_s3ql_enabled: true
+backup_s3ql_url: gs://host-backups/{{ ansible_hostname }}
+
+backup_s3ql_username: "{{ private_user_name }}"
+backup_s3ql_password: "{{ private_user_pass }}"
