@@ -35,6 +35,8 @@ os_apache_apachectl_file: /usr/sbin/apachectl
 os_mysql_packages:
   - mysql-server
   
+os_mysql_group: mysql
+  
 
 # php
 #####  
