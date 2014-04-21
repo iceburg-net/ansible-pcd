@@ -4,7 +4,7 @@
 
 [client]
 port            = 3306
-socket          = /var/run/mysqld/mysqld.sock
+socket          = {{ os_mysql_socket_dir }}/mysqld.sock
 
 
 [mysqld]
@@ -13,12 +13,12 @@ port            = 3306
 myisam-recover  = BACKUP
 
 basedir         = /usr
-datadir         = /var/lib/mysql
+datadir         = {{ mysql_data_dir }}
 tmpdir          = /tmp
 
 user            = mysql
-pid-file        = /var/run/mysqld/mysqld.pid
-socket          = /var/run/mysqld/mysqld.sock
+pid-file        = {{ os_mysql_socket_dir }}/mysqld.pid
+socket          = {{ os_mysql_socket_dir }}/mysqld.sock
 lc-messages-dir = /usr/share/mysql
 skip-external-locking
 
