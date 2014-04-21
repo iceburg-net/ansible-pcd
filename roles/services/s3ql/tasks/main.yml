@@ -1,0 +1,9 @@
+---
+##
+#  s3ql tasks 
+#
+
+- debug: msg="s3ql service"
+
+#- { include: compile.yml, tags: ['compile'] }
+- { include: prepare.yml, tags: ['prepare'] }

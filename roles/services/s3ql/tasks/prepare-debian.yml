@@ -1,0 +1,26 @@
+---
+##
+# [DEBIAN] s3ql preparation tasks 
+#
+
+- name: ensure s3ql base dependencies
+  apt: pkg={{ item }} state=present
+  with_items:
+    - python-crypto
+    - python-sqlite
+    - python-apsw
+    - python-llfuse
+    - python-lzma
+    
+- name: copy s3ql package
+  copy:
+    src={{ ansible_distribution }}/{{ ansible_distribution_release }}/s3ql_{{ s3ql_version }}-1_{{ ansible_architecture }}.deb
+    dest=/root/s3ql_{{ s3ql_version }}-1_{{ ansible_architecture }}.deb
+    
+
+- name: install s3ql package
+  apt: 
+    deb=/root/s3ql_{{ s3ql_version }}-1_{{ ansible_architecture }}.deb
+    state=installed
+  
+

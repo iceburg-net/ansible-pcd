@@ -1,0 +1,6 @@
+---
+##
+# s3ql preparation tasks
+#
+
+- { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }

@@ -1,0 +1,6 @@
+---
+##
+#  s3ql default vars 
+#
+
+s3ql_version: 1.17

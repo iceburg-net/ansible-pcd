@@ -1,0 +1,30 @@
+---
+##
+# s3ql preparation tasks
+#
+
+# @todo bump to latest version
+# we install older 1.X version of s3ql due to lack of python 3.3 on servers..
+
+
+- { include: compile-debian.yml, when: "ansible_os_family == 'Debian'" }
+
+
+- name: ensure /root/src
+  file: state=directory path=/root/src
+
+- name: fetch s3ql distributrion
+  uri:
+    creates=/root/src/s3ql-{{ s3ql_version }}
+    dest=/tmp/s3ql-{{ s3ql_version }}.tar.bz2
+    follow_redirects=all
+    url=https://bitbucket.org/nikratio/s3ql/downloads/s3ql-{{ s3ql_version }}.tar.bz2
+    
+- name: uncompress s3ql distributrion
+  command: tar xvfj /tmp/s3ql-{{ s3ql_version }}.tar.bz2 -C /root/src creates=/root/src/s3ql-{{ s3ql_version }}
+   
+- name: compile and install s3ql to /usr/local/bin
+  shell: python setup.py build && python setup.py install 
+    chdir=/root/src/s3ql-{{ s3ql_version }}
+    creates=/tmp
+#    creates=/usr/local/bin/s3qladm
