@@ -18,4 +18,7 @@ mysql_defrag_script: /usr/local/bin/defrag_mysql.sh
 mysql_defrag_minute: 30
 mysql_defrag_hour: 4
 
+mysql_data_dir: "{{ os_mysql_data_dir }}"
+
+
 
