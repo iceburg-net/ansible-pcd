@@ -1,0 +1,10 @@
+---
+##
+#  backup tasks 
+#
+
+- debug: msg="backup application"
+
+
+- { include: prepare.yml, tags: ['prepare'] }
+- { include: deploy.yml, tags: ['deploy'], sudo: True, sudo_user: "{{ backup_user }}" }

@@ -1,0 +1,18 @@
+---
+##
+# [DEBIAN] backup preparation tasks 
+#
+
+- name: add percona repository key
+  command: apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
+  # ansible 1.6, use below
+  #apt_key: keyserver=keys.gnupg.net key_id=1C4CBDCDCD2EFD2A state=present
+
+- name: add percona repository
+  apt_repository: 
+    repo="deb http://repo.percona.com/apt {{ ansible_distribution_release }} main"
+    state=present
+    update_cache=yes
+    
+- name: install percona-xtrabackup tool
+  apt: pkg=percona-xtrabackup state=present

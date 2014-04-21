@@ -1,0 +1,45 @@
+---
+##
+# backup preparation tasks
+#
+
+- { include: "{{ common_tasks }}/user_add.yml", 
+    user_add: {
+      name: "{{ backup_user }}",
+      home: "{{ backup_user_home }}",
+      system: yes,
+      groups: [
+        "{{ os_mysql_group }}",
+        "{{ os_apache_group }}",
+        "{{ os_apache_config_group }}"]
+    }
+  }
+
+- { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }
+
+- name: ensure binaries directory
+  file: 
+    path={{ backup_binaries }}
+    state=directory
+  sudo: True
+  sudo_user: "{{ backup_user }}"
+  
+- name: allow backup user to sudo execute scripts in binaries directory
+  lineinfile: dest=/etc/sudoers regexp="^{{ backup_user }}" line="{{ backup_user }} ALL=(ALL) NOPASSWD:{{ backup_binaries }}/*" state=present
+  
+  
+- name: ensure backup user has PATH set in .bashrc
+  lineinfile:
+    dest={{ backup_user_home }}/.bashrc
+    state=present
+    regexp='^PATH=.*$'
+    line="PATH=$PATH:{{ backup_binaries }}"
+  
+#- name: add binaries directory to backup user's PATH if variable already set
+#  lineinfile: 
+#    dest={{ backup_user_home }}/.bashrc
+#    state=present
+#    backrefs=yes
+#    regexp='^PATH=([\W]?)((?!.*?{{ backup_binaries }}).*?)([\W]?)$'
+#    line='PATH=\\1\\2:{{ backup_binaries }}\\3'
+    
