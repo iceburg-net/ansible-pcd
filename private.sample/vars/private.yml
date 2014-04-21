@@ -3,3 +3,15 @@
 
 private_user_name: "{{ default_user_name }}"
 private_user_pass: "{{ default_user_pass }}"
+
+
+#
+# override credentials used by roles
+#
+
+#mysql_root_password: password...
+
+#mail_smtp_host: smtp.mandrillapp.com
+#mail_smtp_auth: True
+#mail_smtp_user: webmaster@iceburg.net
+#mail_smtp_pass: key...
