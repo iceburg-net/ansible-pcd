@@ -30,8 +30,6 @@
   apt: pkg={{ item }} state=present
   with_items: os_ansible_deps
 
-- name: use upstart for system init
-  apt: pkg=upstart state=present
 
 # system hardening tasks
 ########################
