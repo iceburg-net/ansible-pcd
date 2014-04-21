@@ -1,0 +1,8 @@
+---
+##
+#  backup meta
+#
+
+dependencies:
+  - { role: services/s3ql }
+     
