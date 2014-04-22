@@ -19,7 +19,7 @@
 - name: schedule defragmentation of databases
   cron: 
     name="defragment mysql databases"
-    job={{ mysql_defrag_script }}
+    job="{% if cronic_cron %}cronic {% endif %}{{ mysql_defrag_script }}"
     minute={{ mysql_defrag_minute }}
     hour={{ mysql_defrag_hour }}
     state=present
