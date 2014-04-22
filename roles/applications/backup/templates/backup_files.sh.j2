@@ -1,0 +1,12 @@
+#!/bin/sh
+rdiff-backup \
+    --exclude **/.git \
+    --exclude **/.svn \
+    --include /etc \
+    --include /home \
+    --include /root \
+    --include /sites \
+    --exclude / \
+    --print-statistics \
+    / {{ backup_files_target }}
+    

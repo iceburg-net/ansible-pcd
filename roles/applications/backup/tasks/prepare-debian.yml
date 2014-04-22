@@ -14,5 +14,9 @@
     state=present
     update_cache=yes
     
-- name: install percona-xtrabackup tool
-  apt: pkg=percona-xtrabackup state=present
+- name: install backup tools
+  apt: pkg={{ item }} state=present
+  with_items: 
+    - rdiff-backup
+    - percona-xtrabackup
+    

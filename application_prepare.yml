@@ -12,5 +12,6 @@
   
   roles:
     - pcd-bootstrap
-    - applications/apache_sites
-    - applications/awstats
+    - applications/backup
+#    - applications/apache_sites
+#    - applications/awstats
