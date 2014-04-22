@@ -11,6 +11,8 @@
 #    s3ql_mount_target: "/mnt/cloud-storage",
 #    s3ql_mount_url: "gs://bucket/prefix" }
 
+- fail: msg="s3ql role recommends using system_uuid as the prefix, but it's missing"
+  when: not system_uuid or system_uuid.strip() == ''
 
 - name: create s3ql filesystem if it doesn't exist
   shell: mkfs.s3ql --authfile {{ s3ql_mount_authfile }} --plain -L {{ s3ql_mount_nickname }} {{ s3ql_mount_url }}

@@ -38,6 +38,7 @@ system_hostname: "{{ inventory_hostname_short }}"
 # Identity defaults
 ###################
 
+system_uuid: "{{ ansible_product_uuid }}"
 
 default_org: ansible
 default_user_name: ansible
