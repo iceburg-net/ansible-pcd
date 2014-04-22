@@ -26,7 +26,13 @@
      mode=0755
   sudo: False
   when: "ansible_distribution == 'Debian'"
+  
+- name: register sysvinit script as a service (daemon)
+  shell: insserv s3ql-{{ s3ql_mount_nickname }}
+    creates="/etc/rc0.d/K01s3ql-{{ s3ql_mount_nickname }}"
+  sudo: False
+  when: "ansible_distribution == 'Debian'"
  
 - name: automount on boot and start
-  service: name=s3ql-{{ s3ql_mount_nickname }} state=started enabled=yes
+  service: name="s3ql-{{ s3ql_mount_nickname }}" state=started enabled=yes
   
