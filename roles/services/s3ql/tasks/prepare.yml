@@ -4,3 +4,10 @@
 #
 
 - { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }
+
+- name: enable user_allow_other FUSE mounts
+  lineinfile:
+    dest=/etc/fuse.conf
+    state=present
+    regexp='\#?user_allow_other'
+    line="user_allow_other"

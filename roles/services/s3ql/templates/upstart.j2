@@ -1,0 +1,41 @@
+description	"S3QL Backup File System"
+author		"Nikolaus Rath <Nikolaus@rath.org>"
+
+# This assumes that eth0 provides your internet connection
+start on (filesystem and net-device-up IFACE=eth0)
+
+# We can't use "stop on runlevel [016]" because from that point on we
+# have only 10 seconds until the system shuts down completely.
+stop on starting rc RUNLEVEL=[016]
+
+# Time to wait before sending SIGKILL to the daemon and
+# pre-stop script
+kill timeout 300
+
+env STORAGE_URL="{{ s3ql_mount_url }}"
+env MOUNTPOINT="{{ s3ql_mount_target }}"
+
+env USER="{{ s3ql_mount_user }}"
+env AUTHFILE="{{ s3ql_mount_authfile }}"
+
+expect stop
+
+script
+    # Redirect stdout and stderr into the system log
+    DIR=$(mktemp -d)
+    mkfifo "$DIR/LOG_FIFO"
+    logger -t s3ql -p local0.info < "$DIR/LOG_FIFO" &
+    exec > "$DIR/LOG_FIFO"
+    exec 2>&1
+    rm -rf "$DIR"
+
+    # Check and mount file system
+    su -s /bin/sh -c 'exec "$0" "$@"' "$USER" -- \
+        fsck.s3ql --batch --authfile "$AUTHFILE" "$STORAGE_URL"
+    exec su -s /bin/sh -c 'exec "$0" "$@"' "$USER" -- \
+        mount.s3ql --upstart --allow-root --authfile "$AUTHFILE" "$STORAGE_URL" "$MOUNTPOINT"
+end script
+
+pre-stop script
+    su -s /bin/sh -c 'exec "$0" "$@"' "$USER" -- umount.s3ql "$MOUNTPOINT"
+end script

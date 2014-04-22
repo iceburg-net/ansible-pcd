@@ -1,9 +1,0 @@
----
-##
-#  backup handlers
-#
-
-- name: awstats update
-  command: "{{ awstats_update_script  }}"
-  sudo: False
-  

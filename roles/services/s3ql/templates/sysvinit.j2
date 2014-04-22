@@ -1,0 +1,131 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          s3ql-{{ s3ql_mount_nickname }}
+# Required-Start:    $local_fs $remote_fs $network $syslog $named
+# Required-Stop:     $local_fs $remote_fs $network $syslog $named
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: s3sql filesytem 
+### END INIT INFO
+
+#
+# Author: Brice Burgess @iceburg
+#
+
+PATH=/usr/local/bin:/usr/bin:/bin
+DESC="s3ql filesystem mount"
+NAME="s3ql-{{ s3ql_mount_nickname }}"
+PIDFILE="/var/run/$NAME.pid"
+SCRIPTNAME="/etc/init.d/$NAME"
+
+# s3sql vars
+AUTHFILE="{{ s3ql_mount_authfile }}"
+USER="{{ s3ql_mount_user }}"
+STORAGE_URL="{{ s3ql_mount_url }}"
+MOUNTPOINT="{{ s3ql_mount_target }}"
+
+# Load the VERBOSE setting and other rcS variables
+. /lib/init/vars.sh
+
+# Define LSB log_* functions.
+# Depend on lsb-base (>= 3.2-14) to ensure that this file is present
+# and status_of_proc is working.
+. /lib/lsb/init-functions
+
+
+#
+# Function that starts the daemon/service
+#
+do_start()
+{
+	# Return
+	#   0 if daemon has been started
+	#   1 if daemon was already running
+	#   2 if daemon could not be started
+	
+	echo "Checking $MOUNTPOINT Consistency..."
+	su -s /bin/sh -c 'exec "$0" "$@"' "$USER" -- \
+        fsck.s3ql --batch --authfile "$AUTHFILE" "$STORAGE_URL"
+        
+	if [ $? -ne 0 ]; then return 2; fi
+	
+	echo "Mounting $MOUNTPOINT..."
+	su -s /bin/sh -c 'exec "$0" "$@"' "$USER" -- \
+        mount.s3ql --authfile "$AUTHFILE" --allow-root "$STORAGE_URL" "$MOUNTPOINT"
+        
+    sleep 1
+	echo "`pgrep -n mount.s3ql`" > $PIDFILE
+	
+	return 0
+}
+
+#
+# Function that stops the daemon/service
+#
+do_stop()
+{
+	# Return
+	#   0 if daemon has been stopped
+	#   1 if daemon was already stopped
+	#   2 if daemon could not be stopped
+	#   other if a failure occurred
+	
+	echo "Unmounting $MOUNTPOINT (this can take awhile to sync)..."
+	su -s /bin/sh -c 'exec "$0" "$@"' "$USER" -- umount.s3ql "$MOUNTPOINT"
+	
+	if [ $? -ne 0 ]; then return 100; fi
+	
+	echo "unmounted."
+	
+	rm $PIDFILE
+}
+
+case "$1" in
+  start)
+	[ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" "$NAME"
+	do_start
+	case "$?" in
+		0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+		2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+	esac
+	;;
+  stop)
+	[ "$VERBOSE" != no ] && log_daemon_msg "Stopping $DESC" "$NAME"
+	do_stop
+	case "$?" in
+		0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+		2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+	esac
+	;;
+  status)
+	status_of_proc -p $PIDFILE "$NAME" "$NAME" && exit 0 || exit $?
+	;;
+  restart|force-reload)
+	#
+	# If the "reload" option is implemented then remove the
+	# 'force-reload' alias
+	#
+	log_daemon_msg "Restarting $DESC" "$NAME"
+	do_stop
+	case "$?" in
+	  0|1)
+		do_start
+		case "$?" in
+			0) log_end_msg 0 ;;
+			1) log_end_msg 1 ;; # Old process is still running
+			*) log_end_msg 1 ;; # Failed to start
+		esac
+		;;
+	  *)
+		# Failed to stop
+		log_end_msg 1
+		;;
+	esac
+	;;
+  *)
+	echo "Usage: $SCRIPTNAME {start|stop|status|restart|force-reload}" >&2
+	exit 3
+	;;
+esac
+
+:

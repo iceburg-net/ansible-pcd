@@ -1,0 +1,32 @@
+#
+# creates a s3ql filesystem and mounts immediately and automatically on boot.
+#
+
+# exammple call: 
+#- { include: "{{ pcd_services }}/s3ql/tasks/s3ql_make_mount.yml", 
+#    s3ql_mount_nickname: "backups",
+#    s3ql_mount_user: "senorbackup",
+#    s3ql_mount_user_home: "/home/senorbackup",
+#    s3ql_mount_authfile: "~/.s3ql-authfile",
+#    s3ql_mount_target: "/mnt/cloud-storage",
+#    s3ql_mount_url: "gs://bucket/prefix" }
+
+
+- name: create s3ql filesystem if it doesn't exist
+  shell: mkfs.s3ql --authfile {{ s3ql_mount_authfile }} --plain -L {{ s3ql_mount_nickname }} {{ s3ql_mount_url }}
+    creates={{ s3ql_mount_user_home }}/.s3ql/{{ backup_s3ql_url | replace("/","=2F") }}.db
+  sudo: True,
+  sudo_user: "{{ s3ql_mount_user }}"
+ 
+
+- name: copy sysvinit script to mount on boot
+  template:
+     dest="/etc/init.d/s3ql-{{ s3ql_mount_nickname }}"
+     src="{{ pcd_services }}/s3ql/templates/sysvinit.j2"
+     mode=0755
+  sudo: False
+  when: "ansible_distribution == 'Debian'"
+ 
+- name: automount on boot and start
+  service: name=s3ql-{{ s3ql_mount_nickname }} state=started enabled=yes
+  
