@@ -35,6 +35,7 @@
   sudo: False
   when: "ansible_distribution == 'Debian'"
  
-- name: automount on boot and start
+- name: automount on boot
   service: name="s3ql-{{ s3ql_mount_nickname }}" state=started enabled=yes
+  sudo: False
   
