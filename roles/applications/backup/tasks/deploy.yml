@@ -21,5 +21,16 @@
     src=backup_files.sh.j2
     mode=0700
     
+- name: schedule daily backup of files
+  cron: 
+    name="backup of files"
+    hour="4"
+    job="{{ backup_binaries }}/backup_files.sh"
+    
+- name: schedule twice daily backup of mysql databases
+  cron: 
+    name="backup of mysql databases"
+    hour="10,22"
+    job="{{ backup_binaries }}/backup_mysql.sh"
     
   
