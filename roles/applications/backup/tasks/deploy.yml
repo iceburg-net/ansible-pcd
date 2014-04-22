@@ -3,23 +3,12 @@
 # backup deployment tasks
 #
 
-- name: copy mysql backup script
+- name: register backup/restore scripts
   template:
-    dest={{ backup_binaries }}/backup_mysql.sh
-    src=backup_mysql.sh.j2
+    dest={{ backup_binaries }}/{{ item | basename | replace(".j2","") }}
+    src={{ item }}
     mode=0700
-    
-- name: copy mysql restore script
-  template:
-    dest={{ backup_binaries }}/restore_mysql.sh
-    src=restore_mysql.sh.j2
-    mode=0700
-    
-- name: copy file backup script
-  template:
-    dest={{ backup_binaries }}/backup_files.sh
-    src=backup_files.sh.j2
-    mode=0700
+  with_fileglob: "../templates/scripts/*"
     
 - name: schedule daily backup of files
   cron: 
