@@ -14,17 +14,11 @@
     dest={{ backup_user_home }}/.s3ql-authinfo
     src=s3ql-authinfo.j2
     mode=0600
-    
-- debug: msg="{{ backup_user_home }}/.s3ql/{{ backup_s3ql_url | replace("/","=2F") }}"
-    
-- name: create s3ql filesystem if it doesn't exist
-  shell: mkfs.s3ql --authfile {{ backup_user_home }}/.s3ql-authinfo --plain -L {{ ansible_hostname }}-backups {{ backup_s3ql_url }}
-    creates={{ backup_user_home }}/.s3ql/{{ backup_s3ql_url | replace("/","=2F") }}.db
-    
-- name: mount s3ql filesystem
-  shell: mount.s3ql --authfile {{ backup_user_home }}/.s3ql-authinfo --allow-root {{ backup_s3ql_url }} {{ backup_target_dir }}
-  ignore_errors: True
   
-  # note -- can we have idempotent mount? 
-  
-   
+- { include: "{{ pcd_services }}/s3ql/tasks/s3ql_make_mount.yml", 
+    s3ql_mount_nickname: "backups",
+    s3ql_mount_user: "{{ backup_user }}",
+    s3ql_mount_user_home: "{{ backup_user_home }}",  
+    s3ql_mount_authfile: "{{ backup_user_home }}/.s3ql-authinfo",
+    s3ql_mount_target: "{{ backup_target_dir }}",
+    s3ql_mount_url: "{{ backup_s3ql_url }}" }
