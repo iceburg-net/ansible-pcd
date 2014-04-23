@@ -8,18 +8,15 @@
     dest={{ backup_binaries }}/{{ item | basename | replace(".j2","") }}
     src={{ item }}
     mode=0700
-  with_fileglob: "../templates/scripts/*"
+  with_fileglob: "../templates/scripts/backup_*.sh"
     
-- name: schedule daily backup of files
-  cron: 
-    name="backup of files"
-    hour="4"
-    job="sudo {{ backup_binaries }}/backup_files.sh"
-    
-- name: schedule twice daily backup of mysql databases
-  cron: 
-    name="backup of mysql databases"
-    hour="10,22"
-    job="sudo {{ backup_binaries }}/backup_mysql.sh"
-    
-  
+
+- name: schedule backups
+  cron:
+    name="backup of {{ item.key }}"
+    hour="{{ item.value.hour }}"
+    minute="{{ item.value.minute }}"
+    job="sudo {{ backup_binaries }}/backup_{{ item.key }}.sh"
+    state={{ item.value.state }} 
+  with_dict: backup_schedule
+   

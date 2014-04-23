@@ -1,0 +1,9 @@
+#!/bin/sh
+rdiff-backup \
+    --exclude **/.git \
+    --exclude **/.svn \
+    --include /sites \
+    --exclude / \
+    --print-statistics \
+    / {{ backup_sites_target }}
+    

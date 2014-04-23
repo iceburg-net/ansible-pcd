@@ -11,6 +11,27 @@ backup_target_dir: "{{ backup_user_home }}/cloud"
 
 backup_mysql_target: "{{ backup_target_dir }}/{{ ansible_hostname }}-mysql"
 backup_files_target: "{{ backup_target_dir }}/{{ ansible_hostname }}-files"
+backup_sites_target: "{{ backup_target_dir }}/{{ ansible_hostname }}-sites"
+
+
+#
+# schedule backups  (override in inventory)
+#
+
+backup_schedule: {
+  sites: { state: absent, hour: "0", minute: 0 },
+  files: { state: absent, hour: "0", minute: 0 },
+  mysql: { state: absent, hour: "0", minute: 0 }
+}
+
+# example webserver schedule 
+# backup_schedule: {
+#   sites: { state: present, hour: "4", minute: 0 },
+#   files: { state: absent, hour: "2", minute: 30 },
+#   mysql: { state: present, hour: "10,22", minute: 0 }
+# }
+
+
 
 # enable s3ql cloud backups
 # when enabled, will mount backup_target_dir as a remote filesystem

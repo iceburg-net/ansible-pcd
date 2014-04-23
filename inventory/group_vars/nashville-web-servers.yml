@@ -10,6 +10,12 @@ default_org: iceburg-nashville
 backup_s3ql_enabled: True
 backup_s3ql_url: gs://iceburg/{{ system_uuid }}
 
+backup_schedule: {
+  sites: { state: present, hour: "4", minute: 0 },
+  files: { state: absent, hour: "2", minute: 30 },
+  mysql: { state: present, hour: "10,22", minute: 0 }
+}
+
 
 
 # Register private vars files
