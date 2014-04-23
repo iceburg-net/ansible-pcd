@@ -87,7 +87,7 @@ apache_sites_disabled_list: []
 # default mysql credentials, override in private vars file
 apache_sites_mysql_login_host: localhost
 apache_sites_mysql_login_user: root
-apache_sites_mysql_login_password: ""
+apache_sites_mysql_login_password: "{{ mysql_root_password }}"
 apache_sites_mysql_list: { }
 
 # default path git sites are checked into 
