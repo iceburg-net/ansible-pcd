@@ -15,5 +15,5 @@
     s3ql_mount_user: "{{ backup_user }}",
     s3ql_mount_target: "{{ backup_target_dir }}",
     s3ql_mount_url: "{{ backup_s3ql_url }}",
-    s3ql_mount_login: "{{ backup_s3ql_url }}",
-    s3ql_mount_password: "{{ backup_s3ql_url }}", }
+    s3ql_mount_login: "{{ backup_s3ql_username }}",
+    s3ql_mount_password: "{{ backup_s3ql_password }}", }
