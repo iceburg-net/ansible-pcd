@@ -37,9 +37,9 @@
 - name: run awstats_updateall.pl at specified interval
   cron: 
     name="awstats update"
-    job={{ cron_prefix }}{{ awstats_update_script }}
-    minute={{ awstats_cron_minute }}
-    hour={{ awstats_cron_hour }}
+    job="{{ cron_prefix }}{{ awstats_update_script }}"
+    minute="{{ awstats_cron_minute }}"
+    hour="{{ awstats_cron_hour }}"
     state=present
     user=root
   sudo: False
