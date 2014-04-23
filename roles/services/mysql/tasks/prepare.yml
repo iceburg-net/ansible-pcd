@@ -14,6 +14,18 @@
 - name: ensure mysql is running and starts on boot
   service: name=mysql state=started enabled=true
   
+- name: register root user credentials
+  ini_file:
+    dest=/root/.my.cnf
+    section=client
+    option={{ item.option }}
+    value={{ item.value }}
+    mode=0600
+  with_items:
+    - { option: 'user', value: 'root' }
+    - { option: 'password', value: '{{ mysql_root_password }}' }
+    - { option: 'host', value: 'localhost' }
+  
 - name: set root@localhost user's password
   mysql_user: name=root host=localhost password={{ mysql_root_password }}
   ignore_errors: yes
