@@ -15,8 +15,8 @@ kill timeout 300
 env STORAGE_URL="{{ s3ql_mount_url }}"
 env MOUNTPOINT="{{ s3ql_mount_target }}"
 
-env USER="{{ s3ql_mount_user }}"
-env AUTHFILE="{{ s3ql_mount_authfile }}"
+env USER="{{ s3ql_mount_user | default('root') }}"
+env AUTHFILE="{{ detected_user_home.stdout }}/.s3ql-authinfo"
 
 expect stop
 

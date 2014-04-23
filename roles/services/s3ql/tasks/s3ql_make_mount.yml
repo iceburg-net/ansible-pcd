@@ -5,21 +5,38 @@
 # exammple call: 
 #- { include: "{{ pcd_services }}/s3ql/tasks/s3ql_make_mount.yml", 
 #    s3ql_mount_nickname: "backups",
-#    s3ql_mount_user: "senorbackup",
-#    s3ql_mount_user_home: "/home/senorbackup",
-#    s3ql_mount_authfile: "~/.s3ql-authfile",
+#    s3ql_mount_user: "backupmonsieur",
 #    s3ql_mount_target: "/mnt/cloud-storage",
-#    s3ql_mount_url: "gs://bucket/prefix" }
+#    s3ql_mount_url: "gs://bucket/prefix",
+#    s3ql_mount_login: "google-storage-key",
+#    s3ql_mount_password: "google-storage-key-secret",
 
 - fail: msg="s3ql role recommends using system_uuid as the prefix, but it's missing"
   when: not system_uuid or system_uuid.strip() == ''
+  
+- name: register user's home directory
+  command: "echo ~{{ s3ql_mount_user | default('root') }}"
+  register: detected_user_home
+  changed_when: False
+  
+- name: register mountpoint in authfile
+  ini_file:
+    dest={{ detected_user_home.stdout }}/.s3ql-authinfo
+    section={{ s3ql_mount_nickname }}
+    option={{ item.option }}
+    value={{ item.value }}
+    mode=0600
+  with_items:
+    - { option: 'storage-url', value: '{{ s3ql_mount_url }}' }
+    - { option: 'backend-login', value: '{{ s3ql_mount_login }}' }
+    - { option: 'backend-password', value: '{{ s3ql_mount_password }}' }
+
 
 - name: create s3ql filesystem if it doesn't exist
-  shell: mkfs.s3ql --authfile {{ s3ql_mount_authfile }} --plain -L {{ s3ql_mount_nickname }} {{ s3ql_mount_url }}
-    creates={{ s3ql_mount_user_home }}/.s3ql/{{ backup_s3ql_url | replace("/","=2F") }}.db
+  shell: mkfs.s3ql --authfile {{ detected_user_home.stdout }}/.s3ql-authinfo --plain -L {{ s3ql_mount_nickname }} {{ s3ql_mount_url }}
+    creates={{ detected_user_home.stdout }}/.s3ql/{{ backup_s3ql_url | replace("/","=2F") }}.db
   sudo: True,
-  sudo_user: "{{ s3ql_mount_user }}"
- 
+  sudo_user: "{{ s3ql_mount_user | default('root') }}"
 
 - name: copy sysvinit script to mount on boot
   template:

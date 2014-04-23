@@ -8,17 +8,12 @@
     groups=fuse
     name={{ backup_user }}
   sudo: False
-  
-- name: copy s3ql authinfo
-  template: 
-    dest={{ backup_user_home }}/.s3ql-authinfo
-    src=s3ql-authinfo.j2
-    mode=0600
+ 
   
 - { include: "{{ pcd_services }}/s3ql/tasks/s3ql_make_mount.yml", 
     s3ql_mount_nickname: "backups",
     s3ql_mount_user: "{{ backup_user }}",
-    s3ql_mount_user_home: "{{ backup_user_home }}",  
-    s3ql_mount_authfile: "{{ backup_user_home }}/.s3ql-authinfo",
     s3ql_mount_target: "{{ backup_target_dir }}",
-    s3ql_mount_url: "{{ backup_s3ql_url }}" }
+    s3ql_mount_url: "{{ backup_s3ql_url }}",
+    s3ql_mount_login: "{{ backup_s3ql_url }}",
+    s3ql_mount_password: "{{ backup_s3ql_url }}", }
