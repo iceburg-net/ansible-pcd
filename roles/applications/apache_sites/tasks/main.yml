@@ -7,8 +7,8 @@
 
 - debug: msg="apache_sites application"
 
-- { include: "normalize.yml", tags: ['prepare,deploy'], when: skip_apache_sites_tasks is not defined }
+- { include: "normalize.yml", tags: ['prepare','deploy'] }
 #- debug: msg="{{ apache_sites_normalized }}"  
 
-- { include: prepare.yml, tags: ['prepare'], when: skip_apache_sites_tasks is not defined }
-- { include: deploy.yml, tags: ['deploy'], sudo: True, sudo_user: "{{ apache_sites_user }}", when: skip_apache_sites_tasks is not defined }
+- { include: prepare.yml, tags: ['prepare'], when: skip_tasks is not defined or not skip_tasks }
+- { include: deploy.yml, tags: ['deploy'], sudo: True, sudo_user: "{{ apache_sites_user }}", when: skip_tasks is not defined or not skip_tasks }
