@@ -9,7 +9,7 @@ private_user_pass: yL0lW3NaoZDJgS3
 
 apache_sites_mysql_login_host: localhost
 apache_sites_mysql_login_user: root
-apache_sites_mysql_login_password: ""
+apache_sites_mysql_login_password: "{{ mysql_root_password }}"
 
 
 # site mysql databases to create. NOTE that key must match site name
