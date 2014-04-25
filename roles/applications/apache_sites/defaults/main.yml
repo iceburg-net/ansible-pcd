@@ -72,6 +72,9 @@ apache_sites_default_https_site:
 #      apache_sites recommends disabling overrides for performance. 
 #      consider adding your .htaccess content via an include.
 #
+#   backup_dirs: (opt) array of directories (relative to docroot) to include
+#      in backups. Used by the backup role.   
+#
 #########################
 
 # default enabled sites (listed sites will be added to apache)
