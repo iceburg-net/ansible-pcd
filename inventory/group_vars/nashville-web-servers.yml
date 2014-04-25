@@ -79,8 +79,8 @@ private_vars_files: [
 #      apache_sites recommends disabling overrides for performance. 
 #      consider adding your .htaccess content via an include.
 #
-#   backup_dirs: (opt) array of directories (relative to docroot) to include
-#      in backups. Used by the backup role.   
+#   backup_list: (opt) array of files/directories to backup.
+#      paths are relative to the site's docroot. Used by the backup role.   
 #
 #########################
 
@@ -90,6 +90,7 @@ apache_sites_enabled_list:
     org: iceburg,
     git_repo: "git@github.com:iceburg-net/www.iceburg.net.git",
     docroot: www-1,
+    backup_list: ['.']
     }
   - {
     name: staging.iceburg.net,
@@ -102,7 +103,6 @@ apache_sites_enabled_list:
     ssl: True,
 #    ssl_ip: 10.0.0.33,
     }
-
 apache_sites_default_http_site:  www.iceburg.net
 #apache_sites_default_https_site:     
 

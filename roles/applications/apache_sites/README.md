@@ -67,8 +67,8 @@ optionally provision databases + users users as well
 #      apache_sites recommends disabling overrides for performance. 
 #      consider adding your .htaccess content via an include.
 #
-#   backup_dirs: (opt) array of directories (relative to docroot) to include
-#      in backups. Used by the backup role.   
+#   backup_list: (opt) array of files/directories to backup.
+#      paths are relative to the site's docroot. Used by the backup role.   
 #
 #########################
 

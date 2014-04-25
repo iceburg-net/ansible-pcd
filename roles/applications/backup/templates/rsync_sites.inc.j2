@@ -1,0 +1,11 @@
+{% if apache_sites_list is undefined %}
+{% set apache_sites_list = apache_sites_enabled_list %}
+{% endif %}
+
+{% for item in apache_sites_list %}
+{% if item.backup_list is defined %}
+{% for file in item.backup_list %}
+{{ apache_sites_user_home }}/{{ item.org | default(apache_sites_default_org) }}/{{ item.name }}/{{ item.docroot | default(apache_sites_default_docroot) }}/{{ file }}
+{% endfor %}
+{% endif %}
+{% endfor %}

@@ -17,6 +17,6 @@
  #   - systems/common
  #   - services/mail
  #   - services/php
- #   - services/mysql
+    - services/mysql
     - services/s3ql
     

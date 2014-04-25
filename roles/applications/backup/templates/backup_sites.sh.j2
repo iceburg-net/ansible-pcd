@@ -1,11 +1,54 @@
 #!/bin/sh
-rdiff-backup \
-    --exclude '**/.git' \
-    --exclude '**/.svn' \
-    --exclude '**/.ssh' \
-    --include /sites \
-    --exclude / \
-    --print-statistics \
-    / {{ backup_sites_target }}
+
+#
+# simple, rsync --link-dest incremental backups 
+# 
+# (c) 2014 Brice Burgess @ iceburg.net
+# This script is provided as-is; no liability can be accepted for use.
+#
+
+# TODO: for rsync 3.1.0, use --ignore-missing-args or --delete-missing-args
+# TODO: expand for remote backups (currently assumes local cloud fs [e.g. s3ql])
+
+
+date=`date "+%Y%m%d_%H:%M:%S"`
+
+BACKUPS_LOCATION="{{ backup_sites_target }}"
+
+if [ ! -d $BACKUPS_LOCATION/current ]; then
+  echo "performing a full backup..."
+  echo
+  
+  rsync -RrLktz \
+    --files-from={{ backup_rsync_includes }}/rsync_sites.inc \
+    / $BACKUPS_LOCATION/inprogress-$date
     
+  if [ $? -eq 0 -o $? -eq 23 ]; then
+    mv $BACKUPS_LOCATION/inprogress-$date $BACKUPS_LOCATION/$date && \
+    cd $BACKUPS_LOCATION && ln -s $date current
+  fi
+  
+else
+  echo "performing a incremental backup..."
+  echo
+  
+  rsync -RrLktz \
+    --delete \
+    --delete-excluded \
+    --files-from={{ backup_rsync_includes }}/rsync_sites.inc \
+    --link-dest=../current \
+    / $BACKUPS_LOCATION/inprogress-$date
+    
+  if [ $? -eq 0 -o $? -eq 23 ]; then
+    mv $BACKUPS_LOCATION/inprogress-$date $BACKUPS_LOCATION/$date && \
+    cd $BACKUPS_LOCATION && rm current && ln -sf $date current
+    # note we remove `current` as ln -sf doesn't work on s3ql
+  fi
+ 
+fi
+
+echo
+echo "backup completed with exit code $?"
+
 exit $?
+

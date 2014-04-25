@@ -5,4 +5,5 @@
 
 dependencies:
   - { role: services/s3ql }
+  - { role: applications/apache_sites, skip_tasks: true }
      
