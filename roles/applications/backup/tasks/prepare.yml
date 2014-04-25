@@ -25,6 +25,7 @@
   with_items:
     - "{{ backup_target_dir }}"
     - "{{ backup_binaries }}"
+    - "{{ backup_rsync_includes }}"
   sudo: True
   sudo_user: "{{ backup_user }}"
     
