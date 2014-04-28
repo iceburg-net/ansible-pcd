@@ -23,6 +23,7 @@ AUTHFILE="{{ detected_user_home.stdout }}/.s3ql-authinfo"
 USER="{{ s3ql_mount_user | default('root') }}"
 STORAGE_URL="{{ s3ql_mount_url }}"
 MOUNTPOINT="{{ s3ql_mount_target }}"
+MOUNT_OPTS="{{ s3ql_mount_opts }}"
 
 # Load the VERBOSE setting and other rcS variables
 . /lib/init/vars.sh
@@ -51,7 +52,7 @@ do_start()
 	
 	echo "Mounting $MOUNTPOINT..."
 	su -s /bin/sh -c 'exec "$0" "$@"' "$USER" -- \
-        mount.s3ql --authfile "$AUTHFILE" --allow-root "$STORAGE_URL" "$MOUNTPOINT"
+        mount.s3ql --authfile "$AUTHFILE" --allow-root $MOUNT_OPTS "$STORAGE_URL" "$MOUNTPOINT"
         
     sleep 1
 	echo "`pgrep -n mount.s3ql`" > $PIDFILE

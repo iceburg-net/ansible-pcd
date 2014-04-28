@@ -14,6 +14,7 @@ kill timeout 300
 
 env STORAGE_URL="{{ s3ql_mount_url }}"
 env MOUNTPOINT="{{ s3ql_mount_target }}"
+env MOUNT_OPTS="{{ s3ql_mount_opts }}"
 
 env USER="{{ s3ql_mount_user | default('root') }}"
 env AUTHFILE="{{ detected_user_home.stdout }}/.s3ql-authinfo"
@@ -33,7 +34,7 @@ script
     su -s /bin/sh -c 'exec "$0" "$@"' "$USER" -- \
         fsck.s3ql --batch --authfile "$AUTHFILE" "$STORAGE_URL"
     exec su -s /bin/sh -c 'exec "$0" "$@"' "$USER" -- \
-        mount.s3ql --upstart --allow-root --authfile "$AUTHFILE" "$STORAGE_URL" "$MOUNTPOINT"
+        mount.s3ql --upstart --allow-root --authfile "$AUTHFILE" $MOUNT_OPTS "$STORAGE_URL" "$MOUNTPOINT"
 end script
 
 pre-stop script

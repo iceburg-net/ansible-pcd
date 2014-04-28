@@ -4,3 +4,6 @@
 #
 
 s3ql_version: 1.17
+
+s3ql_mount_opts: ""
+#s3ql_mount_opts: "--compress none"
