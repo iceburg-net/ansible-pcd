@@ -79,6 +79,8 @@ private_vars_files: [
 #      apache_sites recommends disabling overrides for performance. 
 #      consider adding your .htaccess content via an include.
 #
+#   redirect_url: (opt) URL to redirect site to (include http/https://)
+#
 #   backup_list: (opt) array of files/directories to backup.
 #      paths are relative to the site's docroot. Used by the backup role.   
 #

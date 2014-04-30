@@ -62,6 +62,8 @@ optionally provision databases + users users as well
 #      defaults to "www", can be empty string. e.g.
 #      DocumentRoot /sites/ansible/www.domain.com-master/www
 #
+#   redirect_url: (opt) URL to redirect site to (include http/https://)
+#
 #   allow_override: (opt) True (AllowOverride All) or False (AllowOverride None)
 #      defaults to False.
 #      apache_sites recommends disabling overrides for performance. 

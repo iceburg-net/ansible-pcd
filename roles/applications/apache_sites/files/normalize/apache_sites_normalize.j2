@@ -8,7 +8,6 @@ apache_sites_normalized:
   - { name: "{{ item.name }}",
       org: "{{ item.org | default(apache_sites_default_org) }}",
       apache_config: "{{ item.apache_config | default(apache_sites_default_apache_config) }}",
-      apache_config_includes: {{ item.apache_config_includes | default([]) }},
       apache_alias: "{% if item.apache_alias is defined and item.apache_alias %}{{ item.apache_alias }}{% else %}{{ item.name | regex_replace('^www\.','') }}{% endif %}",
       apache_serveradmin: "{{ item.apache_serveradmin | default(apache_sites_default_apache_serveradmin) }}",
       access_logfile: "{{ item.access_logfile | default(apache_log_dir + '/sites-' + item.org | default(apache_sites_default_org) + '.log' ) }}",
@@ -37,6 +36,13 @@ apache_sites_normalized:
       git_path: "{{ apache_sites_git_path }}/{{ item.git_repo | regex_replace('[\ \<\>\|\\\/\:\,\;\&\*\?]*','') }}-{{ item.git_branch | default("master") }}",
       {% else %}
       git: False,
+      {% endif %}
+      
+      {% if item.redirect_url is defined and item.redirect_url %}
+      apache_config_includes: ['redirect'],
+      redirect_url: "{{ item.redirect_url }}",
+      {% else %}
+      apache_config_includes: {{ item.apache_config_includes | default([]) }},
       {% endif %}
       
     }
