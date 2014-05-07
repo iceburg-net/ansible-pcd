@@ -1,0 +1,7 @@
+---
+##
+#  nginx meta
+#
+
+dependencies:
+  - { role: services/httpd }

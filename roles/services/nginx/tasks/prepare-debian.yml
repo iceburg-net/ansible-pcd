@@ -1,0 +1,18 @@
+---
+##
+# [DEBIAN] backup preparation tasks 
+#
+
+- name: add percona repository key
+  apt-key:
+    url="http://nginx.org/keys/nginx_signing.key"
+    id="98698A3B"
+    state=present
+
+
+- name: add nginx.org repository
+  apt_repository: 
+    repo="deb http://nginx.org/packages/debian/ {{ ansible_distribution_release }} nginx"
+    state=present
+    update_cache=yes
+    

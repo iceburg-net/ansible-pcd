@@ -1,0 +1,8 @@
+---
+##
+# nginx preparation tasks
+#
+
+- { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }
+- { include: prepare-redhat.yml, when: "ansible_os_family == 'RedHat'" }
+
