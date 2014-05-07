@@ -6,4 +6,5 @@
 allow_duplicates: yes
 
 dependencies:
+  - { role: services/httpd }
   - { role: services/apache, tags: ['pepare'] }
