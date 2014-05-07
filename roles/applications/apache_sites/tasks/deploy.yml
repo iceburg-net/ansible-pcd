@@ -31,12 +31,12 @@
   with_items: apache_sites_normalized
   
 - name: ensure site ssl keys
-  copy: dest={{ os_apache_ssl_dir }}/{{ item.ssl_key | basename }} src={{ item.ssl_key }}
+  copy: dest={{ httpd_ssl_dir }}/{{ item.ssl_key | basename }} src={{ item.ssl_key }}
   when: item.ssl and (apache_sites_site is not defined or apache_sites_site == item.name)
   with_items: apache_sites_normalized
   
 - name: ensure site ssl certs
-  copy: dest={{ os_apache_ssl_dir }}/{{ item.ssl_crt | basename }} src={{ item.ssl_crt }}
+  copy: dest={{ httpd_ssl_dir }}/{{ item.ssl_crt | basename }} src={{ item.ssl_crt }}
   when: item.ssl and (apache_sites_site is not defined or apache_sites_site == item.name)
   with_items: apache_sites_normalized
   

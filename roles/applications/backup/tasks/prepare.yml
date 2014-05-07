@@ -11,7 +11,7 @@
       groups: [
         "{{ os_mysql_group }}",
         "{{ os_apache_group }}",
-        "{{ os_apache_config_group }}"]
+        "{{ httpd_user_group }}"]
     }
   }
 

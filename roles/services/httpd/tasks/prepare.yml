@@ -1,0 +1,29 @@
+---
+##
+# httpd preparation tasks
+#
+
+- name: add {{ httpd_user_group }} group
+  group: name={{ httpd_user_group }} system=yes
+  
+
+- { include: "{{ common_tasks }}/user_add.yml", 
+    user_add: {
+      name: "{{ httpd_user }}",
+      group: "{{ httpd_group }}", 
+      home: "{{ httpd_user_home }}",
+      system: yes,
+      github: yes,
+      key: "{{ httpd_user_key }}"
+    }
+  }
+
+
+- name: ensure httpd certificate directory writable by {{ httpd_user_group }} group
+  file: 
+    path={{ httpd_ssl_dir }}
+    state=directory
+    owner=root
+    group={{ httpd_user_group }}
+    mode=0775
+    

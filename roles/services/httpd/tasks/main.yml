@@ -1,0 +1,8 @@
+---
+##
+#  httpd tasks 
+#
+
+- debug: msg="httpd service"
+
+- { include: prepare.yml, tags: ['prepare'] }

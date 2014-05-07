@@ -3,16 +3,6 @@
 #  apache_sites default vars 
 #
 
-
-#@ todo include support for includes in apache config / virtualhost template
-
-apache_sites_user: siteop
-apache_sites_user_home: "{{ default_sites_dir }}"
-apache_sites_user_key: "{{ pcd_keys_dir }}/{{ apache_sites_default_org }}+{{ apache_sites_user }}.key"
-
-apache_sites_default_docroot: www
-apache_sites_default_org: "{{ default_org }}"
-apache_sites_default_apache_logformat: awstats 
 apache_sites_default_apache_config: virtualhost_http.j2
 apache_sites_default_apache_config_ssl: virtualhost_https.j2
 apache_sites_default_apache_serveradmin: "{{ default_user_email }}"
@@ -27,7 +17,7 @@ apache_sites_default_https_site:
 #
 #   name: (required, unique) apache ServerName, typically www.domain.com
 #
-#   org: (opt) site organization, defaults to {{ apache_sites_default_org }}
+#   org: (opt) site organization, defaults to {{ httpd_site_org }}
 #
 #   apache_alias: (opt) apache ServerAlias, e.g. "domain.com domain.net"
 #
@@ -97,4 +87,3 @@ apache_sites_mysql_list: { }
 
 # default path git sites are checked into 
 apache_sites_git_path: "{{ apache_sites_user_home }}/.git-apache_sites"
-apache_sites_include_path: "{{ os_apache_dir }}/apache_sites-includes"

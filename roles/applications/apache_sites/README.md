@@ -22,7 +22,7 @@ optionally provision databases + users users as well
 #
 #   name: (required, unique) apache ServerName, typically www.domain.com
 #
-#   org: (opt) site organization, defaults to {{ apache_sites_default_org }}
+#   org: (opt) site organization, defaults to {{ httpd_site_org }}
 #
 #   apache_alias: (opt) apache ServerAlias, e.g. "domain.com domain.net"
 #

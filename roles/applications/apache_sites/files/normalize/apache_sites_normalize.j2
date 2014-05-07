@@ -6,13 +6,13 @@
 apache_sites_normalized:
 {% for item in  apache_sites_list %}
   - { name: "{{ item.name }}",
-      org: "{{ item.org | default(apache_sites_default_org) }}",
+      org: "{{ item.org | default(httpd_site_org) }}",
       apache_config: "{{ item.apache_config | default(apache_sites_default_apache_config) }}",
       apache_alias: "{% if item.apache_alias is defined and item.apache_alias %}{{ item.apache_alias }}{% else %}{{ item.name | regex_replace('^www\.','') }}{% endif %}",
       apache_serveradmin: "{{ item.apache_serveradmin | default(apache_sites_default_apache_serveradmin) }}",
-      access_logfile: "{{ item.access_logfile | default(apache_log_dir + '/sites-' + item.org | default(apache_sites_default_org) + '.log' ) }}",
-      path: {{ apache_sites_user_home }}/{{ item.org | default(apache_sites_default_org) }}/{{ item.name }},
-      docroot: "{{ item.docroot | default(apache_sites_default_docroot) }}",
+      access_logfile: "{{ item.access_logfile | default(apache_log_dir + '/sites-' + item.org | default(httpd_site_org) + '.log' ) }}",
+      path: {{ apache_sites_user_home }}/{{ item.org | default(httpd_site_org) }}/{{ item.name }},
+      docroot: "{{ item.docroot | default(httpd_site_root) }}",
       mysql: {% if apache_sites_mysql_list[item.name] is defined %}{{ apache_sites_mysql_list[item.name] }}{% else %}[]{% endif %},
       allow_override: "{% if item.allow_override is defined and item.allow_override %}All{% else %}None{% endif %}",
       ip: "{{ item.ip | default('*') }}",

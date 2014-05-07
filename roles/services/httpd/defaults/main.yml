@@ -1,0 +1,16 @@
+---
+##
+#  httpd default vars 
+#
+
+httpd_site_org: "{{ default_org }}"
+httpd_site_root: www
+httpd_site_logformat: awstats
+
+httpd_user: siteop
+httpd_user_group: httpdconf
+httpd_user_home: "{{ default_sites_dir }}"
+httpd_user_key: "{{ pcd_keys_dir }}/{{ httpd_default_site_org }}+{{ httpd_user }}.key"
+
+httpd_ssl_dir: "{{ httpd_user_home }}/ssl-certificates"
+

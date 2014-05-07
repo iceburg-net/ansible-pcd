@@ -13,21 +13,17 @@
   with_fileglob: "conf/*.conf"
   notify:
     - apache restart
-
-- name: add {{ os_apache_config_group }} group
-  group: name={{ os_apache_config_group }} system=yes
   
-- name: allow {{ os_apache_config_group }} group to sudo execute apachectl
-  lineinfile: dest=/etc/sudoers regexp="^\%{{ os_apache_config_group }}" line="%{{ os_apache_config_group }} ALL=(ALL) NOPASSWD:{{ os_apache_apachectl_file }}" state=present
+- name: allow {{ httpd_user_group }} group to sudo execute apachectl
+  lineinfile: dest=/etc/sudoers regexp="^\%{{ httpd_user_group }}" line="%{{ httpd_user_group }} ALL=(ALL) NOPASSWD:{{ os_apache_apachectl_file }}" state=present
   
-- name: ensure apache site and certificate directories writable by {{ os_apache_config_group }} group
+- name: ensure apache site and certificate directories writable by {{ httpd_user_group }} group
   file: 
     path={{ item }}
     state=directory
     owner=root
-    group={{ os_apache_config_group }}
+    group={{ httpd_user_group }}
     mode=0775
   with_items:
     - "{{ os_apache_sites_dir }}"
     - "{{ os_apache_sites_enabled_dir }}"
-    - "{{ os_apache_ssl_dir }}"
