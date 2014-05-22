@@ -1,6 +1,29 @@
-[iceburg]
+
+# hosts
+#######
+[nashville-webservers]
 nashville-app-1.iceburg.net
+
+[nashville-dbservers]
 nashville-db-1.iceburg.net
 
-[nashville-web-servers]
-nashville-app-1.iceburg.net
+
+
+# aggregates
+############
+
+[webservers:children]
+nashville-webservers
+
+
+[dbservers:children]
+nashville-dbservers
+
+
+[nashville:children]
+nashville-webservers
+[nashville-dbservers
+
+
+[iceburg:children]
+nashville
