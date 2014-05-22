@@ -1,0 +1,15 @@
+---
+
+# Register paths
+################
+
+PCD_APP_ROLES: "{{ inventory_dir }}/../roles/pcd-apps"
+PCD_SERVICE_ROLES: "{{ inventory_dir }}/../roles/pcd-services"
+PCD_SYSTEM_ROLES: "{{ inventory_dir }}/../roles/pcd-systems"
+
+PCD_TASK_DIR: "{{ inventory_dir }}/../roles/pcd-common/tasks"
+
+# Register shared tasks
+#######################
+
+pcd_task_adduser: "{{ PCD_TASK_DIR }}/adduser.yml"

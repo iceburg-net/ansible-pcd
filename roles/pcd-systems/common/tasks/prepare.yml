@@ -3,12 +3,11 @@
 # pcd-systems/common prepare
 #
 
-# setup root user
-- { include: "{{ pcd_task_adduser  }}", task: {
+# ensure root user's ssh key
+- { include: "{{ pcd_task_adduser }}", task: {
       name: "root",
       group: "root", 
       home: "/root",
-      key: "{{ ansible_ssh_private_key_file }}"
+      key: "{{ ansible_ssh_private_key_file }}",
     }
   }
-      

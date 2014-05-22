@@ -13,6 +13,7 @@
 - name: "pcd system preparation"
   hosts: "{{ PCD_HOST }}"
   remote_user: root
+  tags: ['prepare','configure']
   
   vars_prompt:
     - name: "PCD_HOST"
@@ -23,11 +24,10 @@
     # @todo amazon is deprecated, fix + test
     pcd_supported_platforms: ['Debian-7','amazon-2013.09']
     pcd_platform: "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}"
-      
-      
+    
   pre_tasks:
   
-    # ensure platform is supported
+    # ensure detected platform is supported
     - fail: msg="{{ pcd_platform }} is not a supported platform!"
       when: pcd_platform not in pcd_supported_platforms
   
@@ -39,8 +39,9 @@
   hosts: Debian-7
   remote_user: root
   
+  
   roles:
-    - pcd-common
+    - {role: pcd-common, tags: ['prepare','configure']}
     - pcd-systems/Debian-7
     - pcd-systems/common
-        
+    

@@ -10,19 +10,6 @@ PCD_DEFAULT_USER_NAME: ansible
 PCD_DEFAULT_USER_PASS: !!null
 PCD_DEFAULT_USER_EMAIL: "{{ PCD_DEFAULT_USER_NAME }}@localhost"
 
-# Register paths
-################
-
-PCD_APP_ROLES: "{{ inventory_dir }}/../roles/pcd-apps"
-PCD_SERVICE_ROLES: "{{ inventory_dir }}/../roles/pcd-services"
-PCD_SYSTEM_ROLES: "{{ inventory_dir }}/../roles/pcd-systems"
-
-PCD_PRIVATE_DIR: "{{ inventory_dir }}/../private"
-PCD_KEYS_DIR: "{{ PCD_PRIVATE_DIR  }}/keys"
-PCD_CERTS_DIR: "{{ PCD_PRIVATE_DIR  }}/ssl-certs"
-
-PCD_TASK_DIR: "{{ inventory_dir }}/../roles/pcd-common/tasks"
-
 
 # Application defaults
 ######################
@@ -33,8 +20,3 @@ PCD_SITES_DIR: /sites
 # set to "" (empty string) to disable cronic
 PCD_CRON_PREFIX: "/usr/local/bin/cronic "
 
-
-# Register shared tasks
-#######################
-
-pcd_task_adduser: "{{ PCD_TASK_DIR }}/adduser.yml"
