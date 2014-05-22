@@ -1,6 +1,6 @@
 ---
 ##
-# prepare the system on {{ HOSTGROUP }}
+# prepare|configure systems
 #
 #  preparation tasks are typically executed ONCE per host.
 #
@@ -10,14 +10,14 @@
 #   + typically executed with --ask-pass option on first execution
 
 
-- name: "pcd system preparation"
+- name: "pcd system"
   hosts: "{{ PCD_HOST }}"
   remote_user: root
   tags: ['prepare','configure']
   
   vars_prompt:
     - name: "PCD_HOST"
-      prompt: "PCD_HOST : Host/Group of pcd system"
+      prompt: "PCD_HOST : Target Host/Group"
       default: "all"
       
   vars:

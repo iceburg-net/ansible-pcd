@@ -1,0 +1,27 @@
+---
+##
+# prepare|configure a service
+#
+#  preparation tasks are typically executed ONCE per host.
+#
+#   application and service preparation ensures any application/service
+#      pre-requistetes such as package installations, database setup, &c.
+
+
+- name: "pcd service"
+  hosts: "{{ PCD_TARGET_HOST }}"
+  remote_user: root
+  tags: ['prepare','configure']
+  
+  vars_prompt:
+    - name: "PCD_TARGET_HOST"
+      prompt: "PCD_TARGET_HOST : Target Host/Group"
+      default: "all"
+      
+    - name: "PCD_TARGET_ROLE"
+      prompt: "PCD_TARGET_ROLE : Service Role to Apply"
+  
+  roles:
+    - {role: pcd-common, tags: ['prepare','configure']}
+    - pcd-services/{{ PCD_TARGET_ROLE }}
+    
