@@ -30,7 +30,6 @@ ansible_ssh_private_key_file: "{{ pcd_keys_dir }}/{{ default_org }}+{{ ansible_s
 # Provision defaults
 ####################
 
-system_dist: debian-7
 system_fqdn: "{{ inventory_hostname }}"
 system_hostname: "{{ inventory_hostname_short }}"
 
@@ -43,7 +42,7 @@ system_uuid: "{{ ansible_product_uuid }}"
 
 default_org: ansible
 default_user_name: ansible
-default_user_pass: plaintextpass
+default_user_pass: !!null
 default_user_email: "{{ default_user_name }}@localhost"
 
 
