@@ -1,0 +1,14 @@
+---
+##
+# pcd-systems/common prepare
+#
+
+# setup root user
+- { include: "{{ }}", task: {
+      name: "root",
+      group: "root", 
+      home: "/root",
+      key: "{{ ansible_ssh_private_key_file }}"
+    }
+  }
+      

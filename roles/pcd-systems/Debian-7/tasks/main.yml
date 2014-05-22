@@ -3,48 +3,5 @@
 # pcd-systems/Debian-7 tasks
 #
 
-
-- { include: prepare.yml, tags: ['prepare'], when: pcd_prepare is defined and pcd_prepare }
-
-
-
-
-# initialization tasks
-######################
-
-- name: setting hostname to {{ system_hostname }} [1/2]
-  raw: echo {{ system_hostname }} > /etc/hostname
-    
-- name: setting hostname to {{ system_hostname }} [2/2]
-  raw: hostname -F /etc/hostname
-    
-- name: setting fqdn to {{ system_fqdn }} [1/2] 
-  lineinfile: dest=/etc/hosts state=present regexp="^127\.0\.0\.1" line="127.0.0.1 localhost"
-    
-- name: setting fqdn to {{ system_fqdn }} [2/2] 
-  lineinfile: dest=/etc/hosts state=present regexp="^127\.0\.1\.1" line="127.0.1.1 {{ system_fqdn }} {{ system_hostname }}"
-  
-# distribution update
-#####################
-
-- name: update system, packages to latest
-  apt: update_cache=yes cache_valid_time=3600 upgrade=dist
-
-- name: install ansible deps
-  apt: pkg={{ item }} state=present
-  with_items: os_ansible_deps
-
-
-# system hardening tasks
-########################
-
-- name: denyhosts - install denyhosts
-  apt: pkg=denyhosts state=present
-  
-- name: denyhosts - configuration
-  copy: src=debian-7_denyhosts.conf dest=/etc/denyhosts.conf
-  
-- name: denyhosts - activate
-  raw: /etc/init.d/denyhosts restart
-  
-
+- { include: prepare.yml, tags: ['prepare'] }
+- { include: configure.yml, tags: ['configure'] }

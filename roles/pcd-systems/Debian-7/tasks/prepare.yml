@@ -36,10 +36,3 @@
 - name: denyhosts - install denyhosts
   apt: pkg=denyhosts state=present
   
-- name: denyhosts - configuration
-  copy: src=debian-7_denyhosts.conf dest=/etc/denyhosts.conf
-  
-- name: denyhosts - activate
-  raw: /etc/init.d/denyhosts restart
-  
-

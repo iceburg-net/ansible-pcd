@@ -1,0 +1,28 @@
+---
+##
+# pcd-systems/common configure
+#
+
+- name: ensure base software [Debian]
+  apt: pkg={{ item }} state=present
+  with_items: os_base_packages
+  when: ansible_os_family == "Debian"
+    
+- name: ensure base software [RedHat]
+  yum: name={{ item }} state=present
+  with_items: os_base_packages
+  when: ansible_os_family == "RedHat"
+  
+- name: fetch ps_mem.py script
+  get_url:
+    dest=/usr/local/bin/ps_mem.py
+    force=yes
+    url=https://raw.github.com/pixelb/ps_mem/master/ps_mem.py
+    mode=0755
+  
+- name: ensure cronic
+  copy: src=cronic.sh dest=/usr/local/bin/cronic mode=0755
+  
+- name: ensure denyhosts_unban.sh 
+  copy: src=denyhosts_unban.sh dest=/usr/local/bin/denyhosts_unban.sh mode=0755
+  
