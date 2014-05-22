@@ -1,0 +1,62 @@
+---
+##
+# prepare the system on {{ HOSTGROUP }}
+#
+#  preparation tasks are typically executed ONCE per host.
+#
+#   system preparation sets the root user's authorized key and ensures a
+#      consistent, secure operating system for ansible-pcd autiomation.
+#
+#   + typically executed with --ask-pass option on first execution
+
+
+- name: "pcd system preparation"
+  hosts: "{{ PCD_HOST }}"
+  remote_user: root
+  
+  vars_prompt:
+    - name: "PCD_HOST"
+      prompt: "PCD_HOST : Host/Group to prepare system on"
+      default: "all"
+      
+  vars:
+    # @todo amazon is deprecated, fix + test
+    pcd_supported_platforms: ['Debian-7','amazon-2013.09']
+    pcd_platform: "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}"
+      
+      
+  pre_tasks:
+  
+    # ensure platform is supported
+    - fail: msg="{{ pcd_platform }} is not a supported platform!"
+      when: pcd_platform not in pcd_supported_platforms
+  
+    # setup root user
+    - { include: "roles/pcd-common/tasks/user_add.yml", 
+        user_add: {
+          name: "root",
+          group: "root", 
+          home: "/root",
+          key: "{{ ansible_ssh_private_key_file }}"
+        }
+      }
+      
+    - name: group by platform
+      group_by: key="{{ pcd_platform }}"
+      
+    
+- name: "Debian-7 Preparation"
+  hosts: Debian-7
+  remote_user: root
+  
+  roles:
+    - pcd-common
+    - pcd-systems/Debian-7
+  
+  
+  
+  
+  
+
+    
+    

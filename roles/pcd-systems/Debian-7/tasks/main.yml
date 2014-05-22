@@ -1,9 +1,13 @@
 ---
 ##
-# debian-7 system preparation
+# pcd-systems/Debian-7 tasks
 #
 
-- debug: msg="debian-7 system preparation"
+
+- { include: prepare.yml, tags: ['prepare'], when: pcd_prepare is defined and pcd_prepare }
+
+
+
 
 # initialization tasks
 ######################
@@ -23,7 +27,7 @@
 # distribution update
 #####################
 
-- name: update system packages to latest
+- name: update system, packages to latest
   apt: update_cache=yes cache_valid_time=3600 upgrade=dist
 
 - name: install ansible deps
