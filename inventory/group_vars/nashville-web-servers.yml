@@ -1,7 +1,7 @@
 ---
 #  nashville-web-servers Inventory Variables
 
-default_org: iceburg-nashville
+PCD_DEFAULT_ORG: iceburg-nashville
 
 
 # Backups

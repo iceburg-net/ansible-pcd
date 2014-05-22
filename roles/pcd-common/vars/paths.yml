@@ -3,8 +3,6 @@
 # Register paths
 ################
 
-pcd_base_dir: "{{ inventory_dir }}/.."
-pcd_common_dir: "{{ pcd_base_dir }}/common"
 
 pcd_applications: "{{ pcd_base_dir }}/roles/applications"
 pcd_services: "{{ pcd_base_dir }}/roles/services"

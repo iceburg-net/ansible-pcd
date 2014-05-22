@@ -10,7 +10,6 @@ PCD_DEFAULT_ORG: ansible
 # Register PCD paths
 ####################
 
-PCD_COMMON_DIR: "{{ inventory_dir }}/../roles/pcd-common"
 PCD_PRIVATE_DIR: "{{ inventory_dir }}/../private"
 PCD_KEYS_DIR: "{{ PCD_PRIVATE_DIR  }}/keys"
 PCD_CERTS_DIR: "{{ PCD_PRIVATE_DIR  }}/ssl-certs"
