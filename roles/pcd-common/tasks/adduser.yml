@@ -1,0 +1,74 @@
+---
+#
+# adds a user, optionally providing groups, ssh keys, known_hosts, &c.
+#
+
+# usage:
+#
+#- { include: "{{ pcd_task_adduser }}", task: {
+#      name: "iceburg",
+#      group: "users",
+#      groups: ['wheel',sysop'],
+#      home: "/home/iceburg",
+#      key: "{{ path_to_private_keyfile }}",
+#      shell: "/bin/zsh",
+#      github: False  ## adds github hosts to ~/.ssh/known_hosts
+#    }
+#  }
+      
+
+
+- name: user_add > add user {{ task.name }}
+  user:
+    name={{ task.name }}
+    group={{ task.group | default('nogroup') }}
+    home={{ task.home | default('/home/' + task.name) }}
+    system={{ task.system | default(False) }}
+    shell={{ task.shell | default('/bin/bash') }}
+    
+- name: user_add > set additional groups
+  user:
+    append=yes
+    groups={{ item }}
+    name={{ task.name }}
+  when: task.groups is defined
+  with_items: task.groups
+  
+- name: user_add > set authorized key
+  authorized_key: 
+    user={{ task.name }}
+    key="{{ lookup('file', task.key + '.pub') }}"
+  when: task.key is defined and task.key | bool
+  
+- name: user_add > set private key
+  copy:
+    dest={{ task.home | default('/home/' + task.name) }}/.ssh/id_rsa
+    mode=0600
+    src={{ task.key }}
+  sudo: yes
+  sudo_user: "{{ task.name }}"
+  when: task.key is defined and task.key | bool
+  
+- name: user_add > set public key
+  copy:
+    dest={{ task.home | default('/home/' + task.name) }}/.ssh/id_rsa.pub
+    mode=0600
+    src={{ task.key }}.pub
+  sudo: yes
+  sudo_user: "{{ task.name }}"
+  when: task.key is defined and task.key | bool
+  
+- name: user_add > ensure github vars
+  include_vars: "{{ common_vars }}/github.yml"
+  when: task.github is defined and task.github | bool
+  
+- name: user_add > add github.com signatures to known_hosts
+  lineinfile:
+    dest={{ task.home | default('/home/' + task.name) }}/.ssh/known_hosts
+    line="{{ item }}"
+    create=yes
+    mode=0600
+  sudo: yes
+  sudo_user: "{{ task.name }}"
+  with_items: github_knows_hosts
+  when: task.github is defined and task.github | bool
