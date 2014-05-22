@@ -1,0 +1,7 @@
+---
+##
+# pcd-systems/common meta
+#
+
+dependencies:
+  - { role: pcd-services/mail }

@@ -2,16 +2,6 @@
 ##
 # pcd-systems/common configure
 #
-
-- name: ensure base software [Debian]
-  apt: pkg={{ item }} state=present
-  with_items: os_base_packages
-  when: ansible_os_family == "Debian"
-    
-- name: ensure base software [RedHat]
-  yum: name={{ item }} state=present
-  with_items: os_base_packages
-  when: ansible_os_family == "RedHat"
   
 - name: fetch ps_mem.py script
   get_url:

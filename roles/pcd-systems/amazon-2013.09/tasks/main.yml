@@ -56,3 +56,10 @@
 - name: denyhosts - activate
   raw: /etc/init.d/denyhosts restart
   
+# system configuration
+######################
+
+- name: ensure base software 
+  yum: name={{ item }} state=present
+  with_items: os_base_packages
+    

@@ -3,10 +3,15 @@
 # pcd-systems/Debian-7 configure
 #
 
+# system configuration
+######################
+
+- name: ensure base software
+  apt: pkg={{ item }} state=present
+  with_items: os_base_packages
 
 # system hardening tasks
 ########################
-
 
 - name: denyhosts - configuration
   copy: src=debian-7_denyhosts.conf dest=/etc/denyhosts.conf
