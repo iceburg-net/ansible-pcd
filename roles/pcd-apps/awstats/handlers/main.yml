@@ -1,6 +1,6 @@
 ---
 ##
-#  awstats handlers
+#  pcd-apps/awstats handlers
 #
 
 - name: awstats update

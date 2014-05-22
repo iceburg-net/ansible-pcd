@@ -1,6 +1,6 @@
 ---
 ##
-#  awstats default vars 
+#  pcd-apps/awstats defaults 
 #
 
 awstats_version: 7.3

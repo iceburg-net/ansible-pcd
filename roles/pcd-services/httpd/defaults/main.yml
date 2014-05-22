@@ -1,6 +1,6 @@
 ---
 ##
-#  httpd default vars 
+#  pcd-services/httpd defaults
 #
 
 httpd_site_org: "{{ PCD_DEFAULT_ORG }}"

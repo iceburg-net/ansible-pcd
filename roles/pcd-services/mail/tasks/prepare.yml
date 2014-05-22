@@ -1,6 +1,6 @@
 ---
 ##
-# mail service preparation tasks
+# pcd-services/mail prepare
 #
 
 - { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }

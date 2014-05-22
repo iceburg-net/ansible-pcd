@@ -1,6 +1,6 @@
 ---
 ##
-# [DEBIAN] backup preparation tasks 
+# [DEBIAN] pcd-apps/backup prepare
 #
 
 - name: add percona repository key

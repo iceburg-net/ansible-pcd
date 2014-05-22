@@ -1,8 +1,6 @@
 ---
 ##
-#  httpd tasks 
+#  pcd-services/httpd tasks 
 #
-
-- debug: msg="httpd service"
 
 - { include: prepare.yml, tags: ['prepare'] }

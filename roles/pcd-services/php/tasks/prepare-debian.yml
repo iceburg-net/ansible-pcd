@@ -1,6 +1,6 @@
 ---
 ##
-# [DEBIAN] php preparation tasks 
+# [DEBIAN] pcd-services/php prepare 
 #
 
 - name: ensure php packages 

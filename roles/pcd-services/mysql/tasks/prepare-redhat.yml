@@ -1,6 +1,6 @@
 ---
 ##
-# [REDHAT] mysql preparation tasks 
+# [REDHAT] pcd-services/mysql prepare 
 #
 
 - name: ensure mysql packages

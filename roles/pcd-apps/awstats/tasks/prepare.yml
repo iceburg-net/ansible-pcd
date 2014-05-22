@@ -1,6 +1,6 @@
 ---
 ##
-# awstats preparation tasks
+# pcd-apps/awstats prepare
 #
 
 - name: fetch awstats distributrion

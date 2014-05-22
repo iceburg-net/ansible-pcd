@@ -1,6 +1,6 @@
 ---
 ##
-# php preparation tasks
+# pcd-services/php prepare
 #
 
 - { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }

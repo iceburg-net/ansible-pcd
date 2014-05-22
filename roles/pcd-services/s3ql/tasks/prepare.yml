@@ -1,6 +1,6 @@
 ---
 ##
-# s3ql preparation tasks
+# pcd-services/s3ql prepare
 #
 
 - { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }

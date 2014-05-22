@@ -1,6 +1,6 @@
 ---
 ##
-# [DEBIAN] awstats preparation tasks 
+# [DEBIAN] pcd-apps/awstats prepare
 #
 
 - name: ensure python passlib (for ansible htpasswd module)

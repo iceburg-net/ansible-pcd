@@ -1,6 +1,6 @@
 ---
 ##
-# httpd preparation tasks
+# pcd-services/httpd prepare
 #
 
 - name: add {{ httpd_user_group }} group

@@ -1,6 +1,6 @@
 ---
 ##
-#  backup default vars 
+#  pcd-apps/backup defaults
 #
 
 backup_user: backupop

@@ -17,6 +17,4 @@
   
   roles:
     - {role: pcd-common, tags: ['prepare','configure']}
-    - pcd-services/apache
-    - pcd-services/mysql
     - pcd-services/php

@@ -1,6 +1,6 @@
 ---
 ##
-# mysql preparation tasks
+# pcd-services/mysql prepare
 #
 
 - { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }

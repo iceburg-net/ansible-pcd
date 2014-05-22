@@ -1,6 +1,6 @@
 ---
 ##
-# [REDHAT] php preparation tasks 
+# [REDHAT] pcd-services/php prepare 
 #
 
 - name: ensure php packages

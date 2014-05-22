@@ -1,6 +1,6 @@
 ---
 ##
-# nginx preparation tasks
+# pcd-services/nginx prepare
 #
 
 - { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }

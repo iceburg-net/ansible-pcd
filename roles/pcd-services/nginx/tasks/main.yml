@@ -1,9 +1,7 @@
 ---
 ##
-#  nginx tasks 
+#  pcd-services/nginx tasks 
 #
-
-- debug: msg="nginx service"
 
 
 - { include: prepare.yml, tags: ['prepare'] }

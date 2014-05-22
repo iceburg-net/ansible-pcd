@@ -1,6 +1,6 @@
 ---
 ##
-# awstats deployment tasks
+# pcd-apps/awstats deploy
 #
 
 - name: deploy common.conf

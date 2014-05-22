@@ -1,6 +1,6 @@
 ---
 ##
-#  s3ql default vars 
+#  pcd-services/s3ql defaults 
 #
 
 s3ql_version: 1.17

@@ -1,6 +1,6 @@
 ---
 ##
-# [DEBIAN] mail service preparation tasks 
+# [DEBIAN] pcd-services/mail prepare
 #
 
 - name: ensure mail service packages 

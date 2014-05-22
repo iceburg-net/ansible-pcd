@@ -1,6 +1,6 @@
 ---
 ##
-# mysql configuration tasks
+# pcd-services/mysql configure
 #
 
 - name: fetch mysqltuner.pl script

@@ -1,6 +1,6 @@
 ---
 ##
-# [DEBIAN] s3ql preparation tasks 
+# [DEBIAN] pcd-services/s3ql compile 
 #
 - name: ensure development dependencies
   apt: pkg={{ item }} state=present

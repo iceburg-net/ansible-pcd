@@ -1,6 +1,6 @@
 ---
 ##
-# [DEBIAN] mysql preparation tasks 
+# [DEBIAN] pcd-services/mysql prepare
 #
 
 - name: ensure mysql packages 

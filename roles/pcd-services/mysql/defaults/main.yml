@@ -1,6 +1,6 @@
 ---
 ##
-#  mysql default vars 
+#  pcd-services/mysql defaults 
 #
 
 # default root user password. 

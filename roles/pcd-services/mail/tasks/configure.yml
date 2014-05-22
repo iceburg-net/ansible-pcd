@@ -1,0 +1,8 @@
+---
+##
+# pcd-services/mail deploy
+#
+
+- { include: configure-debian.yml, when: "ansible_os_family == 'Debian'" }
+- { include: configure-redhat.yml, when: "ansible_os_family == 'RedHat'" }
+

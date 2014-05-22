@@ -1,9 +1,7 @@
 ---
 ##
-#  mail service tasks 
+#  pcd-services/mail tasks 
 #
 
-- debug: msg="mail service"
-
 - { include: prepare.yml, tags: ['prepare'] }
-- { include: deploy.yml, tags: ['deploy'] }
+- { include: configure.yml, tags: ['configure'] }

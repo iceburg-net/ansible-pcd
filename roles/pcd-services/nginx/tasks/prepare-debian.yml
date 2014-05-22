@@ -1,6 +1,6 @@
 ---
 ##
-# [DEBIAN] backup preparation tasks 
+# [DEBIAN] pcd-services/nginx prepare 
 #
 
 - name: add percona repository key

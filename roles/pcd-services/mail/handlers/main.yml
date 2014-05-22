@@ -1,4 +1,6 @@
-# mail service handlers
+---
+##
+# pcd-services/mail handlers
 
 - name: mail restart
   service: name=nullmailer state=restarted

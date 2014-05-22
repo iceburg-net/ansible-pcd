@@ -1,9 +1,7 @@
 ---
 ##
-#  awstats tasks 
+#  pcd-apps/awstats tasks 
 #
-
-- debug: msg="awstats application"
 
 - { include: "normalize.yml", tags: ['prepare,deploy'] }
 #- debug: msg="{{ apache_sites_normalized }}"  
