@@ -1,0 +1,22 @@
+---
+##
+# prepare|configure|deploy the environment application
+#
+#  preparation tasks are typically executed ONCE per host.
+#
+
+
+# prepare and configure systems
+- { include: pcd_system.yml, PCD_TARGET_HOST: "all" }
+
+
+# prepare and configure webservers
+- name: "webservers"
+  hosts: webservers
+  remote_user: root
+  
+  roles:
+    - {role: pcd-common, tags: ['prepare','configure']}
+    - pcd-services/apache
+    - pcd-services/mysql
+    - pcd-services/php

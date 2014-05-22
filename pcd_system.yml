@@ -11,13 +11,13 @@
 
 
 - name: "pcd system"
-  hosts: "{{ PCD_HOST }}"
+  hosts: "{{ PCD_TARGET_HOST }}"
   remote_user: root
   tags: ['prepare','configure']
   
   vars_prompt:
-    - name: "PCD_HOST"
-      prompt: "PCD_HOST : Target Host/Group"
+    - name: "PCD_TARGET_HOST"
+      prompt: "PCD_TARGET_HOST : Target Host/Group"
       default: "all"
       
   vars:
