@@ -10,7 +10,7 @@ httpd_site_logformat: awstats
 httpd_user: siteop
 httpd_user_group: httpdconf
 httpd_user_home: "{{ PCD_SITES_DIR }}"
-httpd_user_key: "{{ PCD_KEYS_DIR }}/{{ httpd_default_site_org }}+{{ httpd_user }}.key"
+httpd_user_key: "{{ PCD_KEYS_DIR }}/{{ httpd_site_org }}+{{ httpd_user }}.key"
 
 httpd_ssl_dir: "{{ httpd_user_home }}/ssl-certificates"
 

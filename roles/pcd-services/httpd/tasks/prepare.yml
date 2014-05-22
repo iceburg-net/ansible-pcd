@@ -7,17 +7,15 @@
   group: name={{ httpd_user_group }} system=yes
   
 
-- { include: "{{ common_tasks }}/user_add.yml", 
-    user_add: {
+- { include: "{{ pcd_task_adduser }}", task: {
       name: "{{ httpd_user }}",
-      group: "{{ httpd_group }}", 
+      group: "{{ httpd_user_group }}", 
       home: "{{ httpd_user_home }}",
       system: yes,
       github: yes,
       key: "{{ httpd_user_key }}"
     }
   }
-
 
 - name: ensure httpd certificate directory writable by {{ httpd_user_group }} group
   file: 
