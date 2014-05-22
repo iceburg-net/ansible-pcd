@@ -1,5 +1,5 @@
 
-# common apache handlers
+# apache handlers
 
 - name: apache restart
   service: name={{ os_apache_service  }} state=restarted

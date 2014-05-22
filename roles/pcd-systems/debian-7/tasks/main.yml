@@ -43,5 +43,4 @@
 - name: denyhosts - activate
   raw: /etc/init.d/denyhosts restart
   
-- name: denyhosts - ensure denyhosts_unban.sh script
-  copy: src={{ common_files }}/denyhosts_unban.sh dest=/usr/local/bin/denyhosts_unban.sh mode=0755
+
