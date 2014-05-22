@@ -7,7 +7,7 @@ awstats_sites_normalized:
 {% for item in awstats_sites_list %}
 {% for config in item.awstats_configs | default([{'name': item.name}]) %}
   - { name: "{{ config.name | default(item.name) }}",
-      org: "{{ item.org | default(default_org) }}",
+      org: "{{ item.org | default(PCD_DEFAULT_ORG) }}",
       template: "{{ config.template | default(awstats_default_config) }}",
       aliases: "{% if config.aliases is defined %}config.aliases{% elif item.awstats_alias is defined %}item.awstats_alias{% elif item.apache_alias is defined and item.apache_alias %}{{ item.apache_alias }}{% else %}{{ item.name }}{% endif %}",
     }

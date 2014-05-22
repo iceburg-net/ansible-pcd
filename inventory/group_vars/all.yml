@@ -1,6 +1,12 @@
 ---
 # Global Inventory Variables (inherrited by all hosts)
 
+# Identity defaults
+###################
+
+PCD_DEFAULT_ORG: ansible
+
+
 # Register PCD paths
 ####################
 
@@ -13,7 +19,7 @@ PCD_CERTS_DIR: "{{ PCD_PRIVATE_DIR  }}/ssl-certs"
 # Connection defaults
 #####################
 
-ansible_ssh_private_key_file: "{{ PCD_KEYS_DIR }}/{{ default_org }}+{{ ansible_ssh_user }}.key"
+ansible_ssh_private_key_file: "{{ PCD_KEYS_DIR }}/{{ PCD_DEFAULT_ORG }}+{{ ansible_ssh_user }}.key"
 
 
 # Provision defaults
@@ -21,25 +27,4 @@ ansible_ssh_private_key_file: "{{ PCD_KEYS_DIR }}/{{ default_org }}+{{ ansible_s
 
 system_fqdn: "{{ inventory_hostname }}"
 system_hostname: "{{ inventory_hostname_short }}"
-
-
-
-# Identity defaults
-###################
-
 system_uuid: "{{ ansible_product_uuid }}"
-
-default_org: ansible
-default_user_name: ansible
-default_user_pass: !!null
-default_user_email: "{{ default_user_name }}@localhost"
-
-
-# Application defaults
-######################
-
-default_applications_dir: /apps
-default_sites_dir: /sites
-
-# set to "" (empty string) to disable cronic
-cron_prefix: "/usr/local/bin/cronic "

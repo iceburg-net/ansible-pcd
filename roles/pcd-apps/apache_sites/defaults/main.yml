@@ -5,7 +5,7 @@
 
 apache_sites_default_apache_config: virtualhost_http.j2
 apache_sites_default_apache_config_ssl: virtualhost_https.j2
-apache_sites_default_apache_serveradmin: "{{ default_user_email }}"
+apache_sites_default_apache_serveradmin: "{{ PCD_DEFAULT_USER_EMAIL }}"
 
 # specify default sites, e.g. www.iceburg.net. must match an enabled site name.
 apache_sites_default_http_site: 

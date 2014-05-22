@@ -1,7 +1,7 @@
 ---
 # common private variables
 
-private_user_name: "{{ default_user_name }}"
+private_user_name: "{{ PCD_DEFAULT_USER_NAME }}"
 private_user_pass: "{{ default_user_pass }}"
 
 

@@ -4,5 +4,5 @@
 # Identity defaults
 ###################
 
-default_org: iceburg
-default_user_email: webmaster@iceburg.net
+PCD_DEFAULT_ORG: iceburg
+PCD_DEFAULT_USER_EMAIL: webmaster@iceburg.net

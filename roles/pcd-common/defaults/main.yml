@@ -1,0 +1,22 @@
+---
+# PCD Default Vars
+
+
+# Identity defaults
+###################
+
+PCD_DEFAULT_ORG: ansible
+PCD_DEFAULT_USER_NAME: ansible
+PCD_DEFAULT_USER_PASS: !!null
+PCD_DEFAULT_USER_EMAIL: "{{ PCD_DEFAULT_USER_NAME }}@localhost"
+
+
+# Application defaults
+######################
+
+PCD_APPS_DIR: /apps
+PCD_SITES_DIR: /sites
+
+# set to "" (empty string) to disable cronic
+PCD_CRON_PREFIX: "/usr/local/bin/cronic "
+

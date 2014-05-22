@@ -22,7 +22,7 @@
     name="backup of {{ item.key }}"
     hour="{{ item.value.hour }}"
     minute="{{ item.value.minute }}"
-    job="{{ cron_prefix }} sudo {{ backup_binaries }}/backup_{{ item.key }}.sh"
+    job="{{ PCD_CRON_PREFIX }} sudo {{ backup_binaries }}/backup_{{ item.key }}.sh"
     state={{ item.value.state }} 
   with_dict: backup_schedule
    
