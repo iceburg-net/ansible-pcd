@@ -16,6 +16,7 @@
 #    }
 #  }
       
+- debug: var=task
 
 
 - name: user_add > add user {{ task.name }}
@@ -38,7 +39,7 @@
   authorized_key: 
     user={{ task.name }}
     key="{{ lookup('file', task.key + '.pub') }}"
-  when: task.key is defined and task.key | bool
+  when: task.key is defined and task.key
   
 - name: user_add > set private key
   copy:
@@ -47,7 +48,7 @@
     src={{ task.key }}
   sudo: yes
   sudo_user: "{{ task.name }}"
-  when: task.key is defined and task.key | bool
+  when: task.key is defined and task.key
   
 - name: user_add > set public key
   copy:
@@ -56,11 +57,11 @@
     src={{ task.key }}.pub
   sudo: yes
   sudo_user: "{{ task.name }}"
-  when: task.key is defined and task.key | bool
+  when: task.key is defined and task.key
   
 - name: user_add > ensure github vars
   include_vars: "{{ common_vars }}/github.yml"
-  when: task.github is defined and task.github | bool
+  when: task.github is defined and task.github
   
 - name: user_add > add github.com signatures to known_hosts
   lineinfile:
@@ -71,4 +72,4 @@
   sudo: yes
   sudo_user: "{{ task.name }}"
   with_items: github_knows_hosts
-  when: task.github is defined and task.github | bool
+  when: task.github is defined and task.github
