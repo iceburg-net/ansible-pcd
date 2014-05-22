@@ -15,9 +15,6 @@
 #      github: False  ## adds github hosts to ~/.ssh/known_hosts
 #    }
 #  }
-      
-- debug: var=task
-
 
 - name: user_add > add user {{ task.name }}
   user:
@@ -60,8 +57,8 @@
   when: task.key is defined and task.key
   
 - name: user_add > ensure github vars
-  include_vars: "{{ common_vars }}/github.yml"
-  when: task.github is defined and task.github
+  include_vars: "{{ PCD_COMMON_ROLE }}/vars/github.yml"
+  when: github_knows_hosts is not defined and task.github is defined and task.github 
   
 - name: user_add > add github.com signatures to known_hosts
   lineinfile:

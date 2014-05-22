@@ -7,9 +7,9 @@ PCD_APP_ROLES: "{{ inventory_dir }}/../roles/pcd-apps"
 PCD_SERVICE_ROLES: "{{ inventory_dir }}/../roles/pcd-services"
 PCD_SYSTEM_ROLES: "{{ inventory_dir }}/../roles/pcd-systems"
 
-PCD_TASK_DIR: "{{ inventory_dir }}/../roles/pcd-common/tasks"
+PCD_COMMON_ROLE: "{{ inventory_dir }}/../roles/pcd-common"
 
 # Register shared tasks
 #######################
 
-pcd_task_adduser: "{{ PCD_TASK_DIR }}/adduser.yml"
+pcd_task_adduser: "{{ PCD_COMMON_ROLE }}/tasks/adduser.yml"
