@@ -22,8 +22,8 @@ apache_sites_normalized:
       ssl: True,
       ssl_ip: "{{ item.ssl_ip | default('*') }}",
       ssl_port: "{{ item.ssl_port | default(apache_https_port) }}",
-      ssl_key: "{{ item.ssl_key | default(pcd_certs_dir + '/' + item.name + '.key') }}",
-      ssl_crt: "{{ item.ssl_crt | default(pcd_certs_dir + '/' + item.name + '.crt') }}",
+      ssl_key: "{{ item.ssl_key | default(PCD_CERTS_DIR + '/' + item.name + '.key') }}",
+      ssl_crt: "{{ item.ssl_crt | default(PCD_CERTS_DIR + '/' + item.name + '.crt') }}",
       apache_config: "{{ item.apache_config | default(apache_sites_default_apache_config_ssl) }}",
       {% else %}
       ssl: False,

@@ -17,18 +17,6 @@ backup_schedule: {
 }
 
 
-
-# Register private vars files
-#############################
-#
-# filenames are relative to {{ pcd_private_vars }} path and do not need to exist
-#
-
-private_vars_files: [
-  "nashville-web-servers.yml",
-  "{{ inventory_hostname }}.yml"]
-
-
 # Apache Site Definitions
 #########################
 #

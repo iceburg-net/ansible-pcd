@@ -1,25 +1,31 @@
 ---
 ##
-#  bootstrap tasks 
+#  pcd-common tasks 
 #
 
-- name: bootstrap - load default private vars
-  include_vars: "{{ pcd_private_vars }}//private.yml"
+- name: load default os vars
+  include_vars: "os_defaults.yml"
   
-- debug: var=private_vars_files
+- name: load {{ ansible_os_family }} os vars
+  include_vars: "os_{{ ansible_os_family }}.yml"
 
-- name: bootstrap - locate additional private vars
-  local_action: stat path={{ pcd_private_vars }}/{{ item }}
-  register: bootstrap_stat
-  with_items: private_vars_files
+- name: load default private vars (PCD_PRIVATE_DIR/vars/private.yml)
+  include_vars: "{{ PCD_PRIVATE_DIR }}/vars/private.yml"
   
-- name: bootstrap - load additional private vars
-  include_vars: "{{ pcd_private_vars }}/{{ item.item }}"
+- name: detect private group vars
+  local_action: stat path={{ PCD_PRIVATE_DIR }}/vars/{{ item }}.yml
+  register: pcd_stat
+  with_items: group_names
+  
+- name: load private group vars [{{ item.item }}.yml] (note precedence is FILO)
+  include_vars: "{{ PCD_PRIVATE_DIR }}/vars/{{ item.item }}.yml"
   when: item.stat.exists 
-  with_items: bootstrap_stat.results
+  with_items: pcd_stat.results
   
-- name: bootstrap - load default os vars
-  include_vars: "{{ common_vars }}/os_defaults.yml"
+- name: detect private inventory_hostname vars
+  local_action: stat path={{ PCD_PRIVATE_DIR }}/vars/{{ inventory_hostname }}.yml
+  register: pcd_stat
   
-- name: bootstrap - load {{ ansible_os_family }} os vars
-  include_vars: "{{ common_vars }}/os_{{ ansible_os_family }}.yml"
+- name: load private inventory_hostname vars [{{ inventory_hostname }}.yml] (note precedence is FILO)
+  include_vars: "{{ PCD_PRIVATE_DIR }}/vars/{{ inventory_hostname }}.yml"
+  when: pcd_stat.stat.exists
