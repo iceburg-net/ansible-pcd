@@ -61,6 +61,8 @@ ansible-playbook -i inventory/iceburg.hosts system_prepare.yml --limit iceburg-o
 todo
 ====
 
+* denyhosts belongs as a service; not part of base system configuration
+
 * standardize logging across distributions
   * add redhat support to awstats (currently assumes debian httpd-prerotate functionality in apache2 logrotate.d conf)
    
