@@ -4,7 +4,7 @@
 #
 
 dependencies:
-  - { role: applications/apache_sites, 
+  - { role: pcd-apps/apache_sites, 
       apache_sites_list: [{
         name: "{{ awstats_site_name }}",
         org: "{{ awstats_site_org }}",

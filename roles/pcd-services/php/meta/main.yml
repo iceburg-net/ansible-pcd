@@ -1,4 +1,4 @@
 ---
 dependencies:
-  - { role: services/apache }
-  - { role: services/mysql }
+  - { role: pcd-services/apache }
+  - { role: pcd-services/mysql }

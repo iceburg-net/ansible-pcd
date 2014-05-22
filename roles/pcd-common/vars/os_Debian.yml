@@ -31,7 +31,7 @@ os_mysql_packages:
 # php
 #####
 
-# note: debian wheezy version is 5.4.4, and uses APC
+# note/@todo: debian wheezy version is 5.4.4, and uses APC
 #  use dotdeb to upgrade to 5.5 + built in opcache [?]
 os_php_packages:
   - php5

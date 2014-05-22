@@ -4,6 +4,6 @@
 #
 
 dependencies:
-  - { role: services/s3ql }
-  - { role: applications/apache_sites, skip_tasks: true }
+  - { role: pcd-services/s3ql }
+  - { role: pcd-apps/apache_sites, skip_tasks: true }
      

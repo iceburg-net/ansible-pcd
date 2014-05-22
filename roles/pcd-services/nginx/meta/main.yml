@@ -4,4 +4,4 @@
 #
 
 dependencies:
-  - { role: services/httpd }
+  - { role: pcd-services/httpd }
