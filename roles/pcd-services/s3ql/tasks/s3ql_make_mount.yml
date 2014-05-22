@@ -3,57 +3,61 @@
 # creates a s3ql filesystem and mounts immediately and automatically on boot.
 #
 
-# exammple call: 
-#- { include: "{{ pcd_task_s3ql_mount }}", 
-#    task_nickname: "backups",
-#    task_user: "backupmonsieur",
-#    task_target: "/mnt/cloud-storage",
-#    task_url: "gs://bucket/prefix",
-#    task_login: "google-storage-key",
-#    task_password: "google-storage-key-secret" }
+# usage:
+# 
+#- { include: "{{ pcd_task.s3ql_mount }}", task: {
+#      nickname: "backups",
+#      user: "backupmonsieur",
+#      target: "/mnt/cloud-storage",
+#      url: "gs://bucket/prefix",
+#      login: "google-storage-key",
+#      password: "google-storage-key-secret" 
+#    }
+#  }
+
 
 - fail: msg="s3ql role recommends using system_uuid as the prefix, but it's missing"
   when: not system_uuid or system_uuid.strip() == ''
   
 - name: register user's home directory
-  command: "echo ~{{ task_user | default('root') }}"
+  command: "echo ~{{ task.user | default('root') }}"
   register: detected_user_home
   changed_when: False
   
 - name: register mountpoint in authfile
   ini_file:
     dest={{ detected_user_home.stdout }}/.s3ql-authinfo
-    section={{ task_nickname }}
+    section={{ task.nickname }}
     option={{ item.option }}
     value={{ item.value }}
     mode=0600
   with_items:
-    - { option: 'storage-url', value: '{{ task_url }}' }
-    - { option: 'backend-login', value: '{{ task_login }}' }
-    - { option: 'backend-password', value: '{{ task_password }}' }
+    - { option: 'storage-url', value: '{{ task.url }}' }
+    - { option: 'backend-login', value: '{{ task.login }}' }
+    - { option: 'backend-password', value: '{{ task.password }}' }
 
 
 - name: create s3ql filesystem if it doesn't exist
-  shell: mkfs.s3ql --authfile {{ detected_user_home.stdout }}/.s3ql-authinfo --plain -L {{ task_nickname }} {{ task_url }}
+  shell: mkfs.s3ql --authfile {{ detected_user_home.stdout }}/.s3ql-authinfo --plain -L {{ task.nickname }} {{ task.url }}
     creates={{ detected_user_home.stdout }}/.s3ql/{{ backup_s3ql_url | replace("/","=2F") }}.db
   sudo: True,
-  sudo_user: "{{ task_user | default('root') }}"
+  sudo_user: "{{ task.user | default('root') }}"
 
 - name: copy sysvinit script to mount on boot
   template:
-     dest="/etc/init.d/s3ql-{{ task_nickname }}"
+     dest="/etc/init.d/s3ql-{{ task.nickname }}"
      src="{{ pcd_services }}/s3ql/templates/sysvinit.j2"
      mode=0755
   sudo: False
   when: "ansible_distribution == 'Debian'"
   
 - name: register sysvinit script as a service (daemon)
-  shell: insserv s3ql-{{ task_nickname }}
-    creates="/etc/rc0.d/K01s3ql-{{ task_nickname }}"
+  shell: insserv s3ql-{{ task.nickname }}
+    creates="/etc/rc0.d/K01s3ql-{{ task.nickname }}"
   sudo: False
   when: "ansible_distribution == 'Debian'"
  
 - name: automount on boot
-  service: name="s3ql-{{ task_nickname }}" state=started enabled=yes
+  service: name="s3ql-{{ task.nickname }}" state=started enabled=yes
   sudo: False
   
