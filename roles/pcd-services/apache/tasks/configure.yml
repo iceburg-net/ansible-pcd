@@ -1,0 +1,12 @@
+---
+##
+# apache preparation configure
+#
+
+- name: register configurations
+  template:
+    src={{ item }}
+    dest={{ os_apache_conf_dir }}/{{ item | basename }}
+  with_fileglob: "conf/*.conf"
+  notify:
+    - apache restart
