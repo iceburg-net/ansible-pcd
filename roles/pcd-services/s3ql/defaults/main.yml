@@ -8,8 +8,3 @@ s3ql_version: 1.17
 s3ql_mount_opts: ""
 #s3ql_mount_opts: "--compress none"
 
-
-# register shared tasks
-#######################
-
-pcd_task_s3ql_mount: "{{ PCD_SERVICE_ROLES }}/s3ql/tasks/s3ql_make_mount.yml"

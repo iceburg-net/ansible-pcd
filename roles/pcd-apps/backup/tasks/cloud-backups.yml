@@ -8,12 +8,14 @@
     groups=fuse
     name={{ backup_user }}
   sudo: False
- 
   
-- { include: "{{ pcd_services }}/s3ql/tasks/s3ql_make_mount.yml", 
-    s3ql_mount_nickname: "backups",
-    s3ql_mount_user: "{{ backup_user }}",
-    s3ql_mount_target: "{{ backup_target_dir }}",
-    s3ql_mount_url: "{{ backup_s3ql_url }}",
-    s3ql_mount_login: "{{ backup_s3ql_username }}",
-    s3ql_mount_password: "{{ backup_s3ql_password }}", }
+- { include: "{{ pcd_task_s3ql_mount }}", task: {
+      nickname: "backups",
+      user: "{{ backup_user }}",
+      target: "{{ backup_target_dir }}",
+      url: "{{ backup_s3ql_url }}",
+      login: "{{ backup_s3ql_username }}",
+      password: "{{ backup_s3ql_password }}"
+    }
+  }
+  

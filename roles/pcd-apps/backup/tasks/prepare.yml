@@ -3,8 +3,7 @@
 # pcd-apps/backup prepare
 #
 
-- { include: "{{ common_tasks }}/user_add.yml", 
-    user_add: {
+- { include: "{{ pcd_task_adduser }}", task: {
       name: "{{ backup_user }}",
       home: "{{ backup_user_home }}",
       system: yes,

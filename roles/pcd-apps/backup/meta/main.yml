@@ -5,5 +5,4 @@
 
 dependencies:
   - { role: pcd-services/s3ql }
-  - { role: pcd-apps/apache_sites, skip_tasks: true }
      
