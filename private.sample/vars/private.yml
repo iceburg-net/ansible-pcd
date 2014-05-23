@@ -9,7 +9,7 @@ private_user_pass: "{{ default_user_pass }}"
 # override credentials used by roles
 #
 
-mysql_root_password: password...
+mysql_root_password: !!null
 
 #mail_smtp_host: smtp.mandrillapp.com
 #mail_smtp_auth: True

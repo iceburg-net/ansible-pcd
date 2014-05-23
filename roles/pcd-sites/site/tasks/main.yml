@@ -3,9 +3,14 @@
 #  pcd-sites/site tasks
 #
 
-- name: define site
+- name: build site definition
   include_vars: "{{ item }}"
   with_items:
     - site_defaults.yml
     - "{{ PCD_SITE_DIR }}/{{ site_org }}/{{ site_name }}.yml"
     
+    
+
+- { include: prepare.yml, tags: ['prepare'] }
+- { include: configure.yml, tags: ['configure'] }
+

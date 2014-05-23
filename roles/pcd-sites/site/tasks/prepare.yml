@@ -1,0 +1,26 @@
+---
+##
+#  pcd-sites/site prepare
+#
+
+- name: prepare mysql databases - create database
+  mysql_db:
+    login_host="{{ SITE_MYSQL_LOGIN_HOST }}"
+    login_user="{{ SITE_MYSQL_LOGIN_USER }}"
+    login_password="{{ SITE_MYSQL_LOGIN_PASS }}"
+    name="{{ SITE_MYSQL_DB }}"
+  when: SITE_MYSQL_DB != ""
+
+
+- name: prepare mysql databases - create user, grant privs 
+  mysql_user:
+    login_host="{{ SITE_MYSQL_LOGIN_HOST }}"
+    login_user="{{ SITE_MYSQL_LOGIN_USER }}"
+    login_password="{{ SITE_MYSQL_LOGIN_PASS }}"
+    name="{{ SITE_MYSQL_USER }}"
+    password="{{ SITE_MYSQL_PASS }}"
+    priv="{{ SITE_MYSQL_DB }}.*:ALL"
+    append_privs=yes
+    state=present
+  when: SITE_MYSQL_DB != ""
+

@@ -5,7 +5,13 @@
 
 PCD_SITE_DIR: "{{ inventory_dir }}/../sites"
 
+SITE_MYSQL_LOGIN_HOST: localhost
+SITE_MYSQL_LOGIN_USER: root
+SITE_MYSQL_LOGIN_PASS: "{{ mysql_root_password }}"
+
+SITE_DEFAULT_MYSQL_USER: pcd_sites
+SITE_DEFAULT_MYSQL_PASS: !!null
+
 
 site_org: "{{ httpd_site_org }}"
 site_disabled_list: []
-

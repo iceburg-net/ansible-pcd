@@ -39,6 +39,11 @@
 # SITE_GIT_REPO: (str | "") git repository (clone URL) containing site, set
 # SITE_GIT_BRANCH: (str | "master")
 #
+# set SITE_MYSQL_DB to create a MySQL database + user belonging to this site
+# SITE_MYSQL_DB: (str | "") mysql database name
+# SITE_MYSQL_USER: (str | {{ SITE_DEFAULT_MYSQL_USER }}) mysql username
+# SITE_MYSQL_PASS: (str | {{ SITE_DEFAULT_MYSQL_PASS }}) mysql username password
+#
 ###########
 
 
@@ -63,3 +68,8 @@ SITE_APACHE_OVERRIDES: False
 
 SITE_GIT_REPO: ""
 SITE_GIT_BRANCH: "master"
+
+SITE_MYSQL_DB: ""
+SITE_MYSQL_USER: "{{ SITE_DEFAULT_MYSQL_USER }}"
+SITE_MYSQL_PASS: "{{ SITE_DEFAULT_MYSQL_PASS }}"
+
