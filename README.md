@@ -11,12 +11,12 @@ overview
 
 * roles are categorized into systems, services, and applications.
 
-* roles following the pcd standard organize their tasks into prepare, configure, and deploy phases. 
-
-
-goals
-=====
-
+* pcd roles organize tasks into prepare, configure, and deploy tags. 
+  * prepare: typically run one time per host (e.g. create user)
+  * configure: run whenever configuration changes (e.g. update httpd port)
+  * deploy: run on site/application releases 
+  
+#### goals
 * drastically reduce execution time by visiting only necessary tasks
 * provide standards for shared tasks and intralinked roles
 * support extremely massive installments
@@ -115,20 +115,20 @@ For *support*, please post to stackoverflow using the ansible-pcd tag:
 developer-todo
 ==============
 
-### highest priority
+#### highest priority
 
 * fix backup to work with rewrite
 * resolve issue with using tags: "prepare" and "configure" -- currently ignored?
 * mail service => nullmailer service
 * ncurses based UI   
 
-### normal priority
+#### normal priority
 
 * denyhosts belongs as a service; not part of base system configuration
 * standardize logging service across distributions
 * add redhat support to awstats (currently assumes debian httpd-prerotate functionality in apache2 logrotate.d conf)
 
-### lowest priority
+#### lowest priority
 
 * refactor all roles to adopt edX standards
 * improve upon skip_tasks hack; find better way to load role var defaults.
