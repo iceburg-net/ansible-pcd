@@ -12,6 +12,9 @@
   vars:
     # define site names to disable
     site_disabled_list: []
+    
+  
+  # site configurations are found in roles/pcd-sites/site/vars/<org>/<name>.yml  
   
   roles:
     - {role: pcd-common, tags: ['prepare','configure','deploy']}

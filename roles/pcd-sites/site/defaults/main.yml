@@ -3,6 +3,9 @@
 # pcd-sites/site meta
 #
 
+PCD_SITE_DIR: "{{ inventory_dir }}/../sites"
+
+
 site_org: "{{ httpd_site_org }}"
 site_disabled_list: []
 
