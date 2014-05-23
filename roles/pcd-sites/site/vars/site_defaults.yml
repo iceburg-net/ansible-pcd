@@ -69,7 +69,7 @@ SITE_HTTPS_PORT: "{{ HTTPD_HTTPS_PORT }}"
 SITE_SSL_KEY: "{{PCD_CERTS_DIR }}/{{ site_name }}.key"
 SITE_SSL_CRT: "{{PCD_CERTS_DIR }}/{{ site_name }}.crt"
 
-SITE_PATH: "{{ PCD_SITES_DIR }}/{{ site_org }}/{{ site_name }})"
+SITE_PATH: "{{ PCD_SITES_DIR }}/{{ site_org }}/{{ site_name }}"
 SITE_DOCROOT: "www"
 SITE_SERVERADMIN: "{{ HTTPD_SERVERADMIN }}"
 

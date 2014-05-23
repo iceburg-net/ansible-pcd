@@ -13,5 +13,5 @@
 
 - { include: prepare.yml, tags: ['prepare'] }
 - { include: configure.yml, tags: ['configure'] }
-#- { include: deploy.yml, tags: ['deploy'] }
+- { include: deploy.yml, tags: ['deploy'], sudo: True, sudo_user: "{{ httpd_user }}" }
 

@@ -3,26 +3,25 @@
 #  pcd-sites/site deploy
 #
 
-
-- name: shallow clone sites
+- name: ensure site path
+  file: path={{ SITE_PATH }} state=directory
+  when: SITE_GIT_REPO == ""
+  
+- name: ensure site docroot
+  file: path={{ SITE_PATH }}/{{ SITE_DOCROOT }} state=directory
+  when: SITE_GIT_REPO == ""
+  
+- name: git - checkout site (shallow clone)
   git:
     depth=1
-    dest={{ item.git_path }}
-    repo={{ item.git_repo }}
-    version={{ item.git_branch }}
+    dest={{ site_git_checkouts }}/{{ SITE_GIT_REPO | regex_replace('[\ \<\>\|\\\/\:\,\;\&\*\?]*','') }}-{{ SITE_GIT_BRANCH }}
+    repo={{ SITE_GIT_REPO }}
+    version={{ SITE_GIT_BRANCH }}
     accept_hostkey=yes
-  when: item.git and (apache_sites_site is not defined or apache_sites_site == item.name)
-  with_items: apache_sites_normalized
-  remote_user: siteop
+  when: SITE_GIT_REPO != ""
+  remote_user: "{{ httpd_user }}"
   
-- name: ensure site destination directories link to git checkouts
-  file: dest={{ item.path }} src={{ item.git_path }} state=link
-  when: item.git and (apache_sites_site is not defined or apache_sites_site == item.name)
-  with_items: apache_sites_normalized
-  
-- name: ensure site destination directories
-  file: path={{ item.path }}/{{ item.docroot }} state=directory
-  when: not item.git and (apache_sites_site is not defined or apache_sites_site == item.name)
-  with_items: apache_sites_normalized
-  
-  
+- name: git - link checkout to site path
+  file: state=link dest={{ SITE_PATH }} src={{ site_git_checkouts }}/{{ SITE_GIT_REPO | regex_replace('[\ \<\>\|\\\/\:\,\;\&\*\?]*','') }}-{{ SITE_GIT_BRANCH }}
+  when: SITE_GIT_REPO != ""
+ 
