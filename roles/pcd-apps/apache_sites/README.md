@@ -27,7 +27,7 @@ optionally provision databases + users users as well
 #   apache_alias: (opt) apache ServerAlias, e.g. "domain.com domain.net"
 #
 #   apache_config: (opt) template to use for apache config (virtualhost def),
-#     defaults to "virtualhost_http.j2". relative to apache_sites/templates
+#     defaults to "virtualhost_http.j2". relative to apache_pcd-sites/templates
 #
 #   apache_config_includes: (opt) files to include in the virtualhost definition
 #     defaults to: []
@@ -55,12 +55,12 @@ optionally provision databases + users users as well
 #   git_branch: (opt) branch to checkout, defaults to "master"
 #     target {{ apache_sites_user_home }}/git-checkouts/<git_repo>-<git_branch>
 #     creates {{ apache_sites_user_home }}/<org>/<name>-<git_branch> as link,
-#     e.g. /sites/ansible/www.domain.com  --> 
-#          /sites/ansible/git-checkouts/<git_repo>-<git_branch>
+#     e.g. /pcd-sites/ansible/www.domain.com  --> 
+#          /pcd-sites/ansible/git-checkouts/<git_repo>-<git_branch>
 #
 #   docroot: (opt) document root / path to public web files within repository,
 #      defaults to "www", can be empty string. e.g.
-#      DocumentRoot /sites/ansible/www.domain.com-master/www
+#      DocumentRoot /pcd-sites/ansible/www.domain.com-master/www
 #
 #   redirect_url: (opt) URL to redirect site to (include http/https://)
 #
@@ -133,6 +133,6 @@ ansible-playbook -i inventory/iceburg.hosts application_prepare.yml --tags=deplo
 #### deploy phase
 
 * loops through `apache_sites_list` 
-  * ensure _/sites/<org>_ exists
-  * git checkout to _/sites/<org>/<name>_  @todo (add stage/prod support)
+  * ensure _/pcd-sites/<org>_ exists
+  * git checkout to _/pcd-sites/<org>/<name>_  @todo (add stage/prod support)
   * registers site with apache (template virtualhost entry to _os_apache_sites_dir/<name>_)

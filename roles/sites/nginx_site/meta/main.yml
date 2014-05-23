@@ -1,7 +1,0 @@
----
-##
-#  sites/nginx_site meta
-#
-
-dependencies:
-  - { role: sites/site }

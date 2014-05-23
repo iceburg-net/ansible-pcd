@@ -8,6 +8,11 @@ HTTPD_HTTPS_PORT: 443
 
 HTTPD_SERVERADMIN: "{{ PCD_DEFAULT_USER_EMAIL }}"
 
+#@todo ensure log rotation on HTTPD_LOG_DIR
+HTTPD_LOG_DIR: "{{ PCD_SITES_DIR }}/logs"
+
+
+
 httpd_site_org: "{{ PCD_DEFAULT_ORG }}"
 httpd_site_root: www
 httpd_site_logformat: awstats

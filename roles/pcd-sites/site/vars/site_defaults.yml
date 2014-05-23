@@ -1,0 +1,65 @@
+---
+##
+# pcd-sites/site defaults
+#
+
+# Site Definitions
+##################
+#
+# Required (typically passed via role parameters)
+##########
+#
+# site_name: (str, unique) primary Server Name, typically www.domain.com
+# site_org: (str | {{ httpd_site_org }}) site organization [subfolder]
+#
+#
+# Optional (typically supplied via variable files matching site_name)
+##########
+#
+# SITE_ALIASES: (list | []) site aliases, e.g. ["domain.com", "domain.net"]
+# SITE_TYPE: (str | "") silverstripe-3.1, wordpress-3, &c.
+# 
+# SITE_HTTP: (bool | True) enables http site
+# SITE_HTTP_IP: (str | "*") site http ip address
+# SITE_HTTP_PORT: (int | {{ HTTPD_HTTP_PORT }}) site http port
+# 
+# SITE_HTTPS: (bool | False) enables https site                   [ssl]
+# SITE_HTTPS_IP: (str | "*") site https ip address                [ssl]
+# SITE_HTTPS_PORT: (int | {{ HTTPD_HTTPS_PORT }}) site https port [ssl]
+#
+# SITE_SSL_KEY: (path | "{{pcd_certs_dir }}/{{ site_name }}.key") SSL Key File
+# SITE_SSL_CRT: (path | "{{pcd_certs_dir }}/{{ site_name }}.crt") SSL CRT File
+#
+# SITE_SERVERADMIN: (str | "{{ HTTPD_SERVERADMIN }}") admin email address
+# SITE_LOG_FILE: (path | {{ HTTPD_LOG_DIR }}/{{ site_org }}.log) access log file
+# SITE_LOG_FORMAT: (str | {{ httpd_site_logformat }}) log file format
+# SITE_APACHE_OVERRIDES: (bool | False) .htaccess overrides in default config
+#
+# set SITE_GIT_REPO to clone URL if site is contained in git repository
+# SITE_GIT_REPO: (str | "") git repository (clone URL) containing site, set
+# SITE_GIT_BRANCH: (str | "master")
+#
+###########
+
+
+SITE_ALIASES: []
+SITE_TYPE: ""
+
+SITE_HTTP: True
+SITE_HTTP_IP: "*"
+SITE_HTTP_PORT: "{{ HTTPD_HTTP_PORT }}"
+
+SITE_HTTPS: False
+SITE_HTTPS_IP: "*"
+SITE_HTTPS_PORT: "{{ HTTPD_HTTPS_PORT }}"
+
+SITE_SSL_KEY: "{{pcd_certs_dir }}/{{ site_name }}.key"
+SITE_SSL_CRT: "{{pcd_certs_dir }}/{{ site_name }}.crt"
+
+SITE_SERVERADMIN: "{{ HTTPD_SERVERADMIN }}"
+SITE_LOG_FILE: "{{ HTTPD_LOG_DIR }}/{{ site_org }}.log"
+SITE_LOG_FORMAT: "{{ httpd_site_logformat }}"
+SITE_APACHE_OVERRIDES: False
+
+SITE_GIT_REPO: ""
+SITE_GIT_BRANCH: "master"

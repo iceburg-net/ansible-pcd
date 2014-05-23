@@ -1,10 +1,10 @@
 ---
 ##
-#  sites/apache_site tasks
+#  pcd-sites/apache_site tasks
 #
 
 
 - debug: var=SITE_ALIASES
-- debug: var=SITE_PORT
+- debug: var=SITE_HTTP_PORT
 - debug: var=SITE_NAME
 - debug: var=site_org

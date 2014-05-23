@@ -1,0 +1,7 @@
+---
+##
+#  pcd-sites/apache_site meta
+#
+
+dependencies:
+  - { role: pcd-sites/site }

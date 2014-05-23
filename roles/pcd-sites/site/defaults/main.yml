@@ -1,6 +1,6 @@
 ---
 ##
-# sites/site meta
+# pcd-sites/site meta
 #
 
 site_org: "{{ httpd_site_org }}"

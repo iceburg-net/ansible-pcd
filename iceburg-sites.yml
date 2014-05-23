@@ -15,8 +15,8 @@
   
   roles:
     - {role: pcd-common, tags: ['prepare','configure','deploy']}
-    - {role: sites/apache_site, site_name: "www.iceburg.net", site_org: "iceburg" }
-    - {role: sites/apache_site, site_name: "staging.iceburg.net", site_org: "iceburg" }
+    - {role: pcd-sites/apache_site, site_name: "www.iceburg.net", site_org: "iceburg" }
+    - {role: pcd-sites/apache_site, site_name: "staging.iceburg.net", site_org: "iceburg" }
     
     
     

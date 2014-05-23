@@ -1,0 +1,7 @@
+---
+##
+#  pcd-sites/nginx_site meta
+#
+
+dependencies:
+  - { role: pcd-sites/site }
