@@ -1,0 +1,164 @@
+---
+##
+# sites/site defaults
+#
+
+# Site Definitions
+##################
+#
+# Required (typically passed via role parameters)
+##########
+#
+# site_name: (str, unique) primary Server Name, typically www.domain.com
+# site_org: (str | {{ httpd_site_org }}) site organization [subfolder]
+#
+#
+# Optional (typically supplied via variable files matching site_name)
+##########
+#
+# SITE_ALIASES: (list | []) site aliases, e.g. ["domain.com", "domain.net"]
+# SITE_TYPE: (str | "") silverstripe-3.1, wordpress-3, &c.
+# 
+# SITE_HTTP: (bool | True) enables http site
+# SITE_HTTP_IP: (str | "*") site http ip address
+# SITE_HTTP_PORT: (int | {{ HTTPD_HTTP_PORT }}) site http port
+# 
+# SITE_HTTPS: (bool | False) enables https site                   [ssl]
+# SITE_HTTPS_IP: (str | "*") site https ip address                [ssl]
+# SITE_HTTPS_PORT: (int | {{ HTTPD_HTTPS_PORT }}) site https port [ssl]
+#
+# SITE_SSL_KEY: (path | "{{pcd_certs_dir }}/{{ site_name }}.key") SSL Key File
+# SITE_SSL_CRT: (path | "{{pcd_certs_dir }}/{{ site_name }}.crt") SSL CRT File
+#
+# SITE_SERVERADMIN: (str | "{{ HTTPD_SERVERADMIN }}") admin email address
+#
+# SITE_GIT_REPO: git repository (clone URL) containing site
+#
+###########
+
+
+
+      org: "{{ item.org | default(httpd_site_org) }}",
+      apache_config: "{{ item.apache_config | default(apache_sites_default_apache_config) }}",
+      apache_alias: "{% if item.apache_alias is defined and item.apache_alias %}{{ item.apache_alias }}{% else %}{{ item.name | regex_replace('^www\.','') }}{% endif %}",
+      apache_serveradmin: "{{ item.apache_serveradmin | default(apache_sites_default_apache_serveradmin) }}",
+      access_logfile: "{{ item.access_logfile | default(apache_log_dir + '/sites-' + item.org | default(httpd_site_org) + '.log' ) }}",
+      path: {{ apache_sites_user_home }}/{{ item.org | default(httpd_site_org) }}/{{ item.name }},
+      docroot: "{{ item.docroot | default(httpd_site_root) }}",
+      mysql: {% if apache_sites_mysql_list[item.name] is defined %}{{ apache_sites_mysql_list[item.name] }}{% else %}[]{% endif %},
+      allow_override: "{% if item.allow_override is defined and item.allow_override %}All{% else %}None{% endif %}",
+      ip: "{{ item.ip | default('*') }}",
+      port: "{{ item.port | default(apache_http_port) }}",
+      
+      {% if item.ssl is defined and item.ssl %}
+      ssl: True,
+      ssl_ip: "{{ item.ssl_ip | default('*') }}",
+      ssl_port: "{{ item.ssl_port | default(apache_https_port) }}",
+      ssl_key: "{{ item.ssl_key | default(PCD_CERTS_DIR + '/' + item.name + '.key') }}",
+      ssl_crt: "{{ item.ssl_crt | default(PCD_CERTS_DIR + '/' + item.name + '.crt') }}",
+      apache_config: "{{ item.apache_config | default(apache_sites_default_apache_config_ssl) }}",
+      {% else %}
+      ssl: False,
+      {% endif %}
+      
+      {% if item.git_repo is defined and item.git_repo %}
+      git: True,
+      git_repo: "{{ item.git_repo }}",
+      git_branch: {{ item.git_branch | default("master") }},
+      git_path: "{{ apache_sites_git_path }}/{{ item.git_repo | regex_replace('[\ \<\>\|\\\/\:\,\;\&\*\?]*','') }}-{{ item.git_branch | default("master") }}",
+      {% else %}
+      git: False,
+      {% endif %}
+      
+      {% if item.redirect_url is defined and item.redirect_url %}
+      apache_config_includes: ['redirect'],
+      redirect_url: "{{ item.redirect_url }}",
+      {% else %}
+      apache_config_includes: {{ item.apache_config_includes | default([]) }},
+      {% endif %}
+      
+
+SITE_ALIASES: []
+SITE_TYPE: None
+
+SITE_HTTP: True
+SITE_HTTP_IP: "*"
+SITE_HTTP_PORT: "{{ HTTPD_HTTP_PORT }}"
+
+SITE_HTTPS: False
+SITE_HTTPS_IP: "*"
+SITE_HTTPS_PORT: "{{ HTTPD_HTTPS_PORT }}"
+
+SITE_SSL_KEY: "{{pcd_certs_dir }}/{{ site_name }}.key"
+SITE_SSL_CRT: "{{pcd_certs_dir }}/{{ site_name }}.crt"
+
+SITE_GIT: 
+
+
+
+#httpd_site_org: "{{ PCD_DEFAULT_ORG }}"
+#httpd_site_root: www
+#httpd_site_logformat: awstats
+
+#httpd_user: siteop
+#httpd_user_group: httpdconf
+#httpd_user_home: "{{ PCD_SITES_DIR }}"
+#httpd_user_key: "{{ PCD_KEYS_DIR }}/{{ httpd_site_org }}+{{ httpd_user }}.key"
+
+#httpd_ssl_dir: "{{ httpd_user_home }}/ssl-certificates"
+
+
+
+
+# Apache Site Definitions
+#########################
+
+#   apache_alias: (opt) apache ServerAlias, e.g. "domain.com domain.net"
+#
+#   apache_config: (opt) template to use for apache config (virtualhost def),
+#     defaults to "virtualhost_http.j2". relative to apache_sites/templates
+#
+#   apache_config_includes: (opt) files to include in the virtualhost definition
+#     defaults to: []
+#
+#   apache_serveradmin: (opt) apache ServerAdmin, e.g. "webmaster@domain.com",
+#     default_user_email, override via apache_sites_default_apache_serveradmin
+#
+#   access_logfile: (opt) apache CustomLog target, e.g. "/dev/null"
+#     defaults to: {{ apache_log_dir  }}/sites-{{ item.org }}.log 
+#
+#   ip: (opt) ip address (e.g. <VirtualHost <ip>:<port>), defaults to "*"
+#   port: (opt) port, defaults to {{ apache_http_port }}
+#
+#   ssl: (opt) True/False to enable SSL
+#      defaults to False. When True, apache_config will default to 
+#      "virtualhost_https.j2", with http traffic redirected to https
+#
+#   ssl_ip: (opt) SSL ip (<VirtualHost <ssl_ip>:<ssl_port>), defaults to "*"/SNI
+#   ssl_port: (opt) port, defaults to {{ apache_https_port }}
+#   ssl_key: (opt) key file, defaults to {{pcd_certs_dir }}/<name>.key
+#   ssl_crt: (opt) certificate file, defaults to  {{pcd_certs_dir }}/<name>.crt
+#
+#   git_repo: (opt) git repository (clone URL) containing site(s)
+#
+#   git_branch: (opt) branch to checkout, defaults to "master"
+#     target {{ apache_sites_user_home }}/git-checkouts/<git_repo>-<git_branch>
+#     creates {{ apache_sites_user_home }}/<org>/<name>-<git_branch> as link,
+#     e.g. /sites/ansible/www.domain.com  --> 
+#          /sites/ansible/git-checkouts/<git_repo>-<git_branch>
+#
+#   docroot: (opt) document root / path to public web files within repository,
+#      defaults to "www", can be empty string. e.g.
+#      DocumentRoot /sites/ansible/www.domain.com-master/www
+#
+#   redirect_url: (opt) URL to redirect site to (include http/https://)
+#
+#   allow_override: (opt) True (AllowOverride All) or False (AllowOverride None)
+#      defaults to False.
+#      apache_sites recommends disabling overrides for performance. 
+#      consider adding your .htaccess content via an include.
+#
+#   backup_list: (opt) array of files/directories to backup.
+#      paths are relative to the site's docroot. Used by the backup role.   
+#
+#########################

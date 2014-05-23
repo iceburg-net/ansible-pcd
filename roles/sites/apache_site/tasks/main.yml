@@ -1,0 +1,10 @@
+---
+##
+#  sites/apache_site tasks
+#
+
+
+- debug: var=SITE_ALIASES
+- debug: var=SITE_PORT
+- debug: var=SITE_NAME
+- debug: var=site_org

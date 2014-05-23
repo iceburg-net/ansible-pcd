@@ -1,0 +1,22 @@
+---
+##
+# prepare|configure|deploy sites to iceburg webservers
+#
+
+
+# prepare and configure nashville-app-1.iceburg.net
+- name: "nashville-webservers"
+  hosts: nashville-webservers
+  remote_user: root
+  
+  vars:
+    # define site names to disable
+    site_disabled_list: []
+  
+  roles:
+    - {role: pcd-common, tags: ['prepare','configure','deploy']}
+    - {role: sites/apache_site, site_name: "www.iceburg.net", site_org: "iceburg" }
+    - {role: sites/apache_site, site_name: "staging.iceburg.net", site_org: "iceburg" }
+    
+    
+    

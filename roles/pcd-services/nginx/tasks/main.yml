@@ -3,6 +3,5 @@
 #  pcd-services/nginx tasks 
 #
 
-
-- { include: prepare.yml, tags: ['prepare'] }
-- { include: deploy.yml, tags: ['deploy'] }
+- { include: prepare.yml, tags: ['prepare'], when: skip_tasks is not defined or not skip_tasks }
+- { include: deploy.yml, tags: ['deploy'], when: skip_tasks is not defined or not skip_tasks }

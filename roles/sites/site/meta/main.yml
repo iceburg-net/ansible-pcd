@@ -1,0 +1,13 @@
+---
+##
+# sites/site meta
+#
+
+allow_duplicates: yes
+
+dependencies:
+  - { role: pcd-services/httpd, skip_tasks: True }
+  - { role: pcd-services/apache, skip_tasks: True }
+  - { role: pcd-services/nginx, skip_tasks: True }
+
+  

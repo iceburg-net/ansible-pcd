@@ -1,0 +1,11 @@
+---
+##
+#  sites/site tasks
+#
+
+- name: define site
+  include_vars: "{{ item }}"
+  with_items:
+    - site_defaults.yml
+    - "{{ site_org }}/{{ site_vars }}.yml"
+    

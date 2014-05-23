@@ -4,7 +4,7 @@
 #
 
 - name: add percona repository key
-  apt-key:
+  apt_key:
     url="http://nginx.org/keys/nginx_signing.key"
     id="98698A3B"
     state=present

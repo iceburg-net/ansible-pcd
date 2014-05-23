@@ -1,0 +1,7 @@
+---
+##
+#  sites/apache_site meta
+#
+
+dependencies:
+  - { role: sites/site }

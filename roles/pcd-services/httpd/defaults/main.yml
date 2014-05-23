@@ -3,6 +3,11 @@
 #  pcd-services/httpd defaults
 #
 
+HTTPD_HTTP_PORT: 80
+HTTPD_HTTPS_PORT: 443
+
+HTTPD_SERVERADMIN: "{{ PCD_DEFAULT_USER_EMAIL }}"
+
 httpd_site_org: "{{ PCD_DEFAULT_ORG }}"
 httpd_site_root: www
 httpd_site_logformat: awstats
