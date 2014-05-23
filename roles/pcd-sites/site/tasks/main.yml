@@ -3,6 +3,15 @@
 #  pcd-sites/site tasks
 #
 
+- name: detect site definition
+  local_action: stat
+    path={{ PCD_SITE_DEFINITIONS }}/{{ site_org }}/{{ site_name }}.yml
+  register: pcd_stat
+    
+- name: ensure site definition exists
+  fail: msg="Missing Site Definition ({{ PCD_SITE_DEFINITIONS }}/{{ site_org }}/{{ site_name }}.yml)"
+  when: not pcd_stat.stat.exists 
+  
 - name: build site definition
   include_vars: "{{ item }}"
   with_items:
