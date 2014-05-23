@@ -1,0 +1,82 @@
+{% if SITE_HTTP %}
+<VirtualHost {{ SITE_HTTP_IP }}:{{ SITE_HTTP_PORT }}>
+        ServerName {{ site_name }}
+        {% if SITE_ALIASES %}ServerAlias {{ SITE_ALIASES | join(" ") }}{% endif %}
+        
+        ServerAdmin {{ SITE_SERVERADMIN }}
+        CustomLog {{ SITE_LOG_FILE }} {{ SITE_LOG_FORMAT }}
+        
+        DocumentRoot {{ SITE_PATH }}/{{ SITE_DOCROOT }}
+        <Directory {{ SITE_PATH }}/{{ SITE_DOCROOT }}}>
+                Options FollowSymLinks
+                
+                # apache_sites recommends disabling overrides for performance. 
+                #   consider adding your .htaccess content via an include,
+                #   or enable by setting allow_override: True in site definition
+                AllowOverride {% if SITE_APACHE_OVERRIDES %}All{% else %}None{% endif %}
+                
+        </Directory>
+        
+{% if SITE_REDIRECT %}
+RedirectMatch 302 ^/.*$ {{ SITE_REDIRECT }}
+{% else %}
+        
+{% for filename in SITE_INCLUDES %}
+{% include "includes/" + filename + ".j2" %}
+{% endfor %}
+          
+{% if SITE_TYPE %}
+{% include "includes/" + SITE_TYPE + ".j2" %}
+{% endif %}
+        
+{% endif %}
+
+</VirtualHost>
+
+{% endif %}
+
+{% if SITE_HTTPS %}
+<VirtualHost {{ SITE_HTTPS_IP }}:{{ SITE_HTTPS_PORT }}>
+        ServerName {{ site_name }}
+        {% if SITE_ALIASES %}ServerAlias {{ SITE_ALIASES | join(" ") }}{% endif %}
+        
+        ServerAdmin {{ SITE_SERVERADMIN }}
+        CustomLog {{ SITE_LOG_FILE }} {{ SITE_LOG_FORMAT }}
+        
+        DocumentRoot {{ SITE_PATH }}/{{ SITE_DOCROOT }}
+        <Directory {{ SITE_PATH }}/{{ SITE_DOCROOT }}}>
+                Options FollowSymLinks
+                
+                # apache_sites recommends disabling overrides for performance. 
+                #   consider adding your .htaccess content via an include,
+                #   or enable by setting allow_override: True in site definition
+                AllowOverride {% if SITE_APACHE_OVERRIDES %}All{% else %}None{% endif %}
+                
+        </Directory>
+        
+        SSLEngine on
+        SSLCertificateFile    {{ httpd_ssl_dir }}/{{ SITE_SSL_CRT | basename }}
+        SSLCertificateKeyFile {{ httpd_ssl_dir }}/{{ SITE_SSL_KEY | basename }}
+        
+        <FilesMatch "\.(cgi|php)$">
+                SSLOptions +StdEnvVars
+        </FilesMatch>
+        
+        
+{% if SITE_REDIRECT %}
+RedirectMatch 302 ^/.*$ {{ SITE_REDIRECT }}
+{% else %}
+        
+{% for filename in SITE_INCLUDES %}
+{% include "includes/" + filename + ".j2" %}
+{% endfor %}
+          
+{% if SITE_TYPE %}
+{% include "includes/" + SITE_TYPE + ".j2" %}
+{% endif %}
+        
+{% endif %}
+
+</VirtualHost>
+
+{% endif %}

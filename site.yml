@@ -28,4 +28,7 @@
   roles:
     - {role: pcd-common, tags: ['prepare','configure','deploy']}
     - pcd-apps/backup
-    
+
+# prepare, configure, and deploy websites
+- { include: iceburg-sites.yml }
+

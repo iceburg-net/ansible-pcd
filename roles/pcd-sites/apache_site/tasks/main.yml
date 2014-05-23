@@ -4,7 +4,4 @@
 #
 
 
-- debug: var=SITE_ALIASES
-- debug: var=SITE_HTTP_PORT
-- debug: var=SITE_NAME
-- debug: var=site_org
+- { include: configure.yml, tags: ['configure'] }

@@ -4,9 +4,4 @@
 #
 
 SITE_NAME: staging.iceburg.net
-
-
-
-
-
- 
+SITE_HTTPS: True

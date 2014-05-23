@@ -8,7 +8,9 @@
 
 PCD_APP_ROLES: "{{ inventory_dir }}/../roles/pcd-apps"
 PCD_SERVICE_ROLES: "{{ inventory_dir }}/../roles/pcd-services"
+PCD_SITE_ROLES: "{{ inventory_dir }}/../roles/pcd-sites"
 PCD_SYSTEM_ROLES: "{{ inventory_dir }}/../roles/pcd-systems"
+
 
 PCD_COMMON_ROLE: "{{ inventory_dir }}/../roles/pcd-common"
 PCD_TASKS: "{{ PCD_COMMON_ROLE }}/tasks/shared"
@@ -18,4 +20,6 @@ PCD_TASKS: "{{ PCD_COMMON_ROLE }}/tasks/shared"
 #######################
 
 pcd_task_adduser: "{{ PCD_TASKS }}/adduser.yml"
+pcd_task_apache_enable_site: "{{ PCD_TASKS }}/apache_enable_site.yml"
 pcd_task_s3ql_mount: "{{ PCD_TASKS }}/s3ql_make_mount.yml"
+

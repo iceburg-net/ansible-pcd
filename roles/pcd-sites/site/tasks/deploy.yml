@@ -1,0 +1,28 @@
+---
+##
+#  pcd-sites/site deploy
+#
+
+
+- name: shallow clone sites
+  git:
+    depth=1
+    dest={{ item.git_path }}
+    repo={{ item.git_repo }}
+    version={{ item.git_branch }}
+    accept_hostkey=yes
+  when: item.git and (apache_sites_site is not defined or apache_sites_site == item.name)
+  with_items: apache_sites_normalized
+  remote_user: siteop
+  
+- name: ensure site destination directories link to git checkouts
+  file: dest={{ item.path }} src={{ item.git_path }} state=link
+  when: item.git and (apache_sites_site is not defined or apache_sites_site == item.name)
+  with_items: apache_sites_normalized
+  
+- name: ensure site destination directories
+  file: path={{ item.path }}/{{ item.docroot }} state=directory
+  when: not item.git and (apache_sites_site is not defined or apache_sites_site == item.name)
+  with_items: apache_sites_normalized
+  
+  

@@ -1,0 +1,32 @@
+---
+##
+#  pcd-sites/apache_site configure
+#
+
+#
+# to use a custom virtualhost template, supply: 
+#    <PCD_SITE_DIR>/<site_org>/<site_name>-apache.j2
+#    e.g. /etc/ansible-pcd/sites/iceburg/www.iceburg.net-apache.j2
+#
+
+- name: detect custom virtualhost template
+  local_action: stat 
+    path={{ PCD_SITE_DIR }}/{{ site_org }}/{{ site_name }}-apache.j2
+  register: pcd_stat
+  
+  
+# use custom virtualhost template  
+- { include: "{{ pcd_task_apache_enable_site }}", task: {
+      name: "{{ site_name }}",
+      template: "{{ PCD_SITE_DIR }}/{{ site_org }}/{{ site_name }}-apache.j2",
+    }, when: pcd_stat.stat.exists
+  }
+
+# else use default virtualhost template
+- { include: "{{ pcd_task_apache_enable_site }}", task: {
+      name: "{{ site_name }}",
+      template: "{{ PCD_SITE_ROLES }}/apache_site/templates/virtualhost.j2",
+    }, when: not pcd_stat.stat.exists
+  }
+  
+  

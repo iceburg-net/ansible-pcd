@@ -18,6 +18,7 @@
 #
 # SITE_ALIASES: (list | []) site aliases, e.g. ["domain.com", "domain.net"]
 # SITE_TYPE: (str | "") silverstripe-3.1, wordpress-3, &c.
+# SITE_INCLUDES: (list | []) templates appended to server/virtualhost definition
 # 
 # SITE_HTTP: (bool | True) enables http site
 # SITE_HTTP_IP: (str | "*") site http ip address
@@ -27,13 +28,15 @@
 # SITE_HTTPS_IP: (str | "*") site https ip address                [ssl]
 # SITE_HTTPS_PORT: (int | {{ HTTPD_HTTPS_PORT }}) site https port [ssl]
 #
-# SITE_SSL_KEY: (path | "{{pcd_certs_dir }}/{{ site_name }}.key") SSL Key File
-# SITE_SSL_CRT: (path | "{{pcd_certs_dir }}/{{ site_name }}.crt") SSL CRT File
+# SITE_SSL_KEY: (path | "{{PCD_CERTS_DIR }}/{{ site_name }}.key") SSL Key File
+# SITE_SSL_CRT: (path | "{{PCD_CERTS_DIR }}/{{ site_name }}.crt") SSL CRT File
 #
+# SITE_PATH: (path | "{{ PCD_SITES_DIR }}/{{ site_org }}/{{ site_name }})")
+# SITE_DOCROOT: (str | "www") DocumentRoot folder (relative to SITE_PATH)
 # SITE_SERVERADMIN: (str | "{{ HTTPD_SERVERADMIN }}") admin email address
+#
 # SITE_LOG_FILE: (path | {{ HTTPD_LOG_DIR }}/{{ site_org }}.log) access log file
 # SITE_LOG_FORMAT: (str | {{ httpd_site_logformat }}) log file format
-# SITE_APACHE_OVERRIDES: (bool | False) .htaccess overrides in default config
 #
 # set SITE_GIT_REPO to clone URL if site is contained in git repository
 # SITE_GIT_REPO: (str | "") git repository (clone URL) containing site, set
@@ -44,11 +47,16 @@
 # SITE_MYSQL_USER: (str | {{ SITE_DEFAULT_MYSQL_USER }}) mysql username
 # SITE_MYSQL_PASS: (str | {{ SITE_DEFAULT_MYSQL_PASS }}) mysql username password
 #
+# SITE_APACHE_OVERRIDES: (bool | False) .htaccess overrides in default config
+# SITE_BACKUP: (bool | False) include site in pcd-backup backups
+# SITE_REDIRECT: (str | "") URL Site Redirects to - e.g. "http://othersite.com"
+#
 ###########
 
 
 SITE_ALIASES: []
 SITE_TYPE: ""
+SITE_INCLUDES: ['security']
 
 SITE_HTTP: True
 SITE_HTTP_IP: "*"
@@ -58,13 +66,15 @@ SITE_HTTPS: False
 SITE_HTTPS_IP: "*"
 SITE_HTTPS_PORT: "{{ HTTPD_HTTPS_PORT }}"
 
-SITE_SSL_KEY: "{{pcd_certs_dir }}/{{ site_name }}.key"
-SITE_SSL_CRT: "{{pcd_certs_dir }}/{{ site_name }}.crt"
+SITE_SSL_KEY: "{{PCD_CERTS_DIR }}/{{ site_name }}.key"
+SITE_SSL_CRT: "{{PCD_CERTS_DIR }}/{{ site_name }}.crt"
 
+SITE_PATH: "{{ PCD_SITES_DIR }}/{{ site_org }}/{{ site_name }})"
+SITE_DOCROOT: "www"
 SITE_SERVERADMIN: "{{ HTTPD_SERVERADMIN }}"
+
 SITE_LOG_FILE: "{{ HTTPD_LOG_DIR }}/{{ site_org }}.log"
 SITE_LOG_FORMAT: "{{ httpd_site_logformat }}"
-SITE_APACHE_OVERRIDES: False
 
 SITE_GIT_REPO: ""
 SITE_GIT_BRANCH: "master"
@@ -72,4 +82,8 @@ SITE_GIT_BRANCH: "master"
 SITE_MYSQL_DB: ""
 SITE_MYSQL_USER: "{{ SITE_DEFAULT_MYSQL_USER }}"
 SITE_MYSQL_PASS: "{{ SITE_DEFAULT_MYSQL_PASS }}"
+
+SITE_APACHE_OVERRIDES: False
+SITE_BACKUP: False
+SITE_REDIRECT: ""
 

@@ -1,0 +1,29 @@
+---
+#
+# enables a apache site
+#
+
+# @depends on pcd-services/apache role 
+
+# usage:
+#
+#- { include: "{{ pcd_task_apache_enable_site }}", task: {
+#      name: "www.iceburg.net",
+#      template: "path/to/virtualhost.j2",
+#    }
+#  }
+
+
+- name: ensure apache site config 
+  template:
+    dest={{ os_apache_sites_dir }}/{{ task.name }}
+    src={{ task.template }}
+  notify: 
+    - apache reload
+    
+- name: enable apache site
+  file:
+    state=link 
+    src={{ os_apache_sites_dir }}/{{ task.name }}
+    dest={{ os_apache_sites_enabled_dir }}/{{ task.name }}
+    
