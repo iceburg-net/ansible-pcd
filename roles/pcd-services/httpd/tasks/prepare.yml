@@ -16,7 +16,10 @@
       key: "{{ httpd_user_key }}"
     }
   }
-
+  
+- name: ensure organization directory
+  file: path={{ HTTPD_LOG_DIR }} owner={{ httpd_user }} mode=0777 state=directory
+  
 - name: ensure httpd certificate directory writable by {{ httpd_user_group }} group
   file: 
     path={{ httpd_ssl_dir }}
