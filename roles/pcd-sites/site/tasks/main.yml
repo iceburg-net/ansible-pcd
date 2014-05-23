@@ -7,7 +7,7 @@
   include_vars: "{{ item }}"
   with_items:
     - site_defaults.yml
-    - "{{ PCD_SITE_DIR }}/{{ site_org }}/{{ site_name }}.yml"
+    - "{{ PCD_SITE_DEFINITIONS }}/{{ site_org }}/{{ site_name }}.yml"
     
     
 

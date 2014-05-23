@@ -3,7 +3,7 @@
 # pcd-sites/site meta
 #
 
-PCD_SITE_DIR: "{{ inventory_dir }}/../sites"
+PCD_SITE_DEFINITIONS: "{{ inventory_dir }}/../sites"
 
 SITE_MYSQL_LOGIN_HOST: localhost
 SITE_MYSQL_LOGIN_USER: root
@@ -16,4 +16,4 @@ SITE_DEFAULT_MYSQL_PASS: !!null
 site_org: "{{ httpd_site_org }}"
 site_disabled_list: []
 
-site_git_checkouts: "{{ PCD_SITE_DIR }}/.git-checkouts"
+site_git_checkouts: "{{ PCD_SITES_DIR }}/.git-checkouts"
