@@ -7,20 +7,21 @@
   local_action: stat
     path={{ PCD_SITE_DEFINITIONS }}/{{ site_org }}/{{ site_name }}.yml
   register: pcd_stat
+  tags: ['prepare','configure','deploy']
     
 - name: ensure site definition exists
   fail: msg="Missing Site Definition ({{ PCD_SITE_DEFINITIONS }}/{{ site_org }}/{{ site_name }}.yml)"
   when: not pcd_stat.stat.exists 
+  tags: ['prepare','configure','deploy']
   
 - name: build site definition
   include_vars: "{{ item }}"
   with_items:
     - site_defaults.yml
     - "{{ PCD_SITE_DEFINITIONS }}/{{ site_org }}/{{ site_name }}.yml"
-    
+  tags: ['prepare','configure','deploy']  
     
 
 - { include: prepare.yml, tags: ['prepare'] }
 - { include: configure.yml, tags: ['configure'] }
 - { include: deploy.yml, tags: ['deploy'], sudo: True, sudo_user: "{{ httpd_user }}" }
-
