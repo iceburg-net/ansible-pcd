@@ -6,7 +6,7 @@ AllowToUpdateStatsFromBrowser=1
 
 ####
 # Domain Specific
-LogFile="{{ apache_log_dir  }}/sites-{{ item.org }}.log"
-SiteDomain="{{ item.name }}"
-HostAliases="{{ item.aliases }}"
+LogFile="{{ task.log_file  }}"
+SiteDomain="{{ task.site_name }}"
+HostAliases="{{ item.site_aliases | join(" ") }}"
 

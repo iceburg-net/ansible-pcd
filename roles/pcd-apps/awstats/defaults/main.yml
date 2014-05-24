@@ -29,3 +29,4 @@ awstats_cron_hour: 4
 
 #@todo support redhat after unifying logging
 awstats_update_script: /etc/logrotate.d/httpd-prerotate/awstats
+awstats_default_config: "{{ PCD_APP_ROLES }}/awstats/templates/awstats_default.j2"

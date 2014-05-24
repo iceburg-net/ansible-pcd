@@ -1,0 +1,22 @@
+---
+#
+# deploys an awstats config (enables statistics on a site)
+#
+
+# @depends on pcd-services/apache role 
+
+# usage:
+# 
+#- { include: "{{ pcd_task_add_awstats_config }}", task: {
+#      site_name: "www.iceburg.net",
+#      site_aliases: [],
+#      log_file: "/sites/logs/www.iceburg.net.log",
+#      [optional] config_template: "{{ }}"
+#    }
+#  }
+
+- name: awstats > add site config
+  template:
+    dest={{ awstats_conf_dir }}/awstats.{{ task.site_name }}.conf
+    src={{ task.config_template | default(awstats_default_config) }}
+  notify: awstats update
