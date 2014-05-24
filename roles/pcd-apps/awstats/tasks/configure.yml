@@ -1,0 +1,36 @@
+---
+##
+# pcd-apps/awstats configure
+#
+
+# @todo ensure site logs are owned by siteop, then run this under siteop's cron?
+
+- name: run awstats_updateall.pl at specified interval
+  cron: 
+    name="awstats update"
+    job="{{ PCD_CRON_PREFIX }}{{ awstats_update_script }}"
+    minute="{{ awstats_cron_minute }}"
+    hour="{{ awstats_cron_hour }}"
+    state=present
+    user=root
+  sudo: False
+
+- name: ensure common.conf
+  template:
+    dest={{ awstats_conf_dir }}/common.conf
+    src=common.conf
+  notify: awstats update
+  
+- name: ensure htpasswd file
+  htpasswd: 
+    create=yes
+    name={{ AWSTATS_HTPASSWD_USER }}
+    password={{ AWSTATS_HTPASSWD_PASS }}
+    path={{ awstats_htpasswd_file }}
+    state=present
+  
+- name: ensure AWStats Totals script
+  copy:
+    dest="{{ awstats_docroot }}/index.php"
+    src="awstats-totals.php"
+    

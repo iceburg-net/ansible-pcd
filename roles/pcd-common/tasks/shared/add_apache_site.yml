@@ -7,7 +7,7 @@
 
 # usage:
 #
-#- { include: "{{ pcd_task_apache_enable_site }}", task: {
+#- { include: "{{ pcd_task_add_apache_site }}", task: {
 #      name: "www.iceburg.net",
 #      template: "path/to/virtualhost.j2",
 #    }

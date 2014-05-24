@@ -118,8 +118,8 @@ Please feel free to contribute roles and fixes via github pull requests.
 ```
 # excerpt from pcd-common/vars/main.yml
 
-pcd_task_adduser: "{{ PCD_TASKS }}/adduser.yml"
-pcd_task_apache_enable_site: "{{ PCD_TASKS }}/apache_enable_site.yml"
+pcd_task_add_user: "{{ PCD_TASKS }}/adduser.yml"
+pcd_task_add_apache_site: "{{ PCD_TASKS }}/apache_enable_site.yml"
 pcd_task_s3ql_mount: "{{ PCD_TASKS }}/s3ql_make_mount.yml"
 
 ```
@@ -163,5 +163,6 @@ developer-todo
 
 * refactor all roles to adopt edX standards
 * improve upon skip_tasks hack; find better way to load role var defaults.
+* make awstats apache/nginx agnostic, set inventory preference for nginx|apache
 
 

@@ -5,7 +5,7 @@
 
 # usage:
 #
-#- { include: "{{ pcd_task_adduser }}", task: {
+#- { include: "{{ pcd_task_add_user }}", task: {
 #      name: "iceburg",
 #      group: "users",
 #      groups: ['wheel',sysop'],

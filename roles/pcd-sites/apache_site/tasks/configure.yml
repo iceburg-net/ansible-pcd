@@ -16,14 +16,14 @@
   
   
 # use custom virtualhost template  
-- { include: "{{ pcd_task_apache_enable_site }}", task: {
+- { include: "{{ pcd_task_add_apache_site }}", task: {
       name: "{{ site_name }}",
       template: "{{ PCD_SITE_DEFINITIONS }}/{{ site_org }}/{{ site_name }}-apache.j2",
     }, when: pcd_stat.stat.exists
   }
 
 # else use default virtualhost template
-- { include: "{{ pcd_task_apache_enable_site }}", task: {
+- { include: "{{ pcd_task_add_apache_site }}", task: {
       name: "{{ site_name }}",
       template: "{{ PCD_SITE_ROLES }}/apache_site/templates/virtualhost.j2",
     }, when: not pcd_stat.stat.exists

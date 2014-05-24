@@ -4,7 +4,7 @@
 #
 
 # ensure root user's ssh key
-- { include: "{{ pcd_task_adduser }}", task: {
+- { include: "{{ pcd_task_add_user }}", task: {
       name: "root",
       group: "root", 
       home: "/root",
