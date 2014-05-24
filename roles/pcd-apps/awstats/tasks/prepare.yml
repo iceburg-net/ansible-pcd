@@ -6,10 +6,10 @@
 - name: ensure awstats directories
   file: path={{ item }} state=directory
   with_items:
-    - AWSTATS_SITE_PATH
-    - awstats_conf_dir
-    - awstats_data_dir
-    - awstats_docroot
+    - "{{ AWSTATS_SITE_PATH }}"
+    - "{{ awstats_conf_dir }}"
+    - "{{ awstats_data_dir }}"
+    - "{{ awstats_docroot }}"
 
 - name: fetch awstats distributrion
   uri:
@@ -34,6 +34,7 @@
   copy:
     dest="{{ AWSTATS_SITE_PATH }}/awstats_updateall.pl"
     src="awstats_updateall.pl"
+    mode=0755
 
 - { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'", sudo: False }
 
@@ -41,5 +42,5 @@
 - { include: "{{ pcd_task_add_apache_site }}", task: {
       name: "{{ AWSTATS_SITE_NAME }}",
       template: "{{ PCD_APP_ROLES }}/awstats/templates/awstats_virtualhost.j2",
-    }
+    }, sudo: False
   }

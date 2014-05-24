@@ -26,4 +26,6 @@
     state=link 
     src={{ os_apache_sites_dir }}/{{ task.name }}
     dest={{ os_apache_sites_enabled_dir }}/{{ task.name }}
+  notify: 
+    - apache reload
     
