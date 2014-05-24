@@ -20,7 +20,7 @@ if [ ! -d $BACKUPS_LOCATION/current ]; then
   echo
   
   rsync -RrLktz \
-    --files-from={{ backup_rsync_includes }}/rsync_sites.inc \
+    --files-from={{ backup_rsync_sites_file }} \
     / $BACKUPS_LOCATION/inprogress-$date
     
   if [ $? -eq 0 -o $? -eq 23 ]; then
@@ -35,7 +35,7 @@ else
   rsync -RrLktz \
     --delete \
     --delete-excluded \
-    --files-from={{ backup_rsync_includes }}/rsync_sites.inc \
+    --files-from={{ backup_rsync_sites_file }} \
     --link-dest=../current \
     / $BACKUPS_LOCATION/inprogress-$date
     

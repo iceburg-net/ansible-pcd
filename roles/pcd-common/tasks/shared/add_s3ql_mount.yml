@@ -5,7 +5,7 @@
 
 # usage:
 # 
-#- { include: "{{ pcd_task.s3ql_mount }}", task: {
+#- { include: "{{ pcd_task_add_s3ql_mount }}", task: {
 #      nickname: "backups",
 #      user: "backupmonsieur",
 #      target: "/mnt/cloud-storage",
@@ -19,7 +19,7 @@
 - fail: msg="s3ql role recommends using system_uuid as the prefix, but it's missing"
   when: not system_uuid or system_uuid.strip() == ''
   
-- name: register user's home directory
+- name: detect user's home directory
   command: "echo ~{{ task.user | default('root') }}"
   register: detected_user_home
   changed_when: False
@@ -30,6 +30,7 @@
     section={{ task.nickname }}
     option={{ item.option }}
     value={{ item.value }}
+    owner={{ task.user }}
     mode=0600
   with_items:
     - { option: 'storage-url', value: '{{ task.url }}' }
@@ -42,22 +43,20 @@
     creates={{ detected_user_home.stdout }}/.s3ql/{{ backup_s3ql_url | replace("/","=2F") }}.db
   sudo: True,
   sudo_user: "{{ task.user | default('root') }}"
+  ignore_errors: yes
 
 - name: copy sysvinit script to mount on boot
   template:
      dest="/etc/init.d/s3ql-{{ task.nickname }}"
-     src="{{ pcd_services }}/s3ql/templates/sysvinit.j2"
+     src="{{ PCD_SERVICE_ROLES }}/s3ql/templates/sysvinit.j2"
      mode=0755
-  sudo: False
   when: "ansible_distribution == 'Debian'"
   
 - name: register sysvinit script as a service (daemon)
   shell: insserv s3ql-{{ task.nickname }}
     creates="/etc/rc0.d/K01s3ql-{{ task.nickname }}"
-  sudo: False
   when: "ansible_distribution == 'Debian'"
  
 - name: automount on boot
   service: name="s3ql-{{ task.nickname }}" state=started enabled=yes
-  sudo: False
   

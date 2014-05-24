@@ -14,6 +14,8 @@ backup_mysql_target: "{{ backup_target_dir }}/{{ ansible_hostname }}-mysql"
 backup_files_target: "{{ backup_target_dir }}/{{ ansible_hostname }}-files"
 backup_sites_target: "{{ backup_target_dir }}/{{ ansible_hostname }}-sites"
 
+backup_rsync_sites_file: "{{ backup_rsync_includes }}/rsync_sites.inc"
+
 
 #
 # schedule backups  (override in inventory)

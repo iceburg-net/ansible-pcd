@@ -12,11 +12,11 @@ stop on starting rc RUNLEVEL=[016]
 # pre-stop script
 kill timeout 300
 
-env STORAGE_URL="{{ s3ql_mount_url }}"
-env MOUNTPOINT="{{ s3ql_mount_target }}"
+env STORAGE_URL="{{ task.url }}"
+env MOUNTPOINT="{{ task.target }}"
 env MOUNT_OPTS="{{ s3ql_mount_opts }}"
 
-env USER="{{ s3ql_mount_user | default('root') }}"
+env USER="{{ task.user | default('root') }}"
 env AUTHFILE="{{ detected_user_home.stdout }}/.s3ql-authinfo"
 
 expect stop

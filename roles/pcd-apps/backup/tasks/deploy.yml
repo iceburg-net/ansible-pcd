@@ -10,13 +10,6 @@
     mode=0700
   with_fileglob: "../templates/backup_*.sh.j2"
     
-- name: copy over rsync includes
-  template:
-    dest={{ backup_rsync_includes }}/{{ item | basename | replace(".j2","") }}
-    src={{ item }}
-  with_fileglob: "../templates/rsync_*.inc.j2"
-  
-
 - name: schedule backups
   cron:
     name="backup of {{ item.key }}"

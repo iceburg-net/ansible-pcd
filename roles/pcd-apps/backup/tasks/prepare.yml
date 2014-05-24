@@ -40,12 +40,25 @@
     regexp='^PATH=.*$'
     line="PATH=$PATH:{{ backup_binaries }}"
   
-#- name: add binaries directory to backup user's PATH if variable already set
-#  lineinfile: 
-#    dest={{ backup_user_home }}/.bashrc
-#    state=present
-#    backrefs=yes
-#    regexp='^PATH=([\W]?)((?!.*?{{ backup_binaries }}).*?)([\W]?)$'
-#    line='PATH=\\1\\2:{{ backup_binaries }}\\3'
-   
-- { include: cloud-backups.yml, when: "backup_s3ql_enabled", sudo: True, sudo_user: "{{ backup_user }}" }
+ 
+# cloud backups  
+###############
+
+- name: add backup user to fuse group
+  user: 
+    append=yes
+    groups=fuse
+    name={{ backup_user }}
+  when: backup_s3ql_enabled
+  
+- { include: "{{ pcd_task_add_s3ql_mount }}", task: {
+      nickname: "backups",
+      user: "{{ backup_user }}",
+      target: "{{ backup_target_dir }}",
+      url: "{{ backup_s3ql_url }}",
+      login: "{{ backup_s3ql_username }}",
+      password: "{{ backup_s3ql_password }}"
+    }, when: backup_s3ql_enabled
+  }
+  
+

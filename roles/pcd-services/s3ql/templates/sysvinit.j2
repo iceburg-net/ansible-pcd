@@ -1,6 +1,6 @@
 #! /bin/sh
 ### BEGIN INIT INFO
-# Provides:          s3ql-{{ s3ql_mount_nickname }}
+# Provides:          s3ql-{{ task.nickname }}
 # Required-Start:    $local_fs $remote_fs $network $syslog $named
 # Required-Stop:     $local_fs $remote_fs $network $syslog $named
 # Default-Start:     2 3 4 5
@@ -14,15 +14,15 @@
 
 PATH=/usr/local/bin:/usr/bin:/bin
 DESC="s3ql filesystem mount"
-NAME="s3ql-{{ s3ql_mount_nickname }}"
+NAME="s3ql-{{ task.nickname }}"
 PIDFILE="/var/run/$NAME.pid"
 SCRIPTNAME="/etc/init.d/$NAME"
 
 # s3sql vars
 AUTHFILE="{{ detected_user_home.stdout }}/.s3ql-authinfo"
-USER="{{ s3ql_mount_user | default('root') }}"
-STORAGE_URL="{{ s3ql_mount_url }}"
-MOUNTPOINT="{{ s3ql_mount_target }}"
+USER="{{ task.user | default('root') }}"
+STORAGE_URL="{{ task.url }}"
+MOUNTPOINT="{{ task.target }}"
 MOUNT_OPTS="{{ s3ql_mount_opts }}"
 
 # Load the VERBOSE setting and other rcS variables
