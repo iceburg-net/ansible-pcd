@@ -38,6 +38,7 @@ ansible-pcd currently provides an ansible-managed "webhost in a box"
     * backups (e.g. asset/upload folder(s) > cloud storage)  
 * nullmailer MTA replacement
 * remote/cloud backups via s3ql
+* provisioning hosts with a consistent environment 
 
 more to come, please contribute!
 
@@ -61,6 +62,23 @@ cp -a private.sample private
 
 usage
 ==============
+
+by default, ansible-pcd connects to hosts as the root user over ssh using keys
+in the /private/keys directory. the key is determined by the 
+**ansible_ssh_private_key_file** inventory variable and defaults to
+`{{ PCD_KEYS_DIR }}/{{ PCD_DEFAULT_ORG }}+{{ ansible_ssh_user }}.key`. for
+instance, if we're connecting to a host in the *chicago-east*
+organization/environment, ansible would select
+`/private/keys/chicago-east+root.key`. 
+
+pcd-systems roles provision hosts with a consistent environment. they ensure the 
+root user's authorized keys for ansible to connect, set the fqdn properly, 
+install a common set of packages, and tighten security. when connecting to a 
+host for the first time (that doesn't yet have an authorized key for the root 
+user), pass the --ask-pass flag to ansible-playbook. 
+
+currently only **debian 7 (wheezy)** hosts are supported. to 
+
 
 examples
 
