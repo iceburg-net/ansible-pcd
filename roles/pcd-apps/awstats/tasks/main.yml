@@ -3,5 +3,16 @@
 #  pcd-apps/awstats tasks 
 #
 
-- { include: prepare.yml, tags: ['prepare'], sudo: True, sudo_user: "{{ apache_sites_user }}" }
-- { include: configure.yml, tags: ['configure'], sudo: True, sudo_user: "{{ apache_sites_user }}" }
+- { include: prepare.yml, 
+    tags: ['prepare'],
+    sudo: True,
+    sudo_user: "{{ apache_sites_user }}",
+    when: skip_tasks is not defined or not skip_tasks
+  }
+  
+- { include: configure.yml, 
+    tags: ['configure'],
+    sudo: True,
+    sudo_user: "{{ apache_sites_user }}",
+    when: skip_tasks is not defined or not skip_tasks
+  }
