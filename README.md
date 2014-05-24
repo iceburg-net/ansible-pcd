@@ -77,7 +77,7 @@ install a common set of packages, and tighten security. when connecting to a
 host for the first time (that doesn't yet have an authorized key for the root 
 user), pass the --ask-pass flag to ansible-playbook. 
 
-currently only **debian 7 (wheezy)** hosts are supported. to 
+currently only **debian 7 (wheezy)** hosts are supported. 
 
 
 examples
@@ -181,16 +181,16 @@ developer-todo
 
 #### highest priority
 
-* fix backup to work with rewrite
 * mail service => nullmailer service
+* denyhosts belongs as a service; not part of base system configuration
+* reach feature parity on RedHat distributions
 * ncurses based UI   
 
 #### normal priority
 
-* denyhosts belongs as a service; not part of base system configuration
 * standardize logging service across distributions
+* map system uuid => fqdn to more easily identify remote backups
 * add redhat support to awstats (currently assumes debian httpd-prerotate functionality in apache2 logrotate.d conf)
-* reach feature parity on RedHat distributions
 
 #### lowest priority
 

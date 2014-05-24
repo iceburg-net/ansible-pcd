@@ -11,23 +11,8 @@
 
 
 # prepare and configure webservers
-- name: "webservers"
-  hosts: webservers
-  remote_user: root
-  
-  roles:
-    - {role: pcd-common, tags: ['prepare','configure']}
-    - pcd-services/php
-    
-    
-# prepare and configure nashville-app-1.iceburg.net
-- name: "nashville-app-1.iceburg.net"
-  hosts: nashville-app-1.iceburg.net
-  remote_user: root
-  
-  roles:
-    - {role: pcd-common, tags: ['prepare','configure','deploy']}
-    - pcd-apps/backup
+- { include: webservers.yml }
+
 
 # prepare, configure, and deploy websites
 - { include: iceburg-sites.yml }

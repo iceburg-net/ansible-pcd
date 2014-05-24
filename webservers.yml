@@ -1,0 +1,17 @@
+---
+##
+# prepare|configure|deploy webservers
+#
+
+
+# prepare and configure webservers
+- name: "webservers"
+  hosts: webservers
+  remote_user: root
+  
+  roles:
+    - {role: pcd-common, tags: ['prepare','configure']}
+    - pcd-services/php
+    - pcd-apps/awstats
+    - pcd-apps/backup
+    
