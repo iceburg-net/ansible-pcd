@@ -24,6 +24,22 @@ overview
 * remain simple, intuitive, and community friendly
 * avoid redundancy, be maintainable
 
+#### current functionality
+
+ansible-pcd currently provides an ansible-managed "webhost in a box"
+
+* YAML website definitions (see sites/)
+  * apache and nginx server options
+  * git based sites (shallow clone during deployment), multiple branch support.
+  * conveniences for;
+    * mysql user + database creation
+    * awstats integration
+    * wordpress/silverstripe/&c rewrites
+    * backups (e.g. asset/upload folder(s) > cloud storage)  
+* nullmailer MTA replacement
+* remote/cloud backups via s3ql
+
+more to come, please contribute!
 
 setup
 =====
