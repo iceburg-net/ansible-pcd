@@ -13,8 +13,7 @@
 - name: "pcd system"
   hosts: "{{ PCD_TARGET_HOST }}"
   remote_user: root
-  tags: ['prepare','configure']
-  
+
   vars_prompt:
     - name: "PCD_TARGET_HOST"
       prompt: "PCD_TARGET_HOST : Target Host/Group"
@@ -30,9 +29,11 @@
     # ensure detected platform is supported
     - fail: msg="{{ pcd_platform }} is not a supported platform!"
       when: pcd_platform not in pcd_supported_platforms
+      tags: ['prepare','configure']
   
     - name: group by platform
       group_by: key="{{ pcd_platform }}"
+      tags: ['prepare','configure']
       
     
 - name: "Debian-7 Preparation"

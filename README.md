@@ -148,7 +148,6 @@ developer-todo
 #### highest priority
 
 * fix backup to work with rewrite
-* resolve issue with using tags: "prepare" and "configure" -- currently ignored?
 * mail service => nullmailer service
 * ncurses based UI   
 

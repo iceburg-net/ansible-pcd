@@ -13,7 +13,6 @@
 - name: "pcd site"
   hosts: "{{ PCD_TARGET_HOST }}"
   remote_user: root
-  tags: ['prepare','configure']
   
   vars_prompt:
     - name: "PCD_TARGET_HOST"

@@ -8,7 +8,7 @@
 #      pre-requistetes such as package installations, database setup, &c.
 
 
-- name: "pcd service"
+- name: "pcd application"
   hosts: "{{ PCD_TARGET_HOST }}"
   remote_user: root
   tags: ['prepare','configure','deploy']
