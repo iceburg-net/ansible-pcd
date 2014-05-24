@@ -10,6 +10,7 @@ overview
 * ansible-pcd provides conventions to help encourage reusable automation components (e.g. roles).
 
 * roles are categorized into systems, services, and applications.
+  * suitable for massive installs
 
 * pcd roles organize tasks into prepare, configure, and deploy tags. 
   * prepare: typically run one time per host (e.g. create user)
@@ -19,8 +20,9 @@ overview
 #### goals
 * drastically reduce execution time by visiting only necessary tasks
 * provide standards for shared tasks and intralinked roles
-* support extremely massive installments
+* support multiple distributions (Debian, RedHat, &c)
 * remain simple, intuitive, and community friendly
+* avoid redundancy, be maintainable
 
 
 setup
@@ -97,6 +99,34 @@ ansible-pcd is licensed under the GPLv3 , the same as ansible.
 
 Please feel free to contribute roles and fixes via github pull requests.
 
+#### conventions
+
+* role tasks must be tagged as either prepare, configure, or deploy. to reduce redundancy and add convenience, tasks are typically separated into tagged includes. 
+```
+# example pcd-role/tasks/main.yml
+
+- { include: prepare.yml, tags: ['prepare'] }
+- { include: configure.yml, tags: ['configure'] }
+- { include: deploy.yml, tags: ['deploy'], sudo: True, sudo_user: "{{ httpd_user }}" }
+
+# example pcd-role/tasks/prepare.yml
+
+- debug: msg="I am executed when the `prepare` tag is passed."
+```
+
+* shared tasks (e.g. adduser) are registered via the pcd-common role. prefix shared tasks with `pcd_task`, provide usage example in task file.
+```
+# excerpt from pcd-common/vars/main.yml
+
+pcd_task_adduser: "{{ PCD_TASKS }}/adduser.yml"
+pcd_task_apache_enable_site: "{{ PCD_TASKS }}/apache_enable_site.yml"
+pcd_task_s3ql_mount: "{{ PCD_TASKS }}/s3ql_make_mount.yml"
+
+```
+* try to at least support `Debian` and `RedHat` OS families
+
+
+
 
 support
 =======
@@ -127,6 +157,7 @@ developer-todo
 * denyhosts belongs as a service; not part of base system configuration
 * standardize logging service across distributions
 * add redhat support to awstats (currently assumes debian httpd-prerotate functionality in apache2 logrotate.d conf)
+* reach feature parity on RedHat distributions
 
 #### lowest priority
 
