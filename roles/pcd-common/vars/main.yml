@@ -11,10 +11,10 @@ PCD_SERVICE_ROLES: "{{ inventory_dir }}/../roles/pcd-services"
 PCD_SITE_ROLES: "{{ inventory_dir }}/../roles/pcd-sites"
 PCD_SYSTEM_ROLES: "{{ inventory_dir }}/../roles/pcd-systems"
 
-
 PCD_COMMON_ROLE: "{{ inventory_dir }}/../roles/pcd-common"
-PCD_TASKS: "{{ PCD_COMMON_ROLE }}/tasks/shared"
 
+PCD_TASKS: "{{ PCD_COMMON_ROLE }}/tasks/shared"
+PCD_SITE_DEFINITIONS: "{{ inventory_dir }}/../sites"
 
 # Register shared tasks
 #######################

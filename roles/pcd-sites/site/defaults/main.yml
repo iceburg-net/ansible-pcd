@@ -3,8 +3,6 @@
 # pcd-sites/site meta
 #
 
-PCD_SITE_DEFINITIONS: "{{ inventory_dir }}/../sites"
-
 SITE_MYSQL_LOGIN_HOST: localhost
 SITE_MYSQL_LOGIN_USER: root
 SITE_MYSQL_LOGIN_PASS: "{{ mysql_root_password }}"
