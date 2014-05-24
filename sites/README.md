@@ -50,7 +50,8 @@ ansible-pcd makes it easy to manage sites on a host.
 #
 # SITE_REDIRECT: (str | "") URL Site Redirects to - e.g. "http://othersite.com"
 #
-# SITE_ENABLE_AWSTATS: (bool | False) 
+# SITE_ENABLE_AWSTATS: (bool | False) aggregate statistics with awstats
+# SITE_ENABLE_BACKUP: (bool | False) include site assets in backups
 # SITE_ENABLE_OVERRIDES: (bool | False) allow apache .htaccess overrides
 #
 ```

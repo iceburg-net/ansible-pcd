@@ -13,7 +13,7 @@
                 # apache_sites recommends disabling overrides for performance. 
                 #   consider adding your .htaccess content via an include,
                 #   or enable by setting allow_override: True in site definition
-                AllowOverride {% if SITE_APACHE_OVERRIDES %}All{% else %}None{% endif %}
+                AllowOverride {% if SITE_ENABLE_OVERRIDES %}All{% else %}None{% endif %}
                 
         </Directory>
         
@@ -50,7 +50,7 @@ RedirectMatch 302 ^/.*$ {{ SITE_REDIRECT }}
                 # apache_sites recommends disabling overrides for performance. 
                 #   consider adding your .htaccess content via an include,
                 #   or enable by setting allow_override: True in site definition
-                AllowOverride {% if SITE_APACHE_OVERRIDES %}All{% else %}None{% endif %}
+                AllowOverride {% if SITE_ENABLE_OVERRIDES %}All{% else %}None{% endif %}
                 
         </Directory>
         

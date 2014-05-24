@@ -47,10 +47,12 @@
 # SITE_MYSQL_USER: (str | {{ SITE_DEFAULT_MYSQL_USER }}) mysql username
 # SITE_MYSQL_PASS: (str | {{ SITE_DEFAULT_MYSQL_PASS }}) mysql username password
 #
-# SITE_APACHE_OVERRIDES: (bool | False) .htaccess overrides in default config
-# SITE_BACKUP: (bool | False) include site in pcd-backup backups
 # SITE_REDIRECT: (str | "") URL Site Redirects to - e.g. "http://othersite.com"
 #
+# SITE_ENABLE_AWSTATS: (bool | False) aggregate statistics with awstats
+# SITE_ENABLE_BACKUP: (bool | False) include site assets in backups
+# SITE_ENABLE_OVERRIDES: (bool | False) allow apache .htaccess overrides
+# 
 ###########
 
 
@@ -83,7 +85,9 @@ SITE_MYSQL_DB: ""
 SITE_MYSQL_USER: "{{ SITE_DEFAULT_MYSQL_USER }}"
 SITE_MYSQL_PASS: "{{ SITE_DEFAULT_MYSQL_PASS }}"
 
-SITE_APACHE_OVERRIDES: False
-SITE_BACKUP: False
 SITE_REDIRECT: ""
+
+SITE_ENABLE_AWSTATS: False
+SITE_ENABLE_BACKUP: False
+SITE_ENABLE_OVERRIDES: False
 

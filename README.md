@@ -28,7 +28,7 @@ overview
 
 ansible-pcd currently provides an ansible-managed "webhost in a box"
 
-* YAML website definitions (see sites/)
+* YAML website definitions - see [sites/](https://github.com/iceburg-net/ansible-pcd/tree/master/sites)
   * apache and nginx server options
   * git based sites (shallow clone during deployment), multiple branch support.
   * conveniences for;
