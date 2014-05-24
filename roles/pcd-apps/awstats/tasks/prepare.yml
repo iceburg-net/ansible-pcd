@@ -3,6 +3,14 @@
 # pcd-apps/awstats prepare
 #
 
+- name: ensure awstats directories
+  file: path={{ item }} state=directory
+  with_items:
+    - AWSTATS_SITE_PATH
+    - awstats_conf_dir
+    - awstats_data_dir
+    - awstats_docroot
+
 - name: fetch awstats distributrion
   uri:
     creates=/tmp/awstats-{{ awstats_version }}.zip
@@ -10,16 +18,11 @@
     follow_redirects=all
     url=http://prdownloads.sourceforge.net/awstats/awstats-{{ awstats_version }}.zip
     
-- name: unzip distribution to {{ apache_sites_user_home }}/{{ awstats_site_org }}
-  command: unzip /tmp/awstats-{{ awstats_version }}.zip -d {{ awstats_site_dir }}
+- name: unzip distribution to {{ AWSTATS_SITE_PATH }}
+  command: unzip /tmp/awstats-{{ awstats_version }}.zip -d {{ AWSTATS_SITE_PATH }}
     creates={{ awstats_app_dir }}
     
-- name: ensure awstats_conf_dir ({{ awstats_conf_dir }})
-  file: path={{ awstats_conf_dir }} state=directory
-  
-- name: ensure awstats_data_dir ({{ awstats_data_dir }})
-  file: path={{ awstats_data_dir }} state=directory
-  
+
 - name: link awstats_conf_dir to /etc/awstats
   file:
     state=link
@@ -27,19 +30,16 @@
     src={{ awstats_conf_dir }}
   sudo: False
   
-- name: copy awstats_updateall.pl to {{ awstats_site_dir }}
+- name: copy awstats_updateall.pl to {{ AWSTATS_SITE_PATH }}
   copy:
-    dest="{{ awstats_site_dir }}/awstats_updateall.pl"
+    dest="{{ AWSTATS_SITE_PATH }}/awstats_updateall.pl"
     src="awstats_updateall.pl"
 
 - { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'", sudo: False }
 
-- name: run awstats_updateall.pl at specified interval
-  cron: 
-    name="awstats update"
-    job="{{ PCD_CRON_PREFIX }}{{ awstats_update_script }}"
-    minute="{{ awstats_cron_minute }}"
-    hour="{{ awstats_cron_hour }}"
-    state=present
-    user=root
-  sudo: False
+# add awstats site
+- { include: "{{ pcd_task_add_apache_site }}", task: {
+      name: "{{ AWSTATS_SITE_NAME }}",
+      template: "{{ PCD_APP_ROLES }}/awstats/templates/awstats_virtualhost.j2",
+    }
+  }

@@ -3,72 +3,29 @@
 #  pcd-apps/awstats defaults 
 #
 
+AWSTATS_SITE_NAME: "stats.{{ ansible_fqdn }}" # e.g. stats.chi-app-1.iceburg.net
+AWSTATS_SITE_ORG: "{{ httpd_site_org}}"
+AWSTATS_SITE_PATH: "{{ PCD_SITES_DIR }}/{{ AWSTATS_SITE_ORG }}/{{ AWSTATS_SITE_NAME }}"
+
+AWSTATS_HTPASSWD_USER: "{{ private_user_name }}"
+AWSTATS_HTPASSWD_PASS: "{{ private_user_pass }}"
+
+
+# private
+#########
+
 awstats_version: 7.3
 
-# passed to apache_sites via role dependency (meta/main.yml)
-#   - configures the virtualhost where awstats will be available.
+awstats_app_dir: "{{ AWSTATS_SITE_PATH }}/awstats-{{ awstats_version }}"
+awstats_conf_dir: "{{ AWSTATS_SITE_PATH }}/conf"
+awstats_data_dir: "{{ AWSTATS_SITE_PATH }}/data"
+awstats_docroot: "{{ AWSTATS_SITE_PATH }}/www"
 
-awstats_site_name: stats.{{ ansible_fqdn }}
-awstats_site_org: "awstats"
-awstats_site_dir: "{{ apache_sites_user_home }}/{{ awstats_site_org }}/{{ awstats_site_name }}"
-awstats_site_docroot: "{{ awstats_site_dir }}/www"
-
+awstats_htpasswd_file: "{{ AWSTATS_SITE_PATH }}/awstats-htpasswd"
 
 # how often will awstats be updated? defaults to once a day, 4:30am
 awstats_cron_minute: 30
 awstats_cron_hour: 4
 
-
-# htpasswd support. override by setting awstats_htpasswd_(user|pass)
-#   defaults to private_user_name and private_user_pass from private file(s)
-awstats_htpasswd_file: "{{ awstats_site_dir }}/awstats.htpasswd"
-awstats_htpasswd_user: "{{ private_user_name }}"
-awstats_htpasswd_pass: "{{ private_user_pass }}"
-
-
-# awstats site definitions
-#
-#   + uses apache_sites model for site definitions
-#
-#   + default is to track all sites specified by `apache_sites_enabled_list`,
-#     and to untrack all sites specified by `apache_sites_disabled_list`
-#
-#   + you may explicitly pass `awstats_site_list` to this role, or define
-#     `awstats_enabled_list` and/or `awstats_disabled_list` in inventory vars
-#     to track/untrack specified sites. use the below definitions;
-#
-#   name: (required) SiteDomain, typically www.domain.com
-#
-#   org: (opt) site organization, defaults to {{ default_org }}
-#   
-#   awstats_configs: (opt) jinja template, site name, and aliases to use for
-#      generating site awstats config file(s).
-#
-#      defined as an array to allow for sites that contain multiple sub-sites.
-#
-#      default: [{name: <site name>, template: 'awstats_default.j2'}]
-#
-#      example override
-####################
-#  awstats_enabled_list:
-#  - {
-#    name: www.example.com,
-#    org: iceburg,
-#    awstats_configs: [
-#      { name: www.example.com, aliases: 'example.com' },
-#      { name: forms.example.com }]
-#    }
-#####################  
-
-awstats_enabled_list: "{{ apache_sites_enabled_list }}"
-awstats_disabled_list: "{{ apache_sites_disabled_list }}"
-
-# awstats shortcuts
 #@todo support redhat after unifying logging
 awstats_update_script: /etc/logrotate.d/httpd-prerotate/awstats
-
-awstats_app_dir: "{{ awstats_site_dir }}/awstats-{{ awstats_version }}"
-awstats_conf_dir: "{{ awstats_site_dir }}/conf"
-awstats_data_dir: "{{ awstats_site_dir }}/data"
-
-awstats_default_config: awstats_default.j2

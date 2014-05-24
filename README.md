@@ -118,9 +118,9 @@ Please feel free to contribute roles and fixes via github pull requests.
 ```
 # excerpt from pcd-common/vars/main.yml
 
-pcd_task_add_user: "{{ PCD_TASKS }}/adduser.yml"
-pcd_task_add_apache_site: "{{ PCD_TASKS }}/apache_enable_site.yml"
-pcd_task_s3ql_mount: "{{ PCD_TASKS }}/s3ql_make_mount.yml"
+pcd_task_add_apache_site: "{{ PCD_TASKS }}/add_apache_site.yml"
+pcd_task_add_s3ql_mount: "{{ PCD_TASKS }}/add_s3ql_mount.yml"
+pcd_task_add_user: "{{ PCD_TASKS }}/add_user.yml"
 
 ```
 * try to at least support `Debian` and `RedHat` OS families
