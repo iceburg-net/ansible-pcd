@@ -39,7 +39,7 @@
 # SITE_LOG_FORMAT: (str | {{ httpd_site_logformat }}) log file format
 #
 # set SITE_GIT_REPO to clone URL if site is contained in git repository
-# SITE_GIT_REPO: (str | "") git repository (clone URL) containing site, set
+# SITE_GIT_REPO: (str | "") git repository (clone URL) containing site
 # SITE_GIT_BRANCH: (str | "master")
 #
 # set SITE_MYSQL_DB to create a MySQL database + user belonging to this site

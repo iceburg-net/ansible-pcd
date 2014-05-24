@@ -11,8 +11,7 @@ ansible-pcd makes it easy to manage sites on a host.
     * e.g. /sites/iceburg/stats.iceburg.net.yml
   * this convention allows for easier maintenance of massive installs
   
-* your definitions override sane defaults (referenced below). 
-  * only override what is neccessary
+* your definitions override sane defaults (referenced below). only override what is necessary.
 
 ```
 # Site Definitions
@@ -40,7 +39,7 @@ ansible-pcd makes it easy to manage sites on a host.
 # SITE_LOG_FORMAT: (str | {{ httpd_site_logformat }}) log file format
 #
 # set SITE_GIT_REPO to clone URL if site is contained in git repository
-# SITE_GIT_REPO: (str | "") git repository (clone URL) containing site, set
+# SITE_GIT_REPO: (str | "") git repository (clone URL) containing site
 # SITE_GIT_BRANCH: (str | "master")
 #
 # set SITE_MYSQL_DB to create a MySQL database + user belonging to this site
@@ -59,15 +58,15 @@ ansible-pcd makes it easy to manage sites on a host.
 notes
 =====
 
-* you may provide an apache/nginx virtualhost/server template per site. Named;
+* you may provide an apache/nginx virtualhost/server template per site.
   * save the template in the site definition directory and name it;
     * for apache, <site_name>-apache.j2, e.g. /sites/iceburg/www.iceburg.net-apache.j2
     * for nginx, <site_name>-nginx.j2, e.g. /sites/iceburg/www.iceburg.net-nginx.j2
-  * default template is in the roles/pcd-sites/(apache_site|nginx_site)/templates directory
+  * [default virtualhost template](https://github.com/iceburg-net/ansible-pcd/blob/master/roles/pcd-sites/apache_site/templates/virtualhost.j2) is in the roles/pcd-sites/(apache_site|nginx_site)/templates directory
 
 * you may provide an awstats config template per site.
   * save the template in the site definition directory and name it;
     * <site_name>-awstats.j2, e.g. /sites/iceburg/www.iceburg.net-awstats.j2
-  * default template is in the roles/pcd-apps/awstats/templates directory
+  * [default awstats template](https://github.com/iceburg-net/ansible-pcd/blob/master/roles/pcd-apps/awstats/templates/awstats_default.j2) is in the roles/pcd-apps/awstats/templates directory
   
     
