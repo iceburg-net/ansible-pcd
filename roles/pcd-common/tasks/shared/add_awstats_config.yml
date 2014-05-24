@@ -3,7 +3,7 @@
 # deploys an awstats config (enables statistics on a site)
 #
 
-# @depends on pcd-services/apache role 
+# @depends on pcd-apps/awstats role 
 
 # usage:
 # 

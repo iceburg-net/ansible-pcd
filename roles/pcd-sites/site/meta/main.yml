@@ -9,5 +9,7 @@ dependencies:
   - { role: pcd-services/httpd, skip_tasks: True }
   - { role: pcd-services/apache, skip_tasks: True }
   - { role: pcd-services/nginx, skip_tasks: True }
+  - { role: pcd-apps/awstats, skip_tasks: True }
+  
 
   

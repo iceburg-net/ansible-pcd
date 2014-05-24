@@ -8,3 +8,5 @@ SITE_ALIASES: ['iceburg.net']
 
 SITE_GIT_REPO: git@github.com:iceburg-net/www.iceburg.net.git
 SITE_DOCROOT: www-1
+
+SITE_ENABLE_AWSTATS: True

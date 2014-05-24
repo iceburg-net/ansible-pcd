@@ -12,6 +12,25 @@
   when: SITE_HTTPS
   
 
-#@todo awstats here
+- name: detect custom awstats template
+  local_action: stat 
+    path={{ PCD_SITE_DEFINITIONS }}/{{ site_org }}/{{ site_name }}-awstats.j2
+  register: pcd_stat
+  when: SITE_ENABLE_AWSTATS
+  
+# use custom awstats template  
+- { include: "{{ pcd_task_add_awstats_config }}", task: {
+      site_name: "{{ site_name }}",
+      site_aliases: "{{ SITE_ALIASES }}",
+      log_file: "{{ SITE_LOG_FILE }}",
+      config_template: "{{ PCD_SITE_DEFINITIONS }}/{{ site_org }}/{{ site_name }}-awstats.j2",
+    }, when: SITE_ENABLE_AWSTATS and pcd_stat.stat.exists
+  }
 
-#@todo backups heres
+# else use default awstats template
+- { include: "{{ pcd_task_add_awstats_config }}", task: {
+      site_name: "{{ site_name }}",
+      site_aliases: "{{ SITE_ALIASES }}",
+      log_file: "{{ SITE_LOG_FILE }}",
+    }, when: SITE_ENABLE_AWSTATS and not pcd_stat.stat.exists
+  }

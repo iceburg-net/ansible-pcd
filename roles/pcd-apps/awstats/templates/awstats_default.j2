@@ -8,5 +8,5 @@ AllowToUpdateStatsFromBrowser=1
 # Domain Specific
 LogFile="{{ task.log_file  }}"
 SiteDomain="{{ task.site_name }}"
-HostAliases="{{ item.site_aliases | join(" ") }}"
+HostAliases="{{ task.site_aliases | join(" ") }}"
 
