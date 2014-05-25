@@ -36,7 +36,7 @@
   file: 
     path={{ httpd_ssl_dir }}
     state=directory
-    owner={{ {{ httpd_user }} }}
+    owner={{ httpd_user }}
     group={{ httpd_user_group }}
     mode=0775
     
