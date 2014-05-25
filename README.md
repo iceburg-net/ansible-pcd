@@ -6,23 +6,26 @@ ansible prepare, configure, deploy framework
 
 overview
 ========
-
-* ansible-pcd provides conventions to help encourage reusable automation components (e.g. roles).
-
-* roles are categorized into systems, services, and applications.
-  * suitable for massive installs
-
-* pcd roles organize tasks into prepare, configure, and deploy tags. 
-  * prepare: typically run one time per host (e.g. create user)
-  * configure: run whenever configuration changes (e.g. update httpd port)
-  * deploy: run on site/application releases 
   
-#### goals
+ansible-pcd provides a set of roles and standard conveniences with the following **goals**;
+
+* encourage flexible, convenient, and reusable automation components
 * drastically reduce execution time by visiting only necessary tasks
-* provide standards for shared tasks and intralinked roles
 * support multiple distributions (Debian, RedHat, &c)
 * remain simple, intuitive, and community friendly
 * avoid redundancy, be maintainable
+
+roles following the pcd standard tag tasks as either `prepare`, `configure`, or `deploy`.
+
+* prepare: typically run one time per host (e.g. create user)
+* configure: run whenever configuration changes (e.g. update httpd port)
+* deploy: run on site/application releases
+
+the organization within the ansible-pcd framework makes it suitable for extremely large installments.
+
+* roles are categorized into systems, services, and applications.
+* inventory follows ansible best-practices
+
 
 #### current functionality
 
