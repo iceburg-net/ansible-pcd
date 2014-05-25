@@ -1,6 +1,6 @@
 ---
 ##
-# pcd-apps/backup deploy
+# pcd-apps/backup configure
 #
 
 - name: register backup/restore scripts

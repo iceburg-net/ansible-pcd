@@ -52,6 +52,9 @@
 # SITE_ENABLE_AWSTATS: (bool | False) aggregate statistics with awstats
 # SITE_ENABLE_BACKUP: (bool | False) include site assets in backups
 # SITE_ENABLE_OVERRIDES: (bool | False) allow apache .htaccess overrides
+#
+# SITE_BACKUP_FILE_LIST: (list | []) list of files to backup.
+#   relative to DOCROOT. If empty, will infer list of files from SITE_TYPE
 # 
 ###########
 
@@ -91,3 +94,4 @@ SITE_ENABLE_AWSTATS: False
 SITE_ENABLE_BACKUP: False
 SITE_ENABLE_OVERRIDES: False
 
+SITE_BACKUP_FILE_LIST: []

@@ -27,6 +27,13 @@
     - "{{ backup_rsync_includes }}"
   sudo: True
   sudo_user: "{{ backup_user }}"
+  
+- name: ensure backup_rsync_sites_file
+  command: touch {{ backup_rsync_sites_file }} 
+    creates={{ backup_rsync_sites_file }}
+  sudo: True
+  sudo_user: "{{ backup_user }}"
+  
     
 
 - name: allow backup user to sudo execute scripts in binaries directory

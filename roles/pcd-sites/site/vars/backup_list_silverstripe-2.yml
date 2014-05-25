@@ -1,0 +1,11 @@
+---
+
+# SilverStripe CMS 2 backup list
+################################
+
+SITE_BACKUP_FILE_LIST: [
+  '.htaccess',
+  'assets/',
+  'mysite/mysite.config.php'
+]
+

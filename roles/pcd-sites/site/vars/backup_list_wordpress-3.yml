@@ -1,0 +1,10 @@
+---
+
+# Wordpress 3 backup list
+#########################
+
+SITE_BACKUP_FILE_LIST: [
+  '.htaccess',
+  'wp-config.php',
+  'wp-content/uploads/'
+]

@@ -1,0 +1,12 @@
+---
+
+# Perch CMS backup list
+#######################
+
+SITE_BACKUP_FILE_LIST: [
+  '.htaccess',
+  'functions.php',
+  'perch/resources/',
+  'perch/config/config.php'
+]
+

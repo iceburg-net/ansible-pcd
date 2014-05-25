@@ -19,6 +19,8 @@ if [ ! -d $BACKUPS_LOCATION/current ]; then
   echo "performing a full backup..."
   echo
   
+  mkdir -p $BACKUPS_LOCATION
+  
   rsync -RrLktz \
     --files-from={{ backup_rsync_sites_file }} \
     / $BACKUPS_LOCATION/inprogress-$date

@@ -1,0 +1,6 @@
+---
+
+# Default Backup List (all files)
+#################################
+
+SITE_BACKUP_FILE_LIST: ['.']
