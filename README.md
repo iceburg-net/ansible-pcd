@@ -1,47 +1,39 @@
 ansible-pcd
 ===========
 
-ansible prepare, configure, deploy framework
+ansible-pcd provides [ansible](https://github.com/ansible/ansible) roles and
+structural conventions to easily automate (even massive) *nix infrastructure.
+
+roles are organized by _system_, _service_, or _application_ and tasks are
+tagged with either `prepare`, `configure`, or `deploy`. this is scalable and
+drastically reduces execution time by visiting only necessary tasks.
+
+the project has the following **goals**;
+* embrace ansible-best-practices -- remain understandable and community friendly
+* distribution agnostic approach (support Debian, RedHat, &c)
+* encourage reusable automation components, avoid redundancy
 
 
-overview
-========
-  
-ansible-pcd provides a set of roles and standard conveniences with the following **goals**;
-
-* encourage flexible, convenient, and reusable automation components
-* drastically reduce execution time by visiting only necessary tasks
-* support multiple distributions (Debian, RedHat, &c)
-* remain simple, intuitive, and community friendly
-* avoid redundancy, be maintainable
-
-roles following the pcd standard tag tasks as either `prepare`, `configure`, or `deploy`.
-
-* prepare: typically run one time per host (e.g. create user)
-* configure: run whenever configuration changes (e.g. update httpd port)
-* deploy: run on site/application releases
-
-the organization within the ansible-pcd framework makes it suitable for extremely large installments.
-
-* roles are categorized into systems, services, and applications.
-* inventory follows ansible best-practices
+See the [ginas)(https://github.com/ginas/ginas/) project as an alternative.
 
 
 #### current functionality
 
-ansible-pcd currently provides an ansible-managed "webhost in a box"
+at this time ansible-pcd provides a "webhost in a box" for **debian 7 (wheezy)**
 
-* YAML website definitions - see [sites/](https://github.com/iceburg-net/ansible-pcd/tree/master/sites)
-  * apache and nginx server options
-  * git based sites (shallow clone during deployment), multiple branch support.
-  * conveniences for;
-    * mysql user + database creation
-    * awstats integration
-    * wordpress/silverstripe/&c rewrites
-    * backups (e.g. asset/upload folder(s) > cloud storage)  
-* nullmailer MTA replacement
+websites are defined in YAML (see [sites/](https://github.com/iceburg-net/ansible-pcd/tree/master/sites)).
+the following conveniences are provided;
+* git based sites (shallow checkout during deployment)
+* toggle user + database creation
+* toggle awstats integration
+* wordpress/silverstripe/&c rewrites
+* backups (e.g. asset/upload folder(s) > cloud storage)  
+
+hosts are provisioned with a consistent, secure environment. [services](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-services) are
+configured with playbooks and inventory
 * remote/cloud backups via s3ql
-* provisioning hosts with a consistent environment 
+* nullmailer MTA
+* LAMP stack 
 
 more to come, please contribute!
 
@@ -78,17 +70,14 @@ pcd-systems roles provision hosts with a consistent environment. they ensure the
 root user's authorized keys for ansible to connect, set the fqdn properly, 
 install a common set of packages, and tighten security. when connecting to a 
 host for the first time (that doesn't yet have an authorized key for the root 
-user), pass the --ask-pass flag to ansible-playbook. 
+user), pass the --ask-pass flag to ansible-playbook.
 
-currently only **debian 7 (wheezy)** hosts are supported. 
+@todo tutorial on running site.yml
 
 
 examples
 
 ```
-# Provision (prepare, configure) hosts listed in inventory/iceburg.hosts
-ansible-playbook -i inventory/iceburg.hosts pcd_system.yml
-
 # Reconfigure a specific host/group
 ansible-playbook -i inventory/iceburg.hosts pcd_system.yml -t configure -e PCD_TARGET_HOST=iceburg-ocean-1.iceburg.net
 
@@ -102,9 +91,6 @@ ansible-playbook -i inventory/iceburg.hosts pcd_service.yml -t configure --extra
 
 ##
 
-# Provision (prepare, configure, deploy) all sites
-ansible-playbook -i inventory/iceburg.hosts iceburg-sites.yml
-
 # Deploy a specific site to all webservers
 ansible-playbook -i inventory/iceburg.hosts pcd_site.yml -t deploy --extra-vars="PCD_TARGET_HOST=webservers"
 
@@ -115,8 +101,6 @@ notes
   * use ansible's --list-tasks to preview the tasks to be executed
 
 
-more to come
-
 
 status
 ======
@@ -125,6 +109,7 @@ status
 
 ansible-pcd is under development.  there may be breaking api
 changes, and I'd like to conform to the standards set by the edX project ( https://github.com/edx/configuration )
+
 
 Contributions are welcome.
 
@@ -161,7 +146,6 @@ pcd_task_add_user: "{{ PCD_TASKS }}/add_user.yml"
 
 ```
 * try to at least support `Debian` and `RedHat` OS families
-
 
 
 
