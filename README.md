@@ -22,15 +22,15 @@ See the [ginas](https://github.com/ginas/ginas/) project as an alternative.
 at this time ansible-pcd provides a "webhost in a box" for **debian 7 (wheezy)**
 
 [websites](https://github.com/iceburg-net/ansible-pcd/tree/master/sites) are defined in YAML
-the following conveniences are provided;
+with built-in, real-world conveniences;
 * git based sites (shallow checkout during deployment)
 * toggle user + database creation
 * toggle awstats integration
 * [wordpress/silverstripe/&c rewrites](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-sites/apache_site/templates/includes)
 * backups (e.g. asset/upload folder(s) > cloud storage)  
 
-hosts are provisioned with a consistent, secure environment. [services](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-services) are
-configured with playbooks and inventory
+[hosts](https://github.com/iceburg-net/ansible-pcd/tree/master/pcd_system.yml) are provisioned with a consistent, secure environment. [services](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-services) are
+configurable [per host](https://github.com/iceburg-net/ansible-pcd/tree/master/iceburg-sites.yml) using playbooks and inventory.
 * remote/cloud backups via s3ql
 * nullmailer MTA
 * [LAMP stack](https://github.com/iceburg-net/ansible-pcd/tree/master/webservers.yml) 
