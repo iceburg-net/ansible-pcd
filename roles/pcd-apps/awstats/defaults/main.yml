@@ -4,7 +4,7 @@
 #
 
 AWSTATS_SITE_NAME: "stats.{{ ansible_fqdn }}" # e.g. stats.chi-app-1.iceburg.net
-AWSTATS_SITE_ORG: "{{ httpd_site_org}}"
+AWSTATS_SITE_ORG: "awstats"
 AWSTATS_SITE_PATH: "{{ PCD_SITES_DIR }}/{{ AWSTATS_SITE_ORG }}/{{ AWSTATS_SITE_NAME }}"
 
 AWSTATS_HTPASSWD_USER: "{{ private_user_name }}"
