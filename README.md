@@ -21,11 +21,11 @@ See the [ginas](https://github.com/ginas/ginas/) project as an alternative.
 
 at this time ansible-pcd provides a "webhost in a box" for **debian 7 (wheezy)**
 
-[hosts](https://github.com/iceburg-net/ansible-pcd/tree/master/pcd_system.yml) are provisioned with a consistent, secure environment. [services](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-services) are
+[hosts](https://github.com/iceburg-net/ansible-pcd/blob/master/inventory/iceburg.hosts) are provisioned with a consistent, secure environment. [services](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-services) are
 configurable [per host](https://github.com/iceburg-net/ansible-pcd/blob/master/webservers.yml) using playbooks and inventory.
 
 
-[websites](https://github.com/iceburg-net/ansible-pcd/tree/master/iceburg-sites.yml) are defined in [YAML](https://github.com/iceburg-net/ansible-pcd/tree/master/sites)
+[websites](https://github.com/iceburg-net/ansible-pcd/tree/master/sites) are defined in YAML
 with built-in, real-world conveniences;
 * git based sites (deployment via shallow checkout)
 * [wordpress/silverstripe/&c rewrites](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-sites/apache_site/templates/includes)
@@ -41,23 +41,33 @@ more to come, please contribute!
 usage
 ==============
 
-The pcd_*.yml playbooks a apply a single role to specified host(s). For 
-instance, the [pcd_service.yml](https://github.com/iceburg-net/ansible-pcd/blob/master/pcd_service.yml)
-playbook may be used to apply the mysql service to a host. They prompt for the 
-role (e.g. service/app/site) name and host/group to apply it to. 
+The pcd_*.yml playbooks are used to apply a single role to specified host(s). 
+They will prompt for the role/host if not provided via --extra-vars on the command line.
 
-* Roles often provide [default configuration variables](https://github.com/iceburg-net/ansible-pcd/blob/master/roles/pcd-apps/awstats/defaults/main.yml) meant to be overriden. These are typically UPPERCASED. Configure to your liking by redefining them in your [inventory variables](https://github.com/iceburg-net/ansible-pcd/tree/master/inventory/group_vars).
-* Roles tag tasks as either `prepare`, `configure`, or `deploy`.
-  * `prepare` tasks are ideally run once per host. They install packages, add users, &c.
-  * `configure` tasks are run more often. They setup cron jobs, template configuration files, set timezone, &c. 
-  * `deploy` tasks are run most often, and are limited to [applications](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-apps) and [sites](https://github.com/iceburg-net/ansible-pcd/tree/master/sites). Run them whenever your application/site code changes.
+
+For instance, you can use the [pcd_service.yml](https://github.com/iceburg-net/ansible-pcd/blob/master/pcd_service.yml)
+playbook to quickly apply mysql to a host via `ansible-playbook -i inventory/iceburg.hosts pcd_service.yml --extra-vars="PCD_TARGET_HOST=chi-db-1.iceburg.net PCD_TARGET_ROLE=mysql"`
 
 
 Running the pcd_*.yml playbooks without tags will execute all tasks. 
 Thus, running the service playbook without tags to apply the mysql service on a host will execute the `prepare`, `configure`, and `deploy` tasks in that order.
+* `prepare` tasks are ideally run once per host. They install packages, add users, &c.
+* `configure` tasks are run more often. They setup cron jobs, template configuration files, set timezone, &c. 
+* `deploy` tasks are run most often, and are limited to [applications](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-apps) and [sites](https://github.com/iceburg-net/ansible-pcd/tree/master/sites). Run them whenever your application/site code changes.
 
 
-examples
+Many pcd roles provide [default configuration variables](https://github.com/iceburg-net/ansible-pcd/blob/master/roles/pcd-apps/awstats/defaults/main.yml) meant to be overriden. These are typically UPPERCASED. Configure to your liking by redefining them in your [inventory variables](https://github.com/iceburg-net/ansible-pcd/tree/master/inventory/group_vars).
+
+
+It's best to define your own infrastructure and the applications/services that
+run on it. You do this through standard ansible playbooks. Included is an 
+example that provisions an entire environemnt. See:
+  * [site.yml](https://github.com/iceburg-net/ansible-pcd/blob/master/site.yml) 
+  * [webservers.yml](https://github.com/iceburg-net/ansible-pcd/blob/master/webservers.yml)
+  * [iceburg-sites.yml](https://github.com/iceburg-net/ansible-pcd/blob/master/iceburg-sites.yml)
+  
+
+#### examples
 
 ```
 # apply a service to host(s) (you will be prompted for service and host name)
@@ -89,13 +99,6 @@ notes
   * use ansible's --list-tasks to preview the tasks to be executed
 
 
-You are encouraged to write playbooks and define your own infrastructure and the
-services and applications that run on it. Included is an example to provision
-an entire environemnt. See:
-  * [site.yml](https://github.com/iceburg-net/ansible-pcd/blob/master/site.yml) 
-  * [webservers.yml](https://github.com/iceburg-net/ansible-pcd/blob/master/webservers.yml)
-  * [iceburg-sites.yml](https://github.com/iceburg-net/ansible-pcd/blob/master/iceburg-sites.yml)
-
 
 
 setup
@@ -109,7 +112,9 @@ cp -a private.sample private
 
 * remove /private from .gitignore if you want to check-in private keys, etc.
   * you can use the vault module to encrypt files in /private
+  * you can define the private directory location via the _PCD_PRIVATE_DIR_ inventory variable.
 
+* configure inventory and vars accordingly
 
 
 #### connecting, initial provisioning
