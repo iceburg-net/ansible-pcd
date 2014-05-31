@@ -21,21 +21,82 @@ See the [ginas](https://github.com/ginas/ginas/) project as an alternative.
 
 at this time ansible-pcd provides a "webhost in a box" for **debian 7 (wheezy)**
 
-[websites](https://github.com/iceburg-net/ansible-pcd/tree/master/sites) are defined in YAML
-with built-in, real-world conveniences;
-* git based sites (shallow checkout during deployment)
-* toggle user + database creation
-* toggle awstats integration
-* [wordpress/silverstripe/&c rewrites](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-sites/apache_site/templates/includes)
-* backups (e.g. asset/upload folder(s) > cloud storage)  
-
 [hosts](https://github.com/iceburg-net/ansible-pcd/tree/master/pcd_system.yml) are provisioned with a consistent, secure environment. [services](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-services) are
-configurable [per host](https://github.com/iceburg-net/ansible-pcd/tree/master/iceburg-sites.yml) using playbooks and inventory.
-* remote/cloud backups via s3ql
-* nullmailer MTA
-* [LAMP stack](https://github.com/iceburg-net/ansible-pcd/tree/master/webservers.yml) 
+configurable [per host](https://github.com/iceburg-net/ansible-pcd/blob/master/webservers.yml) using playbooks and inventory.
+
+
+[websites](https://github.com/iceburg-net/ansible-pcd/tree/master/iceburg-sites.yml) are defined in [YAML](https://github.com/iceburg-net/ansible-pcd/tree/master/sites)
+with built-in, real-world conveniences;
+* git based sites (deployment via shallow checkout)
+* [wordpress/silverstripe/&c rewrites](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-sites/apache_site/templates/includes)
+* pcd.mysql integration (create user + database)
+* pcd.awstats integration (registers logfile to be analyzed) 
+* pcd.backup integration (site assets/uploads > clound storage via s3ql)  
+
+
 
 more to come, please contribute!
+
+  
+usage
+==============
+
+The pcd_*.yml playbooks a apply a single role to specified host(s). For 
+instance, the [pcd_service.yml](https://github.com/iceburg-net/ansible-pcd/blob/master/pcd_service.yml)
+playbook may be used to apply the mysql service to a host. They prompt for the 
+role (e.g. service/app/site) name and host/group to apply it to. 
+
+* Roles often provide [default configuration variables](https://github.com/iceburg-net/ansible-pcd/blob/master/roles/pcd-apps/awstats/defaults/main.yml) meant to be overriden. These are typically UPPERCASED. Configure to your liking by redefining them in your [inventory variables](https://github.com/iceburg-net/ansible-pcd/tree/master/inventory/group_vars).
+* Roles tag tasks as either `prepare`, `configure`, or `deploy`.
+  * `prepare` tasks are ideally run once per host. They install packages, add users, &c.
+  * `configure` tasks are run more often. They setup cron jobs, template configuration files, set timezone, &c. 
+  * `deploy` tasks are run most often, and are limited to [applications](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-apps) and [sites](https://github.com/iceburg-net/ansible-pcd/tree/master/sites). Run them whenever your application/site code changes.
+
+
+Running the pcd_*.yml playbooks without tags will execute all tasks. 
+Thus, running the service playbook without tags to apply the mysql service on a host will execute the `prepare`, `configure`, and `deploy` tasks in that order.
+
+
+examples
+
+```
+# apply a service to host(s) (you will be prompted for service and host name)
+ansible-playbook -i inventory/iceburg.hosts pcd_service.yml
+
+# reconfigure the apache service on a specific host
+ansible-playbook -i inventory/iceburg.hosts pcd_service.yml -t configure --extra-vars="PCD_TARGET_HOST=iceburg-ocean-1.iceburg.net PCD_TARGET_ROLE=apache"
+
+##
+
+# provision a host with a consistent environment (you will be prompted for host)
+ansible-playbook -i inventory/iceburg.hosts pcd_system.yml 
+
+# reconfigure the system on all hosts in the webservers group
+ansible-playbook -i inventory/iceburg.hosts pcd_system.yml -t configure --extra-vars="PCD_TARGET_HOST=webservers"
+
+##
+
+# apply a site to host(s) (you will be prompted for host, site, and site org)
+ansible-playbook -i inventory/iceburg.hosts pcd_site.yml
+
+# deploy (in this case; git checkout) www.iceburg.net to all webservers
+ansible-playbook -i inventory/iceburg.hosts pcd_site.yml -t deploy --extra-vars="PCD_TARGET_HOST=webservers PCD_TARGET_SITE_NAME=www.iceburg.net PCD_TARGET_SITE_ORG=iceburg"
+
+```
+
+notes
+  * use ansible's --limit to further limit selected hosts to a pattern
+  * use ansible's --list-tasks to preview the tasks to be executed
+
+
+You are encouraged to write playbooks and define your own infrastructure and the
+services and applications that run on it. Included is an example to provision
+an entire environemnt. See:
+  * [site.yml](https://github.com/iceburg-net/ansible-pcd/blob/master/site.yml) 
+  * [webservers.yml](https://github.com/iceburg-net/ansible-pcd/blob/master/webservers.yml)
+  * [iceburg-sites.yml](https://github.com/iceburg-net/ansible-pcd/blob/master/iceburg-sites.yml)
+
+
 
 setup
 =====
@@ -48,15 +109,16 @@ cp -a private.sample private
 
 * remove /private from .gitignore if you want to check-in private keys, etc.
   * you can use the vault module to encrypt files in /private
-  
-* configure accordingly
-  * inventory vars
-  * site.yml
-  * iceburg-sites.yml
-  
 
-usage
-==============
+
+
+#### connecting, initial provisioning
+
+pcd-systems roles provision hosts with a consistent environment. they ensure the 
+root user's authorized keys for ansible to connect, set the fqdn properly, 
+install a common set of packages, and tighten security. when connecting to a 
+host for the first time (that doesn't yet have an authorized key for the root 
+user), pass the --ask-pass flag to ansible-playbook.
 
 by default, ansible-pcd connects to hosts as the root user over ssh using keys
 in the /private/keys directory. the key is determined by the 
@@ -66,40 +128,6 @@ instance, if we're connecting to a host in the *chicago-east*
 organization/environment, ansible would select
 `/private/keys/chicago-east+root.key`. 
 
-pcd-systems roles provision hosts with a consistent environment. they ensure the 
-root user's authorized keys for ansible to connect, set the fqdn properly, 
-install a common set of packages, and tighten security. when connecting to a 
-host for the first time (that doesn't yet have an authorized key for the root 
-user), pass the --ask-pass flag to ansible-playbook.
-
-@todo tutorial on running site.yml
-
-
-examples
-
-```
-# Reconfigure a specific host/group
-ansible-playbook -i inventory/iceburg.hosts pcd_system.yml -t configure -e PCD_TARGET_HOST=iceburg-ocean-1.iceburg.net
-
-##
-
-# Add the nullmailer service to a host/group
-ansible-playbook -i inventory/iceburg.hosts pcd_service.yml --extra-vars="PCD_TARGET_HOST=webservers PCD_TARGET_ROLE=nullmailer"
-
-# Reconfigure nullmailer on all hosts
-ansible-playbook -i inventory/iceburg.hosts pcd_service.yml -t configure --extra-vars="PCD_TARGET_HOST=all"
-
-##
-
-# Deploy a specific site to all webservers
-ansible-playbook -i inventory/iceburg.hosts pcd_site.yml -t deploy --extra-vars="PCD_TARGET_HOST=webservers"
-
-```
-
-notes
-  * use ansible's --limit to further limit selected hosts to a pattern
-  * use ansible's --list-tasks to preview the tasks to be executed
-
 
 
 status
@@ -107,8 +135,7 @@ status
 
 **development**
 
-ansible-pcd is under development.  there may be breaking api
-changes, and I'd like to conform to the standards set by the edX project ( https://github.com/edx/configuration )
+ansible-pcd is under development. there may be breaking api changes in the near future. 
 
 
 Contributions are welcome.
@@ -145,6 +172,11 @@ pcd_task_add_s3ql_mount: "{{ PCD_TASKS }}/add_s3ql_mount.yml"
 pcd_task_add_user: "{{ PCD_TASKS }}/add_user.yml"
 
 ```
+
+* If a variable is a good candidate to be shared by other roles, place it in [pcd-common/vars/shared.yml](http://LINK).
+
+* Follow the [edX project](https://github.com/edx/configuration) standard and CAPITALIZE the names of variables likely to be overriden/configured by users. Place them at the top of your defaults/main.yml.
+
 * try to at least support `Debian` and `RedHat` OS families
 
 
