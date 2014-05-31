@@ -16,27 +16,6 @@ the project has the following **goals**;
 
 See the [ginas](https://github.com/ginas/ginas/) project as an alternative.
 
-
-#### current functionality
-
-at this time ansible-pcd provides a "webhost in a box" for **debian 7 (wheezy)**
-
-[hosts](https://github.com/iceburg-net/ansible-pcd/blob/master/inventory/iceburg.hosts) are provisioned with a consistent, secure environment. [services](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-services) are
-configurable [per host](https://github.com/iceburg-net/ansible-pcd/blob/master/webservers.yml) using playbooks and inventory.
-
-
-[websites](https://github.com/iceburg-net/ansible-pcd/tree/master/sites) are defined in YAML
-with built-in, real-world conveniences;
-* git based sites (deployment via shallow checkout)
-* [wordpress/silverstripe/&c rewrites](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-sites/apache_site/templates/includes)
-* pcd.mysql integration (create user + database)
-* pcd.awstats integration (registers logfile to be analyzed) 
-* pcd.backup integration (site assets/uploads > clound storage via s3ql)  
-
-
-
-more to come, please contribute!
-
   
 usage
 ==============
@@ -133,6 +112,27 @@ instance, if we're connecting to a host in the *chicago-east*
 organization/environment, ansible would select
 `/private/keys/chicago-east+root.key`. 
 
+
+
+#### current functionality
+
+at this time ansible-pcd provides a "webhost in a box" for **debian 7 (wheezy)**
+
+[hosts](https://github.com/iceburg-net/ansible-pcd/blob/master/inventory/iceburg.hosts) are provisioned with a consistent, secure environment. [services](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-services) are
+configurable [per host](https://github.com/iceburg-net/ansible-pcd/blob/master/webservers.yml) using playbooks and inventory.
+
+
+[websites](https://github.com/iceburg-net/ansible-pcd/tree/master/sites) are defined in YAML
+with built-in, real-world conveniences;
+* git based sites (deployment via shallow checkout)
+* [wordpress/silverstripe/&c rewrites](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-sites/apache_site/templates/includes)
+* pcd.mysql integration (create user + database)
+* pcd.awstats integration (registers logfile to be analyzed) 
+* pcd.backup integration (site assets/uploads > clound storage via s3ql)  
+
+
+
+more to come, please contribute!
 
 
 status
