@@ -6,8 +6,8 @@
 SITE_NAME: staging.iceburg.net
 SITE_HTTPS: True
 
-SITE_GIT_REPO: git@github.com:iceburg-net/www.iceburg.net.git
+SITE_GIT_REPO: git@github.com:iceburg-net/ansible-pcd-iceburg_site.git
 SITE_GIT_BRANCH: stage
 
-SITE_DOCROOT: www-1
-SIT_LOG_FILE: /dev/null
+SITE_DOCROOT: www-staging
+SITE_LOG_FILE: /dev/null
