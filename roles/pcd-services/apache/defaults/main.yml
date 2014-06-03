@@ -3,7 +3,5 @@
 #  apache default vars 
 #
 
-apache_log_dir: /var/log/{{ os_apache_service }}
-
 apache_http_port: 80
 apache_https_port: 443

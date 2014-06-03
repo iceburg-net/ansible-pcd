@@ -3,5 +3,5 @@
 #  apache tasks 
 #
 
-- { include: prepare.yml, tags: ['prepare'], when: skip_tasks is not defined or not skip_tasks }
-- { include: configure.yml, tags: ['configure'], when: skip_tasks is not defined or not skip_tasks }
+- { include: prepare.yml, tags: ['prepare'] }
+- { include: configure.yml, tags: ['configure'] }

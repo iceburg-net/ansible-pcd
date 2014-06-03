@@ -3,24 +3,7 @@
 #  pcd-services/httpd defaults
 #
 
-HTTPD_HTTP_PORT: 80
-HTTPD_HTTPS_PORT: 443
+# more HTTPD vars are registered in pcd-common/defaults/main.yml
+# ....
 
-HTTPD_SERVERADMIN: "{{ PCD_DEFAULT_USER_EMAIL }}"
-
-#@todo ensure log rotation on HTTPD_LOG_DIR
-HTTPD_LOG_DIR: "{{ PCD_SITES_DIR }}/logs"
-
-
-
-httpd_site_org: "{{ PCD_DEFAULT_ORG }}"
-httpd_site_root: www
-httpd_site_logformat: awstats
-
-httpd_user: siteop
-httpd_user_group: httpdconf
-httpd_user_home: "{{ PCD_SITES_DIR }}"
-httpd_user_key: "{{ PCD_KEYS_DIR }}/{{ httpd_site_org }}+{{ httpd_user }}.key"
-
-httpd_ssl_dir: "{{ httpd_user_home }}/ssl-certificates"
-
+httpd_user_key: "{{ PCD_KEYS_DIR }}/{{ PCD_DEFAULT_SITE_ORG }}+{{ HTTPD_USER }}.key"

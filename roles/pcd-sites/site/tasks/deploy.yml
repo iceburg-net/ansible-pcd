@@ -19,7 +19,7 @@
     version={{ SITE_GIT_BRANCH }}
     accept_hostkey=yes
   when: SITE_GIT_REPO != ""
-  remote_user: "{{ httpd_user }}"
+  remote_user: "{{ HTTPD_USER }}"
   
 - name: git - link checkout to site path
   file: state=link dest={{ SITE_PATH }} src={{ site_git_checkouts }}/{{ SITE_GIT_REPO | regex_replace('[\ \<\>\|\\\/\:\,\;\&\*\?]*','') }}-{{ SITE_GIT_BRANCH }}

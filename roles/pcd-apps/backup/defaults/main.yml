@@ -3,18 +3,10 @@
 #  pcd-apps/backup defaults
 #
 
-backup_user: backupop
-backup_user_home: "/backups"
-
-backup_binaries: "{{ backup_user_home }}/bin"
-backup_target_dir: "{{ backup_user_home }}/cloud"
-backup_rsync_includes: "{{ backup_user_home }}/rsync-includes"
 
 backup_mysql_target: "{{ backup_target_dir }}/{{ ansible_hostname }}-mysql"
 backup_files_target: "{{ backup_target_dir }}/{{ ansible_hostname }}-files"
 backup_sites_target: "{{ backup_target_dir }}/{{ ansible_hostname }}-sites"
-
-backup_rsync_sites_file: "{{ backup_rsync_includes }}/rsync_sites.inc"
 
 
 #
@@ -44,3 +36,7 @@ backup_s3ql_url: gs://<bucket>/<prefix>
 
 backup_s3ql_username: "{{ private_user_name }}"
 backup_s3ql_password: "{{ private_user_pass }}"
+
+
+backup_binaries: "{{ BACKUP_USER_HOME }}/bin"
+backup_target_dir: "{{ BACKUP_USER_HOME }}/cloud"

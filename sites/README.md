@@ -33,10 +33,10 @@ ansible-pcd makes it easy to manage sites on a host.
 #
 # SITE_PATH: (path | "{{ PCD_SITES_DIR }}/{{ site_org }}/{{ site_name }})")
 # SITE_DOCROOT: (str | "www") DocumentRoot folder (relative to SITE_PATH)
-# SITE_SERVERADMIN: (str | "{{ HTTPD_SERVERADMIN }}") admin email address
+# SITE_SERVERADMIN: (str | "{{ SITE_DEFAULT_SERVERADMIN }}") admin email address
 #
 # SITE_LOG_FILE: (path | {{ HTTPD_LOG_DIR }}/{{ site_org }}.log) access log file
-# SITE_LOG_FORMAT: (str | {{ httpd_site_logformat }}) log file format
+# SITE_LOG_FORMAT: (str | {{ HTTPD_LOG_FORMAT }}) log file format
 #
 # set SITE_GIT_REPO to clone URL if site is contained in git repository
 # SITE_GIT_REPO: (str | "") git repository (clone URL) containing site

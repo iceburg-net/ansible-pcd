@@ -4,11 +4,11 @@
 #
 
 - name: SSL - copy key
-  copy: dest={{ httpd_ssl_dir }}/{{ SITE_SSL_KEY | basename }} src={{ SITE_SSL_KEY }}
+  copy: dest={{ HTTPD_SSL_DIR }}/{{ SITE_SSL_KEY | basename }} src={{ SITE_SSL_KEY }}
   when: SITE_HTTPS
 
 - name: SSL - copy crt
-  copy: dest={{ httpd_ssl_dir }}/{{ SITE_SSL_CRT | basename }} src={{ SITE_SSL_CRT }}
+  copy: dest={{ HTTPD_SSL_DIR }}/{{ SITE_SSL_CRT | basename }} src={{ SITE_SSL_CRT }}
   when: SITE_HTTPS
   
 
@@ -50,18 +50,18 @@
   when: SITE_ENABLE_BACKUP and not SITE_BACKUP_FILE_LIST
 
 
-- name: add  backup file list to backup_rsync_sites_file  
+- name: add  backup file list to BACKUP_RSYNC_SITES_FILE  
   lineinfile:
-    dest={{ backup_rsync_sites_file }}
+    dest={{ BACKUP_RSYNC_SITES_FILE }}
     state=present
     regexp=^{{ SITE_PATH }}/{{ SITE_DOCROOT }}/{{ item }}$
     line={{ SITE_PATH }}/{{ SITE_DOCROOT }}/{{ item }}
   with_items: SITE_BACKUP_FILE_LIST
   when: SITE_ENABLE_BACKUP
     
-- name: exclude site from backup_rsync_sites_file  
+- name: exclude site from BACKUP_RSYNC_SITES_FILE  
   lineinfile:
-    dest={{ backup_rsync_sites_file }}
+    dest={{ BACKUP_RSYNC_SITES_FILE }}
     state=absent
     regexp=^{{ SITE_PATH }}/{{ SITE_DOCROOT }}/
   when: not SITE_ENABLE_BACKUP

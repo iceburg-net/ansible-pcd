@@ -1,6 +1,6 @@
 ---
 ##
-# pcd-sites/site meta
+# pcd-sites/site defaults
 #
 
 SITE_MYSQL_LOGIN_HOST: localhost
@@ -10,8 +10,10 @@ SITE_MYSQL_LOGIN_PASS: "{{ mysql_root_password }}"
 SITE_DEFAULT_MYSQL_USER: pcd_sites
 SITE_DEFAULT_MYSQL_PASS: !!null
 
+SITE_DEFAULT_SERVERADMIN: "{{ PCD_DEFAULT_USER_EMAIL }}"
 
-site_org: "{{ httpd_site_org }}"
+
+site_org: "{{ PCD_DEFAULT_SITE_ORG }}"
 site_disabled_list: []
 
 site_git_checkouts: "{{ PCD_SITES_DIR }}/.git-checkouts"

@@ -22,7 +22,7 @@ if [ ! -d $BACKUPS_LOCATION/current ]; then
   mkdir -p $BACKUPS_LOCATION
   
   rsync -RrLktz \
-    --files-from={{ backup_rsync_sites_file }} \
+    --files-from={{ BACKUP_RSYNC_SITES_FILE }} \
     / $BACKUPS_LOCATION/inprogress-$date
     
   if [ $? -eq 0 -o $? -eq 23 ]; then
@@ -37,7 +37,7 @@ else
   rsync -RrLktz \
     --delete \
     --delete-excluded \
-    --files-from={{ backup_rsync_sites_file }} \
+    --files-from={{ BACKUP_RSYNC_SITES_FILE }} \
     --link-dest=../current \
     / $BACKUPS_LOCATION/inprogress-$date
     

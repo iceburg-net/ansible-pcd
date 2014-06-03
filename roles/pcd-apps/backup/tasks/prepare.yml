@@ -4,13 +4,13 @@
 #
 
 - { include: "{{ pcd_task_add_user }}", task: {
-      name: "{{ backup_user }}",
-      home: "{{ backup_user_home }}",
+      name: "{{ BACKUP_USER }}",
+      home: "{{ BACKUP_USER_HOME }}",
       system: yes,
       groups: [
         "{{ os_mysql_group }}",
         "{{ os_apache_group }}",
-        "{{ httpd_user_group }}"]
+        "{{ HTTPD_USER_GROUP }}"]
     }
   }
 
@@ -24,25 +24,25 @@
   with_items:
     - "{{ backup_target_dir }}"
     - "{{ backup_binaries }}"
-    - "{{ backup_rsync_includes }}"
+    - "{{ BACKUP_RSYNC_INCLUDES_DIR }}"
   sudo: True
-  sudo_user: "{{ backup_user }}"
+  sudo_user: "{{ BACKUP_USER }}"
   
-- name: ensure backup_rsync_sites_file
-  command: touch {{ backup_rsync_sites_file }} 
-    creates={{ backup_rsync_sites_file }}
+- name: ensure BACKUP_RSYNC_SITES_FILE
+  command: touch {{ BACKUP_RSYNC_SITES_FILE }} 
+    creates={{ BACKUP_RSYNC_SITES_FILE }}
   sudo: True
-  sudo_user: "{{ backup_user }}"
+  sudo_user: "{{ BACKUP_USER }}"
   
     
 
 - name: allow backup user to sudo execute scripts in binaries directory
-  lineinfile: dest=/etc/sudoers regexp="^{{ backup_user }}" line="{{ backup_user }} ALL=(ALL) NOPASSWD:{{ backup_binaries }}/*" state=present
+  lineinfile: dest=/etc/sudoers regexp="^{{ BACKUP_USER }}" line="{{ BACKUP_USER }} ALL=(ALL) NOPASSWD:{{ backup_binaries }}/*" state=present
   
   
 - name: ensure backup user has PATH set in .bashrc
   lineinfile:
-    dest={{ backup_user_home }}/.bashrc
+    dest={{ BACKUP_USER_HOME }}/.bashrc
     state=present
     regexp='^PATH=.*$'
     line="PATH=$PATH:{{ backup_binaries }}"
@@ -55,12 +55,12 @@
   user: 
     append=yes
     groups=fuse
-    name={{ backup_user }}
+    name={{ BACKUP_USER }}
   when: backup_s3ql_enabled
   
 - { include: "{{ pcd_task_add_s3ql_mount }}", task: {
       nickname: "backups",
-      user: "{{ backup_user }}",
+      user: "{{ BACKUP_USER }}",
       target: "{{ backup_target_dir }}",
       url: "{{ backup_s3ql_url }}",
       login: "{{ backup_s3ql_username }}",

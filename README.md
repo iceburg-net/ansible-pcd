@@ -157,7 +157,7 @@ Please feel free to contribute roles and fixes via github pull requests.
 
 - { include: prepare.yml, tags: ['prepare'] }
 - { include: configure.yml, tags: ['configure'] }
-- { include: deploy.yml, tags: ['deploy'], sudo: True, sudo_user: "{{ httpd_user }}" }
+- { include: deploy.yml, tags: ['deploy'], sudo: True, sudo_user: "{{ HTTPD_USER }}" }
 
 # example pcd-role/tasks/prepare.yml
 
@@ -211,11 +211,13 @@ developer-todo
 * standardize logging service across distributions
 * map system uuid => fqdn to more easily identify remote backups
 * add redhat support to awstats (currently assumes debian httpd-prerotate functionality in apache2 logrotate.d conf)
+* site role should apply httpd, apache, nginx, awstats, backup role if not already prepared/configured
+* support log rotation of site logs
 
 #### lowest priority
 
 * refactor all roles to adopt edX standards
-* improve upon skip_tasks hack; find better way to load role var defaults.
 * make awstats apache/nginx agnostic, set inventory preference for nginx|apache
+
 
 

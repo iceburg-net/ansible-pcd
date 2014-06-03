@@ -3,14 +3,14 @@
 # pcd-services/httpd prepare
 #
 
-- name: add {{ httpd_user_group }} group
-  group: name={{ httpd_user_group }} system=yes
+- name: add {{ HTTPD_USER_GROUP }} group
+  group: name={{ HTTPD_USER_GROUP }} system=yes
   
 
 - { include: "{{ pcd_task_add_user }}", task: {
-      name: "{{ httpd_user }}",
-      group: "{{ httpd_user_group }}", 
-      home: "{{ httpd_user_home }}",
+      name: "{{ HTTPD_USER }}",
+      group: "{{ HTTPD_USER_GROUP }}", 
+      home: "{{ HTTPD_USER_HOME }}",
       system: yes,
       github: yes,
       key: "{{ httpd_user_key }}"
@@ -21,22 +21,22 @@
   file: 
     path={{ HTTPD_LOG_DIR }}
     state=directory
-    owner={{ httpd_user }}
+    owner={{ HTTPD_USER }}
     mode=0777
     
 - name: ensure default organization directory
   file: 
-    path={{ PCD_SITES_DIR }}/{{ httpd_site_org }}
+    path={{ PCD_SITES_DIR }}/{{ PCD_DEFAULT_SITE_ORG }}
     state=directory
-    owner={{ httpd_user }}
-    group={{ httpd_user_group }}
+    owner={{ HTTPD_USER }}
+    group={{ HTTPD_USER_GROUP }}
     mode=0775
   
 - name: ensure ssl certificate directory
   file: 
-    path={{ httpd_ssl_dir }}
+    path={{ HTTPD_SSL_DIR }}
     state=directory
-    owner={{ httpd_user }}
-    group={{ httpd_user_group }}
+    owner={{ HTTPD_USER }}
+    group={{ HTTPD_USER_GROUP }}
     mode=0775
     

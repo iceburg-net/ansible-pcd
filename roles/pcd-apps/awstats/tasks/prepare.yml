@@ -7,7 +7,7 @@
   file: path={{ item }} state=directory
   with_items:
     - "{{ AWSTATS_SITE_PATH }}"
-    - "{{ awstats_conf_dir }}"
+    - "{{ AWSTATS_CONF_DIR }}"
     - "{{ awstats_data_dir }}"
     - "{{ awstats_docroot }}"
 
@@ -23,11 +23,11 @@
     creates={{ awstats_app_dir }}
     
 
-- name: link awstats_conf_dir to /etc/awstats
+- name: link AWSTATS_CONF_DIR to /etc/awstats
   file:
     state=link
     path=/etc/awstats
-    src={{ awstats_conf_dir }}
+    src={{ AWSTATS_CONF_DIR }}
   sudo: False
   
 - name: copy awstats_updateall.pl to {{ AWSTATS_SITE_PATH }}

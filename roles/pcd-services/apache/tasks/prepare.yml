@@ -6,15 +6,15 @@
 - { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }
 - { include: prepare-redhat.yml, when: "ansible_os_family == 'RedHat'" }
   
-- name: allow {{ httpd_user_group }} group to sudo execute apachectl
-  lineinfile: dest=/etc/sudoers regexp="^\%{{ httpd_user_group }}" line="%{{ httpd_user_group }} ALL=(ALL) NOPASSWD:{{ os_apache_apachectl_file }}" state=present
+- name: allow {{ HTTPD_USER_GROUP }} group to sudo execute apachectl
+  lineinfile: dest=/etc/sudoers regexp="^\%{{ HTTPD_USER_GROUP }}" line="%{{ HTTPD_USER_GROUP }} ALL=(ALL) NOPASSWD:{{ os_apache_apachectl_file }}" state=present
   
-- name: ensure apache site and certificate directories writable by {{ httpd_user_group }} group
+- name: ensure apache site and certificate directories writable by {{ HTTPD_USER_GROUP }} group
   file: 
     path={{ item }}
     state=directory
     owner=root
-    group={{ httpd_user_group }}
+    group={{ HTTPD_USER_GROUP }}
     mode=0775
   with_items:
     - "{{ os_apache_sites_dir }}"

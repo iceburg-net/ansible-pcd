@@ -1,7 +1,0 @@
----
-##
-#  pcd-apps/awstats meta
-#
-
-dependencies:
-  - { role: pcd-services/apache, skip_tasks: True }

@@ -21,3 +21,48 @@ PCD_SITES_DIR: /sites
 # set to "" (empty string) to disable cronic
 PCD_CRON_PREFIX: "/usr/local/bin/cronic "
 
+
+# Register shared (amongst roles) variables
+###########################################
+
+PCD_DEFAULT_SITE_ORG: "{{ PCD_DEFAULT_ORG }}"
+
+
+# awstats role
+##############
+
+AWSTATS_SITE_NAME: "stats.{{ ansible_fqdn }}" # e.g. stats.chi-app-1.iceburg.net
+AWSTATS_SITE_PATH: "{{ PCD_SITES_DIR }}/awstats/{{ AWSTATS_SITE_NAME }}"
+AWSTATS_CONF_DIR: "{{ AWSTATS_SITE_PATH }}/conf"
+
+#@todo support redhat after unifying logging
+awstats_update_script: /etc/logrotate.d/httpd-prerotate/awstats
+
+
+# backup role
+#############
+
+
+BACKUP_USER: backupop
+BACKUP_USER_HOME: "/backups"
+
+BACKUP_RSYNC_INCLUDES_DIR: "{{ BACKUP_USER_HOME }}/rsync-includes"
+BACKUP_RSYNC_SITES_FILE: "{{ BACKUP_RSYNC_INCLUDES_DIR }}/rsync_sites.inc"
+
+
+# httpd role
+############
+
+HTTPD_HTTP_PORT: 80
+HTTPD_HTTPS_PORT: 443
+
+HTTPD_LOG_DIR: "{{ PCD_SITES_DIR }}/logs"
+HTTPD_LOG_FORMAT: awstats
+
+HTTPD_USER: siteop
+HTTPD_USER_GROUP: httpdconf
+HTTPD_USER_HOME: "{{ PCD_SITES_DIR }}"
+
+HTTPD_SSL_DIR: "{{ HTTPD_USER_HOME }}/ssl-certificates"
+
+

@@ -3,12 +3,17 @@
 #  pcd-apps/awstats defaults 
 #
 
-AWSTATS_SITE_NAME: "stats.{{ ansible_fqdn }}" # e.g. stats.chi-app-1.iceburg.net
-AWSTATS_SITE_ORG: "awstats"
-AWSTATS_SITE_PATH: "{{ PCD_SITES_DIR }}/{{ AWSTATS_SITE_ORG }}/{{ AWSTATS_SITE_NAME }}"
 
 AWSTATS_HTPASSWD_USER: "{{ private_user_name }}"
 AWSTATS_HTPASSWD_PASS: "{{ private_user_pass }}"
+
+
+# how often will awstats be updated? defaults to once a day, 4:30am
+AWSTATS_CRON_MINUTE: 30
+AWSTATS_CRON_HOUR: 4
+
+# more AWSTATS vars are registered in pcd-common/defaults/main.yml
+# ....
 
 
 # private
@@ -17,16 +22,8 @@ AWSTATS_HTPASSWD_PASS: "{{ private_user_pass }}"
 awstats_version: 7.3
 
 awstats_app_dir: "{{ AWSTATS_SITE_PATH }}/awstats-{{ awstats_version }}"
-awstats_conf_dir: "{{ AWSTATS_SITE_PATH }}/conf"
 awstats_data_dir: "{{ AWSTATS_SITE_PATH }}/data"
 awstats_docroot: "{{ AWSTATS_SITE_PATH }}/www"
 
 awstats_htpasswd_file: "{{ AWSTATS_SITE_PATH }}/awstats-htpasswd"
 
-# how often will awstats be updated? defaults to once a day, 4:30am
-awstats_cron_minute: 30
-awstats_cron_hour: 4
-
-#@todo support redhat after unifying logging
-awstats_update_script: /etc/logrotate.d/httpd-prerotate/awstats
-awstats_default_config: "{{ PCD_APP_ROLES }}/awstats/templates/awstats_default.j2"

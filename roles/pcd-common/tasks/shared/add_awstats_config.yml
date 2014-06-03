@@ -17,6 +17,8 @@
 
 - name: awstats > add site config
   template:
-    dest={{ awstats_conf_dir }}/awstats.{{ task.site_name }}.conf
-    src={{ task.config_template | default(awstats_default_config) }}
+    dest={{ AWSTATS_CONF_DIR }}/awstats.{{ task.site_name }}.conf
+    src={{ task.config_template | default(PCD_APP_ROLES + '/awstats/templates/awstats_default.j2') }}
   notify: awstats update
+  
+  
