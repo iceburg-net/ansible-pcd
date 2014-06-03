@@ -10,6 +10,11 @@
 - name: ensure site docroot
   file: path={{ SITE_PATH }}/{{ SITE_DOCROOT }} state=directory
   when: SITE_GIT_REPO == ""
+
+  
+- name: git - ensure site organization
+  file: path={{ SITE_PATH | replace(site_name,'') }} state=directory
+  when: SITE_GIT_REPO != ""
   
 - name: git - checkout site (shallow clone)
   git:
@@ -22,6 +27,9 @@
   remote_user: "{{ HTTPD_USER }}"
   
 - name: git - link checkout to site path
-  file: state=link dest={{ SITE_PATH }} src={{ site_git_checkouts }}/{{ SITE_GIT_REPO | regex_replace('[\ \<\>\|\\\/\:\,\;\&\*\?]*','') }}-{{ SITE_GIT_BRANCH }}
+  file: 
+    state=link 
+    dest={{ SITE_PATH }} 
+    src={{ site_git_checkouts }}/{{ SITE_GIT_REPO | regex_replace('[\ \<\>\|\\\/\:\,\;\&\*\?]*','') }}-{{ SITE_GIT_BRANCH }}
   when: SITE_GIT_REPO != ""
  

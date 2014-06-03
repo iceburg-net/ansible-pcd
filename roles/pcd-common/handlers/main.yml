@@ -1,0 +1,7 @@
+---
+##
+#  pcd-common handlers
+#
+
+- { include: "{{ PCD_APP_ROLES }}/awstats/handlers/main.yml" }
+- { include: "{{ PCD_SERVICE_ROLES }}/apache/handlers/main.yml" }

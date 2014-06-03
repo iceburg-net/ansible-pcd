@@ -24,14 +24,6 @@
     owner={{ HTTPD_USER }}
     mode=0777
     
-- name: ensure default organization directory
-  file: 
-    path={{ PCD_SITES_DIR }}/{{ PCD_DEFAULT_SITE_ORG }}
-    state=directory
-    owner={{ HTTPD_USER }}
-    group={{ HTTPD_USER_GROUP }}
-    mode=0775
-  
 - name: ensure ssl certificate directory
   file: 
     path={{ HTTPD_SSL_DIR }}
