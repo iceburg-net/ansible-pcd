@@ -7,7 +7,7 @@
         CustomLog {{ SITE_LOG_FILE }} {{ SITE_LOG_FORMAT }}
         
         DocumentRoot {{ SITE_PATH }}/{{ SITE_DOCROOT }}
-        <Directory {{ SITE_PATH }}/{{ SITE_DOCROOT }}}>
+        <Directory {{ SITE_PATH }}/{{ SITE_DOCROOT }}>
                 Options FollowSymLinks
                 
                 # apache_sites recommends disabling overrides for performance. 
@@ -44,7 +44,7 @@ RedirectMatch 302 ^/.*$ {{ SITE_REDIRECT }}
         CustomLog {{ SITE_LOG_FILE }} {{ SITE_LOG_FORMAT }}
         
         DocumentRoot {{ SITE_PATH }}/{{ SITE_DOCROOT }}
-        <Directory {{ SITE_PATH }}/{{ SITE_DOCROOT }}}>
+        <Directory {{ SITE_PATH }}/{{ SITE_DOCROOT }}>
                 Options FollowSymLinks
                 
                 # apache_sites recommends disabling overrides for performance. 
