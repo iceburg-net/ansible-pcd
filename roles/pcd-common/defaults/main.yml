@@ -26,6 +26,7 @@ PCD_CRON_PREFIX: "/usr/local/bin/cronic "
 ###########################################
 
 PCD_DEFAULT_SITE_ORG: "{{ PCD_DEFAULT_ORG }}"
+PCD_SITE_DEFINITIONS: "{{ inventory_dir }}/../sites"
 
 
 # awstats role
