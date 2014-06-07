@@ -1,0 +1,119 @@
+#
+# mysql 5.5 configuration - 4GB RAM, disabled innodb
+#
+
+[client]
+port            = 3306
+socket          = {{ os_mysql_socket_dir }}/mysqld.sock
+
+
+[mysqld]
+bind-address    = 127.0.0.1
+port            = 3306
+myisam-recover  = BACKUP
+
+basedir         = /usr
+datadir         = {{ mysql_data_dir }}
+tmpdir          = /tmp
+
+user            = mysql
+pid-file        = {{ os_mysql_socket_dir }}/mysqld.pid
+socket          = {{ os_mysql_socket_dir }}/mysqld.sock
+lc-messages-dir = /usr/share/mysql
+skip-external-locking
+
+
+#
+# * Fine Tuning
+#
+max_user_connections	= 100
+max_connections			= 200
+max_allowed_packet      = 4M
+
+query_cache_limit		= 512K
+query_cache_size		= 128M   ## 32MB for every 1GB of RAM
+
+key_buffer_size			= 512M   ## 128MB for every 1GB of RAM
+myisam_sort_buffer_size = 256M   ## 64MB for every 1GB of RAM
+join_buffer_size		= 4M     ## 1MB for every 1GB of RAM
+sort_buffer_size		= 4M     ## 1MB for every 1GB of RAM
+read_buffer_size		= 4M     ## 1MB for every 1GB of RAM
+read_rnd_buffer_size	= 4M     ## 1MB for every 1GB of RAM
+net_buffer_length		= 8K
+
+
+table_open_cache		= 384    ## best to use myssqltuner.pl
+
+thread_concurrency      = 4      ## Number of CPUs x 2
+thread_stack            = 192K
+thread_cache_size       = 8
+
+
+#
+# * Storage Engines
+#
+
+default_storage_engine = {{ mysql_default_storage_engine }}
+
+# - InnoDB
+
+# disable innodb
+# skip-innodb
+
+innodb_file_per_table = 1
+
+
+#
+# * Logging
+#
+
+# Be aware that this log type is a performance killer.
+# As of 5.1 you can enable the log at runtime!
+#general_log_file        = /var/log/mysql/mysql.log
+#general_log             = 1
+#log_slow_queries       = /var/log/mysql/mysql-slow.log
+#long_query_time = 2
+#log-queries-not-using-indexes
+#server-id              = 1
+#log_bin                        = /var/log/mysql/mysql-bin.log
+#expire_logs_days       = 10
+#max_binlog_size         = 100M
+#binlog_do_db           = include_database_name
+#binlog_ignore_db       = include_database_name
+
+
+[mysqld_safe]
+log-error=/var/log/mysql/mysql.log
+open_files_limit=8192
+nice = 0
+
+
+[mysqldump]
+quick
+quote-names
+max_allowed_packet      = 16M
+
+[mysql]
+no-auto-rehash # faster start of mysql but no tab completition
+
+[isamchk]
+key_buffer=64M
+sort_buffer=64M
+read_buffer=16M
+write_buffer=16M
+
+[myisamchk]
+key_buffer=64M
+sort_buffer=64M
+read_buffer=16M
+write_buffer=16M
+
+[mysqlhotcopy]
+interactive-timeout
+
+#
+# * IMPORTANT: Additional settings that can override those from this file!
+#   The files must end with '.cnf', otherwise they'll be ignored.
+#
+!includedir /etc/mysql/conf.d/
+
