@@ -1,0 +1,9 @@
+---
+##
+#  pcd-apps/datadog defaults 
+#
+
+DATADOG_API_KEY: "*CHANGE_ME*"
+
+
+datadog_service: datadog-agent

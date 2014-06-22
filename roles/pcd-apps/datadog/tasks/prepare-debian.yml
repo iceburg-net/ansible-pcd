@@ -1,0 +1,19 @@
+---
+##
+# [DEBIAN] pcd-apps/datadog prepare
+#
+
+- name: add datadog repository key
+  apt_key: keyserver=keyserver.ubuntu.com id=C7A7DA52 state=present
+  #command: apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
+  # ansible 1.6, use below
+  #
+
+- name: add datadog repository
+  apt_repository: 
+    repo="deb http://apt.datadoghq.com/ unstable main"
+    state=present
+    update_cache=yes
+    
+- name: install datadog-agent
+  apt: pkg=datadog-agent state=present

@@ -1,0 +1,13 @@
+---
+##
+# pcd-apps/datadog configure
+#
+
+- name: configure datadog
+  template:
+    dest=/etc/dd-agent/datadog.conf
+    src=datadog.conf.j2
+  notify: datadog update
+    
+- name: ensure datadog is running and starts on boot
+  service: name={{ datadog_service }} state=started enabled=true

@@ -1,0 +1,7 @@
+---
+##
+# pcd-apps/awstats prepare
+#
+
+- { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'", sudo: False }
+

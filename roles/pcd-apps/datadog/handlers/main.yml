@@ -1,0 +1,7 @@
+---
+##
+#  pcd-apps/datadog handlers
+#
+
+- name: datadog update
+  service: name={{ datadog_service  }} state=restarted
