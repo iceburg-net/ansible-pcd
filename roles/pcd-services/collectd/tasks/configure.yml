@@ -16,6 +16,14 @@
     dest={{ collectd_config_dir }}/plugins.conf
   notify:
     - collectd restart
+    
+- name: register noise filter
+  template:
+    src=plugins/noise.conf.j2
+    dest={{ collectd_config_dir }}/noise.conf
+  notify:
+    - collectd restart
+  when: COLLECTD_ENABLE_NOISE_FILTER
   
 - name: register csv writer
   template:

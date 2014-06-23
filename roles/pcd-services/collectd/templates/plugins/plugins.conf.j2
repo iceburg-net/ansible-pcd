@@ -9,9 +9,12 @@ LoadPlugin interface
 LoadPlugin load
 LoadPlugin memory
 LoadPlugin network
-LoadPlugin swap
+
 LoadPlugin syslog
+
+LoadPlugin aggregation
 ##LoadPlugin ping
+##LoadPlugin swap
 
 
 ####
@@ -24,8 +27,8 @@ LoadPlugin syslog
 </Plugin>
 
 <Plugin "interface">
-  Interface "eth0"
-  IgnoreSelected false
+  Interface "lo"
+  IgnoreSelected true
 </Plugin>
 
 #<Plugin "ping">
@@ -42,3 +45,22 @@ LoadPlugin syslog
 <Plugin "syslog">
     LogLevel info
 </Plugin>
+
+
+
+# Aggregate CPU metrics
+#######################
+
+<Plugin "aggregation">
+  <Aggregation>
+    Plugin "cpu"
+    Type "cpu"
+
+    GroupBy "Host"
+    GroupBy "TypeInstance"
+
+    CalculateSum false
+    CalculateAverage true
+  </Aggregation>
+</Plugin>
+
