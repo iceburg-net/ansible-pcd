@@ -1,0 +1,12 @@
+---
+##
+# pcd-services/collectd prepare
+#
+
+- { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }
+
+- name: ensure config diretory
+  file: path={{ collectd_config_dir }} state=directory
+
+- name: ensure collectd starts on boot
+  service: name=collectd enabled=yes

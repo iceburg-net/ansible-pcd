@@ -1,0 +1,38 @@
+---
+##
+# [DEBIAN] pcd-services/collectd prepare 
+#
+
+# @NOTE: We need collectd version >= 5.2 to support aggregate plugin
+
+- name: copy collectd package
+  copy:
+    src={{ ansible_distribution }}/{{ ansible_distribution_release }}/collectd_{{ collectd_version }}-1_{{ ansible_architecture }}.deb
+    dest=/root/collectd_{{ collectd_version }}-1_{{ ansible_architecture }}.deb
+    
+
+- name: install collectd package
+  apt: 
+    deb=/root/collectd_{{ collectd_version }}-1_{{ ansible_architecture }}.deb
+    state=installed
+  
+- name: copy collectd init script
+  copy:
+    src=Debian/collectd.init
+    dest=/etc/init.d/collectd
+    mode=0755
+    
+- name: copy collectd init defaults
+  copy:
+    src=Debian/collectd.default
+    dest=/etc/default/collectd
+    mode=0644
+    
+# @TODO: support systemd and upstart (Debian 8?)
+- name: register sysvinit script as a service (daemon)
+  shell: insserv collectd
+    creates="/etc/rc0.d/K01collectd"
+  when: "ansible_distribution == 'Debian'"
+ 
+ 
+ 

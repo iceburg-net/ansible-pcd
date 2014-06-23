@@ -1,0 +1,35 @@
+---
+##
+# collectd preparation configure
+#
+
+- name: register configuration
+  template:
+    src=collectd.conf.j2
+    dest={{ collectd_config }}
+  notify:
+    - collectd restart
+    
+- name: register plugins
+  template:
+    src=plugins/plugins.conf.j2
+    dest={{ collectd_config_dir }}/plugins.conf
+  notify:
+    - collectd restart
+  
+- name: register csv writer
+  template:
+    src=plugins/csv.conf.j2
+    dest={{ collectd_config_dir }}/csv.conf
+  notify:
+    - collectd restart
+  when: COLLECTD_ENABLE_CSV_WRITER
+  
+- name: register librato writer
+  template:
+    src=plugins/librato.conf.j2
+    dest={{ collectd_config_dir }}/librato.conf
+  notify:
+    - collectd restart
+  when: COLLECTD_ENABLE_LIBRATO_WRITER
+  
