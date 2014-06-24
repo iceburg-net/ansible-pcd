@@ -3,10 +3,12 @@
 #  collectd default vars 
 #
 
-COLLECTD_ENABLE_NOISE_FILTER: True
+COLLECTD_INTERVAL: 15
 
+COLLECTD_ENABLE_NOISE_FILTER: True
 COLLECTD_ENABLE_CSV_WRITER: False
 COLLECTD_ENABLE_LIBRATO_WRITER: True
+
 
 # @NOTE: We need collectd version >= 5.2 to support aggregate plugin
 

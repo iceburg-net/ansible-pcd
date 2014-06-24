@@ -13,6 +13,7 @@
         MetricPrefix ""
         LowercaseMetricNames true
         TypesDB "{{ collectd_types }}"
+        FloorTimeSecs {{ COLLECTD_INTERVAL }}
         ##IncludeRegex ""
     </Module>
 </Plugin>
