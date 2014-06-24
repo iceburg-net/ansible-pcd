@@ -4,16 +4,16 @@
 ## Librato Plugin
 
 <Plugin "python">
-    ModulePath "{{ librato_plugin_dir }}"
+    ModulePath "{{ collectd_dir }}/librato"
     Import "collectd-librato"
 
     <Module "collectd-librato">
-        APIToken "{{ librato_apikey }}"
-        Email "{{ librato_user }}"
+        APIToken "{{ LIBRATO_APIKEY }}"
+        Email "{{ LIBRATO_EMAIL }}"
         MetricPrefix ""
-        FlushIntervalSecs {{ librato_interval }}
         LowercaseMetricNames true
-        IncludeRegex "{{ librato_std_regex }}"
+        TypesDB "{{ collectd_types }}"
+        ##IncludeRegex ""
     </Module>
 </Plugin>
 

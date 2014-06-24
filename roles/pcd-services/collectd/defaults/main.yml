@@ -5,15 +5,18 @@
 
 COLLECTD_ENABLE_NOISE_FILTER: True
 
-COLLECTD_ENABLE_CSV_WRITER: True
-COLLECTD_ENABLE_LIBRATO_WRITER: False
+COLLECTD_ENABLE_CSV_WRITER: False
+COLLECTD_ENABLE_LIBRATO_WRITER: True
 
 # @NOTE: We need collectd version >= 5.2 to support aggregate plugin
 
 collectd_version: 5.4.1
 
-collectd_config: /opt/collectd/etc/collectd.conf
-collectd_config_dir: /opt/collectd/etc/collectd.d
-collectd_plugin_dir: /opt/collectd/lib/collectd
-collectd_data_dir: /opt/collectd/var/lib/collectd
+collectd_dir: /opt/collectd
+collectd_data_dir: "{{ /opt/collectd }}/var/lib/collectd"
+collectd_config_dir: "{{ collectd_dir }}/etc/collectd.d"
+
+collectd_config: "{{ collectd_dir }}/etc/collectd.conf"
+collectd_types: "{{ collectd_dir }}/share/collectd/types.db"
+
 

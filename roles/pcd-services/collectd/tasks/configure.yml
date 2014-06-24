@@ -33,6 +33,7 @@
     - collectd restart
   when: COLLECTD_ENABLE_CSV_WRITER
   
+  
 - name: register librato writer
   template:
     src=plugins/librato.conf.j2
@@ -40,4 +41,28 @@
   notify:
     - collectd restart
   when: COLLECTD_ENABLE_LIBRATO_WRITER
+  
+- name: remove noise filter
+  file:
+    path={{ collectd_config_dir }}/noise.conf
+    state=absent
+  notify:
+    - collectd restart
+  when: not COLLECTD_ENABLE_NOISE_FILTER
+  
+- name: remove csv writer
+  file:
+    path={{ collectd_config_dir }}/csv.conf
+    state=absent
+  notify:
+    - collectd restart
+  when: not COLLECTD_ENABLE_CSV_WRITER
+  
+- name: remove librato writer
+  file:
+    path={{ collectd_config_dir }}/librato.conf
+    state=absent
+  notify:
+    - collectd restart
+  when: not COLLECTD_ENABLE_LIBRATO_WRITER
   

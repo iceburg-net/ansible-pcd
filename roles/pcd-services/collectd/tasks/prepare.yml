@@ -7,6 +7,16 @@
 
 - name: ensure config diretory
   file: path={{ collectd_config_dir }} state=directory
+  
+  
+- name: ensure librato plugin diretory
+  file: path={{ collectd_dir }}/librato state=directory
+  
+- name: fetch collectd-librato plugin 
+  action: get_url 
+    url=https://raw.github.com/librato/collectd-librato/master/lib/collectd-librato.py
+    dest={{ collectd_dir }}/librato/collectd-librato.py
+    
 
 - name: ensure collectd starts on boot
   service: name=collectd enabled=yes

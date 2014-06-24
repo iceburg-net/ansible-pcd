@@ -5,6 +5,10 @@ private_user_name: "{{ PCD_DEFAULT_USER_NAME }}"
 private_user_pass: "{{ default_user_pass }}"
 
 
+LIBRATO_APIKEY: !!null
+LIBRATO_EMAIL: "{{ PCD_DEFAULT_USER_EMAIL }}"
+
+
 #
 # override credentials used by roles
 #
