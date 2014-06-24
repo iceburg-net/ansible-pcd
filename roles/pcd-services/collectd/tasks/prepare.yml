@@ -5,12 +5,12 @@
 
 - { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }
 
-- name: ensure config diretory
-  file: path={{ collectd_config_dir }} state=directory
-  
-  
-- name: ensure librato plugin diretory
-  file: path={{ collectd_dir }}/librato state=directory
+- name: ensure directories
+  file: path={{ item }} state=directory
+  with_items:
+    - "{{ collectd_data_dir }}"
+    - "{{ collectd_config_dir }}"
+    - "{{ collectd_dir }}/librato"
   
 - name: fetch collectd-librato plugin 
   action: get_url 
