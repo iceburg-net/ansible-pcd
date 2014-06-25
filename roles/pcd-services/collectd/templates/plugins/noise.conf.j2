@@ -15,6 +15,14 @@ LoadPlugin match_regex
     Target stop
   </Rule>
   
+  <Rule> # ignore cached and buffered memory
+    <Match regex>
+      Plugin "^memory$"
+      TypeInstance "^cached|buffered"
+    </Match>
+    Target stop
+  </Rule>
+  
   <Rule> # Send "cpu" values to the aggregation plugin.
     <Match regex>
       Plugin "^cpu$"
@@ -40,7 +48,6 @@ LoadPlugin match_regex
     </Match>
     Target stop
   </Rule>
-  
   
   Target "write"
 </Chain>
