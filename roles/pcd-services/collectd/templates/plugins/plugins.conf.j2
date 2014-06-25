@@ -31,6 +31,10 @@ LoadPlugin aggregation
   IgnoreSelected true
 </Plugin>
 
+<Plugin "syslog">
+    LogLevel warning
+</Plugin>
+
 #<Plugin "ping">
 #  Host "google.com"
 #  Interval 15
@@ -41,10 +45,6 @@ LoadPlugin aggregation
 #    ReportByDevice false
 #    ReportBytes true
 #</Plugin>
-
-<Plugin "syslog">
-    LogLevel info
-</Plugin>
 
 
 
