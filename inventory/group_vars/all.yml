@@ -27,3 +27,9 @@ ansible_ssh_private_key_file: "{{ PCD_KEYS_DIR }}/{{ PCD_DEFAULT_ORG }}+{{ ansib
 system_fqdn: "{{ inventory_hostname }}"
 system_hostname: "{{ inventory_hostname_short }}"
 system_uuid: "{{ ansible_product_uuid }}"
+
+
+# Application Overrides
+#######################
+
+backup_s3ql_mount_opts: "--compress none"
