@@ -37,6 +37,10 @@ backup_s3ql_url: gs://<bucket>/<prefix>
 backup_s3ql_username: "{{ private_user_name }}"
 backup_s3ql_password: "{{ private_user_pass }}"
 
+backup_s3ql_mount_opts: ""
+#backup_s3ql_mount_opts: "--compress none"
+
+
 
 backup_binaries: "{{ BACKUP_USER_HOME }}/bin"
 backup_target_dir: "{{ BACKUP_USER_HOME }}/cloud"

@@ -58,14 +58,5 @@
     name={{ BACKUP_USER }}
   when: backup_s3ql_enabled
   
-- { include: "{{ pcd_task_add_s3ql_mount }}", task: {
-      nickname: "backups",
-      user: "{{ BACKUP_USER }}",
-      target: "{{ backup_target_dir }}",
-      url: "{{ backup_s3ql_url }}",
-      login: "{{ backup_s3ql_username }}",
-      password: "{{ backup_s3ql_password }}"
-    }, when: backup_s3ql_enabled
-  }
-  
+
 

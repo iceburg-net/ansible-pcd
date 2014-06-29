@@ -23,7 +23,7 @@ AUTHFILE="{{ detected_user_home.stdout }}/.s3ql-authinfo"
 USER="{{ task.user | default('root') }}"
 STORAGE_URL="{{ task.url }}"
 MOUNTPOINT="{{ task.target }}"
-MOUNT_OPTS="{{ s3ql_mount_opts }}"
+MOUNT_OPTS="{{ task.mount_opts | default(s3ql_mount_opts) }}"
 
 # Load the VERBOSE setting and other rcS variables
 . /lib/init/vars.sh

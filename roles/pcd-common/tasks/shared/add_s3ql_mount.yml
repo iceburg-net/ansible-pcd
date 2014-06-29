@@ -11,7 +11,8 @@
 #      target: "/mnt/cloud-storage",
 #      url: "gs://bucket/prefix",
 #      login: "google-storage-key",
-#      password: "google-storage-key-secret" 
+#      password: "google-storage-key-secret",
+#      mount_opts: [OPTIONAL] additional s3ql mounting options
 #    }
 #  }
 
