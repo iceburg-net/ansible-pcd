@@ -6,6 +6,7 @@
 SITE_BACKUP_FILE_LIST: [
   '.htaccess',
   'assets/',
-  'mysite/mysite.config.php'
+  'mysite/mysite.config.php',
+  '_ss_environment.php'
 ]
 
