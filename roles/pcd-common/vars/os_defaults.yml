@@ -47,14 +47,3 @@ os_mysql_data_dir: /var/lib/mysql
 os_php_error_log: /var/log/php/php_error.log
 
 
-
-# rsyslog
-#########
-
-os_rsyslog_packages:
-  - rsyslog
-  - rsyslog-gnutls
-  - logrotate
-  
-os_rsyslog_service: rsyslog
-

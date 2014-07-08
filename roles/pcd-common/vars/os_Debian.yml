@@ -49,3 +49,16 @@ os_php_packages:
   - php-apc
 
 os_php_apache_ini: /etc/php5/apache2/php.ini
+
+# rsyslog
+#########
+
+os_log_user: root
+os_log_group: adm
+
+os_rsyslog_packages:
+  - rsyslog
+  - rsyslog-gnutls
+  - logrotate
+  
+os_rsyslog_service: rsyslog
