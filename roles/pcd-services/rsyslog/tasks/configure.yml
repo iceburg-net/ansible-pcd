@@ -1,0 +1,13 @@
+---
+##
+# rsyslog preparation configure
+#
+
+- name: register papertrail configuration
+  template: 
+    src=papertrail.conf.j2
+    dest=/etc/rsyslog.d/papertrail.conf
+  notify:
+    - rsyslog restart
+  when: RSYSLOG_PAPERTRAIL_ENABLE
+  

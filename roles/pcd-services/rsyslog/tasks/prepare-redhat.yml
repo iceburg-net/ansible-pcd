@@ -1,0 +1,9 @@
+---
+##
+# [REDHAT] rsyslog preparation tasks 
+#
+
+- name: ensure rsyslog packages
+  yum: name={{ item }} state=present
+  with_items: os_rsyslog_packages
+  

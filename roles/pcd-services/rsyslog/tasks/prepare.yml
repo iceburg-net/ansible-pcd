@@ -1,0 +1,14 @@
+---
+##
+# rsyslog preparation tasks
+#
+
+- { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }
+- { include: prepare-redhat.yml, when: "ansible_os_family == 'RedHat'" }
+
+
+- name: Install Paper Trail certificate file [for TLS/SSL] [1/1]
+  action: get_url url=https://papertrailapp.com/tools/papertrail-bundle.pem dest={{ rsyslog_papertrail_crt }} force=yes
+  when: RSYSLOG_PAPERTRAIL_ENABLE
+  
+  

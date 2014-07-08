@@ -1,0 +1,7 @@
+---
+##
+#  rsyslog tasks 
+#
+
+- { include: prepare.yml, tags: ['prepare'] }
+- { include: configure.yml, tags: ['configure'] }

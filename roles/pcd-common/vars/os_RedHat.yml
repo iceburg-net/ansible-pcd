@@ -20,6 +20,12 @@ os_apache_group: apache
 os_apache_service: httpd
 
 
+# certs
+#######
+
+os_certs_dir: /etc/ssl/certs
+
+
 # php
 #####
 

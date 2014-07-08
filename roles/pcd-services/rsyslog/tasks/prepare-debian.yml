@@ -1,0 +1,8 @@
+---
+##
+# [DEBIAN] rsyslog preparation tasks 
+#
+
+- name: ensure rsyslog packages 
+  apt: pkg={{ item }} state=present
+  with_items: os_rsyslog_packages

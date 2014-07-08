@@ -1,0 +1,11 @@
+########################
+# Paper Trail Directives
+########################
+
+$DefaultNetstreamDriverCAFile {{ rsyslog_papertrail_crt }} # trust these CAs
+$ActionSendStreamDriver gtls # use gtls netstream driver
+$ActionSendStreamDriverMode 1 # require TLS
+$ActionSendStreamDriverAuthMode x509/name # authenticate by hostname
+$ActionSendStreamDriverPermittedPeer *.papertrailapp.com
+
+*.* @@{{ RSYSLOG_PAPERTRAIL_SERVER }}:{{ RSYSLOG_PAPERTRAIL_PORT}}

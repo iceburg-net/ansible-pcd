@@ -1,0 +1,10 @@
+---
+##
+#  rsyslog default vars 
+#
+RSYSLOG_PAPERTRAIL_ENABLE: False
+RSYSLOG_PAPERTRAIL_SERVER: logs2.papertrailapp.com
+RSYSLOG_PAPERTRAIL_PORT: 00000
+
+
+rsyslog_papertrail_crt: "{{ os_certs_dir }}/papertrail-bundle.pem"

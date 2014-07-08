@@ -20,6 +20,11 @@ os_apache_user: www-data
 os_apache_group: www-data
 os_apache_service: apache2
 
+# certs
+#######
+
+os_certs_dir: /etc/ssl/certs
+
 
 # mysql
 #######
