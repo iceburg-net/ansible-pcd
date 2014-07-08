@@ -8,8 +8,8 @@
     delaycompress
     sharedscripts
     prerotate
-      if [ -x {{ awstats_update_script }} ]; then \
-        {{ awstats_update_script }};\
+      if [ -x {{ AWSTATS_SITE_PATH }}/awstats_updateall.pl ]; then \
+        {{ AWSTATS_SITE_PATH }}/awstats_updateall.pl now;\
       fi; \
     endscript
     postrotate

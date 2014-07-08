@@ -36,12 +36,9 @@ AWSTATS_SITE_NAME: "stats.{{ ansible_fqdn }}" # e.g. stats.chi-app-1.iceburg.net
 AWSTATS_SITE_PATH: "{{ PCD_SITES_DIR }}/awstats/{{ AWSTATS_SITE_NAME }}"
 AWSTATS_CONF_DIR: "{{ AWSTATS_SITE_PATH }}/conf"
 
-awstats_update_script: /usr/local/bin/awstats
-
 
 # backup role
 #############
-
 
 BACKUP_USER: backupop
 BACKUP_USER_HOME: "/backups"

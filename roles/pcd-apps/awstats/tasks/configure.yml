@@ -8,7 +8,7 @@
 - name: run awstats_updateall.pl at specified interval
   cron: 
     name="awstats update"
-    job="{{ PCD_CRON_PREFIX }}{{ awstats_update_script }}"
+    job="{{ PCD_CRON_PREFIX }}{{ AWSTATS_SITE_PATH }}/awstats_updateall.pl now"
     minute="{{ AWSTATS_CRON_MINUTE }}"
     hour="{{ AWSTATS_CRON_HOUR }}"
     state=present
