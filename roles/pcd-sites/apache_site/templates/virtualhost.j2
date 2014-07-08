@@ -5,6 +5,7 @@
         
         ServerAdmin {{ SITE_SERVERADMIN }}
         CustomLog {{ SITE_LOG_FILE }} {{ SITE_LOG_FORMAT }}
+        ErrorLog {{ SITE_LOG_ERRORS_FILE }}
         
         DocumentRoot {{ SITE_PATH }}/{{ SITE_DOCROOT }}
         <Directory {{ SITE_PATH }}/{{ SITE_DOCROOT }}>
