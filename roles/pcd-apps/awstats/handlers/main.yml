@@ -4,6 +4,6 @@
 #
 
 - name: awstats update
-  command: "{{ awstats_update_script  }}"
+  command: "{{ AWSTATS_SITE_PATH }}/awstats_updateall.pl now"
   sudo: False
   
