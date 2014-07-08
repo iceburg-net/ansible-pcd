@@ -35,7 +35,8 @@
 # SITE_DOCROOT: (str | "www") DocumentRoot folder (relative to SITE_PATH)
 # SITE_SERVERADMIN: (str | "{{ SITE_DEFAULT_SERVERADMIN }}") admin email address
 #
-# SITE_LOG_FILE: (path | {{ HTTPD_LOG_DIR }}/{{ site_org }}.log) access log file
+# SITE_LOG_FILE: (path | {{ HTTPD_LOG_DIR }}/access/{{ site_org }}.log) log file
+# SITE_LOG_ERRORS_FILE: (path | {{ HTTPD_LOG_DIR }}/errors/{{ site_org }}.log)
 # SITE_LOG_FORMAT: (str | {{ HTTPD_LOG_FORMAT }}) log file format
 #
 # set SITE_GIT_REPO to clone URL if site is contained in git repository
@@ -78,7 +79,8 @@ SITE_PATH: "{{ PCD_SITES_DIR }}/{{ site_org }}/{{ site_name }}"
 SITE_DOCROOT: "www"
 SITE_SERVERADMIN: "{{ SITE_DEFAULT_SERVERADMIN }}"
 
-SITE_LOG_FILE: "{{ HTTPD_LOG_DIR }}/{{ site_org }}.log"
+SITE_LOG_FILE: "{{ HTTPD_LOG_DIR }}/access/{{ site_org }}.log"
+SITE_LOG_ERRORS_FILE: "{{ HTTPD_LOG_DIR }}/errors/{{ site_org }}.log"
 SITE_LOG_FORMAT: "{{ HTTPD_LOG_FORMAT }}"
 
 SITE_GIT_REPO: ""

@@ -17,12 +17,17 @@
     }
   }
   
-- name: ensure log directory
+- name: ensure log directories
   file: 
-    path={{ HTTPD_LOG_DIR }}
+    path={{ item }}
     state=directory
-    owner={{ HTTPD_USER }}
-    mode=0777
+    owner={{ os_log_user }}
+    group={{ os_log_group }}
+    mode=0750
+  with_items:
+    - "{{ HTTPD_LOG_DIR }}"
+    - "{{ HTTPD_LOG_DIR }}/access"
+    - "{{ HTTPD_LOG_DIR }}/errors"
     
 - name: ensure ssl certificate directory
   file: 
