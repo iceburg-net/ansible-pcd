@@ -5,3 +5,4 @@
 
 dependencies:
   - { role: pcd-services/mail }
+  - { role: pcd-services/rsyslog }
