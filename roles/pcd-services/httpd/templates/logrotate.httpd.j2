@@ -1,0 +1,22 @@
+{{ HTTPD_LOG_DIR }}/*.log {{ HTTPD_LOG_DIR }}/*/*.log {
+    size 100M
+    rotate 11
+    notifempty
+    missingok
+    create 640 {{ os_log_user }} {{ os_log_group }}
+    compress
+    delaycompress
+    sharedscripts
+    prerotate
+      if [ -x {{ awstats_update_script }} ]; then \
+        {{ awstats_update_script }};\
+      fi; \
+    endscript
+    postrotate
+{% if ansible_os_family == "Redhat" %}
+      /sbin/service httpd reload > /dev/null 2>/dev/null || true
+{% else %}
+      /etc/init.d/apache2 reload > /dev/null 2>/dev/null || true
+{% endif %}
+    endscript    
+}

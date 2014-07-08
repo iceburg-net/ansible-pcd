@@ -1,0 +1,10 @@
+---
+##
+# pcd-services/httpd configure
+#
+
+- name: rotate httpd logs
+  template:
+    src=logrotate.httpd.j2
+    dest={{ os_logrotate_config_dir }}/httpd-ansible
+    

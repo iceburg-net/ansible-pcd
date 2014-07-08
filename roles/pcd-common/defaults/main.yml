@@ -36,8 +36,7 @@ AWSTATS_SITE_NAME: "stats.{{ ansible_fqdn }}" # e.g. stats.chi-app-1.iceburg.net
 AWSTATS_SITE_PATH: "{{ PCD_SITES_DIR }}/awstats/{{ AWSTATS_SITE_NAME }}"
 AWSTATS_CONF_DIR: "{{ AWSTATS_SITE_PATH }}/conf"
 
-#@todo support redhat after unifying logging
-awstats_update_script: /etc/logrotate.d/httpd-prerotate/awstats
+awstats_update_script: /usr/local/bin/awstats
 
 
 # backup role
