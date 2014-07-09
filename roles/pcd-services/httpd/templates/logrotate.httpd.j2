@@ -13,10 +13,6 @@
       fi; \
     endscript
     postrotate
-{% if ansible_os_family == "Redhat" %}
-      /sbin/service httpd reload > /dev/null 2>/dev/null || true
-{% else %}
-      /etc/init.d/apache2 reload > /dev/null 2>/dev/null || true
-{% endif %}
+      service {{ os_apache_service }} reload
     endscript    
 }
