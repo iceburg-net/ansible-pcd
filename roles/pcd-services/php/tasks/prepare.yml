@@ -7,14 +7,18 @@
 - { include: prepare-redhat.yml, when: "ansible_os_family == 'RedHat'" }
 
 
-# @todo ensure nginx user can write to php log as well...   
+# @todo ensure nginx user can write to php log as well... (also check logrotate template) 
 - name: ensure logging directory exists, is writable by webserver
   file: 
     path="{{ os_php_error_log | dirname }}" 
     state=directory
     owner="{{ os_apache_user }}"
     group="{{ os_apache_group }}"
-  
+    
+- name: ensure rotation rules for error log
+  template:
+    src=logrotate.php-errors.j2
+    dest={{ os_logrotate_config_dir }}/php-errors
 
 - name: enable error logging to file
   lineinfile:
@@ -24,5 +28,3 @@
     dest="{{ os_php_ini }}"
   notify: 
     - apache reload
-    
-
