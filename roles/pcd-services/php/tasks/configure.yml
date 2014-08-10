@@ -1,0 +1,14 @@
+---
+##
+# pcd-services/php configuration
+#
+
+- name: set php.ini timezone to system default
+  lineinfile:
+    state=present
+    regexp="^date\.timezone \="
+    line="date.timezone = {{ ansible_date_time.tz }}"
+    dest="{{ os_php_ini }}"
+  notify: 
+    - apache reload
+    

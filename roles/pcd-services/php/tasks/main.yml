@@ -6,3 +6,4 @@
 # @todo support version pegging, for now stick w/ distro default
 
 - { include: prepare.yml, tags: ['prepare'] }
+- { include: configure.yml, tags: ['configure'] }
