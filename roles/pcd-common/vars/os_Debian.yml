@@ -48,7 +48,8 @@ os_php_packages:
   - php5-gd
   - php-apc
 
-os_php_apache_ini: /etc/php5/apache2/php.ini
+os_php_ini: /etc/php5/apache2/php.ini
+
 
 # rsyslog
 #########
