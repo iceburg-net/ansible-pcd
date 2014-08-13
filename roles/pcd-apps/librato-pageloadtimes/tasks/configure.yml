@@ -1,0 +1,13 @@
+---
+##
+# pcd-apps/librato-pageloadtimes  configure
+#
+- name: configure virtualenvironment with application dependencies
+  pip:
+    chdir={{ pageloadtimes_path }}
+    name={{ item }}
+    state=present
+    virtualenv={{ pageloadtimes_venv }}
+  with_items:
+    - librato-metrics
+    - requests

@@ -1,0 +1,44 @@
+#!{{ pageloadtimes_venv }}/bin/python
+
+#
+# librato-pageloadtimes.py 
+#  / Brice Burgess @iceburg_net
+#
+# Reports the load time (in milliseconds) of URLs from url_list 
+#   as a metric named "pageloadtimes.<hostname>" to librato. 
+#
+# For easy instrumentation, the URL is reported as the metric's "source" 
+#
+# If a http response code <> 200 is encountered, it will report 9999
+# as a magical way to indicate failure. 
+#
+
+import librato
+import requests
+import socket
+
+url_list = ["{{ PAGELOADTIMES_SITES | join('","')}}"]
+
+librato_api = librato.connect('{{ LIBRATO_EMAIL }}', '{{ LIBRATO_APIKEY }}')
+librato_queue = librato_api.new_queue()
+librato_metric_name = 'pageloadtimes.' + socket.gethostname()
+
+
+
+for url in url_list:
+    request = requests.get('http://' + url + '/')
+    
+    loadtime = int(request.elapsed.total_seconds() * 1000)
+    
+    if request.status_code != 200:
+        loadtime = 9999
+        
+    librato_queue.add(librato_metric_name, loadtime, source=url)
+
+librato_queue.submit()
+
+    
+    
+
+
+

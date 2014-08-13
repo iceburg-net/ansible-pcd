@@ -1,0 +1,11 @@
+---
+##
+# pcd-apps/librato-pageloadtimes  prepare
+#
+
+- { include: "{{ pcd_task_add_application }}", app: {
+      name: "{{ pageloadtimes_user }}",
+      path: "{{ pageloadtimes_path }}",
+      type: "python"
+    }
+  }

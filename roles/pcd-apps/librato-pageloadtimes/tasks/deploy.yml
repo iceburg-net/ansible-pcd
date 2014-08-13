@@ -1,0 +1,15 @@
+---
+##
+# pcd-apps/librato-pageloadtimes deploy
+#
+
+- name: deploy librato-pageloadtimes.py
+  template:
+    dest={{ pageloadtimes_path }}/librato-pageloadtimes.py
+    src=librato-pageloadtimes.py.j2
+    mode=0700
+    
+    
+
+    
+    
