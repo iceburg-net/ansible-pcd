@@ -1,0 +1,53 @@
+---
+#
+# adds an application, optionally providing bootstrapping for the 
+#   passed type (python, ruby, node, php, &c)
+#
+
+# usage:
+#
+#- { include: "{{ pcd_task_add_application }}", app: {
+#      name: "application-name",
+#      path: "application path, typically PCD_APPS_DIR/name",
+#      type: "[optional|python|ruby|node|php] application type (sets up environment)",
+#      user_name: "[optional] user this application runs as, defaults to name",
+#      user_home: "[optional] user's home directory, defaults to path" 
+#      user_group: "[optional] user's group, defaults to nogroup",
+#      user_key: "[optional] user's ssh key, defaults to no SSH key"
+#      github: [optional|Boolean] is the application hosted in github? 
+#    }
+#  }
+
+- name: add_application > ensure PCD_APPS_DIR directory
+  file: path={{ PCD_APPS_DIR }} state=directory
+  
+
+# ensure application user
+- { include: "{{ pcd_task_add_user }}", task: {
+      name: "{{ app.user_name | default(app.name) }}",
+      home: "{{ app.user_home | default(app.path) }}",
+      group: "{{ app.user_group | default('nogroup') }}",
+      system: yes,
+      github: "{{ app.github | default('no') }}"
+    }
+  }
+  
+- name: add_application > ensure application directory
+  file: path={{ app.path }} state=directory
+  
+
+- name: add_application > ensure python packages [DEBIAN]
+  apt: name={{ item }} state=present
+  with_items:
+    - python-pip
+    - python-virtualenv
+  when: app.type is defined and app.type == 'python' and ansible_os_family == 'Debian'
+  
+  
+- name: add_application > ensure python packages [REDHAT]
+  yum: name={{ item }} state=present
+  with_items:
+    - python-pip
+    - python-virtualenv
+  when: app.type is defined and app.type == 'python' and ansible_os_family == 'RedHat'
+  
