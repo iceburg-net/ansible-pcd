@@ -58,7 +58,7 @@
   
 - name: user_add > ensure github vars
   include_vars: "{{ PCD_COMMON_ROLE }}/vars/github.yml"
-  when: github_knows_hosts is not defined and task.github is defined and task.github 
+  when: github_knows_hosts is not defined and task.github is defined and task.github|bool
   
 - name: user_add > add github.com signatures to known_hosts
   lineinfile:
@@ -69,4 +69,4 @@
   sudo: yes
   sudo_user: "{{ task.name }}"
   with_items: github_knows_hosts
-  when: task.github is defined and task.github
+  when: task.github is defined and task.github|bool
