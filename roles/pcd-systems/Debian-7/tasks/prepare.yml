@@ -25,7 +25,7 @@
   apt: update_cache=yes cache_valid_time=3600 upgrade=dist
 
 - name: install ansible deps
-  apt: pkg={{ item }} state=present
+  apt: name={{ item }} state=present
   with_items: os_ansible_deps
 
 
@@ -33,5 +33,5 @@
 ########################
 
 - name: denyhosts - install denyhosts
-  apt: pkg=denyhosts state=present
+  apt: name=denyhosts state=present
   

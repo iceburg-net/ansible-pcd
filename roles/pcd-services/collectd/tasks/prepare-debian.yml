@@ -13,7 +13,7 @@
 
 - name: install collectd package
   apt: 
-    deb=/root/collectd_{{ collectd_version }}-1_{{ ansible_architecture }}.deb
+    name=/root/collectd_{{ collectd_version }}-1_{{ ansible_architecture }}.deb
     state=installed
   
 - name: copy collectd init script

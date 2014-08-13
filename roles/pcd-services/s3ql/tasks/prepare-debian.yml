@@ -4,7 +4,7 @@
 #
 
 - name: ensure s3ql base dependencies
-  apt: pkg={{ item }} state=present
+  apt: name={{ item }} state=present
   with_items:
     - python-crypto
     - python-sqlite
@@ -20,7 +20,7 @@
 
 - name: install s3ql package
   apt: 
-    deb=/root/s3ql_{{ s3ql_version }}-1_{{ ansible_architecture }}.deb
+    name=/root/s3ql_{{ s3ql_version }}-1_{{ ansible_architecture }}.deb
     state=installed
   
 

@@ -16,4 +16,4 @@
     update_cache=yes
     
 - name: install datadog-agent
-  apt: pkg=datadog-agent state=present
+  apt: name=datadog-agent state=present

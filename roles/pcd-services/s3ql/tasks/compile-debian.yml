@@ -3,7 +3,7 @@
 # [DEBIAN] pcd-services/s3ql compile 
 #
 - name: ensure development dependencies
-  apt: pkg={{ item }} state=present
+  apt: name={{ item }} state=present
   with_items:
     - g++
     - libsqlite3-dev
@@ -11,7 +11,7 @@
     - python-setuptools
 
 - name: ensure s3ql base dependencies
-  apt: pkg={{ item }} state=present
+  apt: name={{ item }} state=present
   with_items:
     - python-crypto
     - python-sqlite

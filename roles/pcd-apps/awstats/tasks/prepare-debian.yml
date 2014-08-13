@@ -4,5 +4,5 @@
 #
 
 - name: ensure python passlib (for ansible htpasswd module)
-  apt: pkg=python-passlib state=present
+  apt: name=python-passlib state=present
 
