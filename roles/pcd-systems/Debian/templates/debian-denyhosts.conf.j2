@@ -218,7 +218,7 @@ LOCK_FILE = /run/denyhosts.pid
 # Multiple email addresses can be delimited by a comma, eg:
 # ADMIN_EMAIL = foo@bar.com, bar@foo.com, etc@foobar.com
 #
-ADMIN_EMAIL = webmaster@cicayda.com
+ADMIN_EMAIL = {{ PCD_DEFAULT_USER_EMAIL }}
 #
 #######################################################################
 
@@ -257,7 +257,7 @@ SMTP_FROM = DenyHosts <nobody@localhost>
 #
 # SMTP_SUBJECT: you can specify the "Subject:" of messages sent
 # by DenyHosts when it reports thwarted abuse attempts
-SMTP_SUBJECT = DenyHosts Report
+SMTP_SUBJECT = DenyHosts Report from $[HOSTNAME]
 #
 ######################################################################
 
