@@ -5,6 +5,9 @@
 
 PAGELOADTIMES_SITES: ['www.google.com','www.iceburg.net']
 
+# report every X minutes
+PAGELOADTIMES_CRON_MINUTES: 3
+
 pageloadtimes_user: pageloadtimes
 pageloadtimes_path: "{{ PCD_APPS_DIR }}/{{ pageloadtimes_user }}"
 pageloadtimes_venv: "{{ pageloadtimes_path }}/venv"

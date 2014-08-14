@@ -9,7 +9,9 @@
     src=librato-pageloadtimes.py.j2
     mode=0700
     
-    
-
-    
-    
+- name: schedule reporting at specified interval
+  cron: 
+    name="pageloadtimes report"
+    job="{{ PCD_CRON_PREFIX }}{{ pageloadtimes_path }}/librato-pageloadtimes.py"
+    minute="*/{{ PAGELOADTIMES_CRON_MINUTES }}"
+    state=present
