@@ -15,7 +15,7 @@
 
 - name: denyhosts - configuration
   copy: src=debian-7_denyhosts.conf dest=/etc/denyhosts.conf
-  notify: pcd-systems denyhosts restart
+  notify: denyhosts restart
   
   
 

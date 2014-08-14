@@ -1,7 +1,0 @@
----
-##
-# pcd-systems/Debian-7 handlers
-#
-
-- name: pcd-systems denyhosts restart
-  raw: /etc/init.d/denyhosts restart

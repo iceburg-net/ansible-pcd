@@ -1,0 +1,7 @@
+---
+##
+# pcd-systems/common handlers
+#
+
+- name: denyhosts restart
+  service: name=denyhosts state=restarted
