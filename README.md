@@ -199,25 +199,8 @@ For *support*, please post to stackoverflow using the ansible-pcd tag:
 developer-todo
 ==============
 
-#### highest priority
-
-* mail service => nullmailer service
-* denyhosts belongs as a service; not part of base system configuration
 * reach feature parity on RedHat distributions
 * ncurses based UI   
-
-#### normal priority
-
-* standardize logging service across distributions
 * map system uuid => fqdn to more easily identify remote backups
 * add redhat support to awstats (currently assumes debian httpd-prerotate functionality in apache2 logrotate.d conf)
-* site role should apply httpd, apache, nginx, awstats, backup role if not already prepared/configured
-* support log rotation of site logs
-
-#### lowest priority
-
-* refactor all roles to adopt edX standards
 * make awstats apache/nginx agnostic, set inventory preference for nginx|apache
-
-
-
