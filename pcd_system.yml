@@ -21,7 +21,7 @@
       
   vars:
     # @todo amazon is deprecated, fix + test
-    pcd_supported_platforms: ['CentOS-7','Debian-7','Debian-6']
+    pcd_supported_platforms: ['CentOS-7','CentOS-6','Debian-7','Debian-6']
     pcd_platform: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}"
     
   pre_tasks:
@@ -45,4 +45,16 @@
     - {role: pcd-common, tags: ['prepare','configure']}
     - pcd-systems/Debian
     - pcd-systems/common
+    
+    
+- name: "CentOS Preparation"
+  hosts: CentOS-7:CentOS-6
+  remote_user: root
+  
+  
+  roles:
+    - {role: pcd-common, tags: ['prepare','configure']}
+    - pcd-systems/CentOS
+    - pcd-systems/common
+    
     

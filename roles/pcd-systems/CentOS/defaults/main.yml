@@ -1,0 +1,8 @@
+---
+##
+#  pcd-systems/CentOS defaults 
+#
+
+centos_epel_gpg_file: /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL
+
+

@@ -1,0 +1,7 @@
+[epel]
+name=Extra Packages for Enterprise Linux - $basearch
+mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-{{ ansible_distribution_major_version }}&arch=$basearch
+failovermethod=priority
+enabled=0
+gpgcheck=1
+gpgkey=file://{{ centos_epel_gpg_file }}

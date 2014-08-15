@@ -1,0 +1,48 @@
+---
+##
+# pcd-systems/CentOS prepare
+#  
+      
+# initialization tasks
+######################
+
+- name: setting hostname to {{ system_hostname }} [1/2]
+  lineinfile: dest=/etc/sysconfig/network regexp="^HOSTNAME=" line="HOSTNAME={{ system_hostname }}" state="present"
+  
+- name: setting hostname to {{ system_hostname }} [2/2]
+  raw: hostname {{ system_hostname }}
+  
+- name: setting fqdn to {{ system_fqdn }}
+  lineinfile: dest=/etc/hosts state=present regexp="^127\.0\.0\.1" line="127.0.0.1 {{ system_fqdn }} {{ system_hostname }} localhost"
+  
+  
+  
+# distribution update
+#####################
+
+- name: ensure EPEL repository [1/3]
+  file: path=/etc/pki/rpm-gpg/ state=directory recurse=yes
+
+- name: ensure EPEL repository [2/3]
+  copy: src={{ item }} dest={{ centos_epel_gpg_file }} mode=0644
+  with_first_found:
+    - "RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}"
+    - "RPM-GPG-KEY-EPEL"
+    
+- name: ensure EPEL repository [3/3]
+  template: src=epel.repo.j2 dest=/etc/yum.repos.d/epel.repo mode=0644
+  
+- name: update system, packages to latest
+  command: yum -y update 
+
+- name: install ansible deps
+  yum: name={{ item }} state=present enablerepo=epel
+  with_items: os_ansible_deps
+
+
+# system hardening tasks
+########################
+
+- name: denyhosts - install denyhosts
+  yum: name=denyhosts state=present enablerepo=epel
+  

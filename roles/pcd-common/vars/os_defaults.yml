@@ -9,6 +9,7 @@ os_base_packages:
   - git
   - unzip
   - zip
+  - tar
   - screen
   - sudo
   
