@@ -27,11 +27,4 @@
 - name: install ansible deps
   apt: name={{ item }} state=present
   with_items: os_ansible_deps
-
-
-# system hardening tasks
-########################
-
-- name: denyhosts - install denyhosts
-  apt: name=denyhosts state=present
   

@@ -1,0 +1,10 @@
+---
+##
+#  pcd-services/denyhosts defaults 
+#
+
+# identity settings
+###################
+
+# administrative email (receives test mails, errors, and failures) 
+DENYHOSTS_EMAIL: "{{ PCD_DEFAULT_USER_EMAIL }}"

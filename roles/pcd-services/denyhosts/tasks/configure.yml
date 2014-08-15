@@ -1,0 +1,12 @@
+---
+##
+# pcd-services/denyhosts configure
+#
+
+- name: denyhosts - configuration
+  template: src={{ ansible_os_family }}-denyhosts.conf.j2 dest=/etc/denyhosts.conf
+  notify: denyhosts restart
+  
+- name: ensure denyhosts_unban.sh 
+  copy: src=denyhosts_unban.sh dest=/usr/local/bin/denyhosts_unban.sh mode=0755
+  

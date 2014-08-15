@@ -1,0 +1,8 @@
+---
+##
+# pcd-services/denyhosts prepare [REDHAT]
+#
+
+- name: denyhosts - install denyhosts
+  yum: name=denyhosts state=present enablerepo=epel
+  

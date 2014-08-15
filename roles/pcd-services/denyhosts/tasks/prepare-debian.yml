@@ -1,0 +1,7 @@
+---
+##
+# pcd-services/denyhosts prepare [DEBIAN]
+#
+
+- name: denyhosts - install denyhosts
+  apt: name=denyhosts state=present

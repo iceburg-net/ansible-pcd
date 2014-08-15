@@ -1,6 +1,6 @@
 ---
 ##
-# pcd-systems/common handlers
+# pcd-services/denyhosts handlers
 #
 
 - name: denyhosts restart

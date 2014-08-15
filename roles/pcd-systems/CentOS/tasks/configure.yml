@@ -9,13 +9,3 @@
 - name: ensure base software
   yum: name={{ item }} state=present
   with_items: os_base_packages
-
-# system hardening tasks
-########################
-
-- name: denyhosts - configuration
-  template: src=centos-denyhosts.conf.j2 dest=/etc/denyhosts.conf
-  notify: denyhosts restart
-  
-  
-

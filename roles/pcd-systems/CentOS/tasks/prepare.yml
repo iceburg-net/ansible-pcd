@@ -45,10 +45,3 @@
   yum: name={{ item }} state=present enablerepo=epel
   with_items: os_ansible_deps
 
-
-# system hardening tasks
-########################
-
-- name: denyhosts - install denyhosts
-  yum: name=denyhosts state=present enablerepo=epel
-  

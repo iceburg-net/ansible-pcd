@@ -4,5 +4,6 @@
 #
 
 dependencies:
+  - { role: pcd-services/denyhosts }
   - { role: pcd-services/mail }
   - { role: pcd-services/rsyslog }
