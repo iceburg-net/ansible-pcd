@@ -1,0 +1,6 @@
+---
+##
+# pcd-systems/common handlers
+
+- name: sshd restart
+  service: name={{ os_sshd_service }} state=restarted

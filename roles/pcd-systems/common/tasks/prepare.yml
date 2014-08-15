@@ -18,6 +18,8 @@
     regexp="^PubkeyAuthentication"
     line="PubkeyAuthentication yes"
     state=present
+  notify: 
+    - sshd restart
 
 # ensure "nogroup" exists as a system group
 - name: add the group "nogroup"
