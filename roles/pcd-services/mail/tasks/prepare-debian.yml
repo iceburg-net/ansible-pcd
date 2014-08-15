@@ -1,7 +1,10 @@
 ---
 ##
-# [DEBIAN] pcd-services/mail prepare
+# pcd-services/mail prepare [DEBIAN]
 #
+
+- name: ensure mailx
+  yum: name=heirloom-mailx state=present
 
 - name: ensure mail service packages 
   apt: name={{ item }} state=present

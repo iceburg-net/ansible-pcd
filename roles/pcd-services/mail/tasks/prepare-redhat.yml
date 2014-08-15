@@ -1,5 +1,17 @@
 ---
 ##
-# [REDHAT] pcd-services/mail prepare
+# pcd-services/mail prepare [REDHAT]
 #
 
+- name: ensure mailx
+  yum: name=mailx state=present
+
+- name: install nullmailer package [1/2]
+  copy: 
+    src=CentOS/nullmailer-1.13-1.{{ ansible_architecture }}.initscripts.rpm 
+    dest=/root/nullmailer-1.13-1.{{ ansible_architecture }}.initscripts.rpm 
+  
+- name: install nullmailer package [2/2]
+  yum: name=/root/nullmailer-1.13-1.{{ ansible_architecture }}.initscripts.rpm state=present
+  
+    

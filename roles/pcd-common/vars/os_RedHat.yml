@@ -5,7 +5,7 @@
 ##############
 
 os_ansible_deps:
-  - python-mysqldb
+  - MySQL-python
   - python-httplib2
 
 # apache
@@ -24,6 +24,12 @@ os_apache_service: httpd
 #######
 
 os_certs_dir: /etc/ssl/certs
+
+# mail
+######
+
+# location of nullmailer's "me" file
+mail_me_file: /etc/nullmailer/me
 
 
 # php

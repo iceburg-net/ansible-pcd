@@ -26,6 +26,12 @@ os_apache_service: apache2
 os_certs_dir: /etc/ssl/certs
 
 
+# mail
+######
+
+# location of nullmailer's "me" file
+mail_me_file: /etc/mailname
+
 # mysql
 #######
 

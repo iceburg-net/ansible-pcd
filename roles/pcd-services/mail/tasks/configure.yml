@@ -2,7 +2,27 @@
 ##
 # pcd-services/mail deploy
 #
+- name: set "me" file
+  template: 
+    dest={{ mail_me_file }}
+    src=nullmailer.me.j2
+  notify: 
+    - mail restart
+    - mail test message
 
-- { include: configure-debian.yml, when: "ansible_os_family == 'Debian'" }
-- { include: configure-redhat.yml, when: "ansible_os_family == 'RedHat'" }
-
+- name: setup smtp relay remotes
+  template:
+    dest=/etc/nullmailer/remotes
+    src=nullmailer.remotes.j2
+  notify: 
+    - mail restart
+    - mail test message
+  
+- name: set admin email
+  template:
+    dest=/etc/nullmailer/adminaddr
+    src=nullmailer.adminaddr.j2
+  notify: 
+    - mail restart
+    - mail test message
+  
