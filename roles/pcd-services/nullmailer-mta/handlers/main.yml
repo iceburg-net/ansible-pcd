@@ -1,0 +1,9 @@
+---
+##
+# pcd-services/nullmailer-mta handlers
+
+- name: nullmailer restart
+  service: name=nullmailer state=restarted
+  
+- name: nullmailer test message
+  shell: cat /etc/motd | mail -s ansible-mail-test {{ nullmailer_mta_email }}

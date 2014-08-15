@@ -1,6 +1,6 @@
 ---
 ##
-# pcd-services/mail prepare
+# pcd-services/nullmailer-mta prepare
 #
 
 - { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }

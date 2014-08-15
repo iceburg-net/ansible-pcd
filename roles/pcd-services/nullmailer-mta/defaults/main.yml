@@ -1,0 +1,25 @@
+---
+##
+#  pcd-services/nullmailer-mta defaults 
+#
+
+# identity settings
+###################
+
+# administrative email (receives test mails, errors, and failures) 
+nullmailer_mta_email: "{{ PCD_DEFAULT_USER_EMAIL }}"
+
+# hostname used by system messages when from not set; e.g. <user>@<mta_host>
+nullmailer_mta_host: "{{ ansible_fqdn }}"
+
+
+# relay settings
+################
+nullmailer_smtp_host: smtp.example.com
+nullmailer_smtp_auth: True
+nullmailer_smtp_user: "{{ PCD_DEFAULT_USER_NAME }}"
+nullmailer_smtp_pass: "{{ PCD_DEFAULT_USER_PASS }}"
+
+nullmailer_smtp_tls: True
+nullmailer_smtp_port: 587
+

@@ -1,28 +1,28 @@
 ---
 ##
-# pcd-services/mail deploy
+# pcd-services/nullmailer-mta deploy
 #
 - name: set "me" file
   template: 
     dest={{ mail_me_file }}
     src=nullmailer.me.j2
   notify: 
-    - mail restart
-    - mail test message
+    - nullmailer restart
+    - nullmailer test message
 
 - name: setup smtp relay remotes
   template:
     dest=/etc/nullmailer/remotes
     src=nullmailer.remotes.j2
   notify: 
-    - mail restart
-    - mail test message
+    - nullmailer restart
+    - nullmailer test message
   
 - name: set admin email
   template:
     dest=/etc/nullmailer/adminaddr
     src=nullmailer.adminaddr.j2
   notify: 
-    - mail restart
-    - mail test message
+    - nullmailer restart
+    - nullmailer test message
   

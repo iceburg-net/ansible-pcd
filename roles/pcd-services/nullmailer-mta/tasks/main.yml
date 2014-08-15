@@ -1,6 +1,6 @@
 ---
 ##
-#  pcd-services/mail tasks 
+#  pcd-services/nullmailer-mta tasks 
 #
 
 - { include: prepare.yml, tags: ['prepare'] }

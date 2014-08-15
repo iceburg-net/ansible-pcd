@@ -1,6 +1,6 @@
 ---
 ##
-# pcd-services/mail prepare [REDHAT]
+# pcd-services/nullmailer-mta prepare [REDHAT]
 #
 
 - name: ensure mailx

@@ -5,5 +5,5 @@
 
 dependencies:
   - { role: pcd-services/denyhosts }
-  - { role: pcd-services/mail }
+  - { role: pcd-services/nullmailer-mta }
   - { role: pcd-services/rsyslog }

@@ -1,12 +1,12 @@
 ---
 ##
-# pcd-services/mail prepare [DEBIAN]
+# pcd-services/nullmailer-mta prepare [DEBIAN]
 #
 
 - name: ensure mailx
-  yum: name=heirloom-mailx state=present
+  apt: name=heirloom-mailx state=present
 
-- name: ensure mail service packages 
+- name: ensure nullmailer-mta packages 
   apt: name={{ item }} state=present
   with_items:
     - ca-certificates
