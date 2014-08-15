@@ -20,20 +20,23 @@
 # distribution update
 #####################
 
-- name: ensure base repository
-  template: src=base.repo.j2 dest=/etc/yum.repos.d/CentOS-Base.repo mode=0644
-
-- name: ensure EPEL repository [1/3]
-  file: path=/etc/pki/rpm-gpg/ state=directory recurse=yes
-
-- name: ensure EPEL repository [2/3]
-  copy: src={{ item }} dest={{ centos_epel_gpg_file }} mode=0644
-  with_first_found:
-    - "RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}"
-    - "RPM-GPG-KEY-EPEL"
+- name: ensure GPG key directory
+  file: path={{ centos_gpg_dir }} state=directory recurse=yes
+  
+- name: ensure repository GPG keys
+  copy: 
+    src={{ item }}-{{ansible_distribution_major_version}}
+    dest={{ centos_gpg_dir }}/{{ item }}-{{ansible_distribution_major_version}}
+    mode=0644
+  with_items:
+    - RPM-GPG-KEY-CentOS
+    - RPM-GPG-KEY-EPEL
     
-- name: ensure EPEL repository [3/3]
-  template: src=epel.repo.j2 dest=/etc/yum.repos.d/epel.repo mode=0644
+- name: ensure repositories
+  template: src={{ item }}.repo.j2 dest=/etc/yum.repos.d/{{ item }}.repo mode=0644
+  with_items:
+    - CentOS-Base
+    - EPEL
   
 - name: update system, packages to latest
   command: yum -y update 

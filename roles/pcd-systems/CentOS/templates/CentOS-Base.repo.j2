@@ -15,7 +15,8 @@ name=CentOS-$releasever - Base
 mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os
 #baseurl=http://mirror.centos.org/centos/$releasever/os/$basearch/
 gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-{{ ansible_distribution_major_version }}
+gpgkey=file://{{ centos_gpg_dir }}/RPM-GPG-KEY-CentOS-{{ ansible_distribution_major_version }}
+
 
 #released updates
 [updates]
@@ -23,7 +24,7 @@ name=CentOS-$releasever - Updates
 mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates
 #baseurl=http://mirror.centos.org/centos/$releasever/updates/$basearch/
 gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-{{ ansible_distribution_major_version }}
+gpgkey=file://{{ centos_gpg_dir }}/RPM-GPG-KEY-CentOS-{{ ansible_distribution_major_version }}
 
 #additional packages that may be useful
 [extras]
@@ -31,7 +32,7 @@ name=CentOS-$releasever - Extras
 mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras
 #baseurl=http://mirror.centos.org/centos/$releasever/extras/$basearch/
 gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-{{ ansible_distribution_major_version }}
+gpgkey=file://{{ centos_gpg_dir }}/RPM-GPG-KEY-CentOS-{{ ansible_distribution_major_version }}
 
 #additional packages that extend functionality of existing packages
 [centosplus]
@@ -40,7 +41,7 @@ mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo
 #baseurl=http://mirror.centos.org/centos/$releasever/centosplus/$basearch/
 gpgcheck=1
 enabled=0
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-{{ ansible_distribution_major_version }}
+gpgkey=file://{{ centos_gpg_dir }}/RPM-GPG-KEY-CentOS-{{ ansible_distribution_major_version }}
 
 #contrib - packages by Centos Users
 [contrib]
@@ -49,4 +50,4 @@ mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo
 #baseurl=http://mirror.centos.org/centos/$releasever/contrib/$basearch/
 gpgcheck=1
 enabled=0
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-{{ ansible_distribution_major_version }}
+gpgkey=file://{{ centos_gpg_dir }}/RPM-GPG-KEY-CentOS-{{ ansible_distribution_major_version }}
