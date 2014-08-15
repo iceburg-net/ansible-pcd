@@ -20,6 +20,9 @@
 # distribution update
 #####################
 
+- name: ensure base repository
+  template: src=base.repo.j2 dest=/etc/yum.repos.d/CentOS-Base.repo mode=0644
+
 - name: ensure EPEL repository [1/3]
   file: path=/etc/pki/rpm-gpg/ state=directory recurse=yes
 
