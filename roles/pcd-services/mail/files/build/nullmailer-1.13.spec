@@ -1,7 +1,7 @@
 Name: nullmailer
 Summary: Simple relay-only mail transport agent - Ported to CentOS + initscripts
 Version: 1.13
-Release: 1
+Release: 2
 License: GPL
 Group: System Environment/Daemons 
 Source: http://untroubled.org/nullmailer/archive/%{version}/nullmailer-%{version}.tar.gz

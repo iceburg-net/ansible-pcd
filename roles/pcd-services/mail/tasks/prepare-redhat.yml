@@ -8,10 +8,10 @@
 
 - name: install nullmailer package [1/2]
   copy: 
-    src=CentOS/nullmailer-1.13-1.{{ ansible_architecture }}.initscripts.rpm 
-    dest=/root/nullmailer-1.13-1.{{ ansible_architecture }}.initscripts.rpm 
+    src=epel-{{ ansible_distribution_major_version }}/nullmailer-1.13-2.{{ ansible_architecture }}.rpm 
+    dest=/root/nullmailer-1.13-2.{{ ansible_architecture }}.rpm 
   
 - name: install nullmailer package [2/2]
-  yum: name=/root/nullmailer-1.13-1.{{ ansible_architecture }}.initscripts.rpm state=present
+  yum: name=/root/nullmailer-1.13-2.{{ ansible_architecture }}.rpm state=present
   
     
