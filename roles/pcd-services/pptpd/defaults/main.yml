@@ -1,0 +1,26 @@
+---
+##
+#  pcd-services/pptpd defaults 
+#
+
+# USER MAPPING
+PPTPD_USERS:
+  - { user: "{{ private_user_name }}", pass: "{{ private_user_pass }}" }
+
+
+PPTPD_CONFIGURE_IPTABLES: True
+PPTPD_ALLOW_CLIENT_TO_CLIENT: False
+
+# Interface PPTPD listens on and NATs through
+PPTPD_PUBLIC_INTERFACE: eth0
+
+PPTPD_LOCALIP: 10.0.0.1
+PPTPD_REMOTEIP: 10.0.0.100-200
+PPTPD_REMOTE_NETMASK: 10.0.0.0/24
+
+
+####
+
+pptpd_port: 1723
+pptpd_interface: ppp+
+

@@ -1,0 +1,53 @@
+---
+##
+# pcd-services/pptpd prepare
+#
+
+
+- name: ensure pptpd packages 
+  apt: name=pptpd state=present
+  when: ansible_os_family == 'Debian'
+  
+- name: ensure pptpd packages
+  yum: name=pptpd state=present enablerepo=epel
+  with_items: os_pptpd_packages
+  when: ansible_os_family == 'RedHat'
+
+  
+- name: ensure pptpd is running and starts on boot
+  service: name=pptpd state=started enabled=true
+  
+- name: Set ip forwarding on in /proc and in the sysctl file and reload if necessary
+  sysctl: name="net.ipv4.ip_forward" value=1 sysctl_set=yes state=present reload=yes
+  
+  
+#
+# iptables
+#
+
+#
+# @TODO:  Use iptables -C to ensure duplicate rules don't get added
+#         Better yet, use a template and create a iptables service role for
+#         consistent iptables loading
+#
+
+- name: Allow PPTPD and GRE (General Routing Encapsulation) Traffic
+  command: "{{ item }}"
+  with_items: 
+    - iptables -A INPUT -i eth0 -p tcp --dport {{ pptpd_port }} -j ACCEPT
+    - iptables -A INPUT -i eth0 -p gre -j ACCEPT
+  when: PPTPD_CONFIGURE_IPTABLES 
+  
+- name: enable NAT
+  command: iptables -t nat -A POSTROUTING -s {{ PPTPD_REMOTE_NETMASK }} -o {{ PPTPD_PUBLIC_INTERFACE }} -j MASQUERADE
+  when: PPTPD_CONFIGURE_IPTABLES
+
+- name: allow pptp client-to-client communication
+  command: "{{ item }}"
+  with_items:
+    - iptables -t nat -A POSTROUTING -o {{ pptpd_interface }} -j MASQUERADE
+    - iptables -A FORWARD -i {{ PPTPD_PUBLIC_INTERFACE }} -j ACCEPT
+    - iptables -I INPUT -s {{ PPTPD_REMOTE_NETMASK }} -i {{ pptpd_interface }} -j ACCEPT
+  when: PPTPD_CONFIGURE_IPTABLES and PPTPD_ALLOW_CLIENT_TO_CLIENT
+  
+  

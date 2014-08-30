@@ -1,0 +1,26 @@
+---
+##
+# pcd-services/pptpd configuration
+#
+
+- name: template pptpd.conf
+  template: 
+    src={{ ansible_os_family }}/pptpd.conf.j2
+    dest=/etc/pptpd.conf
+  notify: pptpd restart
+    
+- name: template pptpd-options
+  template: 
+    src={{ ansible_os_family }}/pptpd.conf.j2
+    dest=/etc/ppp/pptpd-options
+  notify: pptpd restart
+  
+- name: configure user authentications
+  lineinfile: 
+    dest=/etc/ppp/chap-secrets
+    state=present
+    regexp="^{{ item.user  }} pptpd"
+    line="{{ item.user }} pptpd {{ item.pass }} *"
+  with_items: PPTPD_USERS
+     
+

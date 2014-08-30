@@ -1,0 +1,6 @@
+
+# pptpd handlers
+
+- name: pptpd restart
+  service: name=pptpd state=restarted
+
