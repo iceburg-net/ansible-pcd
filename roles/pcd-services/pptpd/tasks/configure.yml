@@ -11,7 +11,7 @@
     
 - name: template pptpd-options
   template: 
-    src={{ ansible_os_family }}/pptpd.conf.j2
+    src={{ ansible_os_family }}/pptpd-options.j2
     dest=/etc/ppp/pptpd-options
   notify: pptpd restart
   
