@@ -11,6 +11,11 @@
   copy: dest={{ HTTPD_SSL_DIR }}/{{ SITE_SSL_CRT | basename }} src={{ SITE_SSL_CRT }}
   when: SITE_HTTPS
   
+- name: SSL - copy chain
+  copy: dest={{ HTTPD_SSL_DIR }}/{{ SITE_SSL_CHAIN | basename }} src={{ SITE_SSL_CHAIN }}
+  when: SITE_HTTPS and SITE_SSL_CHAIN
+
+
 
 # awstats
 #########

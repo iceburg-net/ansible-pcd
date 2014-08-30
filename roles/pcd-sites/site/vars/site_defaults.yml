@@ -30,6 +30,7 @@
 #
 # SITE_SSL_KEY: (path | "{{PCD_CERTS_DIR }}/{{ site_name }}.key") SSL Key File
 # SITE_SSL_CRT: (path | "{{PCD_CERTS_DIR }}/{{ site_name }}.crt") SSL CRT File
+# SITE_SSL_CHAIN: (path | False) Optional path to SSL Chain File
 #
 # SITE_PATH: (path | "{{ PCD_SITES_DIR }}/{{ site_org }}/{{ site_name }})")
 # SITE_DOCROOT: (str | "www") DocumentRoot folder (relative to SITE_PATH)
@@ -74,6 +75,7 @@ SITE_HTTPS_PORT: "{{ HTTPD_HTTPS_PORT }}"
 
 SITE_SSL_KEY: "{{PCD_CERTS_DIR }}/{{ site_name }}.key"
 SITE_SSL_CRT: "{{PCD_CERTS_DIR }}/{{ site_name }}.crt"
+SITE_SSL_CHAIN: False
 
 SITE_PATH: "{{ PCD_SITES_DIR }}/{{ site_org }}/{{ site_name }}"
 SITE_DOCROOT: "www"

@@ -58,6 +58,9 @@ RedirectMatch 302 ^/.*$ {{ SITE_REDIRECT }}
         SSLEngine on
         SSLCertificateFile    {{ HTTPD_SSL_DIR }}/{{ SITE_SSL_CRT | basename }}
         SSLCertificateKeyFile {{ HTTPD_SSL_DIR }}/{{ SITE_SSL_KEY | basename }}
+        {% if SITE_SSL_CHAIN %}SSLCertificateChainFile {{ HTTPD_SSL_DIR }}/{{ SITE_SSL_CHAIN | basename }}{% endif %} 
+        
+        
         
         <FilesMatch "\.(cgi|php)$">
                 SSLOptions +StdEnvVars
