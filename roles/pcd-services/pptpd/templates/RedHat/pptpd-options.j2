@@ -27,33 +27,18 @@ name pptpd
 # choose with of the following sections you will use.)
 
 
-# BSD licensed ppp-2.4.2 upstream with MPPE only, kernel module ppp_mppe.o
-# {{{
+# Encryption
 refuse-pap
 refuse-chap
 refuse-mschap
+
 # Require the peer to authenticate itself using MS-CHAPv2 [Microsoft
 # Challenge Handshake Authentication Protocol, Version 2] authentication.
 require-mschap-v2
+
 # Require MPPE 128-bit encryption
 # (note that MPPE requires the use of MSCHAP-V2 during authentication)
 require-mppe-128
-# }}}
-
-
-# OpenSSL licensed ppp-2.4.1 fork with MPPE only, kernel module mppe.o
-# {{{
-#-chap
-#-chapms
-# Require the peer to authenticate itself using MS-CHAPv2 [Microsoft
-# Challenge Handshake Authentication Protocol, Version 2] authentication.
-#+chapms-v2
-# Require MPPE encryption
-# (note that MPPE requires the use of MSCHAP-V2 during authentication)
-#mppe-40	# enable either 40-bit or 128-bit, not both
-#mppe-128
-#mppe-stateless
-# }}}
 
 
 # Network and Routing

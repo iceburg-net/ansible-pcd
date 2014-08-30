@@ -26,21 +26,17 @@ name pptpd
 
 
 # Encryption
-# Debian: on systems with a kernel built with the package
-# kernel-patch-mppe >= 2.4.2 and using ppp >= 2.4.2, ...
-# {{{
 refuse-pap
 refuse-chap
 refuse-mschap
+
 # Require the peer to authenticate itself using MS-CHAPv2 [Microsoft
 # Challenge Handshake Authentication Protocol, Version 2] authentication.
 require-mschap-v2
+
 # Require MPPE 128-bit encryption
 # (note that MPPE requires the use of MSCHAP-V2 during authentication)
 require-mppe-128
-# }}}
-
-
 
 
 # Network and Routing
