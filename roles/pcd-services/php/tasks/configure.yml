@@ -6,9 +6,17 @@
 - name: set php.ini timezone to system default
   lineinfile:
     state=present
-    regexp="^date\.timezone \="
+    regexp="^date\.timezone *\="
     line="date.timezone = {{ ansible_date_time.tz }}"
     dest="{{ os_php_ini }}"
   notify: 
     - apache reload
     
+- name: prevent php information leakage
+  lineinfile:
+    state=present
+    regexp="^expose_php *\="
+    line="expose_php = Off"
+    dest="{{ os_php_ini }}"
+  notify: 
+    - apache reload
