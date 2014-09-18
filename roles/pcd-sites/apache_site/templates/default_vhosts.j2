@@ -1,0 +1,8 @@
+{% if default_http_site %}
+<VirtualHost *:{{ HTTPD_HTTP_PORT }}>
+        ServerName default_http
+        
+        Redirect / http://{{ default_http_site }}/
+
+</VirtualHost>
+{% endif %}

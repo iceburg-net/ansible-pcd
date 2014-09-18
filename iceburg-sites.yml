@@ -15,8 +15,6 @@
     site_disabled_list: []
     
     default_http_site: www.iceburg.net
-    default_https_site: staging.iceburg.net
-    
   
   # site configurations are found in roles/pcd-sites/site/vars/<org>/<name>.yml  
   
@@ -31,17 +29,7 @@
       file:
         state=link
         src={{ os_apache_sites_enabled_dir }}/{{ default_http_site }}
-        dest={{ os_apache_sites_enabled_dir }}/000_default_http
+        dest={{ os_apache_sites_enabled_dir }}/000_default_vhosts
       when: default_http_site is defined
       notify: 
         - apache reload
-        
-    - name: set default https site
-      file:
-        state=link
-        src={{ os_apache_sites_enabled_dir }}/{{ default_https_site }}
-        dest={{ os_apache_sites_enabled_dir }}/000_default_https
-      when: default_https_site is defined
-      notify: 
-        - apache reload
-        
