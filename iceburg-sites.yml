@@ -25,11 +25,10 @@
     
     
   tasks: 
-    - name: set default http site
-      file:
-        state=link
-        src={{ os_apache_sites_enabled_dir }}/{{ default_http_site }}
+    - name: set default virtualhosts
+      template:
+        src={{ PCD_SITE_ROLES }}/apache_site/templates/default_vhosts.j2
         dest={{ os_apache_sites_enabled_dir }}/000_default_vhosts
-      when: default_http_site is defined
       notify: 
         - apache reload
+      when: default_http_site is defined and default_http_site
