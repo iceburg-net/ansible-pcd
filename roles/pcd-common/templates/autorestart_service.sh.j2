@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 SERVICE="{{ task.service }}"
 
-service $SERVICE status
+{{ os_service_file }} $SERVICE status
 
 if [ $? -ne 0 ] ; then 
     echo "ERROR: $SERVICE was not running. Auto-Restarting..."
