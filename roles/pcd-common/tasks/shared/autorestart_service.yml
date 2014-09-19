@@ -30,7 +30,7 @@
 - name: register autorestart shell script 
   cron: 
     name="autorestart {{ task.service }}"
-    job="/root/bin/autorestart_{{ task.service }}.sh"
+    job="{{ PCD_CRON_PREFIX }}/root/bin/autorestart_{{ task.service }}.sh"
     minute="*/3"
     state=present
     user=root
