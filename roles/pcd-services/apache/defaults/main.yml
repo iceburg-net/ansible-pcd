@@ -3,5 +3,9 @@
 #  apache default vars 
 #
 
+APACHE_AUTORESTART: True
+
 apache_http_port: 80
 apache_https_port: 443
+
+

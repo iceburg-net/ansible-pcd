@@ -33,3 +33,10 @@
   
 #@ todo - build a few configuration files based on max ram, detect and use appropriate
       
+# Auto-Restart MySQL   
+- { include: "{{ pcd_task_autorestart_service }}", task: {
+      service: "{{ os_mysql_service }}",
+      enabled: MYSQL_AUTORESTART
+    }
+  }
+      

@@ -3,6 +3,8 @@
 #  pcd-services/mysql defaults 
 #
 
+MYSQL_AUTORESTART: True
+
 # default root user password. 
 #   defaults to private_pass from general private file
 #   override in your private var file(s) or through inventory
