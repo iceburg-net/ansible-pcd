@@ -39,9 +39,12 @@ os_mysql_packages:
   
 os_mysql_user: mysql
 os_mysql_group: mysql
+os_mysql_service: mysql
 
 os_mysql_socket_dir: /var/run/mysqld
 os_mysql_data_dir: /var/lib/mysql
+
+
   
 
 # php
@@ -53,5 +56,4 @@ os_php_error_log: /var/log/php/php_error.log
 # sshd
 ######
 
-os_sshd_service: sshd
 os_sshd_config_file: /etc/ssh/sshd_config

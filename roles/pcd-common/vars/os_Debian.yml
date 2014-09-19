@@ -38,6 +38,8 @@ mail_me_file: /etc/mailname
 os_mysql_packages:
   - mysql-server
   
+os_mysql_service: mysql
+
 
 # php
 #####

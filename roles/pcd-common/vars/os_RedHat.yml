@@ -32,6 +32,16 @@ os_certs_dir: /etc/ssl/certs
 mail_me_file: /etc/nullmailer/me
 
 
+# mysql
+#######
+
+os_mysql_packages:
+  - mariadb-server
+  
+os_mysql_service: mariadb
+
+
+
 # php
 #####
 
