@@ -15,6 +15,6 @@
 # Auto-Restart Apache   
 - { include: "{{ pcd_task_autorestart_service }}", task: {
       service: "{{ os_apache_service }}",
-      enabled: APACHE_AUTORESTART
+      enabled: "{{ APACHE_AUTORESTART }}"
     }
   }

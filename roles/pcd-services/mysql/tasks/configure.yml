@@ -36,7 +36,7 @@
 # Auto-Restart MySQL   
 - { include: "{{ pcd_task_autorestart_service }}", task: {
       service: "{{ os_mysql_service }}",
-      enabled: MYSQL_AUTORESTART
+      enabled: "{{ MYSQL_AUTORESTART }}"
     }
   }
       
