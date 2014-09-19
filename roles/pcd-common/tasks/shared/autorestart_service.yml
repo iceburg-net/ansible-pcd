@@ -1,0 +1,47 @@
+---
+#
+# autorestarts a service
+#   (executes every 3 minutes and restarts service if not running)
+#
+#   pass enabled: False to remove autorestart
+
+# usage:
+#
+#- { include: "{{ pcd_task_autorestart_service }}", task: {
+#      service: "apache2",
+#      enabled: True
+#    }
+#  }
+
+
+- name: ensure root user's bin directory
+  file:
+    state=directory
+    dest=/root/bin
+  sudo: False
+    
+- name: template autorestart shell script 
+  template:
+    dest=/root/bin/autorestart_{{ task.service }}.sh
+    src={{ PCD_COMMON_ROLE }}/templates/autorestart_service.sh.j2
+    mode=0750
+  sudo: False
+    
+- name: register autorestart shell script 
+  cron: 
+    name="autorestart {{ task.service }}"
+    job="/root/bin/autorestart_{{ task.service }}.sh"
+    minute="*/3"
+    state=present
+    user=root
+  when: task.enabled is defined and task.enabled|bool
+  sudo: False
+  
+- name: remove autorestart shell script 
+  cron: 
+    name="autorestart {{ task.service }}"
+    state=absent
+    user=root
+  when: task.enabled is not defined or not task.enabled|bool
+  sudo: False
+  

@@ -23,4 +23,5 @@ pcd_task_add_application: "{{ PCD_TASKS }}/add_application.yml"
 pcd_task_add_awstats_config: "{{ PCD_TASKS }}/add_awstats_config.yml"
 pcd_task_add_s3ql_mount: "{{ PCD_TASKS }}/add_s3ql_mount.yml"
 pcd_task_add_user: "{{ PCD_TASKS }}/add_user.yml"
+pcd_task_autorestart_service: "{{ PCD_TASKS }}/autorestart_service.yml"
 
