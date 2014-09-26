@@ -6,8 +6,24 @@
 - name: load default os vars
   include_vars: "os_defaults.yml"
   
-- name: load {{ ansible_os_family }} os vars
+- name: load os family vars
   include_vars: "os_{{ ansible_os_family }}.yml"
+  
+- name: load os distribution vars [1/2]
+  local_action: stat path={{ PCD_COMMON_ROLE }}/vars/os_{{ ansible_distribution }}.yml
+  register: pcd_stat
+  
+- name: load os distribution vars [2/2]
+  include_vars: "os_{{ ansible_distribution }}.yml"
+  when: pcd_stat.stat.exists
+  
+- name: load os distribution-version vars [1/2]
+  local_action: stat path={{ PCD_COMMON_ROLE }}/vars/os_{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml
+  register: pcd_stat
+  
+- name: load os distribution-version vars [2/2]
+  include_vars: "os_{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
+  when: pcd_stat.stat.exists
 
 - name: load default private vars (PCD_PRIVATE_DIR/vars/private.yml)
   include_vars: "{{ PCD_PRIVATE_DIR }}/vars/private.yml"
