@@ -12,7 +12,7 @@
 #######################
 
 - name: ensure mysql is running and starts on boot
-  service: name=mysql state=started enabled=true
+  service: name=mysql state=started enabled=yes
   
 - name: register root user credentials
   ini_file:

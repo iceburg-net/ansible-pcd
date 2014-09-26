@@ -8,4 +8,4 @@
 
 
 - name: ensure mail service is running and starts on boot
-  service: name=nullmailer state=started enabled=true
+  service: name=nullmailer state=started enabled=yes

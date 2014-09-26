@@ -10,4 +10,4 @@
   notify: datadog update
     
 - name: ensure datadog is running and starts on boot
-  service: name={{ datadog_service }} state=started enabled=true
+  service: name={{ datadog_service }} state=started enabled=yes

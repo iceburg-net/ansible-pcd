@@ -15,7 +15,7 @@
 
   
 - name: ensure pptpd is running and starts on boot
-  service: name=pptpd state=started enabled=true
+  service: name=pptpd state=started enabled=yes
   
 - name: Set ip forwarding on in /proc and in the sysctl file and reload if necessary
   sysctl: name="net.ipv4.ip_forward" value=1 sysctl_set=yes state=present reload=yes

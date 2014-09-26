@@ -8,4 +8,4 @@
 
 
 - name: ensure denyhosts service is running and starts on boot
-  service: name=denyhosts state=started enabled=true
+  service: name=denyhosts state=started enabled=yes
