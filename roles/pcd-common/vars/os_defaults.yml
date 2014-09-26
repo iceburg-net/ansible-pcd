@@ -58,3 +58,9 @@ os_php_error_log: /var/log/php/php_error.log
 ######
 
 os_sshd_config_file: /etc/ssh/sshd_config
+
+
+# sysvinit
+##########
+
+os_sysvinit_dir: /etc/init.d

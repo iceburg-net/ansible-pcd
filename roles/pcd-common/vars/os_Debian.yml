@@ -71,3 +71,8 @@ os_rsyslog_packages:
   - logrotate
   
 os_rsyslog_service: rsyslog
+
+# sysvinit
+##########
+
+os_sysvinit_defaults_dir: /etc/default
