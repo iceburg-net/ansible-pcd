@@ -38,13 +38,14 @@ os_apache_apachectl_file: /usr/sbin/apachectl
 os_mysql_packages:
   - mysql-server
   
+os_mysql_service: mysql
+  
 os_mysql_user: mysql
 os_mysql_group: mysql
 os_mysql_service: mysql
 
-os_mysql_socket_dir: /var/run/mysqld
 os_mysql_data_dir: /var/lib/mysql
-
+os_mysql_socket_dir: /var/run/mysqld
 
   
 

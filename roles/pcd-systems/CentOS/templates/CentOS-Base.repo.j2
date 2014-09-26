@@ -32,7 +32,7 @@ name=CentOS-$releasever - Extras
 mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras
 #baseurl=http://mirror.centos.org/centos/$releasever/extras/$basearch/
 gpgcheck=1
-gpgkey=file://{{ centos_gpg_dir }}/RPM-GPG-KEY-CentOS-{{ ansible_distribution_major_version }}
+gpgkey=file://{{ os_rpm_gpg_dir }}/RPM-GPG-KEY-CentOS-{{ ansible_distribution_major_version }}
 
 #additional packages that extend functionality of existing packages
 [centosplus]
@@ -41,7 +41,7 @@ mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo
 #baseurl=http://mirror.centos.org/centos/$releasever/centosplus/$basearch/
 gpgcheck=1
 enabled=0
-gpgkey=file://{{ centos_gpg_dir }}/RPM-GPG-KEY-CentOS-{{ ansible_distribution_major_version }}
+gpgkey=file://{{ os_rpm_gpg_dir }}/RPM-GPG-KEY-CentOS-{{ ansible_distribution_major_version }}
 
 #contrib - packages by Centos Users
 [contrib]
@@ -50,4 +50,4 @@ mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo
 #baseurl=http://mirror.centos.org/centos/$releasever/contrib/$basearch/
 gpgcheck=1
 enabled=0
-gpgkey=file://{{ centos_gpg_dir }}/RPM-GPG-KEY-CentOS-{{ ansible_distribution_major_version }}
+gpgkey=file://{{ os_rpm_gpg_dir }}/RPM-GPG-KEY-CentOS-{{ ansible_distribution_major_version }}

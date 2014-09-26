@@ -32,14 +32,11 @@ os_certs_dir: /etc/ssl/certs
 # location of nullmailer's "me" file
 mail_me_file: /etc/mailname
 
+
 # mysql
 #######
 
-os_mysql_packages:
-  - mysql-server
-  
-os_mysql_service: mysql
-
+os_mysql_conf_file: /etc/mysql/my.cnf
 
 # php
 #####
@@ -71,6 +68,11 @@ os_rsyslog_packages:
   - logrotate
   
 os_rsyslog_service: rsyslog
+
+# sshd
+######
+
+os_sshd_service: ssh
 
 # sysvinit
 ##########

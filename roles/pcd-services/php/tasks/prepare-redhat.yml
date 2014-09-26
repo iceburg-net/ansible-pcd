@@ -4,5 +4,5 @@
 #
 
 - name: ensure php packages
-  yum: name={{ item }} state=present
+  yum: name={{ item }} state=present enablerepo=epel
   with_items: os_php_packages

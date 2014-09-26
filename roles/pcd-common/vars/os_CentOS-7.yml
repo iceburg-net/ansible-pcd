@@ -1,0 +1,12 @@
+---
+# CentOS-7 os vars
+
+
+# mysql
+#######
+
+os_mysql_packages:
+  - mariadb-server
+  
+os_mysql_service: mariadb
+

@@ -28,7 +28,7 @@
 - name: update my.cnf
   template: 
     src={{ mysql_config_template }}
-    dest=/etc/mysql/my.cnf
+    dest={{ os_mysql_conf_file }}
   notify: mysql restart
   
 #@ todo - build a few configuration files based on max ram, detect and use appropriate

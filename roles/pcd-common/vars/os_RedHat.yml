@@ -42,28 +42,28 @@ mail_me_file: /etc/nullmailer/me
 #######
 
 os_mysql_packages:
-  - mariadb-server
+  - mysql-server
   
-os_mysql_service: mariadb
+os_mysql_service: mysqld
 
+
+# mysql
+#######
+
+os_mysql_conf_file: /etc/my.cnf
 
 
 # php
 #####
 
-# note: debian wheezy version is 5.4.4, and uses APC
-#  use dotdeb to upgrade to 5.5 + built in opcache [?]
-
 # @todo update this for yum
 os_php_packages:
-  - php5
-  - libapache2-mod-php5
-  - php5-pgsql
-  - php5-mysqlnd
-  - php5-curl
-  - php5-mcrypt
-  - php5-gd
-  - php-apc
+  - php
+  - php-gd
+  - php-curl
+  - php-mcrypt
+  - php-mysql
+  - php-pecl-apc
   
 os_php_ini: /etc/php.ini
 
