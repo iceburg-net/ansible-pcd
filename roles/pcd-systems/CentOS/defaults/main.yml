@@ -1,8 +1,0 @@
----
-##
-#  pcd-systems/CentOS defaults 
-#
-
-centos_gpg_dir: /etc/pki/rpm-gpg
-
-

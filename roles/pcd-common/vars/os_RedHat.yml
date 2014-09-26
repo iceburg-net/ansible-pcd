@@ -25,6 +25,11 @@ os_apache_service: httpd
 
 os_certs_dir: /etc/ssl/certs
 
+# gpg
+#####
+
+os_rpm_gpg_dir: /etc/pki/rpm-gpg
+
 # mail
 ######
 

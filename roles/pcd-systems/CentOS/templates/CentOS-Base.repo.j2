@@ -15,7 +15,7 @@ name=CentOS-$releasever - Base
 mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os
 #baseurl=http://mirror.centos.org/centos/$releasever/os/$basearch/
 gpgcheck=1
-gpgkey=file://{{ centos_gpg_dir }}/RPM-GPG-KEY-CentOS-{{ ansible_distribution_major_version }}
+gpgkey=file://{{ os_rpm_gpg_dir }}/RPM-GPG-KEY-CentOS-{{ ansible_distribution_major_version }}
 
 
 #released updates
@@ -24,7 +24,7 @@ name=CentOS-$releasever - Updates
 mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates
 #baseurl=http://mirror.centos.org/centos/$releasever/updates/$basearch/
 gpgcheck=1
-gpgkey=file://{{ centos_gpg_dir }}/RPM-GPG-KEY-CentOS-{{ ansible_distribution_major_version }}
+gpgkey=file://{{ os_rpm_gpg_dir }}/RPM-GPG-KEY-CentOS-{{ ansible_distribution_major_version }}
 
 #additional packages that may be useful
 [extras]

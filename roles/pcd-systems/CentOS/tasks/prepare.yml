@@ -21,12 +21,12 @@
 #####################
 
 - name: ensure GPG key directory
-  file: path={{ centos_gpg_dir }} state=directory recurse=yes
+  file: path={{ os_rpm_gpg_dir }} state=directory recurse=yes
   
 - name: ensure repository GPG keys
   copy: 
     src={{ item }}-{{ansible_distribution_major_version}}
-    dest={{ centos_gpg_dir }}/{{ item }}-{{ansible_distribution_major_version}}
+    dest={{ os_rpm_gpg_dir }}/{{ item }}-{{ansible_distribution_major_version}}
     mode=0644
   with_items:
     - RPM-GPG-KEY-CentOS
