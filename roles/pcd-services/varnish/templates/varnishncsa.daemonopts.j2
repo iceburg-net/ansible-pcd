@@ -1,0 +1,12 @@
+# MultiPlatform varnishncsa options for sysvinit script
+
+{% if ansible_os_family == 'Debian' %}
+VARNISHNCSA_ENABLED=1
+USER=root
+{% else %}
+PIDFILE=/var/run/varnishncsa.pid
+{% endif %}
+
+LOGFILE={{ VARNISH_NCSALOG_FILE }}
+LOG_FORMAT="%{Host}i %h %l %u %t \"%r\" %s %b \"%{Referer}i\" \"%{User-agent}i\"" 
+DAEMON_OPTS="-a -w ${LOGFILE} -D -P ${PIDFILE}"

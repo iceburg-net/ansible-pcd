@@ -1,0 +1,24 @@
+---
+##
+# [DEBIAN] varnish preparation tasks 
+#
+
+- name: ensure apt-transport-https
+  apt: name=apt-transport-https state=present
+
+- name: ensure varnish-4 repository GPG key
+  apt_key: 
+    url=https://repo.varnish-cache.org/debian/GPG-key.txt
+    state=present
+    id=C4DEFFEB
+    
+- name: ensure varnish-4 repository
+  apt_repository: 
+    repo="deb https://repo.varnish-cache.org/debian/ wheezy varnish-4.0"
+    state=present
+    
+- name: install varnish-4
+  apt: name=varnish state=present
+  
+    
+    

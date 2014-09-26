@@ -1,0 +1,7 @@
+[varnish-4]
+name=Varnish 4.0 for Enterprise Linux
+baseurl=https://repo.varnish-cache.org/redhat/varnish-4.0/el{{ ansible_distribution_major_version }}/$basearch
+enabled=0
+gpgcheck=1
+gpgkey=file://{{ os_rpm_gpg_dir }}/RPM-GPG-KEY-VARNISH
+

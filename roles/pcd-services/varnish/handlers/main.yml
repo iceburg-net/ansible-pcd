@@ -1,0 +1,9 @@
+
+# varnish handlers
+
+- name: varnish restart
+  service: name=varnish state=restarted
+  
+- name: varnishncsa restart
+  service: name=varnishncsa state=restarted
+

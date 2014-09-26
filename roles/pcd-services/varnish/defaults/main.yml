@@ -1,0 +1,26 @@
+---
+##
+#  varnish default vars 
+#
+
+# by default, set varnish to listen on port 8080, proxying to httpd on port 80
+# for produduction, set varnish to liston on port 80, and configure httpd
+#  to listen on port 81 (e.g. set `apache_http_port` to 81 in inventory vars)
+
+#VARNISH_PORT: 80
+#VARNISH_HTTPD_PORT: 81  (be sure to set apache_http_port or nginx_http_port to 81 as well!)
+
+
+# Varnish listen address. Blank to listen on all IPv4 & IPv6 interfaces.
+VARNISH_ADDRESS: ""
+VARNISH_PORT: 8080
+
+VARNISH_HTTPD_PORT: 80
+VARNISH_HTTPD_HOST: 127.0.0.1
+
+# Path to jinja template to use as default VCL file
+VARNISH_DEFAULT_VCL_TEMPLATE: "{{ PCD_SERVICE_ROLES }}/varnish/templates/default.vcl.j2"
+VARNISH_STORAGE_SIZE: 164M
+
+VARNISH_NCSALOG_ENABLE: True
+VARNISH_NCSALOG_FILE: "{{ HTTPD_LOG_DIR }}/access/varnish.log"

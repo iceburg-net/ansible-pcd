@@ -1,0 +1,42 @@
+---
+##
+# varnish configuration tasks
+#
+
+- name: configure default varnish VCL
+  template: 
+    src={{ VARNISH_DEFAULT_VCL_TEMPLATE }}
+    dest=/etc/varnish/default.vcl
+  notify: varnish restart
+
+- name: configure varnish
+  template: 
+    src=varnish.daemonopts.j2
+    dest={{ os_sysvinit_defaults_dir }}/varnish
+  notify: varnish restart
+
+- name: ensure varnish service is running and starts on boot
+  service: name=varnish state=started enabled=yes
+
+
+
+# varnishncsa
+#############
+
+- name: ensure varnishncsa log directory
+  file: path={{ VARNISH_NCSALOG_FILE | dirname }} state=directory recurse=yes
+
+- name: configure varnishncsa
+  template: 
+    src=varnishncsa.daemonopts.j2
+    dest={{ os_sysvinit_defaults_dir }}/varnishncsa
+  notify: varnishncsa restart
+  when: VARNISH_NCSALOG_ENABLE 
+  
+- name: ensure varnishncsa service is running and starts on boot
+  service: name=varnishncsa state=started enabled=yes
+  when: VARNISH_NCSALOG_ENABLE 
+  
+- name: ensure varnishncsa is disabled
+  service: name=varnishncsa state=stopped enabled=no
+  when: not VARNISH_NCSALOG_ENABLE 

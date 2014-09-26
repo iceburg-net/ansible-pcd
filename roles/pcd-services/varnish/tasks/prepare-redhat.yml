@@ -1,0 +1,18 @@
+---
+##
+# [REDHAT] varnish preparation tasks 
+#
+
+- name: ensure varnish-4 repository GPG key
+  copy: 
+    src=RedHat/RPM-GPG-KEY-VARNISH
+    dest={{ os_rpm_gpg_dir }}/RPM-GPG-KEY-VARNISH
+    mode=0644
+    
+- name: ensure varnish-4 repository
+  template: src=RedHat/varnish-4.repo.j2 dest=/etc/yum.repos.d/varnish-4.repo mode=0644
+
+- name: install varnish-4
+  yum: name=varnish state=present enablerepo=varnish-4,epel
+  
+  

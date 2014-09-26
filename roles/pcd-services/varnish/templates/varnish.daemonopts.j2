@@ -1,0 +1,45 @@
+# MultiPlatform varnish options for sysvinit script
+
+{% if ansible_os_family == 'Debian' %}
+
+# Debian Family sysvinit
+START=yes
+
+{% else %}
+
+# Redhat Family sysvinit
+NPROCS="unlimited"
+RELOAD_VCL=1
+
+{% endif %}
+
+VARNISH_LISTEN_ADDRESS={{ VARNISH_ADDRESS }} 
+VARNISH_LISTEN_PORT={{ VARNISH_PORT }}
+
+VARNISH_ADMIN_LISTEN_ADDRESS=127.0.0.1
+VARNISH_ADMIN_LISTEN_PORT=6082
+
+VARNISH_STORAGE_SIZE={{ VARNISH_STORAGE_SIZE }}
+
+VARNISH_VCL_CONF=/etc/varnish/default.vcl
+VARNISH_SECRET_FILE=/etc/varnish/secret
+VARNISH_MIN_THREADS=50
+VARNISH_MAX_THREADS=1000
+VARNISH_THREAD_TIMEOUT=120
+VARNISH_STORAGE="malloc,${VARNISH_STORAGE_SIZE}"
+VARNISH_TTL=120
+
+DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:${VARNISH_LISTEN_PORT} \
+             -f ${VARNISH_VCL_CONF} \
+             -T ${VARNISH_ADMIN_LISTEN_ADDRESS}:${VARNISH_ADMIN_LISTEN_PORT} \
+             -t ${VARNISH_TTL} \
+             -p thread_pool_min=${VARNISH_MIN_THREADS} \
+             -p thread_pool_max=${VARNISH_MAX_THREADS} \
+             -p thread_pool_timeout=${VARNISH_THREAD_TIMEOUT} \
+             -u varnish -g varnish \
+             -S ${VARNISH_SECRET_FILE} \
+             -s ${VARNISH_STORAGE}"
+
+
+
+
