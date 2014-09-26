@@ -1,0 +1,44 @@
+---
+##
+# secure systems
+#
+#  security tasks are executed to update vulnerable systems. Can 
+#  be configured to pull vs. push 
+#
+
+
+- name: "pcd security"
+  hosts: "{{ PCD_TARGET_HOST }}"
+  remote_user: root
+
+  vars_prompt:
+    - name: "PCD_TARGET_HOST"
+      prompt: "PCD_TARGET_HOST : Target Host/Group"
+      default: "all"
+      
+    
+  pre_tasks:
+    - name: group by distribution type
+      group_by: key="{{ ansible_distribution }}"
+      
+    - name: dist
+      debug: msg="dist is {{ ansible_distribution }}"
+      
+    
+- name: "Debian Security"
+  hosts: Debian
+  remote_user: root
+  
+  tasks:
+    - name: update system, packages to latest
+      apt: update_cache=yes cache_valid_time=3600 upgrade=dist
+      
+- name: "RedHat Security"
+  hosts: RedHat:CentOS
+  remote_user: root
+  
+  tasks:
+    - name: update system, packages to latest
+      yum: name=* state=latest 
+      
+    
