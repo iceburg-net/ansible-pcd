@@ -7,6 +7,7 @@
 os_ansible_deps:
   - MySQL-python
   - python-httplib2
+  - cronie
 
 # apache
 ########
@@ -79,6 +80,12 @@ os_rsyslog_packages:
   - logrotate
   
 os_rsyslog_service: rsyslog
+
+
+# sshd
+######
+
+os_sshd_service: sshd
 
 
 # sysvinit
