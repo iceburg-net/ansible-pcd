@@ -3,6 +3,9 @@
 #  apache default vars 
 #
 
+APACHE_HTTP_PORT: 80
+APACHE_HTTPS_PORT: 443
+
 APACHE_AUTORESTART: True
 APACHE_SERVERADMIN: "{{ PCD_DEFAULT_USER_EMAIL }}"
 
@@ -16,8 +19,13 @@ APACHE_DISABLED_MODULES:
   - negotiation
   - status
   
+    
+APACHE_DEFAULT_LOG_LEVEL: warn
+APACHE_DEFAULT_LOG_FILE: "{{ HTTPD_LOG_DIR }}/access/access.log"
+
+
 # list of modules to load
-APACHE_ENABLED_MODULES:
+apache_modules:
   - alias
   - auth_basic
   - authn_file
@@ -40,15 +48,9 @@ APACHE_ENABLED_MODULES:
   - ssl
   - status
   - wsgi
-    
-APACHE_DEFAULT_LOG_LEVEL: warn
-APACHE_DEFAULT_LOG_FILE: "{{ HTTPD_LOG_DIR }}/access/access.log"
-
-apache_http_port: 80
-apache_https_port: 443
+  
 
 
-#
 # mod_ssl
 #########
 
@@ -62,7 +64,3 @@ apache_ssl_cipher_suite: "HIGH:MEDIUM:!aNULL:!MD5"
 apache_status_url: /server-status
 apache_status_allow_from: "127.0.0.1 ::1"
 apache_extended_status: On
-
-
-
-

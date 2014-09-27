@@ -13,7 +13,7 @@
     - apache restart
 
 - name: enable Name based VirtualHosts   
-  lineinfile: dest=/etc/httpd/conf/httpd.conf regexp="^NameVirtualHost \*\:{{ apache_http_port }}" line="NameVirtualHost *:{{ apache_http_port }}" state=present
+  lineinfile: dest=/etc/httpd/conf/httpd.conf regexp="^NameVirtualHost \*\:{{ APACHE_HTTP_PORT }}" line="NameVirtualHost *:{{ APACHE_HTTP_PORT }}" state=present
   notify:
     - apache restart
   
