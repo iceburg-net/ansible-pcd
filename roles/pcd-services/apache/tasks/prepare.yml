@@ -2,6 +2,7 @@
 ##
 # apache preparation tasks
 #
+- fail: msg="rewriting apache role"
 
 - { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }
 - { include: prepare-redhat.yml, when: "ansible_os_family == 'RedHat'" }
