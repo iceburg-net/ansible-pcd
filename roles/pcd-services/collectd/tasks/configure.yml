@@ -66,3 +66,5 @@
     - collectd restart
   when: not COLLECTD_ENABLE_LIBRATO_WRITER
   
+- name: ensure collectd is running and starts on boot
+  service: name=collectd state=started enabled=yes

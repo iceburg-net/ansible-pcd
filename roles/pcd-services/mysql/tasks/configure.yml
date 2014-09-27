@@ -24,14 +24,20 @@
     hour={{ mysql_defrag_hour }}
     state=present
     user=root
+    
+- name: ensure mysql conf.d directory
+  file: path=/etc/mysql/conf.d state=directory recurse=yes
 
+#@ todo - build a few configuration files based on max ram, detect and use appropriate
 - name: update my.cnf
   template: 
     src={{ mysql_config_template }}
     dest={{ os_mysql_conf_file }}
   notify: mysql restart
   
-#@ todo - build a few configuration files based on max ram, detect and use appropriate
+- name: ensure mysql is running and starts on boot
+  service: name={{ os_mysql_service }} state=started enabled=yes
+  
       
 # Auto-Restart MySQL   
 - { include: "{{ pcd_task_autorestart_service }}", task: {
@@ -40,3 +46,4 @@
     }
   }
       
+  

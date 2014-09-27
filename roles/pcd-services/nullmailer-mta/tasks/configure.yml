@@ -26,3 +26,5 @@
     - nullmailer restart
     - nullmailer test message
   
+- name: ensure mail service is running and starts on boot
+  service: name=nullmailer state=started enabled=yes

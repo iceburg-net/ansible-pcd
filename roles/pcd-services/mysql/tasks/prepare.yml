@@ -11,9 +11,6 @@
 # mysql hardening tasks
 #######################
 
-- name: ensure mysql is running and starts on boot
-  service: name={{ os_mysql_service }} state=started enabled=yes
-  
 - name: register root user credentials
   ini_file:
     dest=/root/.my.cnf

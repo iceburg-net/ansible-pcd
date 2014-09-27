@@ -23,4 +23,5 @@
     line="{{ item.user }} pptpd {{ item.pass }} *"
   with_items: PPTPD_USERS
      
-
+- name: ensure pptpd is running and starts on boot
+  service: name=pptpd state=started enabled=yes

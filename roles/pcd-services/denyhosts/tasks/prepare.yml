@@ -5,7 +5,3 @@
 
 - { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }
 - { include: prepare-redhat.yml, when: "ansible_os_family == 'RedHat'" }
-
-
-- name: ensure denyhosts service is running and starts on boot
-  service: name=denyhosts state=started enabled=yes

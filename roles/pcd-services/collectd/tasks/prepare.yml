@@ -17,6 +17,3 @@
     url=https://raw.github.com/librato/collectd-librato/master/lib/collectd-librato.py
     dest={{ collectd_dir }}/librato/collectd-librato.py
     
-
-- name: ensure collectd starts on boot
-  service: name=collectd enabled=yes
