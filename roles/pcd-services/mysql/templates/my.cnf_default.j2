@@ -84,7 +84,7 @@ innodb_log_file_size = 10M
 
 
 [mysqld_safe]
-log-error=/var/log/mysql/mysql.log
+log-error={{ os_mysql_error_log_file }}
 open_files_limit=8192
 nice = 0
 

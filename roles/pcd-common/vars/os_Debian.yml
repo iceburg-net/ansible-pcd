@@ -37,6 +37,8 @@ mail_me_file: /etc/mailname
 #######
 
 os_mysql_conf_file: /etc/mysql/my.cnf
+os_mysql_error_log_file: /var/log/mysql/mysql.log
+
 
 # php
 #####

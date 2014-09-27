@@ -46,6 +46,8 @@ os_mysql_packages:
   
 os_mysql_service: mysqld
 
+os_mysql_error_log_file: /var/log/mysqld.log
+
 
 # mysql
 #######
