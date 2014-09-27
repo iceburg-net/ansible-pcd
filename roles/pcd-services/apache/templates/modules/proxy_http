@@ -1,0 +1,2 @@
+# Depends: proxy
+LoadModule proxy_http_module {{ os_apache_modules_dir }}/mod_proxy_http.so

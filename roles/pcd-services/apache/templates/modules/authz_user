@@ -1,0 +1,1 @@
+LoadModule authz_user_module {{ os_apache_modules_dir }}/mod_authz_user.so

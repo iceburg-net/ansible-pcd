@@ -1,0 +1,9 @@
+LoadModule deflate_module {{ os_apache_modules_dir }}/mod_deflate.so
+
+# these are known to be safe with MSIE 6
+AddOutputFilterByType DEFLATE text/html text/plain text/xml
+
+# everything else may cause problems with MSIE 6
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/x-javascript application/javascript application/ecmascript
+AddOutputFilterByType DEFLATE application/rss+xml

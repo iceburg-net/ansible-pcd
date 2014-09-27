@@ -1,0 +1,3 @@
+LoadModule dir_module {{ os_apache_modules_dir }}/mod_dir.so
+
+DirectoryIndex index.html index.htm index.php index.pl index.html.var

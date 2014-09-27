@@ -1,0 +1,1 @@
+LoadModule rewrite_module {{ os_apache_modules_dir }}/mod_rewrite.so

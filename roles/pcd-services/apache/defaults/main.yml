@@ -4,6 +4,41 @@
 #
 
 APACHE_AUTORESTART: True
+APACHE_SERVERADMIN: "{{ PCD_DEFAULT_USER_EMAIL }}"
+
+# set APACHE_KEEPALIVE to "Off" on machines with very little RAM
+APACHE_KEEPALIVE: On
+
+# list of modules to skip while loading
+APACHE_DISABLED_MODULES:
+  - status
+  - cgi
+  - negotiation
+  
+# list of modules to load
+APACHE_ENABLED_MODULES:
+  - alias
+  - auth_basic
+  - authn_file
+  - authz_groupfile
+  - authz_host
+  - authz_user
+  - cgi
+  - deflate
+  - dir
+  - env
+  - mime
+  - negotiation
+  - php5
+  - proxy
+  - proxy_http
+  - rewrite
+  - setenvif
+  - ssl
+  - wsgi
+    
+APACHE_DEFAULT_LOG_LEVEL: warn
+APACHE_DEFAULT_LOG_FILE: "{{ HTTPD_LOG_DIR }}/access/access.log"
 
 apache_http_port: 80
 apache_https_port: 443

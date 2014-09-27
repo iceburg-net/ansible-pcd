@@ -1,0 +1,1 @@
+LoadModule proxy_module {{ os_apache_modules_dir }}/mod_proxy.so

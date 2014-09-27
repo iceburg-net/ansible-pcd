@@ -1,13 +1,16 @@
 ---
 # redhat os vars
 
+
 # ansible deps
 ##############
 
 os_ansible_deps:
   - MySQL-python
   - python-httplib2
+  - python-passlib
   - cronie
+
 
 # apache
 ########
@@ -19,6 +22,11 @@ os_apache_packages:
 os_apache_user: apache
 os_apache_group: apache
 os_apache_service: httpd
+
+os_apache_serverroot: /etc/httpd
+os_apache_pidfile: run/httpd.pid
+os_apache_modules_dir: modules
+os_apache_error_log: "logs/error_log"
 
 
 # certs

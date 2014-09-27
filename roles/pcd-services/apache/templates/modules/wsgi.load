@@ -1,0 +1,1 @@
+LoadModule wsgi_module {{ os_apache_modules_dir }}/mod_wsgi.so

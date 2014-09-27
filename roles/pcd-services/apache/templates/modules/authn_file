@@ -1,0 +1,1 @@
+LoadModule authn_file_module {{ os_apache_modules_dir }}/mod_authn_file.so

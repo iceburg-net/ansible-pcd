@@ -7,7 +7,7 @@
 os_ansible_deps:
   - python-mysqldb
   - python-httplib2
-
+  - python-passlib
 
 
 # apache
@@ -19,6 +19,11 @@ os_apache_packages:
 os_apache_user: www-data
 os_apache_group: www-data
 os_apache_service: apache2
+
+os_apache_serverroot: /etc/apache2
+os_apache_pidfile: /var/run/apache2.pid
+os_apache_modules_dir: /usr/lib/apache2/modules
+os_apache_error_log: "${APACHE_LOG_DIR}/error.log"
 
 # certs
 #######
