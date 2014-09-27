@@ -11,9 +11,10 @@ APACHE_KEEPALIVE: On
 
 # list of modules to skip while loading
 APACHE_DISABLED_MODULES:
-  - status
+  - autoindex
   - cgi
   - negotiation
+  - status
   
 # list of modules to load
 APACHE_ENABLED_MODULES:
@@ -23,10 +24,12 @@ APACHE_ENABLED_MODULES:
   - authz_groupfile
   - authz_host
   - authz_user
+  - autoindex
   - cgi
   - deflate
   - dir
   - env
+  - headers
   - mime
   - negotiation
   - php5
@@ -35,6 +38,7 @@ APACHE_ENABLED_MODULES:
   - rewrite
   - setenvif
   - ssl
+  - status
   - wsgi
     
 APACHE_DEFAULT_LOG_LEVEL: warn
@@ -42,5 +46,23 @@ APACHE_DEFAULT_LOG_FILE: "{{ HTTPD_LOG_DIR }}/access/access.log"
 
 apache_http_port: 80
 apache_https_port: 443
+
+
+#
+# mod_ssl
+#########
+
+apache_ssl_cipher_suite: "HIGH:MEDIUM:!aNULL:!MD5"
+# rhel = ALL:!ADH:!EXPORT:!SSLv2:RC4+RSA:+HIGH:+MEDIUM:+LOW
+
+
+# mod_status
+############
+# e.g.   Allow from 192.0.2.0/24  on http://host/server-status
+apache_status_url: /server-status
+apache_status_allow_from: "127.0.0.1 ::1"
+apache_extended_status: On
+
+
 
 

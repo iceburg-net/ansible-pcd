@@ -24,6 +24,7 @@ os_apache_serverroot: /etc/apache2
 os_apache_pidfile: /var/run/apache2.pid
 os_apache_modules_dir: /usr/lib/apache2/modules
 os_apache_error_log: "${APACHE_LOG_DIR}/error.log"
+os_apache_ssl_cache: "shmcb:${APACHE_RUN_DIR}/ssl_scache(512000)"
 
 # certs
 #######

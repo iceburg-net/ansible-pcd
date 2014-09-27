@@ -27,6 +27,7 @@ os_apache_serverroot: /etc/httpd
 os_apache_pidfile: run/httpd.pid
 os_apache_modules_dir: modules
 os_apache_error_log: "logs/error_log"
+os_apache_ssl_cache: "shmcb:/var/cache/mod_ssl/scache(512000)"
 
 
 # certs
