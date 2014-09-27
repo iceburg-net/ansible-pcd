@@ -2,7 +2,7 @@
 # common private variables
 
 private_user_name: "{{ PCD_DEFAULT_USER_NAME }}"
-private_user_pass: "{{ default_user_pass }}"
+private_user_pass: "{{ PCD_DEFAULT_USER_PASS }}"
 
 
 LIBRATO_APIKEY: !!null
