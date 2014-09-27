@@ -1,0 +1,13 @@
+LoadModule status_module {{ os_apache_modules_dir }}/mod_status.so
+
+
+
+<Location {{ apache_status_url }}>
+    SetHandler server-status
+    Order deny,allow
+    Deny from all
+    Allow from {{ apache_status_allow_from }}
+</Location>
+
+ExtendedStatus {{ apache_extended_status }}
+
