@@ -22,7 +22,7 @@ nashville-dbservers
 
 [nashville:children]
 nashville-webservers
-[nashville-dbservers
+nashville-dbservers
 
 
 [iceburg:children]
