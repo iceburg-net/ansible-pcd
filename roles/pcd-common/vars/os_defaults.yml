@@ -25,7 +25,6 @@ os_service_file: /usr/sbin/service
 ########
 
 os_apache_dir: "/etc/{{ os_apache_service }}"
-os_apache_conf_dir: "{{ os_apache_dir }}/conf.d"
 os_apache_sites_dir: "{{ os_apache_dir }}/sites-available"
 os_apache_sites_enabled_dir: "{{ os_apache_dir }}/sites-enabled"
 

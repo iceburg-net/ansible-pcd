@@ -3,14 +3,36 @@
 # apache preparation configure
 #
 
+
 - name: register configurations
   template:
     src={{ item }}
-    dest={{ os_apache_conf_dir }}/{{ item | basename }}
-  with_fileglob: "conf/*.conf"
+    dest={{ os_apache_dir }}/ansible-apache.conf/{{ item | basename }}
+  with_fileglob: "../templates/conf/*.conf"
   notify:
     - apache restart
     
+- name: register modules
+  template:
+    src=modules/{{ item }}
+    dest={{ os_apache_dir }}/ansible-apache.modules/{{ item }}
+  with_items: apache_modules
+  when: item not in APACHE_DISABLED_MODULES
+  notify:
+    - apache restart
+    
+- name: deregister disabled modules
+  file:
+    path={{ os_apache_dir }}/ansible-apache.modules/{{ item }}
+    state=absent
+  with_items: APACHE_DISABLED_MODULES
+  notify:
+    - apache restart
+  
+- name: template apache conf
+  template:
+    src=httpd.conf
+    dest={{ os_apache_conf }}
  
 # Auto-Restart Apache   
 - { include: "{{ pcd_task_autorestart_service }}", task: {

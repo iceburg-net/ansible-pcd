@@ -2,10 +2,23 @@
 ##
 # apache preparation tasks
 #
-- fail: msg="rewriting apache role"
 
-- { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }
-- { include: prepare-redhat.yml, when: "ansible_os_family == 'RedHat'" }
+- name: ensure apache packages 
+  apt: name={{ item }} state=present
+  with_items: os_apache_packages
+  when: ansible_os_family == 'Debian'
+  
+- name: ensure apache packages 
+  yum: name={{ item }} state=present
+  with_items: os_apache_packages
+  when: ansible_os_family == 'RedHat'
+  
+- name: ensure configuration directories
+  file: path={{ item }} state=directory
+  with_items:
+    - "{{ os_apache_dir }}/ansible-apache.conf/"
+    - "{{ os_apache_dir }}/ansible-apache.modules/"
+
   
 - name: allow {{ HTTPD_USER_GROUP }} group to sudo execute apachectl
   lineinfile: dest=/etc/sudoers regexp="^\%{{ HTTPD_USER_GROUP }}" line="%{{ HTTPD_USER_GROUP }} ALL=(ALL) NOPASSWD:{{ os_apache_apachectl_file }}" state=present
