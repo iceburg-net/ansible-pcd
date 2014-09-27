@@ -7,4 +7,4 @@
 # mysql conf - db servers have 4GB of RAM for MySQL
 ###################################################
 
-mysql_config_template: "{{ inventory_dir }}/configs/templates/my.cnf-4GB.j2"
+MYSQL_CONFIG_TEMPLATE: "{{ inventory_dir }}/configs/templates/my.cnf-4GB.j2"

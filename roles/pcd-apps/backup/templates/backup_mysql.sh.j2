@@ -9,7 +9,7 @@
 BACKUPBIN="`which innobackupex`"
 
 TMPFILE="/tmp/mysql_backup.$$.tmp"
-USEROPTIONS="--user=root --password={{ mysql_root_password }}"
+USEROPTIONS="--user=root --password={{ MYSQL_ROOT_PASSWORD }}"
 BACKDIR="{{ backup_mysql_target  }}"
 BASEBACKDIR=$BACKDIR/base
 INCRBACKDIR=$BACKDIR/incr

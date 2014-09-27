@@ -31,7 +31,7 @@
 #@ todo - build a few configuration files based on max ram, detect and use appropriate
 - name: update my.cnf
   template: 
-    src={{ mysql_config_template }}
+    src={{ MYSQL_CONFIG_TEMPLATE }}
     dest={{ os_mysql_conf_file }}
   notify: mysql restart
   
@@ -49,6 +49,10 @@
 # mysql hardening tasks
 #######################
 
+- name: set root@localhost user's password
+  mysql_user: name=root host=localhost password={{ MYSQL_ROOT_PASSWORD }} login_host=127.0.0.1 login_user=root login_password=""
+  ignore_errors: yes
+
 - name: register root user credentials
   ini_file:
     dest=/root/.my.cnf
@@ -58,15 +62,14 @@
     mode=0600
   with_items:
     - { option: 'user', value: 'root' }
-    - { option: 'password', value: '{{ mysql_root_password }}' }
+    - { option: 'password', value: '{{ MYSQL_ROOT_PASSWORD }}' }
     - { option: 'host', value: 'localhost' }
-  
+    
 - name: set root@localhost user's password
-  mysql_user: name=root host=localhost password={{ mysql_root_password }}
-  ignore_errors: yes
-
+  mysql_user: name=root host=localhost password={{ MYSQL_ROOT_PASSWORD }} login_user=root login_password={{ MYSQL_ROOT_PASSWORD }} login_host=127.0.0.1
+  
 - name: set root@other_local_hosts password
-  mysql_user: name=root host={{ item }} password={{ mysql_root_password }} login_user=root login_password={{ mysql_root_password }}
+  mysql_user: name=root host={{ item }} password={{ MYSQL_ROOT_PASSWORD }} login_user=root login_password={{ MYSQL_ROOT_PASSWORD }} login_host=127.0.0.1
   with_items:
     - 127.0.0.1
     - ::1

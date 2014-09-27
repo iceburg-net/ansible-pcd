@@ -3,15 +3,10 @@
 #  pcd-services/mysql defaults 
 #
 
+MYSQL_ROOT_PASSWORD: "{{ private_user_pass }}"
+MYSQL_CONFIG_TEMPLATE: "{{ PCD_SERVICE_ROLES }}/mysql/templates/my.cnf.j2"
 MYSQL_AUTORESTART: True
 
-# default root user password. 
-#   defaults to private_pass from general private file
-#   override in your private var file(s) or through inventory
-#
-mysql_root_password: "{{ private_user_pass }}"
-
-mysql_config_template: my.cnf_default.j2
 
 mysql_default_storage_engine: "MyISAM"
 #mysql_default_storage_engine: "InnoDB"

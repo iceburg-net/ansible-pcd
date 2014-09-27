@@ -13,7 +13,7 @@ LIBRATO_EMAIL: "{{ PCD_DEFAULT_USER_EMAIL }}"
 # override credentials used by roles
 #
 
-mysql_root_password: !!null
+MYSQL_ROOT_PASSWORD: !!null
 
 #nullmailer_smtp_host: smtp.mandrillapp.com
 #nullmailer_smtp_auth: True
