@@ -199,9 +199,7 @@ For *support*, please post to stackoverflow using the ansible-pcd tag:
 developer-todo
 ==============
 
-* reach feature parity on RedHat distributions
 * ncurses based UI   
 * map system uuid => fqdn to more easily identify remote backups
-* add redhat support to awstats (currently assumes debian httpd-prerotate functionality in apache2 logrotate.d conf)
 * make awstats apache/nginx agnostic, set inventory preference for nginx|apache
-* iptables role to compliment pptpd and openvpn
+* iptables role to compliment pptpd and openvpn [ferm!]
