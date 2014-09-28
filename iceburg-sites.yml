@@ -25,10 +25,10 @@
     
     
   tasks: 
-    - name: set default virtualhosts
+    - name: redirect to default site
       template:
-        src={{ PCD_SITE_ROLES }}/apache_site/templates/default_vhosts.j2
-        dest=/etc/ansible/conf.d/apache/virtualhosts.enabled/000_default_vhosts
+        src={{ PCD_SITE_ROLES }}/apache_site/templates/redirect_default_vhost.j2
+        dest=/etc/ansible/conf.d/apache/virtualhosts.enabled/000_default_redirect
       notify: 
         - apache reload
       when: default_http_site is defined and default_http_site

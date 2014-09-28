@@ -1,8 +1,6 @@
-{% if default_http_site %}
 <VirtualHost *:{{ HTTPD_HTTP_PORT }}>
-        ServerName default_http
+        ServerName default_http_redirect
         
         Redirect / http://{{ default_http_site }}/
 
 </VirtualHost>
-{% endif %}
