@@ -16,7 +16,7 @@
 
 - name: ensure apache site config 
   template:
-    dest={{ os_apache_sites_dir }}/{{ task.name }}
+    dest=/etc/ansible/conf.d/apache/virtualhosts.available/{{ task.name }}
     src={{ task.template }}
   notify: 
     - apache reload
@@ -24,8 +24,8 @@
 - name: enable apache site
   file:
     state=link 
-    src={{ os_apache_sites_dir }}/{{ task.name }}
-    dest={{ os_apache_sites_enabled_dir }}/{{ task.name }}
+    src=/etc/ansible/conf.d/apache/virtualhosts.available/{{ task.name }}
+    dest=/etc/ansible/conf.d/apache/virtualhosts.enabled/{{ task.name }}
   notify: 
     - apache reload
     

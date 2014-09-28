@@ -16,8 +16,8 @@
 - name: ensure configuration directories
   file: path={{ item }} state=directory
   with_items:
-    - "{{ os_apache_dir }}/ansible-apache.conf/"
-    - "{{ os_apache_dir }}/ansible-apache.modules/"
+    - "/etc/ansible/conf.d/apache/configs"
+    - "/etc/ansible/conf.d/apache/modules"
 
   
 - name: allow {{ HTTPD_USER_GROUP }} group to sudo execute apachectl
@@ -31,5 +31,5 @@
     group={{ HTTPD_USER_GROUP }}
     mode=0775
   with_items:
-    - "{{ os_apache_sites_dir }}"
-    - "{{ os_apache_sites_enabled_dir }}"
+    - "/etc/ansible/conf.d/apache/virtualhosts.available"
+    - "/etc/ansible/conf.d/apache/virtualhosts.enabled"

@@ -28,7 +28,7 @@
     - name: set default virtualhosts
       template:
         src={{ PCD_SITE_ROLES }}/apache_site/templates/default_vhosts.j2
-        dest={{ os_apache_sites_enabled_dir }}/000_default_vhosts
+        dest=/etc/ansible/conf.d/apache/virtualhosts.enabled/000_default_vhosts
       notify: 
         - apache reload
       when: default_http_site is defined and default_http_site

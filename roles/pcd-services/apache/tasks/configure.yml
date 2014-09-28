@@ -2,12 +2,10 @@
 ##
 # apache preparation configure
 #
-
-
 - name: register configurations
   template:
     src={{ item }}
-    dest={{ os_apache_dir }}/ansible-apache.conf/{{ item | basename }}
+    dest=/etc/ansible/conf.d/apache/configs/{{ item | basename }}
   with_fileglob: "../templates/conf/*.conf"
   notify:
     - apache restart
@@ -15,7 +13,7 @@
 - name: register modules
   template:
     src=modules/{{ item }}
-    dest={{ os_apache_dir }}/ansible-apache.modules/{{ item }}
+    dest=/etc/ansible/conf.d/apache/modules/{{ item }}
   with_items: apache_modules
   when: item not in APACHE_DISABLED_MODULES
   notify:
@@ -23,7 +21,7 @@
     
 - name: deregister disabled modules
   file:
-    path={{ os_apache_dir }}/ansible-apache.modules/{{ item }}
+    path=/etc/ansible/conf.d/apache/modules/{{ item }}
     state=absent
   with_items: APACHE_DISABLED_MODULES
   notify:
