@@ -4,7 +4,7 @@
 #
 
 SITE_NAME: www.iceburg.net
-SITE_ALIASES: ['iceburg.net']
+SITE_ALIASES: ['iceburg.net','nashville-app-1.iceburg.net']
 
 #SITE_TYPE: wordpress-3
 
