@@ -7,7 +7,7 @@ PCD_DEFAULT_ORG: iceburg-nashville
 # Backups
 #########
 
-backup_s3ql_enabled: True
+backup_s3ql_enabled: False
 backup_s3ql_url: gs://iceburg/{{ system_uuid }}
 
 backup_schedule: {
