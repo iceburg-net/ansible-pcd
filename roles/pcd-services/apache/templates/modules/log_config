@@ -1,0 +1,1 @@
+LoadModule log_config_module {{ os_apache_modules_dir }}/mod_log_config.so
