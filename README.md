@@ -6,12 +6,12 @@ structural conventions to easily automate (even massive) *nix infrastructure.
 
 roles are organized by _system_, _service_, or _application_ and tasks are
 tagged with either `prepare`, `configure`, or `deploy`. this is scalable and
-drastically reduces execution time by visiting only necessary tasks.
+drastically reduces execution time by visiting only intended tasks.
 
 the project has the following **goals**;
-* embrace ansible-best-practices -- remain understandable and community friendly
-* distribution agnostic approach (support Debian, RedHat, &c)
+* remain distribution agnostic (support Debian, RedHat, &c out-of-box)
 * encourage reusable automation components, avoid redundancy
+* embrace ansible-best-practices -- remain understandable and community friendly
 
 
 See the [ginas](https://github.com/ginas/ginas/) project as an alternative.
@@ -21,8 +21,9 @@ See the [ginas](https://github.com/ginas/ginas/) project as an alternative.
 usage
 ==============
 
-The pcd_*.yml playbooks are used to apply a single role to specified host(s). 
-They will prompt for the role/host if not provided via --extra-vars on the command line.
+The pcd_*.yml playbooks are used to apply a single role to specified host(s).
+You execute these via `ansible-playbook`, and they  will prompt for the role/host 
+if not provided through `--extra-vars`.
 
 
 For instance, you can use the [pcd_service.yml](https://github.com/iceburg-net/ansible-pcd/blob/master/pcd_service.yml)
@@ -30,8 +31,8 @@ playbook to quickly apply mysql to a host via `ansible-playbook -i inventory/ice
 
 
 Running the pcd_*.yml playbooks without tags will execute all tasks. 
-Thus, the above example executes `prepare`, `configure`, and `deploy` tasks in that order.
-* `prepare` tasks are ideally run once per host. They install packages, add users, &c.
+As such, the above example will execute `prepare`, `configure`, and `deploy` tasks in that order.
+* `prepare` tasks are ideally run once per host. They install packages, add users, create directories, &c.
 * `configure` tasks are run more often. They setup cron jobs, template configuration files, set timezone, &c. 
 * `deploy` tasks are run most often, and limited to [applications](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-apps) and [sites](https://github.com/iceburg-net/ansible-pcd/tree/master/sites). Run to deploy code changes. 
 
@@ -98,19 +99,25 @@ cp -a private.sample private
 
 #### connecting, initial provisioning
 
-pcd-systems roles provision hosts with a consistent environment. they ensure the 
+The [pcd-systems](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-systems
+roles provision hosts with a consistent environment. They ensure the 
 root user's authorized keys for ansible to connect, set the fqdn properly, 
-install a common set of packages, and tighten security. when connecting to a 
-host for the first time (that doesn't yet have an authorized key for the root 
-user), pass the --ask-pass flag to ansible-playbook.
+install a common set of packages, and tighten security. 
 
-by default, ansible-pcd connects to hosts as the root user over ssh using keys
-in the /private/keys directory. the key is determined by the 
-**ansible_ssh_private_key_file** inventory variable and defaults to
-`{{ PCD_KEYS_DIR }}/{{ PCD_DEFAULT_ORG }}+{{ ansible_ssh_user }}.key`. for
-instance, if we're connecting to a host in the *chicago-east*
-organization/environment, ansible would select
-`/private/keys/chicago-east+root.key`. 
+
+_When connecting to a host for the first time (that doesn't yet have an authorized key for the root 
+user), pass the --ask-pass flag to ansible-playbook._
+
+
+By default, ansible-pcd connects to hosts as the root user using ssh keys
+from the /private/keys directory. The **ansible_ssh_private_key_file** inventory 
+variable determines the key used, and defaults to
+`{{ PCD_KEYS_DIR }}/{{ PCD_DEFAULT_ORG }}+{{ ansible_ssh_user }}.key`.
+
+
+For instance, if we're connecting to a host belonging to the *chicago-east*
+organization, ansible would select `<pcd-root>/private/keys/chicago-east+root.key`. 
+Again, all this is configured via [inventory variables](https://github.com/iceburg-net/ansible-pcd/tree/master/inventory). 
 
 
 
@@ -123,7 +130,7 @@ ansible-pcd is under development. there may be breaking api changes in the near 
 
 #### current functionality
 
-at this time ansible-pcd provides a "webhost in a box" for **debian 7 (wheezy)**
+at this time ansible-pcd provides a "webhost in a box"
 
 [hosts](https://github.com/iceburg-net/ansible-pcd/blob/master/inventory/iceburg.hosts) are provisioned with a consistent, secure environment. [services](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-services) are
 configurable [per host](https://github.com/iceburg-net/ansible-pcd/blob/master/webservers.yml) using playbooks and inventory.
@@ -138,16 +145,15 @@ with built-in, real-world conveniences;
 * pcd.backup integration (site assets/uploads > clound storage via s3ql)  
 
 
-more to come, please contribute!
+_Also featured are useful infrastructure roles for monitoring, remote filesystems, varnish caching, and VPN connectivity._
 
+more to come, please contribute!
 
 
 contributing
 ============
 
 ansible-pcd is licensed under the GPLv3 , the same as ansible.
-
-Please feel free to contribute roles and fixes via github pull requests.
 
 #### conventions
 
@@ -178,7 +184,7 @@ pcd_task_add_user: "{{ PCD_TASKS }}/add_user.yml"
 
 * Follow the [edX project](https://github.com/edx/configuration) standard and CAPITALIZE the names of variables likely to be overriden/configured by users. Place them at the top of your defaults/main.yml.
 
-* try to at least support `Debian` and `RedHat` OS families
+* Please support both `Debian` and `RedHat` OS families
 
 
 
@@ -199,7 +205,7 @@ For *support*, please post to stackoverflow using the ansible-pcd tag:
 developer-todo
 ==============
 
-* ncurses based UI   
+* ncurses based UI for applying roles
 * map system uuid => fqdn to more easily identify remote backups
 * make awstats apache/nginx agnostic, set inventory preference for nginx|apache
 * iptables role to compliment pptpd and openvpn [ferm!]
