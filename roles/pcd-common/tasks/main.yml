@@ -45,3 +45,17 @@
 - name: load private inventory_hostname vars [{{ inventory_hostname }}.yml] (note precedence is FILO)
   include_vars: "{{ PCD_PRIVATE_DIR }}/vars/{{ inventory_hostname }}.yml"
   when: pcd_stat.stat.exists
+  
+  
+# SELinux Detection
+###################
+
+- name: detect presence of SELinux on host
+  command: sestatus
+  register: selinux_check
+  ignore_errors: yes
+  changed_when: false
+  
+# `when: selinux_check.rc == 0` for tasks to be run on SELinux-enabled hosts...
+# `when: selinux_check.rc != 0` for tasks to be run on hosts without SELinux... 
+  
