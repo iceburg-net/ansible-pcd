@@ -11,6 +11,7 @@
     - python-apsw
     - python-llfuse
     - python-lzma
+    - fuse
     
 - name: copy s3ql package
   copy:
@@ -20,7 +21,7 @@
 
 - name: install s3ql package
   apt: 
-    name=/root/s3ql_{{ s3ql_version }}-1_{{ ansible_architecture }}.deb
+    deb=/root/s3ql_{{ s3ql_version }}-1_{{ ansible_architecture }}.deb
     state=installed
   
 
