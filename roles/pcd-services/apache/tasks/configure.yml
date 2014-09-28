@@ -2,6 +2,11 @@
 ##
 # apache preparation configure
 #
+
+
+# directives
+############
+
 - name: register configurations
   template:
     src={{ item }}
@@ -10,6 +15,11 @@
   notify:
     - apache restart
     
+    
+
+# modules
+#########
+
 - name: register modules
   template:
     src=modules/{{ item }}
@@ -26,11 +36,31 @@
   with_items: APACHE_DISABLED_MODULES
   notify:
     - apache restart
+   
+# detect if mod_log_config is compiled into apache
+
+- name: detect mod_log_config
+  stat: path={{ os_apache_modules_dir }}/mod_log_config.so
+  register: pcd_stat
   
+- name: register mod_log_config module
+  template:
+    src=modules/{{ item }}
+    dest=/etc/ansible/conf.d/apache/modules/{{ item }}
+  with_items:
+    - log_config
+  when: pcd_stat.stat.exists
+    
+  
+# httpd.conf
+############
+
 - name: template apache conf
   template:
     src=httpd.conf
     dest={{ os_apache_conf }}
+  notify:
+    - apache restart
  
 # Auto-Restart Apache   
 - { include: "{{ pcd_task_autorestart_service }}", task: {
