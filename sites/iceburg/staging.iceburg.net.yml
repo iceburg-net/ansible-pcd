@@ -6,7 +6,8 @@
 SITE_NAME: staging.iceburg.net
 SITE_HTTPS: True
 
-SITE_GIT_REPO: git@github.com:iceburg-net/ansible-pcd-iceburg_site.git
+# use of https transport only for demonstration + will not transmit demo public key 
+SITE_GIT_REPO: https://github.com/iceburg-net/ansible-pcd-iceburg_site.git
 SITE_GIT_BRANCH: stage
 
 SITE_DOCROOT: www-staging
