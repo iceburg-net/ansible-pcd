@@ -180,7 +180,7 @@ pcd_task_add_user: "{{ PCD_TASKS }}/add_user.yml"
 
 ```
 
-* If a variable is a good candidate to be shared by other roles, place it in [pcd-common/vars/shared.yml](http://LINK).
+* If a variable is a good candidate to be shared by other roles, place it in [pcd-common/defaults/main.yml](https://github.com/iceburg-net/ansible-pcd/blob/master/roles/pcd-common/defaults/main.yml). If it is distribution/OS specific, place appropriate values in [pcd-common/vars](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-common/vars).
 
 * Follow the [edX project](https://github.com/edx/configuration) standard and CAPITALIZE the names of variables likely to be overriden/configured by users. Place them at the top of your defaults/main.yml.
 
