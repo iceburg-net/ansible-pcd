@@ -11,7 +11,7 @@
   
   roles:
     - {role: pcd-common, tags: ['prepare','configure']}
-    - pcd-services/php
+    - pcd-services/apache
     - pcd-apps/awstats
     - pcd-apps/backup
     
