@@ -29,6 +29,16 @@
     - "{{ HTTPD_LOG_DIR }}/access"
     - "{{ HTTPD_LOG_DIR }}/errors"
     
+- name: set SELinux http-log permissions on directories
+  file: 
+    path={{ item }}
+    setype={{ os_selinux_httpd_log_type }}
+  with_items:
+    - "{{ HTTPD_LOG_DIR }}"
+    - "{{ HTTPD_LOG_DIR }}/access"
+    - "{{ HTTPD_LOG_DIR }}/errors"
+  when: selinux_check.rc == 0
+    
 - name: ensure ssl certificate directory
   file: 
     path={{ HTTPD_SSL_DIR }}

@@ -47,12 +47,18 @@ os_mysql_data_dir: /var/lib/mysql
 os_mysql_socket_dir: /var/run/mysqld
 
   
-
 # php
 #####  
   
 # @todo provide log rotation of this once we re-introduce logging service  
 os_php_error_log: /var/log/php/php_error.log
+
+
+# selinux
+#########
+
+os_selinux_httpd_log_type: httpd_log_t
+
 
 # sshd
 ######
