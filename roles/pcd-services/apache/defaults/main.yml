@@ -38,6 +38,7 @@ apache_modules:
   - dir
   - env
   - headers
+  - log_config
   - mime
   - negotiation
   - php5
