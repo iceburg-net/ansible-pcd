@@ -1,12 +1,12 @@
-#!/bin/bash
+#!/bin/sh
 
 SERVICE="{{ task.service }}"
 
-{{ os_service_file }} $SERVICE status
+{{ os_service_cmd }} $SERVICE status
 
 if [ $? -ne 0 ] ; then 
     echo "ERROR: $SERVICE was not running. Auto-Restarting..."
-    service $SERVICE restart
+    {{ os_service_cmd }} $SERVICE restart
     exit 1
 fi
 

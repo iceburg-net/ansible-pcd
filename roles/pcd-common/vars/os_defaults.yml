@@ -17,8 +17,7 @@ os_init_config_group: initconf
 os_init_config_dir: /etc/init
 
 os_logrotate_config_dir: /etc/logrotate.d
-os_service_file: /usr/sbin/service
-
+os_service_cmd: /usr/sbin/service
 
 
 # apache
