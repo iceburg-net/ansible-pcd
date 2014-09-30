@@ -17,6 +17,11 @@ include "/etc/ansible/conf.d/varnish/site-includes.vcl";
 
 sub vcl_recv {
 
+  # SPDY / HTTP2.0 is not supported
+  if (req.method == "PRI") {
+    return (synth(405));
+  }
+    
   # Pass on POST,PUT,DELETE, etc. Only Cache GET and HEAD requests
   if (req.method != "GET" && req.method != "HEAD") {
     return (pass);
@@ -39,10 +44,16 @@ sub vcl_recv {
     return (pipe);
   }
   
+  # by default, do not cache requests containing cookies
+  if (req.http.Cookie) {
+    return (pass);
+  }
+  
   # pass on http authorization requests
   if(req.http.Authorization) {
     return (pass);
   }
+  
   
   return (hash);
 }
