@@ -40,4 +40,5 @@
     group=ansible
     mode=0755
   with_items:
+    - /etc/ansible
     - /etc/ansible/conf.d
