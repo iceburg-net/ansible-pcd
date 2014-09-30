@@ -8,5 +8,7 @@ PIDFILE=/var/run/varnishncsa.pid
 {% endif %}
 
 LOGFILE={{ VARNISH_NCSALOG_FILE }}
-LOG_FORMAT="%{Host}i %h %l %u %t \"%r\" %s %b \"%{Referer}i\" \"%{User-agent}i\"" 
-DAEMON_OPTS="-a -w ${LOGFILE} -D -P ${PIDFILE}"
+LOG_FORMAT="{{ VARNISH_NCSALOG_FORMAT}}"
+
+DAEMON_OPTS="-a -w ${LOGFILE} -D -P ${PIDFILE} -F ${LOG_FORMAT}"
+

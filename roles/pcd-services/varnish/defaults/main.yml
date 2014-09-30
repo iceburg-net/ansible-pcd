@@ -22,7 +22,7 @@ VARNISH_HTTPD_HOST: 127.0.0.1
 
 VARNISH_NCSALOG_ENABLE: True
 VARNISH_NCSALOG_FILE: "{{ HTTPD_LOG_DIR }}/access/varnish.log"
-
+VARNISH_NCSALOG_FORMAT: '%{Host}i\t%h\t%l\t%u\t%t\t\"%r\"\t%s\t%O\t\"%{Referer}i\"\t\"%{User-agent}i\"'
 
 # List of hosts allowed to issue PURGE requests
 VARNISH_PURGE_HOSTS:
