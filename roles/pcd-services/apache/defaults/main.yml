@@ -23,6 +23,11 @@ APACHE_DISABLED_MODULES:
 APACHE_DEFAULT_LOG_LEVEL: warn
 APACHE_DEFAULT_LOG_FILE: "{{ HTTPD_LOG_DIR }}/access/access.log"
 
+# Set to False in inventory vars to disable Access logs (in virtualhosts as well)
+#  Useful when another logging agent is used (e.g. varnishncsa)
+APACHE_ENABLE_ACCESS_LOGS: True
+
+
 
 # list of modules to load
 apache_modules:

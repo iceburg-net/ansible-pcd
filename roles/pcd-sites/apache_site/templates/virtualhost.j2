@@ -4,7 +4,19 @@
         {% if SITE_ALIASES %}ServerAlias {{ SITE_ALIASES | join(" ") }}{% endif %}
         
         ServerAdmin {{ SITE_SERVERADMIN }}
+        
+        {% if APACHE_ENABLE_ACCESS_LOGS is defined and not APACHE_ENABLE_ACCESS_LOGS %}
+
+        # ansible: logging disabled via APACHE_ENABLE_ACCESS_LOGS 
+        #CustomLog {{ SITE_LOG_FILE }} {{ SITE_LOG_FORMAT }}
+        
+        {% else %}
+        
+        # ansible: logging enabled via APACHE_ENABLE_ACCESS_LOGS 
         CustomLog {{ SITE_LOG_FILE }} {{ SITE_LOG_FORMAT }}
+        
+        {% endif %}
+
         ErrorLog {{ SITE_LOG_ERRORS_FILE }}
         
         DocumentRoot {{ SITE_PATH }}/{{ SITE_DOCROOT }}
