@@ -27,9 +27,6 @@ sub vcl_recv {
   # URL MANIPULATIONS
   ###################
   
-  # lowercase request URL
-  set req.url = std.tolower(req.url);
-  
   # Remove Google Analytics parameters (https://github.com/mattiasgeniar/varnish-4.0-configuration-templates/blob/master/default.vcl)
   if (req.url ~ "(\?|&)(utm_source|utm_medium|utm_campaign|utm_content|gclid|cx|ie|cof|siteurl)=") {
     set req.url = regsuball(req.url, "&(utm_source|utm_medium|utm_campaign|utm_content|gclid|cx|ie|cof|siteurl)=([A-z0-9_\-\.%25]+)", "");
@@ -75,4 +72,10 @@ sub vcl_recv {
   if (req.http.cookie ~ "^\s*$") {
     unset req.http.cookie;
   }
+}
+
+
+sub vcl_hash {
+  # set cache key to lowercased req.url 
+  hash_data(std.tolower(req.url));
 }

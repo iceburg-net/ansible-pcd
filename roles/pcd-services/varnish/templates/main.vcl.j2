@@ -73,12 +73,15 @@ sub vcl_pipe {
 }
 
 
-{% if VARNISH_CACHE_HEADER %}
-sub vcl_deliver {
-  if(obj.hits > 0) {
-    set resp.http.{{ VARNISH_CACHE_HEADER }} = "hit";
+sub vcl_hash {
+  # conf/normalize.vcl has already set req.url based cache-key 
+  # hash_data(req.url);
+  
+  if (req.http.host) {
+    hash_data(req.http.host);
   } else {
-    set resp.http.{{ VARNISH_CACHE_HEADER }} = "miss";
+    hash_data(server.ip);
   }
+  
+  return (lookup);
 }
-{% endif %}

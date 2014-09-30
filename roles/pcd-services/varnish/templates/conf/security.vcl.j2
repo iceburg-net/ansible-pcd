@@ -1,7 +1,17 @@
 vcl 4.0;
 
 sub vcl_deliver {
+  # hide server + software versions from response headers
   unset resp.http.X-Powered-By;
   unset resp.http.Server;
   unset resp.http.Via;
+  unset resp.http.Varnish;
+  
+  {% if VARNISH_CACHE_HEADER %}
+  if(obj.hits > 0) {
+    set resp.http.{{ VARNISH_CACHE_HEADER }} = "hit";
+  } else {
+    set resp.http.{{ VARNISH_CACHE_HEADER }} = "miss";
+  }
+  {% endif %}
 }
