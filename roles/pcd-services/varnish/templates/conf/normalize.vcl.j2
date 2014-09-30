@@ -1,5 +1,7 @@
 vcl 4.0;
 
+import std;
+
 sub vcl_recv {
 
   # HEADER MANIPULATIONS
@@ -19,12 +21,14 @@ sub vcl_recv {
   
   
   # normalize Host header
-  # TODO: lowercase url + host
-  set req.http.Host = regsub(req.http.Host, ":[0-9]+", "");
+  set req.http.Host = std.tolower(regsub(req.http.Host, ":[0-9]+", ""));
   
   
   # URL MANIPULATIONS
   ###################
+  
+  # lowercase request URL
+  set req.url = std.tolower(req.url);
   
   # Remove Google Analytics parameters (https://github.com/mattiasgeniar/varnish-4.0-configuration-templates/blob/master/default.vcl)
   if (req.url ~ "(\?|&)(utm_source|utm_medium|utm_campaign|utm_content|gclid|cx|ie|cof|siteurl)=") {

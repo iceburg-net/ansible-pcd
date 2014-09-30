@@ -14,6 +14,7 @@
     src={{ item }}
     dest=/etc/ansible/conf.d/varnish/conf/{{ item | basename | replace(".j2","") }}
   with_fileglob: "../templates/conf/*.j2"
+  notify: varnish restart
 
 - name: ensure site-specific includes file exists
   lineinfile: 
@@ -27,6 +28,7 @@
     src={{ item }}
     dest=/etc/ansible/conf.d/varnish/sites/{{ item | basename | replace(".j2","") }}
   with_fileglob: "../templates/sites/*.j2"
+  notify: varnish restart
 
 - name: enable site-specific includes
   lineinfile: 
@@ -34,6 +36,7 @@
     state=present
     dest=/etc/ansible/conf.d/varnish/site-includes.vcl
   with_fileglob: "../templates/sites/*.j2"
+  notify: varnish restart
   
 - name: configure varnish initscript options
   template: 
