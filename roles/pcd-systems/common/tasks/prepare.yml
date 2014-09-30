@@ -21,6 +21,24 @@
   notify: 
     - sshd restart
 
-# ensure "nogroup" exists as a system group
-- name: add the group "nogroup"
-  group: name=nogroup system=yes state=present
+# ensure user common groups "nogroup" exists as a system group
+- name: add common groups
+  group: name={{ item }} system=yes state=present
+  with_items:
+    - nogroup
+    - ansible
+  
+  
+# Ensure /etc/ansible metadirs 
+##############################
+
+- name: ensure ansible-pcd metadirs
+  file: 
+    path={{ item }}
+    state=directory
+    owner=root
+    group=ansible
+    mode=0750
+    recurse=yes
+  with_items:
+    - /etc/ansible/conf.d

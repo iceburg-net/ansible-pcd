@@ -12,5 +12,5 @@
   
 - name: ensure cronic
   copy: src=cronic.sh dest=/usr/local/bin/cronic mode=0755
- 
+  
   

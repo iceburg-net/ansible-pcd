@@ -46,19 +46,6 @@
   include_vars: "{{ PCD_PRIVATE_DIR }}/vars/{{ inventory_hostname }}.yml"
   when: pcd_stat.stat.exists
   
-# Ensure /etc/ansible metadirs 
-##############################
-
-- name: ensure ansible-pcd metadirs
-  file: 
-    path={{ item }}
-    state=directory
-    owner=root
-    group=root
-    mode=0750
-    recurse=yes
-  with_items:
-    - /etc/ansible/conf.d
   
 # SELinux Detection
 ###################
