@@ -1,0 +1,19 @@
+vcl 4.0;
+
+acl purge_acl {
+  {% for item in VARNISH_PURGE_HOSTS %}
+  "{{ item }}";
+  {% endfor %}
+}
+
+
+sub vcl_recv {
+
+  if (req.method == "PURGE") {
+    if (client.ip ~ purge_acl) {
+       return(purge);
+    } else {
+       return(synth(403, "Unauthorized Purge"));
+    }
+  }
+}

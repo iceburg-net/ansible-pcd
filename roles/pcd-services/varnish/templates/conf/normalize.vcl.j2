@@ -1,0 +1,74 @@
+vcl 4.0;
+
+sub vcl_recv {
+
+  # HEADER MANIPULATIONS
+  ######################
+
+  # ensure X-Forwarded-For
+  if (req.restarts == 0) {
+    if (req.http.X-Forwarded-For) {
+      set req.http.X-Forwarded-For = req.http.X-Forwarded-For + ", " + client.ip;
+    } else {
+      set req.http.X-Forwarded-For = client.ip;
+    }
+  }
+  
+  # HOST MANIPULATIONS
+  ####################
+  
+  
+  # normalize Host header
+  # TODO: lowercase url + host
+  set req.http.Host = regsub(req.http.Host, ":[0-9]+", "");
+  
+  
+  # URL MANIPULATIONS
+  ###################
+  
+  # Remove Google Analytics parameters (https://github.com/mattiasgeniar/varnish-4.0-configuration-templates/blob/master/default.vcl)
+  if (req.url ~ "(\?|&)(utm_source|utm_medium|utm_campaign|utm_content|gclid|cx|ie|cof|siteurl)=") {
+    set req.url = regsuball(req.url, "&(utm_source|utm_medium|utm_campaign|utm_content|gclid|cx|ie|cof|siteurl)=([A-z0-9_\-\.%25]+)", "");
+    set req.url = regsuball(req.url, "\?(utm_source|utm_medium|utm_campaign|utm_content|gclid|cx|ie|cof|siteurl)=([A-z0-9_\-\.%25]+)", "?");
+    set req.url = regsub(req.url, "\?&", "?");
+    set req.url = regsub(req.url, "\?$", "");
+  }
+  
+  # Strip hash, server doesn't need it.
+  if (req.url ~ "\#") {
+    set req.url = regsub(req.url, "\#.*$", "");
+  }
+  
+  # Strip trailing ?
+  if (req.url ~ "\?$") {
+    set req.url = regsub(req.url, "\?$", "");
+  }
+  
+  
+  # COOKIE MANIPULATIONS
+  ######################
+  
+  #  "has_js" cookie
+  set req.http.Cookie = regsuball(req.http.Cookie, "has_js=[^;]+(; )?", "");
+  
+  # Google Analytics 
+  set req.http.Cookie = regsuball(req.http.Cookie, "__utm.=[^;]+(; )?", "");
+  set req.http.Cookie = regsuball(req.http.Cookie, "_ga=[^;]+(; )?", "");
+  set req.http.Cookie = regsuball(req.http.Cookie, "utmctr=[^;]+(; )?", "");
+  set req.http.Cookie = regsuball(req.http.Cookie, "utmcmd.=[^;]+(; )?", "");
+  set req.http.Cookie = regsuball(req.http.Cookie, "utmccn.=[^;]+(; )?", "");
+
+  # Quant Capital
+  set req.http.Cookie = regsuball(req.http.Cookie, "__qc.=[^;]+(; )?", "");
+  
+  # AddThis cookies
+  set req.http.Cookie = regsuball(req.http.Cookie, "__atuvc=[^;]+(; )?", "");
+
+  # Remove a ";" prefix in the cookie if present
+  set req.http.Cookie = regsuball(req.http.Cookie, "^;\s*", "");
+  
+  # Are there cookies left with only spaces or that are empty?
+  if (req.http.cookie ~ "^\s*$") {
+    unset req.http.cookie;
+  }
+}

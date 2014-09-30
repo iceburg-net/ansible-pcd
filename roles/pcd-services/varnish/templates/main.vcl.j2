@@ -1,0 +1,73 @@
+vcl 4.0;
+
+backend default {
+    .host = "{{ VARNISH_HTTPD_HOST }}";
+    .port = "{{ VARNISH_HTTPD_PORT }}";
+    .first_byte_timeout = 120s;
+    .connect_timeout    = 5s; 
+}
+
+# include "/etc/ansible/conf.d/varnish/conf/backends.vcl"
+include "/etc/ansible/conf.d/varnish/conf/purge.vcl";
+include "/etc/ansible/conf.d/varnish/conf/normalize.vcl";
+include "/etc/ansible/conf.d/varnish/conf/security.vcl";
+include "/etc/ansible/conf.d/varnish/site-includes.vcl";
+
+
+
+sub vcl_recv {
+
+  # Pass on POST,PUT,DELETE, etc. Only Cache GET and HEAD requests
+  if (req.method != "GET" && req.method != "HEAD") {
+    return (pass);
+  }
+  
+  # Remove cookies and attempt to return-from-cache static files
+  if (req.url ~ "^[^?]*\.(bmp|css|eot|gif|ico|jpeg|jpg|js|less|png|swf|txt|woff|xml)(\?.*)?$") {
+    unset req.http.Cookie;
+    return (hash);
+  }
+  
+  # Pipe large static assets directly from webserver 
+  if (req.url ~ "^[^?]*\.(doc|flv|mp[34]|pdf|rar|rtf|tar|tgz|gz|wav|zip)(\?.*)?$") {
+    unset req.http.Cookie;
+    return (pipe);
+  }
+  
+  # allow websockets
+  if (req.http.Upgrade ~ "(?i)websocket") {
+    return (pipe);
+  }
+  
+  # pass on http authorization requests
+  if(req.http.Authorization) {
+    return (pass);
+  }
+  
+  return (hash);
+}
+
+  
+sub vcl_pipe {
+  if(req.http.upgrade) {
+    # websockets requested
+    set bereq.http.upgrade = req.http.upgrade;
+  } else {
+  
+    # for non websockets, disallow further [keepalive] requests 
+    set bereq.http.Connection = "Close";
+  }
+  
+  return (pipe);
+}
+
+
+{% if VARNISH_CACHE_HEADER %}
+sub vcl_deliver {
+  if(obj.hits > 0) {
+    set resp.http.{{ VARNISH_CACHE_HEADER }} = "hit";
+  } else {
+    set resp.http.{{ VARNISH_CACHE_HEADER }} = "miss";
+  }
+}
+{% endif %}

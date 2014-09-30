@@ -3,8 +3,24 @@
 # varnish preparation tasks
 #
 
+
 - { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }
 - { include: prepare-redhat.yml, when: "ansible_os_family == 'RedHat'" }
 
-- name: copy the stock default vcl for reference
-  copy: src=varnish-4.default.vcl dest=/etc/varnish/varnish-4.default.vcl
+- name: ensure configuration directories
+  file: path={{ item }} state=directory group=ansible
+  with_items:
+    - "/etc/ansible/conf.d/varnish"
+    - "/etc/ansible/conf.d/varnish/sites"
+    - "/etc/ansible/conf.d/varnish/conf"
+    
+- name: add varnish user to ansible group
+  user: 
+    name=varnish
+    groups=ansible
+    append=yes
+    
+    
+    
+  
+

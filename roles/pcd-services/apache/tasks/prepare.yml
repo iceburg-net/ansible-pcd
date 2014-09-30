@@ -16,6 +16,7 @@
 - name: ensure configuration directories
   file: path={{ item }} state=directory
   with_items:
+    - "/etc/ansible/conf.d/apache"
     - "/etc/ansible/conf.d/apache/configs"
     - "/etc/ansible/conf.d/apache/modules"
 

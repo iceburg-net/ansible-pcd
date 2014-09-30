@@ -5,11 +5,37 @@
 
 - name: configure default varnish VCL
   template: 
-    src={{ VARNISH_DEFAULT_VCL_TEMPLATE }}
-    dest=/etc/varnish/default.vcl
+    src=main.vcl.j2
+    dest=/etc/ansible/conf.d/varnish/main.vcl
   notify: varnish restart
+  
+- name: template modular configurations
+  template: 
+    src={{ item }}
+    dest=/etc/ansible/conf.d/varnish/conf/{{ item | basename | replace(".j2","") }}
+  with_fileglob: "../templates/conf/*.j2"
 
-- name: configure varnish
+- name: ensure site-specific includes file exists
+  lineinfile: 
+    create=yes
+    line="vcl 4.0;"
+    state=present
+    dest=/etc/ansible/conf.d/varnish/site-includes.vcl
+    
+- name: template site-specific configurations
+  template: 
+    src={{ item }}
+    dest=/etc/ansible/conf.d/varnish/sites/{{ item | basename | replace(".j2","") }}
+  with_fileglob: "../templates/sites/*.j2"
+
+- name: enable site-specific includes
+  lineinfile: 
+    line='include "/etc/ansible/conf.d/varnish/sites/{{ item | basename | replace(".j2","") }}";'
+    state=present
+    dest=/etc/ansible/conf.d/varnish/site-includes.vcl
+  with_fileglob: "../templates/sites/*.j2"
+  
+- name: configure varnish initscript options
   template: 
     src=varnish.daemonopts.j2
     dest={{ os_sysvinit_defaults_dir }}/varnish

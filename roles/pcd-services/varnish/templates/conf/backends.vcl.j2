@@ -1,0 +1,28 @@
+vcl 4.0;
+
+# reference file
+
+backend local_1 {
+  .host = "127.0.0.1";
+  .port = "{{ VARNISH_HTTPD_PORT }}";
+}
+
+backend local_2 {
+  .host = "127.0.0.1";
+  .port = "{{ VARNISH_HTTPD_PORT }}";
+}
+
+import directors;
+
+sub vcl_init {
+  # see varnish docs for sticky session and other election methods.
+  #  use round_robin for now.
+  new localcluster = directors.round_robin();
+  localcluster.add_backend(local_1);
+  localcluster.add_backend(local_2);
+}
+
+sub vcl_recv {
+  set req.backend_hint = localcluster.backend(); 
+}
+

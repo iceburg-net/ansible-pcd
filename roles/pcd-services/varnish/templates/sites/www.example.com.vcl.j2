@@ -1,0 +1,31 @@
+vcl 4.0;
+
+# example file
+
+/*****
+
+backend example_com {
+  .host = "127.0.0.1";
+  .port = "{{ VARNISH_HTTPD_PORT }}";
+}
+
+
+
+sub vcl_recv {
+  if (req.http.host ~ "^www.example.com$")  { 
+    set req.backend = example_com; 
+    
+    # actions for www.example.com...
+    return (pipe);
+  }
+  
+  
+}
+
+sub vcl_deliver {
+  if (req.backend == example_com ) { 
+     # <do something>;
+  }   
+}
+
+******/

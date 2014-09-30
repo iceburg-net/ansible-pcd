@@ -14,13 +14,21 @@
 # Varnish listen address. Blank to listen on all IPv4 & IPv6 interfaces.
 VARNISH_ADDRESS: ""
 VARNISH_PORT: 8080
+VARNISH_STORAGE_SIZE: 164M
+
 
 VARNISH_HTTPD_PORT: 80
 VARNISH_HTTPD_HOST: 127.0.0.1
 
-# Path to jinja template to use as default VCL file
-VARNISH_DEFAULT_VCL_TEMPLATE: "{{ PCD_SERVICE_ROLES }}/varnish/templates/default.vcl.j2"
-VARNISH_STORAGE_SIZE: 164M
-
 VARNISH_NCSALOG_ENABLE: True
 VARNISH_NCSALOG_FILE: "{{ HTTPD_LOG_DIR }}/access/varnish.log"
+
+
+# List of hosts allowed to issue PURGE requests
+VARNISH_PURGE_HOSTS:
+  - 127.0.0.1
+  - localhost
+  
+# Name of Cache Header. Leave blank or set to False to disable.
+VARNISH_CACHE_HEADER: X-Varnish
+  

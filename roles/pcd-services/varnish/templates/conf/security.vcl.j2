@@ -1,0 +1,7 @@
+vcl 4.0;
+
+sub vcl_deliver {
+  unset resp.http.X-Powered-By;
+  unset resp.http.Server;
+  unset resp.http.Via;
+}
