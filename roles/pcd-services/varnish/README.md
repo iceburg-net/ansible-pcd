@@ -1,5 +1,5 @@
 Varnish
-#######
+=======
 
 
 Varnish is a frontend caching proxy. It sits in front of your "backend" 
@@ -22,9 +22,9 @@ Websockets are supported out of box.
 For site-specific configuration, add your template to templates/sites 
 and re-configure the varnish role on your server(s). 
 
-See www.example.com.vcl.j2 as an example.
+See templates/sites/www.example.com.vcl.j2 as an example.
 
-By default, varnish listens on port 8080 and expects backends to respond
+By default, our varnish listens on port 8080 and expects backends to respond
 on port 80. This allows you to test varnish on :8080 before commiting
 it to handle your production traffic. 
 
@@ -51,6 +51,10 @@ ansible-playbook -i inventory/iceburg.hosts iceburg-sites.yml --tags=configure
 ansible-playbook -i inventory/iceburg.hosts pcd_service.yml --extra-vars="PCD_TARGET_HOST=webservers PCD_TARGET_ROLE=varnish" --tags=configure
 
 ```
+
+To handle server-side logging you may consider disabling apache access logs via APACHE_ENABLE_ACCESS_LOGS, 
+and setting your sites to use SITE_LOG_FILE: "{{ HTTPD_LOG_DIR }}/access/varnish.log". After re-configuring
+your sites the AWStats will look at the varnish.log file.
 
 See the defaults/main.yml for more configuration options.
 

@@ -1,5 +1,5 @@
 s3ql
-####
+====
 
 
 s3ql is great for mounting object-based storage (think Amazon S3) as
@@ -11,5 +11,7 @@ metadata is stored at the remote end to keep it performant and
 workable -- meaning that you can't read the files/directories
 from your remote provider, but will first need to mount the
 filesystem using FUSE-based s3ql to see the contents. 
+
+It's a dependency of our backup application.
 
 @todo RedHat-compat
