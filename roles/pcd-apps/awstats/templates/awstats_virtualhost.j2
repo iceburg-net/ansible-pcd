@@ -15,6 +15,18 @@
 		require valid-user
 	</Directory>
 	
+	<Directory {{ awstats_app_dir }}/wwwroot/cgi-bin>
+	    Options None
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+        
+        AuthType Basic
+        AuthName stats
+        AuthUserFile {{ awstats_htpasswd_file }}
+        require valid-user
+    </Directory>
+	
 	Alias /classes/ "{{ awstats_app_dir }}/wwwroot/classes/"
 	Alias /css/ "{{ awstats_app_dir }}/wwwroot/css/"
 	Alias /icon/ "{{ awstats_app_dir }}/wwwroot/icon/"

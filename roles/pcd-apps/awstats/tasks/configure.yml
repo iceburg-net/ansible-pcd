@@ -3,7 +3,12 @@
 # pcd-apps/awstats configure
 #
 
-# @todo ensure site logs are owned by siteop, then run this under siteop's cron?
+# add awstats site
+- { include: "{{ pcd_task_add_apache_site }}", task: {
+      name: "{{ AWSTATS_SITE_NAME }}",
+      template: "{{ PCD_APP_ROLES }}/awstats/templates/awstats_virtualhost.j2",
+    }, sudo: False
+  }
 
 - name: run awstats_updateall.pl at specified interval
   cron: 
@@ -30,7 +35,7 @@
     state=present
   
 - name: ensure AWStats Totals script
-  copy:
+  template:
     dest="{{ awstats_docroot }}/index.php"
-    src="awstats-totals.php"
+    src="awstats-totals.php.j2"
     

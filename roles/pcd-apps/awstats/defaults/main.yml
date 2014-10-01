@@ -12,6 +12,10 @@ AWSTATS_HTPASSWD_PASS: "{{ private_user_pass }}"
 AWSTATS_CRON_MINUTE: 30
 AWSTATS_CRON_HOUR: 4
 
+# Use the PHP based JAWStats Frontend instead of awstats.pl 
+#  directly through cgi-bin
+AWSTATS_ENABLE_JAWSTATS_FRONTEND: True
+
 # more AWSTATS vars are registered in pcd-common/defaults/main.yml
 # ....
 

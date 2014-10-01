@@ -35,12 +35,11 @@
     dest="{{ AWSTATS_SITE_PATH }}/awstats_updateall.pl"
     src="awstats_updateall.pl"
     mode=0755
+    
+- name: install JAWStats-fork frontend
+  git: 
+    depth=1
+    dest={{ awstats_docroot }}/JAWStats
+    repo=git@github.com:webino/JAWStats.git
 
 - { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'", sudo: False }
-
-# add awstats site
-- { include: "{{ pcd_task_add_apache_site }}", task: {
-      name: "{{ AWSTATS_SITE_NAME }}",
-      template: "{{ PCD_APP_ROLES }}/awstats/templates/awstats_virtualhost.j2",
-    }, sudo: False
-  }

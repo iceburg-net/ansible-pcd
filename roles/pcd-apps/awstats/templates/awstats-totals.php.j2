@@ -61,7 +61,13 @@
 /**
  * The URL of the AWStats script.
  */
-$AWStatsURL = '/awstats/awstats.pl';
+
+{% if AWSTATS_ENABLE_JAWSTATS_FRONTEND %}
+  $AWStatsURL = 'JAWStats/';
+{% else %}
+  $AWStatsURL = '/awstats/awstats.pl';
+{% endif %}
+
 
 /**
  * Set your language.
@@ -464,7 +470,11 @@ if ($NotViewed == 'columns'):
 <tr>
 <?php
 endif;
+{% if AWSTATS_ENABLE_JAWSTATS_FRONTEND %}
 $url = $_SERVER['SCRIPT_NAME']."?month=$month&year=$year&sort=";
+{% else %}
+$url = $_SERVER['SCRIPT_NAME']."?month=$month&year=$year&sort=";
+{% endif %}
 ?>
 <td bgcolor="#ECECEC" class="l" nowrap>&nbsp;<a href="<?php echo $url; ?>config" class="h"><?php echo $message[7]; ?></a>
 <td width="80" bgcolor="#FFB055"><a href="<?php echo $url; ?>unique" class="h"><?php echo $message[11]; ?></a>
@@ -504,6 +514,11 @@ echo "\n";
 ?>
 </table>
 
+<br><br><center><b>AWStats Totals 1.18</b> - <a
+href="http://www.telartis.nl/xcms/awstats">&copy; 2004-2011 Telartis BV</a></center><br><br>
+
+</body>
+</html> 
 <br><br><center><b>AWStats Totals 1.18</b> - <a
 href="http://www.telartis.nl/xcms/awstats">&copy; 2004-2011 Telartis BV</a></center><br><br>
 
