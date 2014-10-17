@@ -28,7 +28,6 @@ SSLCipherSuite {{ apache_ssl_cipher_suite }}
 #SSLCipherSuite RC4-SHA:AES128-SHA:HIGH:MEDIUM:!aNULL:!MD5
 #SSLHonorCipherOrder on
 
-# enable only secure protocols: SSLv3 and TLSv1, but not SSLv2
-SSLProtocol all -SSLv2
+SSLProtocol {{ apache_ssl_protocol }}
 
 

@@ -59,8 +59,12 @@ apache_modules:
 # mod_ssl
 #########
 
+# TLS only (SSLv2, SSLv3 disabled) 
+apache_ssl_protocol: "all -SSLv2 -SSLv3"
+
 apache_ssl_cipher_suite: "HIGH:MEDIUM:!aNULL:!MD5"
 # rhel = ALL:!ADH:!EXPORT:!SSLv2:RC4+RSA:+HIGH:+MEDIUM:+LOW
+# speed optimized = RC4-SHA:AES128-SHA:HIGH:MEDIUM:!aNULL:!MD5
 
 
 # mod_status
