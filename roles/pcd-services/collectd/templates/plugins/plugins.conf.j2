@@ -5,8 +5,9 @@
 
 LoadPlugin cpu
 LoadPlugin df
-LoadPlugin interface
+LoadPlugin swap
 LoadPlugin memory
+LoadPlugin interface
 LoadPlugin network
 
 LoadPlugin syslog
@@ -14,8 +15,6 @@ LoadPlugin aggregation
 
 ##LoadPlugin load
 ##LoadPlugin ping
-##LoadPlugin swap
-
 
 ####
 ## Activated Plugin Configuration
@@ -36,16 +35,19 @@ LoadPlugin aggregation
     LogLevel "info" # debug|info|notice|warning|err
 </Plugin>
 
+<Plugin "swap">
+    ReportByDevice false
+    ReportBytes true
+</Plugin>
+
+
 #<Plugin "ping">
 #  Host "google.com"
 #  Interval 15
 #  Timeout 14
 #</Plugin>
 
-#<Plugin "swap">
-#    ReportByDevice false
-#    ReportBytes true
-#</Plugin>
+
 
 
 
