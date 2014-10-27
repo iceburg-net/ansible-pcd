@@ -14,3 +14,52 @@
   copy: src=cronic.sh dest=/usr/local/bin/cronic mode=0755
   
   
+- name: create swapfile
+  command: 
+    fallocate -l {{ SYSTEM_SWAP_SIZE }}  /swapfile
+    creates=/swapfile
+  register: mkswap
+  when: SYSTEM_SWAP_ENABLE and ansible_swaptotal_mb < 1
+  
+- name: set swapfile permissions
+  file:
+    path=/swapfile
+    owner=root
+    group=root
+    mode=0600
+    state=file
+  when: mkswap|changed
+  
+- name: initialize swapfile
+  command: mkswap /swapfile
+  when: mkswap|changed
+  
+- name: register swapfile
+  mount:
+    fstype=swap
+    src=/swapfile
+    name=none
+    opts=sw
+    dump=0
+    passno=0
+    state=present
+  register: mntswap
+  when: mkswap|changed
+  
+- name: add swapfile to running system swap
+  command: swapon /swapfile
+  when: mntswap|changed
+  
+- name: set vm.swappiness
+  sysctl:
+    name=vm.swappiness 
+    value={{ SYSTEM_SWAP_SWAPINESS }} 
+    state=present
+    sysctl_set=yes
+    reload=yes
+  when: mntswap|changed
+    
+
+
+
+  

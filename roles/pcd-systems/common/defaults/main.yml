@@ -1,0 +1,13 @@
+---
+##
+#  system-common defaults
+#
+
+# Ensures Swap is Enabled
+SYSTEM_SWAP_ENABLE: True
+
+# If we enable swap, what size should it be?
+SYSTEM_SWAP_SIZE: "512MB"
+
+# If we enable swap, define level of vm.swapiness? [0-100], 0 disables swap.
+SYSTEM_SWAP_SWAPINESS: 1
