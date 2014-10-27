@@ -19,7 +19,7 @@ LoadPlugin match_regex
     <Match regex>
       Plugin "^memory$"
       TypeInstance "^cached|buffered"
-    </Match>
+    </Match> 
     Target stop
   </Rule>
   
@@ -33,7 +33,7 @@ LoadPlugin match_regex
     Target stop
   </Rule>
   
-  <Rule> # limit interface to octets (traffic)
+  <Rule> # limit interface to octets(traffic)
     <Match regex>
       Plugin "^interface$"
       Type "^if_packets|if_errors$"
@@ -45,6 +45,14 @@ LoadPlugin match_regex
     <Match regex>
       Plugin "^df$"
       TypeInstance "^reserved"
+    </Match>
+    Target stop
+  </Rule>
+  
+  <Rule> # ignore swap io, swap cached, limit to free + used
+    <Match regex>
+      Plugin "^swap|swap_io$"
+      TypeInstance "^cached|in|out$"
     </Match>
     Target stop
   </Rule>
