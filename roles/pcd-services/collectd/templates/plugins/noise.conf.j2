@@ -7,10 +7,10 @@
 LoadPlugin match_regex
 
 <Chain "PostCache">
-  <Rule> # exclude cpu interrupts, nice
+  <Rule> # exclude cpu interrupts, nice, idle
     <Match regex>
       Plugin "^cpu$"
-      TypeInstance "^interrupt|nice|softirq"
+      TypeInstance "^interrupt|nice|softirq|idle"
     </Match>
     Target stop
   </Rule>
