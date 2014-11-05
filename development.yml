@@ -1,0 +1,45 @@
+---
+##
+# development setup
+#
+
+# provision development system(s)
+- { include: pcd_system.yml }
+
+
+# configure development system(s) as a webserver
+- name: "webserver configuration"
+  hosts: webservers
+  remote_user: root
+  
+  roles:
+    - {role: pcd-common, tags: ['prepare','configure']}
+    - pcd-services/mysql
+    - pcd-services/apache
+    
+# deploy development website
+
+- name: "deploy development site"
+  hosts: webservers
+  remote_user: root
+  
+  vars:
+    # define site names to disable
+    # @todo implement disabling of sites
+    site_disabled_list: []
+    
+    default_http_site: debian.dev
+    
+  
+  roles:
+    - {role: pcd-common, tags: ['prepare','configure','deploy']}
+    - {role: pcd-sites/apache_site, site_name: "debian.dev", site_org: "development" }
+    
+  tasks: 
+    - name: redirect to default site
+      template:
+        src={{ PCD_SITE_ROLES }}/apache_site/templates/redirect_default_vhost.j2
+        dest=/etc/ansible/conf.d/apache/virtualhosts.enabled/000_default_redirect
+      notify: 
+        - apache reload
+      when: default_http_site is defined and default_http_site

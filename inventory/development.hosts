@@ -1,0 +1,15 @@
+# hosts
+#######
+[development-webservers]
+debian.dev
+
+
+
+# aggregates
+############
+[webservers:children]
+development-webservers
+
+[development:children]
+development-webservers
+

@@ -1,0 +1,19 @@
+---
+#  development Inventory Variables
+
+# Identity defaults
+###################
+PCD_DEFAULT_ORG: development
+PCD_DEFAULT_USER_EMAIL: gone.fishing@iceburg.net
+
+
+# Apache
+########
+
+# enable directory listings, mod_status
+APACHE_DISABLED_MODULES:
+  - cgi
+  - negotiation
+#  - status
+#  - autoindex
+  
