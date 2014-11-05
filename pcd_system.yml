@@ -13,6 +13,7 @@
 - name: "pcd system"
   hosts: "{{ PCD_TARGET_HOST }}"
   remote_user: root
+  gather_facts: no
 
   vars_prompt:
     - name: "PCD_TARGET_HOST"
@@ -22,10 +23,19 @@
   vars:
     # @todo amazon is deprecated, fix + test
     pcd_supported_platforms: ['CentOS-7','CentOS-6','Debian-7','Debian-6']
-    pcd_platform: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}"
     
   pre_tasks:
   
+    - name: ensure ansible prerequisites are installed
+      script: roles/pcd-systems/ansible_prereqs.sh
+      register: script_result
+      changed_when: "'SUCCESS' in script_result.stdout"
+      
+    - name: gather system facts
+      setup:
+      
+    - set_fact: pcd_platform="{{ ansible_distribution }}-{{ ansible_distribution_major_version }}"
+      
     # ensure detected platform is supported
     - fail: msg="warning! {{ pcd_platform }} is an untested platform!"
       when: pcd_platform not in pcd_supported_platforms
