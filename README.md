@@ -73,6 +73,10 @@ example that provisions an entire environemnt and deploys websites. See:
   * [webservers.yml](https://github.com/iceburg-net/ansible-pcd/blob/master/webservers.yml)
   * [iceburg-sites.yml](https://github.com/iceburg-net/ansible-pcd/blob/master/iceburg-sites.yml)
   
+Other examples provided;
+  * A minimalistic [development environment playbook](https://github.com/iceburg-net/ansible-pcd/blob/master/development.yml) to help you match your production environment locally
+  * A [security playbook](https://github.com/iceburg-net/ansible-pcd/blob/master/security.yml) that can be used to update/patch all your systems.
+  
 
 #### examples
 
@@ -97,7 +101,7 @@ ansible-playbook -i inventory/iceburg.hosts pcd_site.yml -t deploy -l ocean-1.ic
 
 #### connecting, initial provisioning
 
-The [pcd-systems](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-systems
+The [pcd-systems](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-systems)
 roles provision hosts with a consistent environment. They ensure the 
 root user's authorized keys for ansible to connect, set the fqdn properly, 
 install a common set of packages, and tighten security. 

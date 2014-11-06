@@ -1,0 +1,17 @@
+<VirtualHost {{ SITE_HTTP_IP }}:{{ SITE_HTTP_PORT }}>
+        ServerName {{ site_name }}
+        {% if SITE_ALIASES %}ServerAlias {{ SITE_ALIASES | join(" ") }}{% endif %}
+        
+        ServerAdmin {{ SITE_SERVERADMIN }}
+        CustomLog {{ SITE_LOG_FILE }} {{ SITE_LOG_FORMAT }}
+        
+        DocumentRoot /shared
+        <Directory /shared>
+                Order allow,deny
+                Allow from all
+                
+                Options Indexes FollowSymLinks
+                AllowOverride All
+        </Directory>
+
+</VirtualHost>

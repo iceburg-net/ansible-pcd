@@ -1,7 +1,20 @@
 ---
-##
-# development setup
+###
+# development environment
 #
+# automates the provisioning of minimalistic production environment meant to 
+# run in a local or lab VM. The development environment  is stripped of 
+# unecessary components such as banckups and awstats statistics.
+#
+# Assumes 
+#   * the PCDROOT/inventory/development.hosts is used
+#   * a VM is running as "debian.dev" with a /shared directory pointing to your 
+#     development folder.
+#
+# Visiting http://debian.dev/ will bring up a directory listing of the /shared folder 
+#  + NOTE apache's autoindex module is enabled (via development.yml in group_vars)
+#
+###
 
 # provision development system(s)
 - { include: pcd_system.yml }
@@ -17,29 +30,14 @@
     - pcd-services/mysql
     - pcd-services/apache
     
+    
 # deploy development website
 
 - name: "deploy development site"
   hosts: webservers
   remote_user: root
   
-  vars:
-    # define site names to disable
-    # @todo implement disabling of sites
-    site_disabled_list: []
-    
-    default_http_site: debian.dev
-    
-  
   roles:
     - {role: pcd-common, tags: ['prepare','configure','deploy']}
     - {role: pcd-sites/apache_site, site_name: "debian.dev", site_org: "development" }
     
-  tasks: 
-    - name: redirect to default site
-      template:
-        src={{ PCD_SITE_ROLES }}/apache_site/templates/redirect_default_vhost.j2
-        dest=/etc/ansible/conf.d/apache/virtualhosts.enabled/000_default_redirect
-      notify: 
-        - apache reload
-      when: default_http_site is defined and default_http_site

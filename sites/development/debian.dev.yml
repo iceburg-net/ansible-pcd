@@ -1,0 +1,10 @@
+---
+##
+# Site definition. Merges with roles/pcd-sites/site/vars/site_defaults.yml
+#
+
+SITE_NAME: debian.dev
+
+# uses a custom virtualhost template (debian.dev-apache.h2)
+# assumes /shared  links to my development directory on host (e.g. /home/nesta/git/ )
+
