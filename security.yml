@@ -8,14 +8,8 @@
 
 
 - name: "pcd security"
-  hosts: "{{ PCD_TARGET_HOST }}"
+  hosts: all
   remote_user: root
-
-  vars_prompt:
-    - name: "PCD_TARGET_HOST"
-      prompt: "PCD_TARGET_HOST : Target Host/Group"
-      default: "all"
-      
     
   pre_tasks:
     - name: group by distribution type
