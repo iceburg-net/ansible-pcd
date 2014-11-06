@@ -3,7 +3,14 @@
 #  pcd-services/httpd defaults
 #
 
-# more HTTPD vars are registered in pcd-common/defaults/main.yml
-# ....
+# Global HTTPD vars (registered in pcd-common/defaults/main.yml)
+#   HTTPD_HTTP_PORT
+#   HTTPD_HTTPS_PORT
+#   HTTPD_LOG_DIR
+#   HTTPD_LOG_FORMAT
+#   HTTPD_USER
+#   HTTPD_USER_GROUP
+#   HTTPD_USER_HOME
+#   HTTPD_SSL_DIR
 
 httpd_user_key: "{{ PCD_KEYS_DIR }}/{{ PCD_DEFAULT_SITE_ORG }}+{{ HTTPD_USER }}.key"

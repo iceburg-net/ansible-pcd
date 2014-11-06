@@ -8,18 +8,17 @@ private_user_pass: "{{ PCD_DEFAULT_USER_PASS }}"
 LIBRATO_APIKEY: !!null
 LIBRATO_EMAIL: "{{ PCD_DEFAULT_USER_EMAIL }}"
 
-
 #
-# override credentials used by roles
+# example credential overrides
 #
 
 MYSQL_ROOT_PASSWORD: !!null
 
-#nullmailer_smtp_host: smtp.mandrillapp.com
-#nullmailer_smtp_auth: True
-#nullmailer_smtp_user: webmaster@iceburg.net
-#nullmailer_smtp_pass: key...
+# nullmailer_smtp_host: smtp.mandrillapp.com
+# nullmailer_smtp_auth: True
+# nullmailer_smtp_user: webmaster@iceburg.net
+# nullmailer_smtp_pass: key...
 
 
-#backup_s3ql_username: GOOGL...
-#backup_s3ql_password: ZaNMs...
+# backup_s3ql_username: GOOGL...
+# backup_s3ql_password: ZaNMs...

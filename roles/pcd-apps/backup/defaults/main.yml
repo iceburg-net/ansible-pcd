@@ -3,6 +3,12 @@
 #  pcd-apps/backup defaults
 #
 
+# Global BACKUP vars (registered in pcd-common/defaults/main.yml)
+#   BACKUP_USER
+#   BACKUP_USER_HOME
+#   BACKUP_RSYNC_INCLUDES_DIR
+#   BACKUP_RSYNC_SITES_FILE
+
 
 backup_mysql_target: "{{ backup_target_dir }}/{{ ansible_hostname }}-mysql"
 backup_files_target: "{{ backup_target_dir }}/{{ ansible_hostname }}-files"
