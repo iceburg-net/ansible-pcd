@@ -7,7 +7,7 @@
 
 
 # provision systems
-- { include: pcd_system.yml, PCD_TARGET_HOST: "all" }
+- { include: pcd_system.yml }
 
 
 # prepare and configure webservers

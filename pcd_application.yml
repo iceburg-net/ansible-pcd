@@ -2,25 +2,34 @@
 ##
 # prepare|configure|deploy a application
 #
-#  preparation tasks are typically executed ONCE per host.
+#  1. specify the application to apply by passing the PCD_ROLE variable
 #
-#   application and service preparation ensures any application/service
-#      pre-requistetes such as package installations, database setup, &c.
-
+#  2. -optionally- limit the hosts via --limit, and tasks via --tags 
+#
+#  e.g. ansible-playbook -i inventory/my.hosts pcd_application.yml \
+#          --limit=webservers --tags=deploy -e PCD_ROLE=myapp
+#    
+#  + `prepare` tasks typically handle ONE-TIME prerequisites such as
+#    dependency installations, user account creations, database setup, &c. 
+#    
+#  + `configure` tasks typically execute more often, whenever
+#    configuration changes are made. E.g. to update a cron schedule
+#
+#  + `deploy` tasks typically execute most often, whenever a
+#    application code changes and needs to be deployed
+#
+#  + If no tags are passed, all tasks will be executed.   
+#
 
 - name: "pcd application"
-  hosts: "{{ PCD_TARGET_HOST }}"
+  hosts: all
   remote_user: root
   
-  vars_prompt:
-    - name: "PCD_TARGET_HOST"
-      prompt: "PCD_TARGET_HOST : Target Host/Group"
-      default: "all"
-      
-    - name: "PCD_TARGET_ROLE"
-      prompt: "PCD_TARGET_ROLE : Application Role to Apply"
+  pre_tasks:
+    fail: msg="Please specify the role to execute by passing the PCD_ROLE variable"
+    when: PCD_ROLE is not defined
   
   roles:
     - {role: pcd-common, tags: ['prepare','configure','deploy']}
-    - pcd-apps/{{ PCD_TARGET_ROLE }}
+    - {role: pcd-apps/{{ PCD_ROLE }}, when: PCD_ROLE is defined } 
     

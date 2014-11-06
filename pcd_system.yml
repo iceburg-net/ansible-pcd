@@ -1,24 +1,27 @@
 ---
 ##
-# prepare|configure systems
+# prepare|configure|deploy systems
 #
-#  preparation tasks are typically executed ONCE per host.
+#  1. (optionally) limit the hosts via --limit, and tasks via --tags 
 #
-#   system preparation sets the root user's authorized key and ensures a
-#      consistent, secure operating system for ansible-pcd autiomation.
+#  e.g. ansible-playbook -i inventory/my.hosts pcd_system.yml \
+#          --limit=nashville-app-1.iceburg.net --tags=configure 
+#    
+#  + `prepare` tasks typically handle ONE-TIME prerequisites such as setting
+#    the hostname, preparing ssh public key authentication and root user's key,
+#    ensure /etc/ansible metadirs, &c.  
+#    
+#  + `configure` tasks typically execute more often, whenever
+#    configuration changes are made. E.g. change swap size
 #
-#   + typically executed with --ask-pass option on first execution
-
+#  + If no tags are passed, all tasks will be executed.   
+#
 
 - name: "pcd system"
-  hosts: "{{ PCD_TARGET_HOST }}"
+  hosts: all
   remote_user: root
   gather_facts: no
 
-  vars_prompt:
-    - name: "PCD_TARGET_HOST"
-      prompt: "PCD_TARGET_HOST : Target Host/Group"
-      default: "all"
       
   vars:
     # @todo amazon is deprecated, fix + test

@@ -2,31 +2,40 @@
 ##
 # prepare|configure|deploy a site
 #
-#   preparing a site sets up mysql databases &c
+#  1. specify the site to apply by passing the PCD_SITE_NAME variable
 #
-#   configuring a site adjust server/virtualhost definitions &c
+#  2. specify the organization the site belongs to by passing PCD_SITE_ORG 
 #
-#   deploying a site performs git checkouts &c
+#  3. -optionally- limit the hosts via --limit, and tasks via --tags 
+#
+#  e.g. ansible-playbook -i inventory/my.hosts pcd_site.yml --limit=webservers \
+#         --extra-vars="PCD_SITE_NAME=www.mysite.com PCD_SITE_ORG=myorg"
+#    
+#  + `prepare` tasks typically handle ONE-TIME prerequisites such as
+#    setting up mysql databases.
+#    
+#  + `configure` tasks typically execute more often, whenever configuration
+#    changes such as updating a virtualhost definition are made.
+#
+#  + `deploy` tasks typically execute most often, performing git checkouts &c.
+#
+#  + If no tags are passed, all tasks will be executed. 
 #
 
 
 - name: "pcd site"
-  hosts: "{{ PCD_TARGET_HOST }}"
+  hosts: all
   remote_user: root
   
   vars_prompt:
-    - name: "PCD_TARGET_HOST"
-      prompt: "PCD_TARGET_HOST : Target Host/Group"
-      default: "webservers"
+    - name: "PCD_SITE_NAME"
+      prompt: "PCD_SITE_NAME : Site Name"
       
-    - name: "PCD_TARGET_SITE_NAME"
-      prompt: "PCD_TARGET_SITE_NAME : Site Name"
-      
-    - name: "PCD_TARGET_SITE_ORG"
-      prompt: "PCD_TARGET_SITE_ORG : Site Organization"
+    - name: "PCD_SITE_ORG"
+      prompt: "PCD_SITE_ORG : Site Organization"
       
 
   roles:
     - {role: pcd-common, tags: ['prepare','configure','deploy']}
-    - {role: pcd-sites/apache_site, site_name: "{{ PCD_TARGET_SITE_NAME }}", site_org: "{{ PCD_TARGET_SITE_ORG }}" }
+    - {role: pcd-sites/apache_site, site_name: "{{ PCD_SITE_NAME }}", site_org: "{{ PCD_SITE_ORG }}" }
     

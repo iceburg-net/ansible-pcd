@@ -1,26 +1,32 @@
 ---
 ##
-# prepare|configure a service
+# prepare|configure|deploy a service
 #
-#  preparation tasks are typically executed ONCE per host.
+#  1. specify the service to apply by passing the PCD_ROLE variable
 #
-#   application and service preparation ensures any application/service
-#      pre-requistetes such as package installations, database setup, &c.
+#  2. -optionally- limit the hosts via --limit, and tasks via --tags 
+#
+#  e.g. ansible-playbook -i inventory/my.hosts pcd_service.yml \
+#          --limit=dbservers --tags=configure -e PCD_ROLE=mysql
+#    
+#  + `prepare` tasks typically handle ONE-TIME prerequisites such as
+#    dependency installations, user account creations, database setup, &c. 
+#    
+#  + `configure` tasks typically execute more often, whenever
+#    configuration changes are made. E.g. to update a cron schedule
+#
+#  + If no tags are passed, all tasks will be executed.   
+#
 
-
-- name: "pcd service"
-  hosts: "{{ PCD_TARGET_HOST }}"
+- name: "pcd application"
+  hosts: all
   remote_user: root
   
-  vars_prompt:
-    - name: "PCD_TARGET_HOST"
-      prompt: "PCD_TARGET_HOST : Target Host/Group"
-      default: "all"
-      
-    - name: "PCD_TARGET_ROLE"
-      prompt: "PCD_TARGET_ROLE : Service Role to Apply"
+  pre_tasks:
+    fail: msg="Please specify the role to execute by passing the PCD_ROLE variable"
+    when: PCD_ROLE is not defined
   
   roles:
-    - {role: pcd-common, tags: ['prepare','configure']}
-    - pcd-services/{{ PCD_TARGET_ROLE }}
+    - {role: pcd-common, tags: ['prepare','configure','deploy']}
+    - {role: pcd-services/{{ PCD_ROLE }}, when: PCD_ROLE is defined } 
     
