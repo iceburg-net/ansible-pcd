@@ -50,7 +50,7 @@
 #######################
 
 - name: set root@localhost user's password
-  mysql_user: name=root host=localhost password={{ MYSQL_ROOT_PASSWORD }} login_host=127.0.0.1 login_user=root login_password=""
+  mysql_user: name=root host=localhost password={{ MYSQL_ROOT_PASSWORD }} login_host=127.0.0.1
   ignore_errors: yes
 
 - name: register root user credentials
