@@ -211,3 +211,5 @@ developer-todo
 * map system uuid => fqdn to more easily identify remote backups
 * make awstats apache/nginx agnostic, set inventory preference for nginx|apache
 * iptables role to compliment pptpd and openvpn [ferm!]
+* backup /etc/ansible / migrate to rclone or rsnapshot based backups?
+* refactor / rethink shared tasks. incompatible w/ ansible 1.8... ACK!

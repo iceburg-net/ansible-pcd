@@ -1,0 +1,5 @@
+
+# syncthing-syncthing handlers
+
+- name: syncthing restart
+  service: name=syncthing state=restarted

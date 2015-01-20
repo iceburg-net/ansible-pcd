@@ -1,0 +1,43 @@
+---
+##
+#  pcd-services/syncthing defaults 
+#
+
+# TODO: mechanism to fetch latest version?
+SYNCTHING_VERSION: 0.10.20
+
+SYNCTHING_USER: syncthing
+SYNCTHING_USER_HOME: /home/syncthing
+
+SYNCTHING_LISTEN_ADDRESS: "0.0.0.0:22000"
+SYNCTHING_LOCAL_ANNOUNCE: "false"
+SYNCTHING_GLOBAL_ANNOUNCE: "true"
+SYNCTHING_GLOBAL_ANNOUNCE_SERVER: "udp4://announce.syncthing.net:22026"
+
+SYNCTHING_GUI: true
+SYNCTHING_GUI_TLS: true
+SYNCTHING_GUI_ADDRESS: 127.0.0.1:8080
+SYNCTHING_GUI_USER: "{{ private_user_name }}"
+SYNCTHING_GUI_PASS: "{{ private_user_pass }}"
+SYNCTHING_GUI_API_KEY: ""
+
+
+syncthing_dir: "{{ SYNCTHING_USER_HOME }}/bin"
+
+serf_architecture:
+  x86_64: amd64
+  i386: 386
+  armv5l: armv5
+  armv6l: armv6
+  armv7l: armv7
+
+syncthing_url: https://github.com/syncthing/syncthing/releases/download/v{{SYNCTHING_VERSION}}/syncthing-{{ansible_system|lower}}-{{serf_architecture[ansible_architecture]}}-v{{SYNCTHING_VERSION}}.tar.gz
+
+
+syncthing_DIR: /usr/local/bin
+syncthing_DB_DIR: /var/syncthing/db
+syncthing_PORT: 22026
+
+syncthing_tgz: syncthing-linux-{{ 'amd64' if ansible_architecture == 'x86_64' else '386' }}.tar.gz
+
+

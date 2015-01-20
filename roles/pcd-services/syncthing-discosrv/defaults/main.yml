@@ -1,0 +1,23 @@
+---
+##
+#  pcd-services/discosrv defaults 
+#
+
+
+DISCOSRV_USER: syncthing
+DISCOSRV_USER_HOME: /home/syncthing
+
+DISCOSRV_PORT: 22026
+
+
+discosrv_dir: "{{ DISCOSRV_USER_HOME }}/var/discosrv"
+discosrv_bin: "{{ DISCOSRV_USER_HOME }}/bin/discosrv"
+
+serf_architecture:
+  x86_64: amd64
+  i386: 386
+  armv5l: armv5
+  armv6l: armv6
+  armv7l: armv7
+
+discosrv_url: http://build.syncthing.net/job/discosrv/lastSuccessfulBuild/artifact/discosrv-{{ansible_system|lower}}-{{serf_architecture[ansible_architecture]}}.tar.gz

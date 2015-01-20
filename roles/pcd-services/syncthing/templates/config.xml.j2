@@ -1,0 +1,37 @@
+<configuration version="7">
+    
+    {% if SYNCTHING_GUI %}
+    
+    <gui enabled="true" {% if SYNCTHING_GUI_TLS %}tls="true"{% endif %}>
+        <address>{{ SYNCTHING_GUI_ADDRESS }}</address>
+        <user>{{ SYNCTHING_GUI_USER }}</user>
+        <password>{{ SYNCTHING_GUI_PASS }}</password>
+        <apikey></apikey>
+    </gui>
+    
+    {% endif %}
+
+    <options>
+        <listenAddress>{{ SYNCTHING_LISTEN_ADDRESS }}</listenAddress>
+        <globalAnnounceServer>{{ SYNCTHING_GLOBAL_ANNOUNCE_SERVER }}</globalAnnounceServer>
+        <globalAnnounceEnabled>{{ SYNCTHING_GLOBAL_ANNOUNCE }}</globalAnnounceEnabled>
+        <localAnnounceEnabled>{{ SYNCTHING_LOCAL_ANNOUNCE }}</localAnnounceEnabled>
+        <localAnnouncePort>21025</localAnnouncePort>
+        <localAnnounceMCAddr>[ff32::5222]:21026</localAnnounceMCAddr>
+        <maxSendKbps>0</maxSendKbps>
+        <maxRecvKbps>0</maxRecvKbps>
+        <reconnectionIntervalS>60</reconnectionIntervalS>
+        <startBrowser>false</startBrowser>
+        <upnpEnabled>false</upnpEnabled>
+        <upnpLeaseMinutes>0</upnpLeaseMinutes>
+        <upnpRenewalMinutes>30</upnpRenewalMinutes>
+        <urAccepted>0</urAccepted>
+        <urUniqueID></urUniqueID>
+        <restartOnWakeup>true</restartOnWakeup>
+        <autoUpgradeIntervalH>12</autoUpgradeIntervalH>
+        <keepTemporariesH>24</keepTemporariesH>
+        <cacheIgnoredFiles>true</cacheIgnoredFiles>
+        <progressUpdateIntervalS>5</progressUpdateIntervalS>
+        <symlinksEnabled>true</symlinksEnabled>
+    </options>
+</configuration>

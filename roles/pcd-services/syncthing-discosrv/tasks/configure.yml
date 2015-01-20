@@ -1,0 +1,15 @@
+---
+##
+# pcd-services/syncthing-discosrv configure
+#
+
+- name: configure discosrv
+  template:
+    dest=/etc/init.d/discosrv
+    src=sysvinit.j2
+    mode=0755
+  notify: 
+    - discosrv restart
+  
+- name: ensure discosrv starts on boot
+  service: name=discosrv enabled=yes

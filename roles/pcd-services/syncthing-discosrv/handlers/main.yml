@@ -1,0 +1,5 @@
+
+# syncthing-discosrv handlers
+
+- name: discosrv restart
+  service: name=discosrv state=restarted

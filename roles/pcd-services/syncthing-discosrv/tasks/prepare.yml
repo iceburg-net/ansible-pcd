@@ -1,0 +1,50 @@
+---
+##
+# pcd-services/syncthing-discosrv prepare
+#
+
+- name: add discosrv user
+  user:
+    name={{ DISCOSRV_USER }}
+    home={{ DISCOSRV_USER_HOME }}
+    system=yes
+    
+    
+- name: ensure discosrv directories
+  file:
+    path={{ item }}
+    state=directory
+    recurse=yes
+    mode=0700
+    owner={{ DISCOSRV_USER }}
+    group={{ DISCOSRV_USER }}
+  with_items:
+    - "{{ discosrv_dir }}"
+    - "{{ discosrv_bin | dirname }}"
+
+
+# to upgrade, remove /home/syncthing/bin/discosrv and re-run
+
+- stat: path={{ discosrv_bin }}
+  register: stat_discosrv
+  
+- name: download distribution
+  uri:
+    url={{ discosrv_url }}
+    dest=/tmp/discosrv.tar.gz
+    follow_redirects=all
+  when: not stat_discosrv.stat.exists
+  ignore_errors: true # URI should really handle 304 codes...?
+    
+- name: extract distribution
+  command: tar xvfz /tmp/discosrv.tar.gz -C {{ discosrv_bin | dirname }}
+  when: not stat_discosrv.stat.exists
+    
+- name: fix permissions
+  file:
+    path={{ discosrv_bin }}
+    owner={{ DISCOSRV_USER }}
+    group={{ DISCOSRV_USER }}
+
+
+    

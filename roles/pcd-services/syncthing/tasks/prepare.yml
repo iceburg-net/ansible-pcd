@@ -1,0 +1,73 @@
+---
+##
+# pcd-services/syncthing-syncthing prepare
+#
+
+# MUST FIX REUSABLE TASKS FOR ANSIBLE 1.8+ ... ACK!
+#
+#- { include: "{{ pcd_task_add_user }}", task: {
+#      name: "{{ SYNCTHING_USER }}",
+#      home: "{{ SYNCTHING_USER_HOME }}",
+#      system: yes
+#    }
+#  }
+  
+- name: add syncthing user
+  user:
+    name={{ SYNCTHING_USER }}
+    home={{ SYNCTHING_USER_HOME }}
+    system=yes
+    
+    
+- name: ensure syncthing directories
+  file:
+    path={{ item }}
+    state=directory
+    recurse=yes
+    mode=0700
+    owner={{ SYNCTHING_USER }}
+    group={{ SYNCTHING_USER }}
+  with_items:
+    - "{{ syncthing_dir }}"
+    - "{{ SYNCTHING_USER_HOME }}/.config/syncthing"
+  
+- name: register current version
+  shell: "{{ syncthing_dir }}/syncthing --version | awk '{ print $2 }' | cut -c 2-"
+  changed_when: false
+  ignore_errors: true
+  register: version
+  
+- name: download distribution
+  uri:
+    creates=/tmp/syncthing_{{ SYNCTHING_VERSION }}.tar.gz
+    dest=/tmp/syncthing_{{ SYNCTHING_VERSION }}.tar.gz
+    follow_redirects=all
+    url={{ syncthing_url }}
+  when: version|failed or version.stdout != "{{ SYNCTHING_VERSION }}"
+    
+- name: extract distribution
+  command: tar xvfz /tmp/syncthing_{{ SYNCTHING_VERSION }}.tar.gz -C /tmp
+  when: version|failed or version.stdout != "{{ SYNCTHING_VERSION }}"
+  
+- name: copy binary
+  shell: cp /tmp/syncthing-*{{ SYNCTHING_VERSION }}/syncthing {{ syncthing_dir }}/syncthing-{{ SYNCTHING_VERSION }}
+    creates={{ syncthing_dir }}/syncthing-{{ SYNCTHING_VERSION }}
+  when: version|failed or version.stdout != "{{ SYNCTHING_VERSION }}"
+  
+- name: link to current version binary
+  file:
+    src={{ syncthing_dir }}/syncthing-{{ SYNCTHING_VERSION }}
+    dest={{ syncthing_dir }}/syncthing
+    state=link
+  
+- name: fix permissions
+  file:
+    path={{ syncthing_dir }}/syncthing-{{ SYNCTHING_VERSION }}
+    owner={{ SYNCTHING_USER }}
+    group={{ SYNCTHING_USER }}
+    
+
+    
+
+
+    

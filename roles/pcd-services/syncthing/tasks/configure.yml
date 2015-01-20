@@ -1,0 +1,32 @@
+---
+##
+# pcd-services/syncthing-syncthing configure
+#
+
+
+# NOTE: for subsequent configuration, use CLI or web interface...  
+
+- stat: path={{ SYNCTHING_USER_HOME }}/.config/syncthing/config.xml
+  register: stat_syncthing 
+      
+- name: INITIAL configuration of syncthing
+  template:
+    dest={{ SYNCTHING_USER_HOME }}/.config/syncthing/config.xml
+    src=config.xml.j2
+    mode=0700
+    owner={{ SYNCTHING_USER }}
+    group={{ SYNCTHING_USER }}
+  notify: 
+    - syncthing restart
+  when: not stat_syncthing.stat.exists
+
+- name: configure syncthing initscript
+  template:
+    dest=/etc/init.d/syncthing
+    src=sysvinit.j2
+    mode=0755
+  notify: 
+    - syncthing restart
+  
+- name: ensure syncthing starts on boot
+  service: name=syncthing enabled=yes
