@@ -3,19 +3,15 @@
 # pcd-apps/backup prepare
 #
 
-- { include: "{{ pcd_task_add_user }}", task: {
-      name: "{{ BACKUP_USER }}",
-      home: "{{ BACKUP_USER_HOME }}",
-      system: yes,
-      groups: [
-        "{{ os_mysql_group }}",
-        "{{ os_apache_group }}",
-        "{{ HTTPD_USER_GROUP }}"]
-    }
-  }
-
+- name: add backup user
+  user:
+    name={{ BACKUP_USER }}
+    home={{ BACKUP_USER_HOME }}
+    system=yes
+    groups={{ os_mysql_group }},{{ os_apache_group }},{{ HTTPD_USER_GROUP }}
+    shell=/bin/bash
+    
 - { include: prepare-debian.yml, when: "ansible_os_family == 'Debian'" }
-
 
 - name: ensure backup directories
   file:

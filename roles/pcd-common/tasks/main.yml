@@ -9,40 +9,40 @@
 - name: load os family vars
   include_vars: "os_{{ ansible_os_family }}.yml"
   
-- name: detect distribution specific vars
+- name: load os distribution vars [1/2]
   local_action: stat path={{ PCD_COMMON_ROLE }}/vars/os_{{ ansible_distribution }}.yml
   register: pcd_stat
   
-- name: load distribution specific vars
+- name: load os distribution vars [2/2]
   include_vars: "os_{{ ansible_distribution }}.yml"
   when: pcd_stat.stat.exists
   
-- name: detect distribution version vars
+- name: load os distribution-version vars [1/2]
   local_action: stat path={{ PCD_COMMON_ROLE }}/vars/os_{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml
   register: pcd_stat
   
-- name: load distribution version vars
+- name: load os distribution-version vars [2/2]
   include_vars: "os_{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
   when: pcd_stat.stat.exists
 
 - name: load default private vars (PCD_PRIVATE_DIR/vars/private.yml)
   include_vars: "{{ PCD_PRIVATE_DIR }}/vars/private.yml"
   
-- name: detect private inventory vars (group names, FILO order)
+- name: detect private group vars
   local_action: stat path={{ PCD_PRIVATE_DIR }}/vars/{{ item }}.yml
   register: pcd_stat
   with_items: group_names
   
-- name: load private inventory vars (group name, FILO order)
+- name: load private group vars [{{ item.item }}.yml] (note precedence is FILO)
   include_vars: "{{ PCD_PRIVATE_DIR }}/vars/{{ item.item }}.yml"
   when: item.stat.exists 
   with_items: pcd_stat.results
   
-- name: detect private hostname vars
+- name: detect private inventory_hostname vars
   local_action: stat path={{ PCD_PRIVATE_DIR }}/vars/{{ inventory_hostname }}.yml
   register: pcd_stat
   
-- name: load private inventory vars
+- name: load private inventory_hostname vars [{{ inventory_hostname }}.yml] (note precedence is FILO)
   include_vars: "{{ PCD_PRIVATE_DIR }}/vars/{{ inventory_hostname }}.yml"
   when: pcd_stat.stat.exists
   

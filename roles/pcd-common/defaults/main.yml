@@ -62,4 +62,3 @@ HTTPD_USER_HOME: "{{ PCD_SITES_DIR }}"
 
 HTTPD_SSL_DIR: "{{ HTTPD_USER_HOME }}/ssl-certificates"
 
-

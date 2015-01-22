@@ -3,13 +3,10 @@
 #  pcd-apps/awstats defaults 
 #
 
-# Global AWSTATS vars (registered in pcd-common/defaults/main.yml)
-#   AWSTATS_SITE_NAME
-#   AWSTATS_SITE_PATH
-#   AWSTATS_CONF_DIR
 
 AWSTATS_HTPASSWD_USER: "{{ private_user_name }}"
 AWSTATS_HTPASSWD_PASS: "{{ private_user_pass }}"
+
 
 # how often will awstats be updated? defaults to once a day, 4:30am
 AWSTATS_CRON_MINUTE: 30
@@ -19,6 +16,8 @@ AWSTATS_CRON_HOUR: 4
 #  directly through cgi-bin
 AWSTATS_ENABLE_JAWSTATS_FRONTEND: True
 
+# more AWSTATS vars are registered in pcd-common/defaults/main.yml
+# ....
 
 
 # private

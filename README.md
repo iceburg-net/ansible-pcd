@@ -172,16 +172,6 @@ ansible-pcd is licensed under the GPLv3 , the same as ansible.
 - debug: msg="I am executed when the `prepare` tag is passed."
 ```
 
-* shared tasks (e.g. adduser) are registered via the pcd-common role. prefix shared tasks with `pcd_task`, provide usage example in task file.
-```
-# excerpt from pcd-common/vars/main.yml
-
-pcd_task_add_apache_site: "{{ PCD_TASKS }}/add_apache_site.yml"
-pcd_task_add_s3ql_mount: "{{ PCD_TASKS }}/add_s3ql_mount.yml"
-pcd_task_add_user: "{{ PCD_TASKS }}/add_user.yml"
-
-```
-
 * If a variable is a good candidate to be shared by other roles, place it in [pcd-common/defaults/main.yml](https://github.com/iceburg-net/ansible-pcd/blob/master/roles/pcd-common/defaults/main.yml). If it is distribution/OS specific, place appropriate values in [pcd-common/vars](https://github.com/iceburg-net/ansible-pcd/tree/master/roles/pcd-common/vars).
 
 * Follow the [edX project](https://github.com/edx/configuration) standard and CAPITALIZE the names of variables likely to be overriden/configured by users. Place them at the top of your defaults/main.yml.

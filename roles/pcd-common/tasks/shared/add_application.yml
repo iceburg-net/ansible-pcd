@@ -23,14 +23,29 @@
   
 
 # ensure application user
-- { include: "{{ pcd_task_add_user }}", task: {
-      name: "{{ app.user_name | default(app.name) }}",
-      home: "{{ app.user_home | default(app.path) }}",
-      group: "{{ app.user_group | default('nogroup') }}",
-      system: yes,
-      github: "{{ app.github | default('no') }}"
-    }
-  }
+- name: add application user
+  user:
+    name={{ app.user_name | default(app.name) }}
+    home={{ app.user_home | default(app.path) }}
+    group={{ app.user_group | default('nogroup') }}
+    system=yes
+    shell=/bin/bash
+    
+- name: ensure github vars
+  include_vars: "{{ PCD_COMMON_ROLE }}/vars/github.yml"
+  when: app.github and github_knows_hosts is not defined
+  
+- name: append github signatures to application user known_hosts
+  lineinfile:
+    dest={{ app.user_home | default(app.path) }}/.ssh/known_hosts
+    line="{{ item }}"
+    create=yes
+    mode=0600
+    owner={{ app.user_name | default(app.name) }}
+    group={{ app.user_group | default('nogroup') }}
+  with_items: github_knows_hosts
+  when: app.github
+  
   
 - name: add_application > ensure application directory
   file: path={{ app.path }} state=directory

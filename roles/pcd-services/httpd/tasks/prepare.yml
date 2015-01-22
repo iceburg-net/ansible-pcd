@@ -7,15 +7,47 @@
   group: name={{ HTTPD_USER_GROUP }} system=yes
   
 
-- { include: "{{ pcd_task_add_user }}", task: {
-      name: "{{ HTTPD_USER }}",
-      group: "{{ HTTPD_USER_GROUP }}", 
-      home: "{{ HTTPD_USER_HOME }}",
-      system: yes,
-      github: yes,
-      key: "{{ httpd_user_key }}"
-    }
-  }
+- name: add httpd user
+  user:
+    name={{ HTTPD_USER }}
+    group={{ HTTPD_USER_GROUP }}
+    home={{ HTTPD_USER_HOME }}
+    system=yes
+    shell=/bin/bash
+    
+- name: set http user authorized key
+  authorized_key: 
+    user={{ HTTPD_USER }}
+    key="{{ lookup('file', httpd_user_key + '.pub') }}"
+    
+
+- name: set http user keys
+  copy:
+    dest={{ HTTPD_USER_HOME }}/.ssh/{{ item.0 }}
+    mode=0600
+    src={{ item.1 }}
+    owner={{ HTTPD_USER }}
+    group={{ HTTPD_USER_GROUP }}
+  with_together:
+    - [ 'id_rsa', 'id_rsa.pub' ]
+    - [ '{{ httpd_user_key }}', '{{ httpd_user_key }}.pub' ]
+    
+    
+- name: ensure github vars
+  include_vars: "{{ PCD_COMMON_ROLE }}/vars/github.yml"
+  when: github_knows_hosts is not defined
+  
+  
+- name: append github signatures to application user known_hosts
+  lineinfile:
+    dest={{ HTTPD_USER_HOME }}/.ssh/known_hosts
+    line="{{ item }}"
+    create=yes
+    mode=0600
+    owner={{ HTTPD_USER }}
+    gtoup={{ HTTPD_USER_GROUP }}
+  with_items: github_knows_hosts
+
   
 - name: ensure log directories
   file: 

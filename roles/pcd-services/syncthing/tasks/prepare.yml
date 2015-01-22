@@ -3,15 +3,6 @@
 # pcd-services/syncthing-syncthing prepare
 #
 
-# MUST FIX REUSABLE TASKS FOR ANSIBLE 1.8+ ... ACK!
-#
-#- { include: "{{ pcd_task_add_user }}", task: {
-#      name: "{{ SYNCTHING_USER }}",
-#      home: "{{ SYNCTHING_USER_HOME }}",
-#      system: yes
-#    }
-#  }
-  
 - name: add syncthing user
   user:
     name={{ SYNCTHING_USER }}
