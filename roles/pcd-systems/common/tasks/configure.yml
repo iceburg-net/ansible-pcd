@@ -14,9 +14,9 @@
   copy: src=cronic.sh dest=/usr/local/bin/cronic mode=0755
   
   
-- name: create swapfile
+- name: create swapfile (zeroed out to prevent holes)
   command: 
-    fallocate -l {{ SYSTEM_SWAP_SIZE }}  /swapfile
+    dd if=/dev/zero of=/swapfile bs={{ SYSTEM_SWAP_SIZE }} count=1
     creates=/swapfile
   register: mkswap
   when: SYSTEM_SWAP_ENABLE and ansible_swaptotal_mb < 1
